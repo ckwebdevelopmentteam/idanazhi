@@ -1,0 +1,14 @@
+import Link from 'next/link';
+import { ArrowDown, ArrowUpRight } from 'lucide-react';
+import { experiences, images, properties } from '@/data/content';
+import { ImageBlock, PropertyCard, SectionIntro } from '@/components/sections/editorial';
+
+export default function Home() { return <main>
+  <section className="home-hero"><img src={images.home} alt="Raffles destination in warm light"/><div className="hero-shade"/><div className="hero-copy"><p className="eyebrow">RAFFLES HOTELS & RESORTS</p><h1>Legendary<br/>hospitality</h1><p>Where ideas are born, history is made and stories become legends.</p><Link href="/hotels-resorts/" className="button light-btn">DISCOVER OUR DESTINATIONS</Link></div><a href="#culture" className="scroll-cue">SCROLL <ArrowDown size={15}/></a></section>
+  <SectionIntro eyebrow="HOTELS & RESORTS" title="Places of authentic culture" text="From the heart of our storied heritage properties, sky-high urban addresses and lush secluded resorts, we create places where ideas, inspiration and imagination lift the soul." action="DISCOVER" />
+  <section id="culture" className="feature-properties"><div className="properties-head"><p className="eyebrow">OUR DESTINATIONS</p><Link href="/hotels-resorts/" className="text-link">VIEW ALL <ArrowUpRight size={15}/></Link></div><div className="featured-grid">{properties.slice(0, 4).map((property) => <PropertyCard key={property.slug} property={property}/>)}</div></section>
+  <section className="brand-story"><ImageBlock src={images.singapore} alt="Raffles Singapore architecture"/><div className="brand-story-copy"><p className="eyebrow">RAFFLES HOTELS & RESORTS</p><h2>A world of elegance and enchanted glamour</h2><p>Founded in Singapore in 1887, Raffles Hotels, Resorts & Residences are places of endless possibility. We champion fine art and design, foster culture in all its forms and bring gracious service to every encounter.</p><Link href="/hotels-resorts/" className="text-link">OUR DESTINATIONS <ArrowUpRight size={15}/></Link></div></section>
+  <section className="butler-banner"><img src={images.butler} alt="Raffles butler in a grand hallway"/><div><p>Before you even think to ask...</p><h2>The Butler<br/>Did It.</h2><Link href="/singapore/experiences/" className="button light-btn">DISCOVER</Link></div></section>
+  <SectionIntro eyebrow="EXPERIENCES" title="Adventures and encounters crafted for the curious traveller" text="In every destination, discover a world of deeply personal experiences designed to open your mind, move your heart and illuminate your stay." action="EXPLORE EXPERIENCES" href="/singapore/experiences/" />
+  <section className="experience-grid">{experiences.map((experience) => <article key={experience.name}><ImageBlock src={experience.image} alt=""/><h3>{experience.name}</h3><p>{experience.text}</p><Link className="text-link" href="/singapore/experiences/">DISCOVER <ArrowUpRight size={15}/></Link></article>)}</section>
+</main>; }
