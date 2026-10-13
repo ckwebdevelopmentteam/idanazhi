@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import { experiences, images, properties } from '@/data/content';
 import { ImageBlock, PropertyCard, SectionIntro } from '@/components/sections/editorial';
+import { HeroBookingCta } from '@/components/sections/hero-booking-cta';
 import { WeddingIntro } from '@/components/sections/wedding-intro';
 
 export default function Home() { return <main>
@@ -10,7 +11,12 @@ export default function Home() { return <main>
       <source src="/hero-video.mp4" type="video/mp4" />
     </video>
     <div className="hero-shade"/>
-    <div className="hero-copy"><h1>IDANAZHI</h1></div><a href="#culture" className="scroll-cue">SCROLL <ArrowDown size={15}/></a>
+    <div className="hero-copy">
+      <h1>IDANAZHI</h1>
+      <p className="hero-tagline">A PLACE FOR REMARKABLE STAYS</p>
+      <HeroBookingCta />
+    </div>
+    <a href="#culture" className="scroll-cue">SCROLL <ArrowDown size={15}/></a>
   </section>
   <WeddingIntro />
   <SectionIntro eyebrow="DESTINATION WEDDINGS" title="Celebration in extraordinary settings" text="From the edge of the lake to the heart of the city, IDANAZHI creates unforgettable destination weddings, immersive stays and deeply personal moments." action="DISCOVER" />
