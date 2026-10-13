@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import { experiences, images, properties } from '@/data/content';
 import { ImageBlock, PropertyCard, SectionIntro } from '@/components/sections/editorial';
+import { WeddingIntro } from '@/components/sections/wedding-intro';
 
 export default function Home() { return <main>
   <section className="home-hero">
@@ -11,6 +12,7 @@ export default function Home() { return <main>
     <div className="hero-shade"/>
     <div className="hero-copy"><h1>IDANAZHI</h1></div><a href="#culture" className="scroll-cue">SCROLL <ArrowDown size={15}/></a>
   </section>
+  <WeddingIntro />
   <SectionIntro eyebrow="DESTINATION WEDDINGS" title="Celebration in extraordinary settings" text="From the edge of the lake to the heart of the city, IDANAZHI creates unforgettable destination weddings, immersive stays and deeply personal moments." action="DISCOVER" />
   <section id="culture" className="feature-properties"><div className="properties-head"><p className="eyebrow">OUR DESTINATIONS</p><Link href="/hotels-resorts/" className="text-link">VIEW ALL <ArrowUpRight size={15}/></Link></div><div className="featured-grid">{properties.slice(0, 4).map((property) => <PropertyCard key={property.slug} property={property}/>)}</div></section>
   <section className="brand-story"><ImageBlock src={images.singapore} alt="IDANAZHI Singapore architecture"/><div className="brand-story-copy"><p className="eyebrow">IDANAZHI DESTINATION WEDDINGS</p><h2>A world of elegance and enchanted celebration</h2><p>Founded in the spirit of timeless celebration, IDANAZHI creates destination weddings and luxury escapes that feel personal, immersive and unforgettable. We champion fine art and design, foster culture in all its forms and bring gracious service to every encounter.</p><Link href="/hotels-resorts/" className="text-link">OUR DESTINATIONS <ArrowUpRight size={15}/></Link></div></section>
