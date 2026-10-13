@@ -38,7 +38,7 @@
 /* Container for Constrained Width */
 .header-container {
   width: 100%;
-  max-width: 1040px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 24px;
   box-sizing: border-box;
@@ -519,7 +519,7 @@
 /* ---------------- RESPONSIVENESS & BREAKPOINTS ---------------- */
 @media (max-width: 1080px) {
   .header-container {
-    max-width: 980px;
+    max-width: 1160px;
     padding: 0 20px;
   }
   .header-bottom-row {

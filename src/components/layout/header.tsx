@@ -1,22 +1,18 @@
 'use client';
 
 import Link from 'next/link';
-import { CircleUserRound, X, ChevronRight, Phone, Mail, MapPin, Check } from 'lucide-react';
+import { X, ChevronRight, Phone, Mail, MapPin, Check } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { BrandLogo } from '@/components/layout/brand-logo';
 import { BookingPanel } from '@/components/sections/booking-panel';
 
 const navLinks = [
-  { label: 'ABOUT', href: '/#about' },
-  { label: 'ROOMS & SUITES', href: '/singapore/#stay' },
-  { label: 'LAKESHORE ACCOMODATION', href: '/singapore/#stay' },
-  { label: 'DINING', href: '/singapore/#dining' },
-  { label: 'WELLNESS', href: '/singapore/experiences/#wellness' },
-  { label: 'EXPERIENCES', href: '/singapore/experiences/' },
-  { label: 'CELEBRATION', href: '/hotels-resorts/#celebration' },
-  { label: 'OFFERS', href: '/hotels-resorts/' },
+  { label: 'STORY', href: '/singapore/#story' },
   { label: 'GALLERY', href: '/singapore/#story' },
-  { label: 'GIFT CARD', href: '/hotels-resorts/' },
+  { label: 'EXPERIENCES', href: '/singapore/#experiences' },
+  { label: 'OFFERS', href: '/hotels-resorts/' },
+  { label: 'ROOMS', href: '/singapore/#stay' },
+  { label: 'CELEBRATIONS', href: '/singapore/experiences/' },
 ];
 
 const menuDestinations = [
@@ -52,10 +48,8 @@ export function Header() {
   const [menu, setMenu] = useState(false);
   const [booking, setBooking] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
-  const [accountOpen, setAccountOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState('EN');
-  const [accountTab, setAccountTab] = useState<'signin' | 'join'>('signin');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,12 +61,12 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    const isAnyModalOpen = menu || booking || contactOpen || accountOpen || langOpen;
+    const isAnyModalOpen = menu || booking || contactOpen || langOpen;
     document.body.style.overflow = isAnyModalOpen ? 'hidden' : '';
     return () => {
       document.body.style.overflow = '';
     };
-  }, [menu, booking, contactOpen, accountOpen, langOpen]);
+  }, [menu, booking, contactOpen, langOpen]);
 
   return (
     <>
@@ -113,14 +107,6 @@ export function Header() {
                   onClick={() => setContactOpen(true)}
                 >
                   Contact
-                </button>
-                <button
-                  type="button"
-                  className="utility-btn utility-account"
-                  onClick={() => setAccountOpen(true)}
-                >
-                  <CircleUserRound size={17} strokeWidth={1.4} className="account-icon" />
-                  <span>Account</span>
                 </button>
               </div>
             </div>
@@ -205,16 +191,6 @@ export function Header() {
                 >
                   Contact Concierge
                 </button>
-                <button
-                  type="button"
-                  className="menu-text-action"
-                  onClick={() => {
-                    setMenu(false);
-                    setAccountOpen(true);
-                  }}
-                >
-                  IDANAZHI Club &amp; Account
-                </button>
               </div>
 
               <div className="menu-cta-wrap">
@@ -285,87 +261,6 @@ export function Header() {
                 SEND AN INQUIRY
               </a>
             </div>
-          </div>
-        </div>
-      )}
-
-      {accountOpen && (
-        <div className="custom-modal-overlay" role="dialog" aria-modal="true" aria-label="Account Login">
-          <div className="custom-modal-card">
-            <button
-              type="button"
-              className="custom-modal-close"
-              aria-label="Close account dialog"
-              onClick={() => setAccountOpen(false)}
-            >
-              <X size={20} />
-            </button>
-
-            <div className="modal-brand-header">
-              <BrandLogo className="brand-crest-svg" />
-            </div>
-
-            <p className="eyebrow text-center">IDANAZHI CLUB</p>
-            <h2 className="modal-title">
-              {accountTab === 'signin' ? 'Welcome Back' : 'Join For Free'}
-            </h2>
-
-            <div className="account-tab-switcher">
-              <button
-                type="button"
-                className={`tab-btn ${accountTab === 'signin' ? 'active' : ''}`}
-                onClick={() => setAccountTab('signin')}
-              >
-                SIGN IN
-              </button>
-              <button
-                type="button"
-                className={`tab-btn ${accountTab === 'join' ? 'active' : ''}`}
-                onClick={() => setAccountTab('join')}
-              >
-                JOIN IDANAZHI
-              </button>
-            </div>
-
-            {accountTab === 'signin' ? (
-              <form className="modal-form" onSubmit={(e) => { e.preventDefault(); setAccountOpen(false); }}>
-                <label>
-                  <span>Email or Member Card Number</span>
-                  <input type="text" placeholder="name@example.com" required />
-                </label>
-                <label>
-                  <span>Password</span>
-                  <input type="password" placeholder="••••••••" required />
-                </label>
-                <button type="submit" className="button dark-btn modal-submit-btn">
-                  SIGN IN
-                </button>
-                <p className="modal-subtext">
-                  Enjoy speciality wedding planning, bespoke upgrades, and elevated celebration experiences across our destinations.
-                </p>
-              </form>
-            ) : (
-              <form className="modal-form" onSubmit={(e) => { e.preventDefault(); setAccountOpen(false); }}>
-                <label>
-                  <span>First Name</span>
-                  <input type="text" placeholder="First Name" required />
-                </label>
-                <label>
-                  <span>Last Name</span>
-                  <input type="text" placeholder="Last Name" required />
-                </label>
-                <label>
-                  <span>Email Address</span>
-                  <input type="email" placeholder="name@example.com" required />
-                </label>
-                <button type="submit" className="button dark-btn modal-submit-btn">
-                  CREATE ACCOUNT &amp; JOIN IDANAZHI
-                </button>
-                <p className="modal-subtext">
-                  By joining, you agree to the IDANAZHI Terms of Membership and Privacy Policy.
-                </p>
-              </form>
-            )}
           </div>
         </div>
       )}
