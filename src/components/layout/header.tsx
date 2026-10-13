@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { X, ChevronRight, Phone, Mail, MapPin, Check } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { BookingPanel } from '@/components/sections/booking-panel';
+import { BrandLogo } from './brand-logo';
 
 const navLinks = [
   { label: 'STORY', href: '/singapore/#story' },
