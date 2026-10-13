@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
-import { motion, useScroll, useTransform, type Variants } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, type Variants } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import {
   weddingIntroData,
@@ -91,11 +91,18 @@ export function WeddingIntro({
     offset: ['start start', 'end end'],
   });
 
+  // Smooth out scroll progress with responsive spring physics
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 90,
+    damping: 26,
+    restDelta: 0.0001,
+  });
+
   // Animate horizontal travel across [0, 0.9] of the pinned scroll; [0.9, 1] acts as a smooth buffer before unpinning
-  const x = useTransform(scrollYProgress, [0, 0.9], [0, -scrollRange], {
+  const x = useTransform(smoothProgress, [0, 0.9], [0, -scrollRange], {
     clamp: true,
   });
-  const progressBarScale = useTransform(scrollYProgress, [0, 0.9], [0, 1], {
+  const progressBarScale = useTransform(smoothProgress, [0, 0.9], [0, 1], {
     clamp: true,
   });
 
