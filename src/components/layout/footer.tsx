@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { BrandLogo } from '@/components/layout/brand-logo';
 
 export function Footer() {
   const [email, setEmail] = useState('');
@@ -13,8 +14,9 @@ export function Footer() {
       {/* Footer Top */}
       <div className="grid grid-cols-2 gap-[7vw] pb-[58px] border-b border-white/30 max-[720px]:grid-cols-1 max-[720px]:gap-9">
         <div>
-          <span className="text-left font-sans font-semibold tracking-[0.1em] text-sm">
-            IDANAZHI<span className="block text-[10px] font-normal tracking-[0.14em] mt-1 opacity-70">DESTINATION WEDDINGS</span>
+          <span className="flex flex-col items-start">
+            <BrandLogo className="h-10 w-auto max-w-[182px] brightness-0 invert" />
+            <span className="block text-[10px] font-normal tracking-[0.14em] mt-1 opacity-70">DESTINATION WEDDINGS</span>
           </span>
           <p className="max-w-[270px] text-[13px] mt-3">Inspiration to your inbox from the world of IDANAZHI.</p>
         </div>

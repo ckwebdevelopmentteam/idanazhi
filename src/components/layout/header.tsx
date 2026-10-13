@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { X, ChevronRight, Phone, Mail, MapPin, Check } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { BrandLogo } from '@/components/layout/brand-logo';
 import { BookingPanel } from '@/components/sections/booking-panel';
-import { BrandLogo } from './brand-logo';
 
 const navLinks = [
   { label: 'STORY', href: '/singapore/#story' },
@@ -76,27 +76,51 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed z-40 top-0 left-0 w-full text-white bg-[rgba(12,31,30,0.36)] backdrop-blur-[12px] flex! flex-col! h-auto! p-0! border-b-0! transition-all duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)] ${
+        className={`fixed z-40 top-0 left-0 w-full text-white bg-[rgba(45,25,18,0.36)] backdrop-blur-[12px] flex! flex-col! h-auto! p-0! border-b-0! transition-all duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)] ${
           scrolled
-            ? '!text-ink !bg-paper/98 !backdrop-blur-[14px] !shadow-[0_4px_20px_rgba(12,31,30,0.06)] !border-transparent'
+            ? '!text-ink !bg-paper/98 !backdrop-blur-[14px] !shadow-[0_4px_20px_rgba(45,25,18,0.06)] !border-transparent'
             : ''
         }`}
       >
         <div className="w-full max-w-[1400px] mx-auto px-6 box-border flex flex-col max-[1080px]:max-w-[1160px] max-[1080px]:px-5 max-[960px]:max-w-full max-[960px]:px-5 max-[640px]:px-4">
           {/* Primary navigation */}
           <nav
-            className="flex items-center justify-between gap-4 py-[10px] pb-[13px] w-full box-border max-[1080px]:gap-3 max-[960px]:justify-start max-[960px]:overflow-x-auto max-[960px]:py-2 max-[960px]:pb-[10px] max-[960px]:gap-[18px] max-[960px]:scrollbar-none max-[640px]:py-[6px] max-[640px]:pb-2 max-[640px]:gap-4"
+            className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 py-[10px] pb-[13px] w-full box-border max-[1080px]:gap-3 max-[960px]:flex max-[960px]:justify-start max-[960px]:overflow-x-auto max-[960px]:py-2 max-[960px]:pb-[10px] max-[960px]:gap-[18px] max-[960px]:scrollbar-none max-[640px]:py-[6px] max-[640px]:pb-2 max-[640px]:gap-4"
             aria-label="Primary navigation"
           >
-            {navLinks.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={`font-sans text-[10.5px] font-normal tracking-[0.14em] uppercase text-inherit no-underline whitespace-nowrap py-1 transition-opacity duration-200 ease-in-out hover:opacity-[0.65] max-[1080px]:text-[10px] max-[1080px]:tracking-[0.11em] ${scrolled ? 'hover:!opacity-100 hover:!text-[#a36f3e]' : ''}`}
-              >
-                {item.label}
-              </Link>
-            ))}
+            <div className="grid grid-cols-3 items-center max-[960px]:contents">
+              {navLinks.slice(0, 3).map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`justify-self-center font-sans text-[10.5px] font-normal tracking-[0.14em] uppercase text-inherit no-underline whitespace-nowrap py-1 transition-opacity duration-200 ease-in-out hover:opacity-[0.65] max-[1080px]:text-[10px] max-[1080px]:tracking-[0.11em] ${scrolled ? 'hover:!opacity-100 hover:!text-ink' : ''}`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+            <Link
+              href="/"
+              aria-label="IDANAZHI home"
+              className="flex h-9 w-[104px] shrink-0 items-center justify-center justify-self-center max-[1080px]:h-8 max-[1080px]:w-[92px] max-[960px]:order-0 max-[960px]:h-7 max-[960px]:w-[76px]"
+            >
+              <img
+                src="/images/weddings/logo/idanazhi_symbol_transparent.svg"
+                alt=""
+                className={`h-full w-full object-contain ${scrolled ? '' : 'brightness-0 invert'}`}
+              />
+            </Link>
+            <div className="grid grid-cols-3 items-center max-[960px]:contents">
+              {navLinks.slice(3).map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`justify-self-center font-sans text-[10.5px] font-normal tracking-[0.14em] uppercase text-inherit no-underline whitespace-nowrap py-1 transition-opacity duration-200 ease-in-out hover:opacity-[0.65] max-[1080px]:text-[10px] max-[1080px]:tracking-[0.11em] ${scrolled ? 'hover:!opacity-100 hover:!text-ink' : ''}`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
           </nav>
         </div>
       </header>
@@ -114,7 +138,7 @@ export function Header() {
               <X size={22} />
             </button>
             <Link href="/" className="flex flex-col items-center justify-center no-underline text-ink cursor-pointer py-[1px]" onClick={() => setMenu(false)}>
-              <BrandLogo className="h-12 w-auto max-w-[182px] block fill-current text-inherit" />
+              <BrandLogo className="h-12 w-auto max-w-[182px]" />
             </Link>
             <button
               type="button"
@@ -192,7 +216,7 @@ export function Header() {
       {/* Contact Modal */}
       {contactOpen && (
         <div
-          className="fixed inset-0 z-[70] bg-[rgba(12,31,30,0.55)] backdrop-blur-[8px] flex items-center justify-center p-6 animate-[modalFadeIn_0.2s_ease]"
+          className="fixed inset-0 z-[70] bg-[rgba(45,25,18,0.55)] backdrop-blur-[8px] flex items-center justify-center p-6 animate-[modalFadeIn_0.2s_ease]"
           role="dialog"
           aria-modal="true"
           aria-label="Contact IDANAZHI"
@@ -208,7 +232,7 @@ export function Header() {
             </button>
 
             <div className="flex flex-col items-center justify-center mb-6">
-              <BrandLogo className="h-[38px] text-ink" />
+              <BrandLogo className="h-[38px] w-auto" />
             </div>
 
             <p className="m-0 mb-[18px] uppercase tracking-[0.18em] text-[10px] font-semibold text-center">WE ARE HERE FOR YOU</p>
@@ -253,7 +277,7 @@ export function Header() {
       {/* Language Modal */}
       {langOpen && (
         <div
-          className="fixed inset-0 z-[70] bg-[rgba(12,31,30,0.55)] backdrop-blur-[8px] flex items-center justify-center p-6 animate-[modalFadeIn_0.2s_ease]"
+          className="fixed inset-0 z-[70] bg-[rgba(45,25,18,0.55)] backdrop-blur-[8px] flex items-center justify-center p-6 animate-[modalFadeIn_0.2s_ease]"
           role="dialog"
           aria-modal="true"
           aria-label="Select Language"

@@ -2,12 +2,12 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink: #17332f;
-  --color-forest: #1f5148;
-  --color-paper: #f5f2ed;
-  --color-linen: #e6e0d5;
-  --color-muted: #65716c;
-  --color-line: rgba(23, 51, 47, 0.25);
+  --color-ink: #7c402e;
+  --color-forest: #5a2d21;
+  --color-paper: #f7f3ef;
+  --color-linen: #e9ddd5;
+  --color-muted: #79665e;
+  --color-line: rgba(124, 64, 46, 0.25);
 
   --font-serif: Georgia, 'Times New Roman', serif;
   --font-sans: Arial, Helvetica, sans-serif;

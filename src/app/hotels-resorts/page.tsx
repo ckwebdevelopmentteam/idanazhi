@@ -66,7 +66,7 @@ export default function HotelsResorts() {
       {/* Directory Content */}
       {view === 'map' ? (
         <section
-          className="h-[610px] bg-gradient-to-br from-[#d9ded7] to-[#c6d1c8] my-[50px] mx-[5.4vw] mb-[130px] relative border border-[#a9b6ad] overflow-hidden max-[720px]:m-[32px_24px_85px] max-[720px]:h-[470px]"
+          className="h-[610px] bg-gradient-to-br from-[#eadfd6] to-[#d8c4b8] my-[50px] mx-[5.4vw] mb-[130px] relative border border-[#c8a99a] overflow-hidden max-[720px]:m-[32px_24px_85px] max-[720px]:h-[470px]"
           aria-label="Map demonstration"
         >
           <div className="absolute z-1 left-[8%] top-[10%] max-w-[250px]">

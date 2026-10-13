@@ -178,14 +178,14 @@ export function WeddingIntro({
                       y: -8,
                       transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
                     }}
-                    className="relative flex flex-col bg-[#eae5dc] border border-ink/14 p-[clamp(30px,2.4vw,40px)_clamp(22px,2vw,30px)] justify-between shrink-0 w-[calc((100vw-10.8vw-66px)/4)] aspect-[4/5] min-h-[440px] box-border transition-[colors,box-shadow] duration-300 ease-in-out hover:border-ink/32 hover:shadow-lg max-[980px]:w-[calc((100vw-10.8vw-24px)/2)] max-[980px]:min-h-[380px] max-[720px]:w-[calc(100vw-48px)] max-[720px]:min-h-[380px] max-[720px]:p-[34px_24px]"
+                    className="relative flex flex-col bg-linen border border-ink/14 p-[clamp(30px,2.4vw,40px)_clamp(22px,2vw,30px)] justify-between shrink-0 w-[calc((100vw-10.8vw-66px)/4)] aspect-[4/5] min-h-[440px] box-border transition-[colors,box-shadow] duration-300 ease-in-out hover:border-ink/32 hover:shadow-lg max-[980px]:w-[calc((100vw-10.8vw-24px)/2)] max-[980px]:min-h-[380px] max-[720px]:w-[calc(100vw-48px)] max-[720px]:min-h-[380px] max-[720px]:p-[34px_24px]"
                     aria-label={card.eyebrow}
                   >
                     <div className="flex flex-col">
                       <p className="m-0 mb-[18px] text-[10px] tracking-[0.18em] font-semibold uppercase text-muted">
                         {card.eyebrow}
                       </p>
-                      <p className="m-0 font-sans text-[clamp(14px,1.05vw,15px)] leading-[1.68] text-[#2e3e37] tracking-[-0.01em]">
+                      <p className="m-0 font-sans text-[clamp(14px,1.05vw,15px)] leading-[1.68] text-ink tracking-[-0.01em]">
                         {card.copy}
                       </p>
                     </div>
