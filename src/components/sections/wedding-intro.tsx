@@ -111,7 +111,7 @@ export function WeddingIntro({
         <div className="flex flex-col items-center text-center gap-7 mb-12 min-[1280px]:mb-16 min-[1600px]:mb-20 shrink-0 px-6 max-[720px]:gap-4 max-[720px]:mb-7">
           <motion.h2
             id="wedding-intro-heading"
-            className="font-jakarta font-extralight text-[clamp(26px,2.8vw,44px)] leading-[1.2] tracking-[-0.01em] uppercase text-ink m-0 max-w-[1100px] text-center max-[720px]:text-[28px] max-[480px]:text-[24px]"
+            className="font-jakarta font-normal text-[clamp(26px,2.8vw,44px)] leading-[1.2] tracking-[-0.01em] uppercase text-ink m-0 max-w-[1100px] text-center max-[720px]:text-[28px] max-[480px]:text-[24px]"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-60px' }}
