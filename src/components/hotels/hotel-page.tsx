@@ -17,7 +17,7 @@ export function HotelPage({ hotelKey }: { hotelKey: HotelKey }) {
       {/* Property Hero */}
       <section className="h-[min(800px,100vh)] min-h-[620px] relative text-white flex items-end max-[720px]:min-h-[620px] max-[720px]:h-[100svh]">
         <img src={hotel.heroImage} alt={hotel.eyebrow} className="absolute inset-0 w-full h-full object-cover max-[720px]:object-[58%_center]" />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,20,18,0.52),rgba(10,20,18,0.04)_72%),linear-gradient(0deg,rgba(5,15,13,0.32),transparent_42%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(45,25,18,0.52),rgba(45,25,18,0.04)_72%),linear-gradient(0deg,rgba(30,16,12,0.32),transparent_42%)]" />
         <div className="z-1 max-w-[600px] m-[0_7.7vw_10.5vh] max-[720px]:m-[0_24px_82px]">
           <p className="m-0 mb-[18px] uppercase tracking-[0.18em] text-[10px] font-semibold">{hotel.eyebrow}</p>
           <h1 className="font-serif text-[clamp(53px,6.6vw,100px)] font-normal leading-[0.91] tracking-[-0.055em] m-0 mb-[23px]">{hotel.heroTitle}</h1>
@@ -46,19 +46,19 @@ export function HotelPage({ hotelKey }: { hotelKey: HotelKey }) {
         <div>
           <p className="m-0 mb-[18px] uppercase tracking-[0.18em] text-[10px] font-semibold">{hotel.stayLabel}</p>
           <h2 className="font-serif text-[clamp(40px,4.3vw,64px)] font-normal leading-[0.98] tracking-[-0.05em] m-0 mb-[26px]">{hotel.stayTitle}</h2>
-          <p className="text-[16px] text-[#50605a] max-w-[440px] mb-[30px]">{hotel.stayText}</p>
-          <Link href="/hotels-resorts/" className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.15em] font-semibold border-b border-ink pb-1.5 hover:text-[#a36f3e]">
+          <p className="text-[16px] text-muted max-w-[440px] mb-[30px]">{hotel.stayText}</p>
+          <Link href="/hotels-resorts/" className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.15em] font-semibold border-b border-ink pb-1.5 hover:text-forest">
             VIEW {hotelKey === 'singapore' ? 'SUITES' : 'ROOMS & SUITES'} <ArrowUpRight size={15} />
           </Link>
         </div>
       </section>
 
       {/* Dining Section */}
-      <section id="dining" className="bg-[#e9e5dd] grid grid-cols-[0.9fr_1.1fr] gap-0 py-[120px] px-[5.4vw] max-[720px]:grid-cols-1 max-[720px]:py-[70px] max-[720px]:px-6">
+      <section id="dining" className="bg-linen grid grid-cols-[0.9fr_1.1fr] gap-0 py-[120px] px-[5.4vw] max-[720px]:grid-cols-1 max-[720px]:py-[70px] max-[720px]:px-6">
         <div className="pr-[8vw] pt-[35px] pb-5 max-[720px]:p-0 max-[720px]:pb-[35px]">
           <p className="m-0 mb-[18px] uppercase tracking-[0.18em] text-[10px] font-semibold">DINING</p>
           <h2 className="font-serif text-[clamp(38px,4.1vw,61px)] font-normal leading-none tracking-[-0.045em] m-0 mb-7 max-w-[430px]">{hotel.diningTitle}</h2>
-          <Link href="/hotels-resorts/" className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.15em] font-semibold border-b border-ink pb-1.5 hover:text-[#a36f3e]">
+          <Link href="/hotels-resorts/" className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.15em] font-semibold border-b border-ink pb-1.5 hover:text-forest">
             DISCOVER ALL <ArrowUpRight size={15} />
           </Link>
         </div>
@@ -68,7 +68,7 @@ export function HotelPage({ hotelKey }: { hotelKey: HotelKey }) {
             <li key={place} className="grid grid-cols-[50px_1fr] border-b border-line py-5 odd:mr-[30px] max-[720px]:odd:mr-0">
               <span className="text-[10px] tracking-[0.12em]">{String(i + 1).padStart(2, '0')}</span>
               <strong className="font-serif text-[25px] font-normal">{place}</strong>
-              <p className="col-start-2 text-[#53615c] text-xs m-0 mt-1">
+              <p className="col-start-2 text-muted text-xs m-0 mt-1">
                 {i === 0 ? 'A singular setting where flavour, conversation and occasion come together.' : 'A distinctive IDANAZHI culinary experience.'}
               </p>
             </li>
@@ -81,8 +81,8 @@ export function HotelPage({ hotelKey }: { hotelKey: HotelKey }) {
         <div className="max-w-[660px] mb-[58px]">
           <p className="m-0 mb-[18px] uppercase tracking-[0.18em] text-[10px] font-semibold">EXPERIENCES</p>
           <h2 className="font-serif text-[clamp(38px,4.1vw,61px)] font-normal leading-none tracking-[-0.045em] m-0 mb-7">{hotel.experienceTitle}</h2>
-          <p className="text-[17px] text-[#50605a] max-w-[600px]">{hotel.experienceText}</p>
-          <Link href={hotelKey === 'singapore' ? '/singapore/experiences/' : '/hotels-resorts/'} className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.15em] font-semibold border-b border-ink pb-1.5 hover:text-[#a36f3e] mt-4">
+          <p className="text-[17px] text-muted max-w-[600px]">{hotel.experienceText}</p>
+          <Link href={hotelKey === 'singapore' ? '/singapore/experiences/' : '/hotels-resorts/'} className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.15em] font-semibold border-b border-ink pb-1.5 hover:text-forest mt-4">
             DISCOVER ALL <ArrowUpRight size={15} />
           </Link>
         </div>
@@ -91,8 +91,8 @@ export function HotelPage({ hotelKey }: { hotelKey: HotelKey }) {
             <article key={name}>
               <ImageBlock src={[images.butler, images.home, hotel.heroImage][i]} alt="" className="!aspect-[1/1.05]" />
               <h3 className="font-serif text-[26px] font-normal leading-[1.05] tracking-[-0.035em] m-0 mt-4">{name}</h3>
-              <p className="text-[#52605b] text-[13px] min-h-[65px]">Discover a memorable perspective on this extraordinary destination.</p>
-              <Link className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.15em] font-semibold border-b border-ink pb-1.5 hover:text-[#a36f3e]" href={hotelKey === 'singapore' ? '/singapore/experiences/' : '/hotels-resorts/'}>
+              <p className="text-muted text-[13px] min-h-[65px]">Discover a memorable perspective on this extraordinary destination.</p>
+              <Link className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.15em] font-semibold border-b border-ink pb-1.5 hover:text-forest" href={hotelKey === 'singapore' ? '/singapore/experiences/' : '/hotels-resorts/'}>
                 DISCOVER <ArrowUpRight size={15} />
               </Link>
             </article>
@@ -117,12 +117,12 @@ export function HotelPage({ hotelKey }: { hotelKey: HotelKey }) {
       <section id="contact" className="text-center py-[120px] px-6 max-[720px]:py-[80px]">
         <p className="m-0 mb-[18px] uppercase tracking-[0.18em] text-[10px] font-semibold">WE&apos;RE HERE FOR YOU</p>
         <h2 className="font-serif text-[clamp(38px,4.1vw,61px)] font-normal leading-none tracking-[-0.045em] m-0 mb-4">At your service</h2>
-        <p className="text-[#53615c]">
+        <p className="text-muted">
           {hotelKey === 'singapore'
             ? '1 Beach Road, Singapore 189673'
             : 'Sheikh Rashid Road, Wafi, Dubai, United Arab Emirates'}
         </p>
-        <a className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.15em] font-semibold border-b border-ink pb-1.5 hover:text-[#a36f3e] w-max mx-auto mt-[23px]" href="mailto:hello@idanazhi.com">
+        <a className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.15em] font-semibold border-b border-ink pb-1.5 hover:text-forest w-max mx-auto mt-[23px]" href="mailto:hello@idanazhi.com">
           hello@idanazhi.com <ArrowUpRight size={15} />
         </a>
       </section>
