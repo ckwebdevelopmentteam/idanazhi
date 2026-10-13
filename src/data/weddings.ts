@@ -23,7 +23,7 @@ export interface WeddingSectionData {
 }
 
 export const weddingIntroData: WeddingSectionData = {
-  heading: 'A Setting for Your Most Meaningful Moments',
+  heading: 'A Timeless Setting for Your Most Meaningful Moments',
   ctaText: 'Discover Weddings',
   ctaHref: '/hotels-resorts/#celebration',
   cards: [
