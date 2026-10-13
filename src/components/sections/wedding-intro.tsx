@@ -167,7 +167,7 @@ export function WeddingIntro({
           <motion.div
             ref={trackRef}
             style={{ x }}
-            className="flex gap-7 pl-[5.4vw] pr-[5.4vw] w-max items-stretch will-change-transform"
+            className="flex gap-[22px] pl-[5.4vw] pr-[5.4vw] w-max items-stretch will-change-transform max-[980px]:gap-6 max-[720px]:gap-5 max-[720px]:pl-6 max-[720px]:pr-6"
           >
             {data.cards.map((card: WeddingCard, index: number) => {
               if (card.type === 'editorial') {
@@ -178,18 +178,18 @@ export function WeddingIntro({
                       y: -8,
                       transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
                     }}
-                    className="relative flex flex-col bg-[#eae5dc] border border-ink/14 p-[clamp(28px,2.2vw,36px)_clamp(22px,1.8vw,28px)] justify-between shrink-0 w-[clamp(300px,23vw,360px)] aspect-[4/5] min-h-[420px] max-h-[500px] box-border transition-[colors,box-shadow] duration-300 ease-in-out hover:border-ink/32 hover:shadow-lg max-[720px]:w-[280px] max-[720px]:min-h-[380px] max-[720px]:p-[28px_20px]"
+                    className="relative flex flex-col bg-[#eae5dc] border border-ink/14 p-[clamp(30px,2.4vw,40px)_clamp(22px,2vw,30px)] justify-between shrink-0 w-[calc((100vw-10.8vw-66px)/4)] aspect-[4/5] min-h-[440px] box-border transition-[colors,box-shadow] duration-300 ease-in-out hover:border-ink/32 hover:shadow-lg max-[980px]:w-[calc((100vw-10.8vw-24px)/2)] max-[980px]:min-h-[380px] max-[720px]:w-[calc(100vw-48px)] max-[720px]:min-h-[380px] max-[720px]:p-[34px_24px]"
                     aria-label={card.eyebrow}
                   >
                     <div className="flex flex-col">
-                      <p className="m-0 mb-4 text-[10px] tracking-[0.18em] font-semibold uppercase text-muted">
+                      <p className="m-0 mb-[18px] text-[10px] tracking-[0.18em] font-semibold uppercase text-muted">
                         {card.eyebrow}
                       </p>
-                      <p className="m-0 font-sans text-[clamp(13px,1vw,15px)] leading-[1.65] text-[#2e3e37] tracking-[-0.01em]">
+                      <p className="m-0 font-sans text-[clamp(14px,1.05vw,15px)] leading-[1.68] text-[#2e3e37] tracking-[-0.01em]">
                         {card.copy}
                       </p>
                     </div>
-                    <div className="mt-6 pt-4 border-t border-ink/15">
+                    <div className="mt-7 pt-[18px] border-t border-ink/15">
                       <Link
                         href={card.linkHref}
                         className="group/link inline-flex items-center gap-1.5 text-[11px] tracking-[0.14em] font-semibold uppercase text-ink transition-colors duration-200 ease-in-out hover:text-forest focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[3px]"
@@ -214,7 +214,7 @@ export function WeddingIntro({
                     y: -8,
                     transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
                   }}
-                  className="relative flex flex-col bg-linen group hover:shadow-xl transition-shadow duration-300 shrink-0 w-[clamp(300px,23vw,360px)] aspect-[4/5] min-h-[420px] max-h-[500px] overflow-hidden max-[720px]:w-[280px] max-[720px]:min-h-[380px]"
+                  className="relative flex flex-col bg-linen group hover:shadow-xl transition-shadow duration-300 shrink-0 w-[calc((100vw-10.8vw-66px)/4)] aspect-[4/5] min-h-[440px] overflow-hidden max-[980px]:w-[calc((100vw-10.8vw-24px)/2)] max-[980px]:min-h-[380px] max-[720px]:w-[calc(100vw-48px)] max-[720px]:min-h-[380px]"
                 >
                   <div className="relative w-full h-full overflow-hidden bg-linen">
                     <img
@@ -225,7 +225,7 @@ export function WeddingIntro({
                       className="w-full h-full object-cover block transition-transform duration-[600ms] ease-[cubic-bezier(0.2,0.7,0.2,1)] group-hover:scale-[1.038]"
                     />
                     {card.overlayLabel && (
-                      <div className="absolute inset-0 flex items-end p-[22px_20px] bg-gradient-to-b from-transparent via-transparent to-[rgba(14,32,28,0.72)] pointer-events-none">
+                      <div className="absolute inset-0 flex items-end p-[24px_22px] bg-gradient-to-b from-transparent via-transparent to-[rgba(14,32,28,0.72)] pointer-events-none">
                         <span className="text-white font-sans text-[11px] font-semibold tracking-[0.16em] uppercase drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]">
                           {card.overlayLabel}
                         </span>
