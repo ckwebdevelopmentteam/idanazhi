@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { X, ChevronRight, Phone, Mail, MapPin, Check } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { BrandLogo } from '@/components/layout/brand-logo';
 import { BookingPanel } from '@/components/sections/booking-panel';
 
 const navLinks = [
@@ -76,58 +75,14 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed z-40 top-0 left-0 w-full text-white bg-transparent flex! flex-col! h-auto! p-0! border-b-0! transition-all duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)] ${
+        className={`fixed z-40 top-0 left-0 w-full text-white bg-[rgba(12,31,30,0.36)] backdrop-blur-[12px] flex! flex-col! h-auto! p-0! border-b-0! transition-all duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)] ${
           scrolled
             ? '!text-ink !bg-paper/98 !backdrop-blur-[14px] !shadow-[0_4px_20px_rgba(12,31,30,0.06)] !border-transparent'
             : ''
         }`}
       >
         <div className="w-full max-w-[1400px] mx-auto px-6 box-border flex flex-col max-[1080px]:max-w-[1160px] max-[1080px]:px-5 max-[960px]:max-w-full max-[960px]:px-5 max-[640px]:px-4">
-          {/* Top Row */}
-          <div className="grid grid-cols-[1fr_auto_1fr] items-center py-3 pb-2 w-full box-border max-[960px]:py-[10px] max-[960px]:pb-[7px] max-[640px]:py-[9px] max-[640px]:pb-[6px]">
-            <div className="flex items-center justify-start">
-              <button
-                type="button"
-                aria-label="Open navigation menu"
-                className="inline-flex flex-col justify-center gap-[6.5px] bg-transparent border-none p-[8px_2px] cursor-pointer text-inherit transition-opacity duration-200 ease-in-out hover:opacity-75 group"
-                onClick={() => setMenu(true)}
-              >
-                <span className="block w-6 h-[1.5px] bg-current transition-transform duration-[250ms] ease-in-out group-hover:-translate-y-[1px]" />
-                <span className="block w-6 h-[1.5px] bg-current transition-transform duration-[250ms] ease-in-out group-hover:translate-y-[1px]" />
-              </button>
-            </div>
-
-            <div className="flex items-center justify-center">
-              <Link href="/" className="flex flex-col items-center justify-center no-underline text-inherit cursor-pointer py-[1px] group" aria-label="IDANAZHI Home">
-                <BrandLogo className="h-12 w-auto max-w-[182px] block fill-current text-inherit transition-all duration-[250ms] ease-in-out group-hover:scale-[1.02] max-[960px]:h-[35px] max-[640px]:h-8" />
-              </Link>
-            </div>
-
-            <div className="flex items-center justify-end">
-              <div className="flex items-center justify-end gap-6 font-sans text-inherit max-[1080px]:gap-[18px] max-[640px]:gap-3.5">
-                <button
-                  type="button"
-                  className="bg-transparent border-none text-inherit font-sans text-xs font-normal tracking-[0.04em] cursor-pointer py-[5px] transition-opacity duration-200 ease-in-out inline-flex items-center hover:opacity-[0.72]"
-                  aria-label="Select language"
-                  onClick={() => setLangOpen(true)}
-                >
-                  {currentLang}
-                </button>
-                <button
-                  type="button"
-                  className="bg-transparent border-none text-inherit font-sans text-xs font-normal tracking-[0.04em] cursor-pointer py-[5px] transition-opacity duration-200 ease-in-out inline-flex items-center hover:opacity-[0.72] max-[640px]:hidden"
-                  onClick={() => setContactOpen(true)}
-                >
-                  Contact
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Divider */}
-          <div className={`w-full m-0 h-px transition-colors duration-300 ease-in-out ${scrolled ? 'bg-ink/16' : 'bg-white/28'}`} />
-
-          {/* Bottom Row - Nav */}
+          {/* Primary navigation */}
           <nav
             className="flex items-center justify-between gap-4 py-[10px] pb-[13px] w-full box-border max-[1080px]:gap-3 max-[960px]:justify-start max-[960px]:overflow-x-auto max-[960px]:py-2 max-[960px]:pb-[10px] max-[960px]:gap-[18px] max-[960px]:scrollbar-none max-[640px]:py-[6px] max-[640px]:pb-2 max-[640px]:gap-4"
             aria-label="Primary navigation"
