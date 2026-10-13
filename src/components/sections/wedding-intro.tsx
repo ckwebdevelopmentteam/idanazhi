@@ -106,9 +106,9 @@ export function WeddingIntro({
       aria-labelledby="wedding-intro-heading"
     >
       {/* Sticky Viewport Container */}
-      <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden py-6">
+      <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden pt-[calc(52px+1.5vh)] pb-[2.5vh] max-[720px]:pt-[64px] max-[720px]:pb-4">
         {/* Section Header: Centered Heading & CTA */}
-        <div className="flex flex-col items-center text-center gap-6 mb-8 shrink-0 px-6 max-[720px]:gap-4 max-[720px]:mb-5">
+        <div className="flex flex-col items-center text-center gap-7 mb-12 min-[1280px]:mb-16 min-[1600px]:mb-20 shrink-0 px-6 max-[720px]:gap-4 max-[720px]:mb-7">
           <motion.h2
             id="wedding-intro-heading"
             className="font-jakarta font-extralight text-[clamp(26px,2.8vw,44px)] leading-[1.2] tracking-[-0.01em] uppercase text-ink m-0 max-w-[1100px] text-center max-[720px]:text-[28px] max-[480px]:text-[24px]"
@@ -239,7 +239,7 @@ export function WeddingIntro({
         </div>
 
         {/* Scroll Progress Indicator */}
-        <div className="flex items-center justify-center gap-3 mt-7 shrink-0">
+        <div className="flex items-center justify-center gap-3 mt-8 min-[1400px]:mt-10 shrink-0">
           <span className="text-[10px] tracking-[0.2em] uppercase font-semibold text-muted">01</span>
           <div className="w-36 h-[2px] bg-ink/15 overflow-hidden rounded-full">
             <motion.div
