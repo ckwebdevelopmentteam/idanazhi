@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { CircleUserRound, X, ChevronRight, Phone, Mail, MapPin, Check } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { RafflesLogo } from '@/components/layout/raffles-logo';
+import { BrandLogo } from '@/components/layout/brand-logo';
 import { BookingPanel } from '@/components/sections/booking-panel';
 
 const navLinks = [
@@ -22,7 +22,6 @@ const navLinks = [
 const menuDestinations = [
   'Singapore',
   'Dubai',
-  'Udaipur',
   'Bali',
   'Paris',
   'London',
@@ -36,7 +35,7 @@ const menuLinks = [
   { name: 'Hotels & Resorts', href: '/hotels-resorts/' },
   { name: 'Experiences', href: '/singapore/experiences/' },
   { name: 'Offers & Packages', href: '/hotels-resorts/' },
-  { name: 'Raffles 1887 Heritage', href: '/singapore/' },
+  { name: 'IDANAZHI Heritage', href: '/singapore/' },
 ];
 
 const languages = [
@@ -79,9 +78,7 @@ export function Header() {
     <>
       <header className={`site-header ${scrolled ? 'header-solid' : ''}`}>
         <div className="header-container">
-          {/* TOP ROW */}
           <div className="header-top-row">
-            {/* Left: Two-line Hamburger Button */}
             <div className="header-top-left">
               <button
                 type="button"
@@ -94,15 +91,12 @@ export function Header() {
               </button>
             </div>
 
-            {/* Center: Raffles Emblem, Wordmark, and Udaipur Subtext */}
             <div className="header-top-center">
-              <Link href="/" className="header-brand" aria-label="Raffles Udaipur Home">
-                <RafflesLogo className="brand-crest-svg" />
-                <span className="brand-location">UDAIPUR</span>
+              <Link href="/" className="header-brand" aria-label="IDANAZHI Home">
+                <BrandLogo className="brand-crest-svg" />
               </Link>
             </div>
 
-            {/* Right: Language, Contact, and Account with User Icon */}
             <div className="header-top-right">
               <div className="header-utilities">
                 <button
@@ -132,10 +126,8 @@ export function Header() {
             </div>
           </div>
 
-          {/* THIN HORIZONTAL DIVIDER */}
           <div className="header-divider" />
 
-          {/* BOTTOM ROW (PRIMARY NAVIGATION LINKS) */}
           <nav className="header-bottom-row" aria-label="Primary navigation">
             {navLinks.map((item) => (
               <Link key={item.label} href={item.href} className="nav-link">
@@ -146,7 +138,6 @@ export function Header() {
         </div>
       </header>
 
-      {/* FULL-SCREEN NAVIGATION OVERLAY (HAMBURGER DRAWER) */}
       {menu && (
         <div className="menu-overlay" role="dialog" aria-modal="true" aria-label="Main navigation">
           <div className="menu-head">
@@ -159,8 +150,7 @@ export function Header() {
               <X size={22} />
             </button>
             <Link href="/" className="header-brand dark" onClick={() => setMenu(false)}>
-              <RafflesLogo className="brand-crest-svg" />
-              <span className="brand-location">UDAIPUR</span>
+              <BrandLogo className="brand-crest-svg" />
             </Link>
             <button
               type="button"
@@ -186,8 +176,6 @@ export function Header() {
                         ? '/singapore/'
                         : place === 'Dubai'
                         ? '/dubai/'
-                        : place === 'Udaipur'
-                        ? '/'
                         : '/hotels-resorts/'
                     }
                     onClick={() => setMenu(false)}
@@ -200,7 +188,7 @@ export function Header() {
             </div>
 
             <div className="menu-secondary-col">
-              <p className="eyebrow">EXPLORE RAFFLES</p>
+              <p className="eyebrow">EXPLORE IDANAZHI</p>
               <div className="menu-links">
                 {menuLinks.map((link) => (
                   <Link key={link.name} href={link.href} onClick={() => setMenu(false)}>
@@ -225,7 +213,7 @@ export function Header() {
                     setAccountOpen(true);
                   }}
                 >
-                  ALL Loyalty &amp; Account
+                  IDANAZHI Club &amp; Account
                 </button>
               </div>
 
@@ -246,9 +234,8 @@ export function Header() {
         </div>
       )}
 
-      {/* CONTACT MODAL */}
       {contactOpen && (
-        <div className="custom-modal-overlay" role="dialog" aria-modal="true" aria-label="Contact Raffles">
+        <div className="custom-modal-overlay" role="dialog" aria-modal="true" aria-label="Contact IDANAZHI">
           <div className="custom-modal-card">
             <button
               type="button"
@@ -260,14 +247,13 @@ export function Header() {
             </button>
 
             <div className="modal-brand-header">
-              <RafflesLogo className="brand-crest-svg" />
-              <span className="brand-location">UDAIPUR</span>
+              <BrandLogo className="brand-crest-svg" />
             </div>
 
             <p className="eyebrow text-center">WE ARE HERE FOR YOU</p>
             <h2 className="modal-title">At Your Service</h2>
             <p className="modal-description">
-              Allow our legendary butlers and dedicated concierge team to curate every detail of your sanctuary on Lake Udaisagar.
+              Allow our dedicated concierge team to curate every detail of your private celebration destination.
             </p>
 
             <div className="contact-info-list">
@@ -275,7 +261,7 @@ export function Header() {
                 <MapPin size={17} className="contact-icon" />
                 <div>
                   <strong>Address</strong>
-                  <p>Raffles Udaipur, Lake Udaisagar, Udaipur, Rajasthan 313024, India</p>
+                  <p>IDANAZHI, Rajasthan, India</p>
                 </div>
               </div>
               <div className="contact-item">
@@ -289,13 +275,13 @@ export function Header() {
                 <Mail size={17} className="contact-icon" />
                 <div>
                   <strong>Email Concierge</strong>
-                  <a href="mailto:udaipur@raffles.com">udaipur@raffles.com</a>
+                  <a href="mailto:hello@idanazhi.com">hello@idanazhi.com</a>
                 </div>
               </div>
             </div>
 
             <div className="modal-actions-row">
-              <a href="mailto:udaipur@raffles.com" className="button dark-btn modal-submit-btn">
+              <a href="mailto:hello@idanazhi.com" className="button dark-btn modal-submit-btn">
                 SEND AN INQUIRY
               </a>
             </div>
@@ -303,7 +289,6 @@ export function Header() {
         </div>
       )}
 
-      {/* ACCOUNT / ALL ACCOR MODAL */}
       {accountOpen && (
         <div className="custom-modal-overlay" role="dialog" aria-modal="true" aria-label="Account Login">
           <div className="custom-modal-card">
@@ -317,11 +302,10 @@ export function Header() {
             </button>
 
             <div className="modal-brand-header">
-              <RafflesLogo className="brand-crest-svg" />
-              <span className="brand-location">UDAIPUR</span>
+              <BrandLogo className="brand-crest-svg" />
             </div>
 
-            <p className="eyebrow text-center">ALL — ACCOR LIVE LIMITLESS</p>
+            <p className="eyebrow text-center">IDANAZHI CLUB</p>
             <h2 className="modal-title">
               {accountTab === 'signin' ? 'Welcome Back' : 'Join For Free'}
             </h2>
@@ -339,7 +323,7 @@ export function Header() {
                 className={`tab-btn ${accountTab === 'join' ? 'active' : ''}`}
                 onClick={() => setAccountTab('join')}
               >
-                JOIN ALL ACCOR
+                JOIN IDANAZHI
               </button>
             </div>
 
@@ -357,7 +341,7 @@ export function Header() {
                   SIGN IN
                 </button>
                 <p className="modal-subtext">
-                  Member rates, bespoke upgrades, and limitless hospitality experiences across the globe.
+                  Enjoy speciality wedding planning, bespoke upgrades, and elevated celebration experiences across our destinations.
                 </p>
               </form>
             ) : (
@@ -375,10 +359,10 @@ export function Header() {
                   <input type="email" placeholder="name@example.com" required />
                 </label>
                 <button type="submit" className="button dark-btn modal-submit-btn">
-                  CREATE ACCOUNT &amp; JOIN ALL
+                  CREATE ACCOUNT &amp; JOIN IDANAZHI
                 </button>
                 <p className="modal-subtext">
-                  By joining, you agree to the ALL Accor Terms of Membership and Privacy Policy.
+                  By joining, you agree to the IDANAZHI Terms of Membership and Privacy Policy.
                 </p>
               </form>
             )}
@@ -386,7 +370,6 @@ export function Header() {
         </div>
       )}
 
-      {/* LANGUAGE SELECTOR MODAL */}
       {langOpen && (
         <div className="custom-modal-overlay" role="dialog" aria-modal="true" aria-label="Select Language">
           <div className="custom-modal-card lang-modal-card">
@@ -422,7 +405,6 @@ export function Header() {
         </div>
       )}
 
-      {/* BOOKING PANEL */}
       {booking && <BookingPanel close={() => setBooking(false)} />}
     </>
   );
