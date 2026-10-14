@@ -23,7 +23,7 @@ export interface WeddingSectionData {
 }
 
 export const weddingIntroData: WeddingSectionData = {
-  heading: 'A Setting for Your Most Meaningful Moments',
+  heading: 'A Timeless Setting for Your Most Meaningful Moments',
   ctaText: 'Discover Weddings',
   ctaHref: '/hotels-resorts/#celebration',
   cards: [
@@ -51,6 +51,30 @@ export const weddingIntroData: WeddingSectionData = {
       image: '/images/weddings/stage-grand-reception.jpg',
       alt: 'Grand luxury ballroom wedding reception stage illuminated by crystal chandeliers and a cascading floral wall without people',
       overlayLabel: 'Grand Reception Stage',
+    },
+    {
+      type: 'photo',
+      image: '/images/weddings/spaces/space-dinner-2.jpg',
+      alt: 'Scenic lakeside wedding lawn ceremony setting with floral adorned chairs overlooking the water without people',
+      overlayLabel: 'Lakeside Floral Lawn',
+    },
+    {
+      type: 'photo',
+      image: '/images/weddings/spaces/stage-decor-wiki.jpg',
+      alt: 'Traditional South Indian wedding stage mandapam adorned with fresh marigold garlands and banana stem pillars without people',
+      overlayLabel: 'Courtyard Floral Mandap',
+    },
+    {
+      type: 'photo',
+      image: '/images/weddings/spaces/space-dinner-3.jpg',
+      alt: 'Elegant garden gazebo wedding ceremony stage with floral pillars and white draped aisle seating without people',
+      overlayLabel: 'Garden Gazebo Pavilion',
+    },
+    {
+      type: 'photo',
+      image: '/images/weddings/spaces/space-dinner-1.jpg',
+      alt: 'Luxury wedding banquet feast table decorated with lush floral centerpieces and fine glassware without people',
+      overlayLabel: 'Imperial Banquet Feast',
     },
   ],
 };
