@@ -64,8 +64,6 @@ export function WeddingIntro({
   className = '',
 }: WeddingIntroProps) {
   const words = data.heading.split(' ');
-  const line1 = words.slice(0, -2);
-  const line2 = words.slice(-2);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -114,59 +112,49 @@ export function WeddingIntro({
     >
       {/* Sticky Viewport Container */}
       <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden pt-[calc(52px+1.5vh)] pb-[2.5vh] max-[720px]:pt-[64px] max-[720px]:pb-4">
-        {/* Section Header: Centered Heading & CTA */}
-        <div className="flex flex-col items-center text-center gap-7 mb-12 min-[1280px]:mb-16 min-[1600px]:mb-20 shrink-0 px-6 max-[720px]:gap-4 max-[720px]:mb-7">
-          <motion.h2
-            id="wedding-intro-heading"
-            className="font-jakarta font-normal text-[clamp(26px,2.8vw,44px)] leading-[1.2] tracking-[-0.01em] uppercase text-ink m-0 max-w-[1100px] text-center max-[720px]:text-[28px] max-[480px]:text-[24px]"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-60px' }}
-            variants={containerVariants}
-          >
-            <span className="block min-[920px]:whitespace-nowrap">
-              {line1.map((word, index) => (
-                <motion.span
-                  key={`line1-${word}-${index}`}
-                  variants={wordVariants}
-                  className="inline-block mr-[0.28em] last:mr-0"
-                >
-                  {word}
-                </motion.span>
-              ))}
-            </span>
-            <span className="block mt-1 max-[720px]:mt-0.5 whitespace-nowrap">
-              {line2.map((word, index) => (
-                <motion.span
-                  key={`line2-${word}-${index}`}
-                  variants={wordVariants}
-                  className="inline-block mr-[0.28em] last:mr-0"
-                >
-                  {word}
-                </motion.span>
-              ))}
-            </span>
-          </motion.h2>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-60px' }}
-            variants={ctaVariants}
-          >
-            <Link
-              href={data.ctaHref}
-              className="group inline-flex items-center justify-center gap-2 font-sans text-[11px] font-semibold tracking-[0.14em] uppercase text-ink border border-ink px-[24px] py-3 bg-transparent whitespace-nowrap transition-all duration-[180ms] ease-in-out hover:bg-ink hover:text-white focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[3px]"
-              aria-label={`${data.ctaText} - View wedding celebrations and offerings`}
+        {/* Section Header: Left Heading & Right CTA */}
+        <div className="w-full px-[5.4vw] mb-9 min-[1280px]:mb-12 min-[1600px]:mb-14 shrink-0 max-[720px]:px-6 max-[720px]:mb-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-8">
+            <motion.h2
+              id="wedding-intro-heading"
+              className="font-jakarta font-normal text-[clamp(24px,2.5vw,42px)] leading-[1.2] tracking-[-0.01em] uppercase text-ink m-0 max-w-[820px] text-left max-[720px]:text-[26px] max-[480px]:text-[22px]"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-60px' }}
+              variants={containerVariants}
             >
-              <span>{data.ctaText}</span>
-              <ArrowUpRight
-                className="transition-transform duration-[250ms] ease-[cubic-bezier(0.2,0.7,0.2,1)] group-hover:translate-x-[3px] group-hover:-translate-y-[3px]"
-                size={15}
-                aria-hidden="true"
-              />
-            </Link>
-          </motion.div>
+              {words.map((word, index) => (
+                <motion.span
+                  key={`word-${word}-${index}`}
+                  variants={wordVariants}
+                  className="inline-block mr-[0.28em] last:mr-0"
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </motion.h2>
+
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-60px' }}
+              variants={ctaVariants}
+              className="shrink-0 self-start md:self-end"
+            >
+              <Link
+                href={data.ctaHref}
+                className="group inline-flex items-center justify-center gap-2 font-sans text-[11px] font-semibold tracking-[0.14em] uppercase text-ink border border-ink px-[24px] py-3 bg-transparent whitespace-nowrap transition-all duration-[180ms] ease-in-out hover:bg-ink hover:text-white focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[3px]"
+                aria-label={`${data.ctaText} - View wedding celebrations and offerings`}
+              >
+                <span>{data.ctaText}</span>
+                <ArrowUpRight
+                  className="transition-transform duration-[250ms] ease-[cubic-bezier(0.2,0.7,0.2,1)] group-hover:translate-x-[3px] group-hover:-translate-y-[3px]"
+                  size={15}
+                  aria-hidden="true"
+                />
+              </Link>
+            </motion.div>
+          </div>
         </div>
 
         {/* Horizontal Scrolling Cards Track */}
