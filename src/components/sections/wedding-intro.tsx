@@ -166,7 +166,7 @@ export function WeddingIntro({
               whileInView="visible"
               viewport={{ once: true, margin: '-60px' }}
               variants={fadeUpVariants}
-              className="m-0 mt-3.5 max-w-[600px] mx-auto text-muted text-[clamp(13px,0.95vw,15px)] leading-[1.65] text-center max-[720px]:text-[13px] max-[720px]:mt-2.5"
+              className="m-0 mt-3.5 max-w-[780px] mx-auto text-muted text-[clamp(13px,0.95vw,15px)] leading-[1.65] text-center max-[720px]:text-[13px] max-[720px]:mt-2.5"
             >
               {data.description}
             </motion.p>
@@ -182,11 +182,19 @@ export function WeddingIntro({
             >
               <Link
                 href={data.ctaHref}
-                className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.15em] font-semibold uppercase text-ink border-b border-ink pb-1.5 hover:text-forest transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[3px]"
+                className="group inline-flex items-center gap-2 text-[14px] font-sans tracking-[0.02em] text-ink focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[4px]"
                 aria-label={`${data.ctaText} - View wedding celebrations and offerings`}
               >
-                <span>{data.ctaText}</span>
-                <ArrowUpRight size={14} aria-hidden="true" />
+                <span className="relative pb-1 transition-colors duration-300 ease-out group-hover:text-forest">
+                  {data.ctaText}
+                  <span className="absolute bottom-0 left-0 w-full h-[1px] bg-ink/30 transition-colors duration-300" />
+                  <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-forest origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]" />
+                </span>
+                <ArrowUpRight
+                  size={15}
+                  className="text-ink transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-forest group-hover:translate-x-[3px] group-hover:-translate-y-[3px]"
+                  aria-hidden="true"
+                />
               </Link>
             </motion.div>
           )}
