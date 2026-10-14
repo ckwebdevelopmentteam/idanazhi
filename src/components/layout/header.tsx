@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { X, ChevronRight, Phone, Mail, MapPin, Check } from 'lucide-react';
+import { X, Phone, Mail, MapPin, Check } from 'lucide-react';
 import { useEffect, useState, useRef } from 'react';
 import { BrandLogo } from '@/components/layout/brand-logo';
 import { IdanazhiSymbol } from '@/components/layout/idanazhi-symbol';
