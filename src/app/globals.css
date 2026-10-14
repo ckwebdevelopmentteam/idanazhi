@@ -16,8 +16,19 @@
 
 /* Base resets & defaults */
 @layer base {
+  html,
+  body {
+    background-color: var(--color-paper);
+    color-scheme: light;
+  }
+  html {
+    color: var(--color-ink);
+  }
   body {
     @apply m-0 bg-paper text-ink font-sans text-[15px] leading-[1.55];
+  }
+  * {
+    scrollbar-gutter: auto;
   }
   a {
     @apply text-inherit no-underline;
@@ -42,4 +53,61 @@
 @keyframes modalScaleUp {
   from { opacity: 0; transform: scale(0.96); }
   to { opacity: 1; transform: scale(1); }
+}
+
+/* Minimal Transparent Scrollbar */
+
+/* Scrollbar size */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* Remove scrollbar background */
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-track-piece {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background: rgba(124, 64, 46, 0.35);
+  border-radius: 9999px;
+  border: none;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(124, 64, 46, 0.65);
+}
+
+/* Hide scrollbar buttons */
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* Remove corner background */
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Firefox */
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(124, 64, 46, 0.35) transparent;
+  }
+}
+
+
+
+/* Hide scrollbar completely while keeping scrolling */
+html {
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
