@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { X, ChevronRight, Phone, Mail, MapPin, Check } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { BrandLogo } from '@/components/layout/brand-logo';
 import { BookingPanel } from '@/components/sections/booking-panel';
 
@@ -45,17 +45,36 @@ const languages = [
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [booking, setBooking] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState('EN');
+  const lastScrollYRef = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
+      const currentScrollY = Math.max(0, window.scrollY);
+      const lastScrollY = lastScrollYRef.current;
+      const scrollDiff = currentScrollY - lastScrollY;
       const hero = document.querySelector('.home-hero');
-      setScrolled(hero ? hero.getBoundingClientRect().bottom <= 0 : window.scrollY > 20);
+
+      setScrolled(hero ? hero.getBoundingClientRect().bottom <= 0 : currentScrollY > 20);
+
+      if (currentScrollY <= 15) {
+        setIsVisible(true);
+      } else if (scrollDiff > 8 && currentScrollY > 80) {
+        // Scrolling down past threshold -> hide header
+        setIsVisible(false);
+      } else if (scrollDiff < -8) {
+        // Scrolling up -> reveal header
+        setIsVisible(true);
+      }
+
+      lastScrollYRef.current = currentScrollY;
     };
+
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleScroll);
@@ -64,6 +83,8 @@ export function Header() {
       window.removeEventListener('resize', handleScroll);
     };
   }, []);
+
+  const isHeaderVisible = isVisible || mobileMenuOpen || booking || contactOpen || langOpen;
 
   useEffect(() => {
     const isAnyModalOpen = mobileMenuOpen || booking || contactOpen || langOpen;
@@ -89,10 +110,14 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed z-40 top-0 left-0 w-full text-white bg-[rgba(45,25,18,0.36)] backdrop-blur-[12px] flex! flex-col! h-auto! p-0! border-b-0! transition-all duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)] ${
+        className={`fixed z-40 top-0 left-0 w-full text-white bg-[rgba(45,25,18,0.36)] backdrop-blur-[12px] flex! flex-col! h-auto! p-0! border-b-0! transition-all duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)] will-change-transform ${
           scrolled
             ? '!text-ink !bg-paper/98 !backdrop-blur-[14px] !shadow-[0_4px_20px_rgba(45,25,18,0.06)] !border-transparent'
             : ''
+        } ${
+          isHeaderVisible
+            ? 'translate-y-0 opacity-100'
+            : '-translate-y-full opacity-0 pointer-events-none'
         }`}
       >
         <div className="w-full max-w-[1400px] mx-auto px-6 box-border flex flex-col max-[1080px]:max-w-[1160px] max-[1080px]:px-5 max-[960px]:max-w-full max-[960px]:px-4">

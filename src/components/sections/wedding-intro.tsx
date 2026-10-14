@@ -79,6 +79,12 @@ export function WeddingIntro({
   className = '',
 }: WeddingIntroProps) {
   const words = data.heading.split(' ');
+  const descWords = data.description ? data.description.trim().split(/\s+/) : [];
+  const line3Words = descWords.slice(-3).join(' ');
+  const remainingWords = descWords.slice(0, -3);
+  const splitIndex = 10;
+  const line1Words = remainingWords.slice(0, splitIndex).join(' ');
+  const line2Words = remainingWords.slice(splitIndex).join(' ');
 
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -126,16 +132,16 @@ export function WeddingIntro({
       aria-labelledby="wedding-intro-heading"
     >
       {/* Sticky Viewport Container */}
-      <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden pt-[calc(52px+1.5vh)] pb-[2.5vh] max-[720px]:pt-[64px] max-[720px]:pb-4">
+      <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden pt-[calc(44px+1vh)] pb-2 max-[720px]:pt-[58px] max-[720px]:pb-3">
         {/* Section Header: Centered Eyebrow, Heading, Description & CTA */}
-        <div className="flex flex-col items-center text-center max-w-[860px] mx-auto px-6 mb-8 min-[1280px]:mb-10 min-[1600px]:mb-12 shrink-0 max-[720px]:mb-5">
+        <div className="flex flex-col items-center text-center max-w-[860px] mx-auto px-6 mb-3.5 min-[1280px]:mb-4.5 min-[1600px]:mb-5 shrink-0 max-[720px]:mb-3">
           {data.eyebrow && (
             <motion.p
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-60px' }}
               variants={fadeUpVariants}
-              className="m-0 mb-3 uppercase tracking-[0.18em] text-[10px] font-semibold text-muted text-center max-[720px]:mb-2"
+              className="m-0 mb-1.5 uppercase tracking-[0.18em] text-[10px] font-semibold text-muted text-center max-[720px]:mb-1"
             >
               {data.eyebrow}
             </motion.p>
@@ -143,7 +149,7 @@ export function WeddingIntro({
 
           <motion.h2
             id="wedding-intro-heading"
-            className="font-jakarta font-normal text-[clamp(24px,2.5vw,40px)] leading-[1.25] tracking-[-0.01em] uppercase text-ink m-0 max-w-[860px] text-center max-[720px]:text-[24px] max-[480px]:text-[20px]"
+            className="font-jakarta font-normal text-[clamp(20px,2vw,34px)] leading-[1.2] tracking-[-0.01em] uppercase text-ink m-0 max-w-[860px] text-center max-[720px]:text-[20px] max-[480px]:text-[17px]"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-60px' }}
@@ -166,9 +172,18 @@ export function WeddingIntro({
               whileInView="visible"
               viewport={{ once: true, margin: '-60px' }}
               variants={fadeUpVariants}
-              className="m-0 mt-3.5 max-w-[780px] mx-auto text-muted text-[clamp(13px,0.95vw,15px)] leading-[1.65] text-center max-[720px]:text-[13px] max-[720px]:mt-2.5"
+              className="m-0 mt-2 max-w-[780px] mx-auto text-muted text-[clamp(12.5px,0.9vw,14px)] leading-[1.55] text-center max-[720px]:text-[12.5px] max-[720px]:mt-1.5"
             >
-              {data.description}
+              <span className="hidden min-[721px]:inline">
+                {line1Words}
+                <br />
+                {line2Words}
+                <br />
+                {line3Words}
+              </span>
+              <span className="min-[721px]:hidden">
+                {data.description}
+              </span>
             </motion.p>
           )}
 
@@ -178,7 +193,7 @@ export function WeddingIntro({
               whileInView="visible"
               viewport={{ once: true, margin: '-60px' }}
               variants={ctaVariants}
-              className="mt-4 max-[720px]:mt-3"
+              className="mt-3 max-[720px]:mt-2"
             >
               <Link
                 href={data.ctaHref}
@@ -216,7 +231,7 @@ export function WeddingIntro({
                       y: -8,
                       transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
                     }}
-                    className="relative flex flex-col bg-linen border border-ink/14 p-[clamp(30px,2.4vw,40px)_clamp(22px,2vw,30px)] justify-between shrink-0 w-[calc((100vw-10.8vw-66px)/4)] aspect-[4/5] min-h-[440px] box-border transition-[colors,box-shadow] duration-300 ease-in-out hover:border-ink/32 hover:shadow-lg max-[980px]:w-[calc((100vw-10.8vw-24px)/2)] max-[980px]:min-h-[380px] max-[720px]:w-[calc(100vw-48px)] max-[720px]:min-h-[380px] max-[720px]:p-[34px_24px]"
+                    className="relative flex flex-col bg-linen border border-ink/14 p-[clamp(24px,2vw,36px)_clamp(20px,1.8vw,28px)] justify-between shrink-0 w-[calc((100vw-10.8vw-66px)/4)] aspect-[4/5] box-border transition-[colors,box-shadow] duration-300 ease-in-out hover:border-ink/32 hover:shadow-lg max-[980px]:w-[calc((100vw-10.8vw-24px)/2)] max-[720px]:w-[calc(100vw-48px)] max-[720px]:p-[30px_22px]"
                     aria-label={card.eyebrow}
                   >
                     <div className="flex flex-col">
@@ -252,7 +267,7 @@ export function WeddingIntro({
                     y: -8,
                     transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
                   }}
-                  className="relative flex flex-col bg-linen group hover:shadow-xl transition-shadow duration-300 shrink-0 w-[calc((100vw-10.8vw-66px)/4)] aspect-[4/5] min-h-[440px] overflow-hidden max-[980px]:w-[calc((100vw-10.8vw-24px)/2)] max-[980px]:min-h-[380px] max-[720px]:w-[calc(100vw-48px)] max-[720px]:min-h-[380px]"
+                  className="relative flex flex-col bg-linen group hover:shadow-xl transition-shadow duration-300 shrink-0 w-[calc((100vw-10.8vw-66px)/4)] aspect-[4/5] overflow-hidden max-[980px]:w-[calc((100vw-10.8vw-24px)/2)] max-[720px]:w-[calc(100vw-48px)]"
                 >
                   <div className="relative w-full h-full overflow-hidden bg-linen">
                     <img
@@ -277,7 +292,7 @@ export function WeddingIntro({
         </div>
 
         {/* Scroll Progress Indicator */}
-        <div className="flex items-center justify-center gap-3 mt-8 min-[1400px]:mt-10 shrink-0">
+        <div className="flex items-center justify-center gap-3 mt-3 min-[1280px]:mt-4 shrink-0">
           <span className="text-[10px] tracking-[0.2em] uppercase font-semibold text-muted">01</span>
           <div className="w-36 h-[2px] bg-ink/15 overflow-hidden rounded-full">
             <motion.div
