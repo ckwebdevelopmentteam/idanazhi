@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600&family=Outfit:wght@200;300;400&display=swap');
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap');
 
 @theme {
   --color-ink: #7c402e;
@@ -9,9 +9,12 @@
   --color-muted: #79665e;
   --color-line: rgba(124, 64, 46, 0.25);
 
-  --font-serif: Georgia, 'Times New Roman', serif;
-  --font-sans: Arial, Helvetica, sans-serif;
-  --font-jakarta: 'Plus Jakarta Sans', 'Outfit', Arial, Helvetica, sans-serif;
+  --font-serif: var(--font-serif), Georgia, 'Times New Roman', serif;
+  --font-sans: var(--font-lato), var(--font-jakarta), Arial, sans-serif;
+  --font-jakarta: var(--font-jakarta), sans-serif;
+  --font-luxury: 'Tenor Sans', var(--font-lato), sans-serif;
+  --font-lato: var(--font-lato), sans-serif;
+  --font-urbanist: var(--font-urbanist), sans-serif;
 }
 
 /* Base resets & defaults */
@@ -45,4 +48,13 @@
 @keyframes modalScaleUp {
   from { opacity: 0; transform: scale(0.96); }
   to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.22s ease-out forwards;
 }

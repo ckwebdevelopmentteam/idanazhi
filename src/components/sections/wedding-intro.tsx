@@ -111,24 +111,24 @@ export function WeddingIntro({
     restDelta: 0.0001,
   });
 
-  // Animate horizontal travel across [0, 0.9] of the pinned scroll; [0.9, 1] acts as a smooth buffer before unpinning
-  const x = useTransform(smoothProgress, [0, 0.9], [0, -scrollRange], {
+  // Animate horizontal travel smoothly across full [0, 1] of the pinned scroll with zero dead space
+  const x = useTransform(smoothProgress, [0, 1], [0, -scrollRange], {
     clamp: true,
   });
-  const progressBarScale = useTransform(smoothProgress, [0, 0.9], [0, 1], {
+  const progressBarScale = useTransform(smoothProgress, [0, 1], [0, 1], {
     clamp: true,
   });
 
   return (
     <section
       ref={containerRef}
-      className={`relative h-[320vh] bg-paper ${className}`}
+      className={`relative h-[210vh] max-[720px]:h-[230vh] bg-paper ${className}`}
       aria-labelledby="wedding-intro-heading"
     >
       {/* Sticky Viewport Container */}
-      <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden pt-[calc(52px+1.5vh)] pb-[2.5vh] max-[720px]:pt-[64px] max-[720px]:pb-4">
+      <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden pt-[calc(48px+1vh)] pb-2 max-[720px]:pt-[54px] max-[720px]:pb-2">
         {/* Section Header: Centered Eyebrow, Heading, Description & CTA */}
-        <div className="flex flex-col items-center text-center max-w-[860px] mx-auto px-6 mb-8 min-[1280px]:mb-10 min-[1600px]:mb-12 shrink-0 max-[720px]:mb-5">
+        <div className="flex flex-col items-center text-center max-w-[860px] mx-auto px-6 mb-4 min-[1280px]:mb-6 shrink-0 max-[720px]:mb-3">
           {data.eyebrow && (
             <motion.p
               initial="hidden"
@@ -208,7 +208,7 @@ export function WeddingIntro({
                       y: -8,
                       transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
                     }}
-                    className="relative flex flex-col bg-linen border border-ink/14 p-[clamp(30px,2.4vw,40px)_clamp(22px,2vw,30px)] justify-between shrink-0 w-[calc((100vw-10.8vw-66px)/4)] aspect-[4/5] min-h-[440px] box-border transition-[colors,box-shadow] duration-300 ease-in-out hover:border-ink/32 hover:shadow-lg max-[980px]:w-[calc((100vw-10.8vw-24px)/2)] max-[980px]:min-h-[380px] max-[720px]:w-[calc(100vw-48px)] max-[720px]:min-h-[380px] max-[720px]:p-[34px_24px]"
+                    className="relative flex flex-col bg-linen border border-ink/14 p-[clamp(24px,2vw,36px)_clamp(20px,1.8vw,28px)] justify-between shrink-0 w-[calc((100vw-10.8vw-66px)/4)] aspect-[4/5] box-border transition-[colors,box-shadow] duration-300 ease-in-out hover:border-ink/32 hover:shadow-lg max-[980px]:w-[calc((100vw-10.8vw-24px)/2)] max-[720px]:w-[calc(100vw-48px)] max-[720px]:aspect-[4/4.8] max-[720px]:p-[28px_20px]"
                     aria-label={card.eyebrow}
                   >
                     <div className="flex flex-col">
@@ -244,7 +244,7 @@ export function WeddingIntro({
                     y: -8,
                     transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
                   }}
-                  className="relative flex flex-col bg-linen group hover:shadow-xl transition-shadow duration-300 shrink-0 w-[calc((100vw-10.8vw-66px)/4)] aspect-[4/5] min-h-[440px] overflow-hidden max-[980px]:w-[calc((100vw-10.8vw-24px)/2)] max-[980px]:min-h-[380px] max-[720px]:w-[calc(100vw-48px)] max-[720px]:min-h-[380px]"
+                  className="relative flex flex-col bg-linen group hover:shadow-xl transition-shadow duration-300 shrink-0 w-[calc((100vw-10.8vw-66px)/4)] aspect-[4/5] overflow-hidden max-[980px]:w-[calc((100vw-10.8vw-24px)/2)] max-[720px]:w-[calc(100vw-48px)] max-[720px]:aspect-[4/4.8]"
                 >
                   <div className="relative w-full h-full overflow-hidden bg-linen">
                     <img
@@ -269,7 +269,7 @@ export function WeddingIntro({
         </div>
 
         {/* Scroll Progress Indicator */}
-        <div className="flex items-center justify-center gap-3 mt-8 min-[1400px]:mt-10 shrink-0">
+        <div className="flex items-center justify-center gap-3 mt-5 min-[1400px]:mt-7 shrink-0">
           <span className="text-[10px] tracking-[0.2em] uppercase font-semibold text-muted">01</span>
           <div className="w-36 h-[2px] bg-ink/15 overflow-hidden rounded-full">
             <motion.div

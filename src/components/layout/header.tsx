@@ -1,37 +1,33 @@
 'use client';
 
 import Link from 'next/link';
-import { X, ChevronRight, Phone, Mail, MapPin, Check } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { X, Phone, Mail, MapPin, Check } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { BrandLogo } from '@/components/layout/brand-logo';
+import { IdanazhiSymbol } from '@/components/layout/idanazhi-symbol';
+import { OrnamentalArrow } from '@/components/layout/ornamental-arrow';
 import { BookingPanel } from '@/components/sections/booking-panel';
 
 const navLinks = [
-  { label: 'STORY', href: '/singapore/#story' },
-  { label: 'GALLERY', href: '/singapore/#story' },
-  { label: 'EXPERIENCES', href: '/singapore/#experiences' },
-  { label: 'OFFERS', href: '/hotels-resorts/' },
-  { label: 'ROOMS', href: '/singapore/#stay' },
-  { label: 'CELEBRATIONS', href: '/singapore/experiences/' },
-];
-
-const menuDestinations = [
-  'Singapore',
-  'Dubai',
-  'Bali',
-  'Paris',
-  'London',
-  'Boston',
-  'Doha',
-  'Bahrain',
-  'Sentosa',
-];
-
-const menuLinks = [
-  { name: 'Hotels & Resorts', href: '/hotels-resorts/' },
-  { name: 'Experiences', href: '/singapore/experiences/' },
-  { name: 'Offers & Packages', href: '/hotels-resorts/' },
-  { name: 'IDANAZHI Heritage', href: '/singapore/' },
+  { label: 'STORY', title: 'Story', href: '/singapore/#story' },
+  { label: 'GALLERY', title: 'Gallery', href: '/singapore/#story' },
+  {
+    label: 'EXPERIENCES',
+    title: 'Experiences',
+    href: '/singapore/experiences/',
+    hasSubmenu: true,
+    submenu: [
+      { name: 'Destination Weddings', href: '/hotels-resorts/#celebration' },
+      { name: 'Heritage Mandapam', href: '/hotels-resorts/#celebration' },
+      { name: 'Lakeside Ceremonies', href: '/singapore/#story' },
+      { name: 'Fine Dining & Feasts', href: '/singapore/experiences/' },
+      { name: 'Wellness & Escapes', href: '/singapore/#stay' },
+    ],
+  },
+  { label: 'OFFERS', title: 'Offers', href: '/hotels-resorts/' },
+  { label: 'ROOMS', title: 'Rooms', href: '/singapore/#stay' },
+  { label: 'CELEBRATIONS', title: 'Celebrations', href: '/singapore/experiences/' },
 ];
 
 const languages = [
@@ -44,12 +40,54 @@ const languages = [
 ];
 
 export function Header() {
+  const pathname = usePathname();
+  const [currentHash, setCurrentHash] = useState('');
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [hoveredOption, setHoveredOption] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [submenuOpen, setSubmenuOpen] = useState(false);
   const [booking, setBooking] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState('EN');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setCurrentHash(window.location.hash);
+      const handleHashChange = () => setCurrentHash(window.location.hash);
+      window.addEventListener('hashchange', handleHashChange);
+      return () => window.removeEventListener('hashchange', handleHashChange);
+    }
+  }, []);
+
+  // Sync active option with the current URL route and hash
+  useEffect(() => {
+    if (pathname.includes('/experiences')) {
+      setSelectedOption('EXPERIENCES');
+    } else if (pathname.includes('/hotels-resorts')) {
+      setSelectedOption('OFFERS');
+    } else if (currentHash === '#stay') {
+      setSelectedOption('ROOMS');
+    } else if (currentHash === '#story') {
+      setSelectedOption('STORY');
+    } else if (pathname.includes('/singapore')) {
+      setSelectedOption('ROOMS');
+    } else if (pathname === '/') {
+      setSelectedOption('STORY');
+    }
+  }, [pathname, currentHash]);
+
+  const activeOption =
+    selectedOption ||
+    (pathname.includes('/experiences')
+      ? 'EXPERIENCES'
+      : pathname.includes('/hotels-resorts')
+      ? 'OFFERS'
+      : currentHash === '#stay'
+      ? 'ROOMS'
+      : 'STORY');
+  const currentIndicatorOption = hoveredOption ?? activeOption;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -117,9 +155,10 @@ export function Header() {
               aria-label="IDANAZHI home"
               className="flex h-9 w-[104px] shrink-0 items-center justify-center justify-self-center max-[1080px]:h-8 max-[1080px]:w-[92px]"
             >
-              <span
-                aria-hidden="true"
-                className={`h-full w-full [mask-image:url('/images/weddings/logo/idanazhi_symbol_transparent.svg')] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] [-webkit-mask-image:url('/images/weddings/logo/idanazhi_symbol_transparent.svg')] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain] transition-colors duration-300 ${scrolled ? 'bg-[#7C402E]' : 'bg-white'}`}
+              <img
+                src="/images/weddings/logo/idanazhi_symbol_transparent.svg"
+                alt=""
+                className={`h-full w-full object-contain ${scrolled ? '' : 'brightness-0 invert'}`}
               />
             </Link>
             <div className="grid grid-cols-3 items-center">
@@ -180,204 +219,219 @@ export function Header() {
               className="flex h-8 w-[92px] shrink-0 items-center justify-center justify-self-center transition-transform duration-200 active:scale-95"
               onClick={() => setMobileMenuOpen(false)}
             >
-              <span
-                aria-hidden="true"
-                className={`h-full w-full [mask-image:url('/images/weddings/logo/idanazhi_symbol_transparent.svg')] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] [-webkit-mask-image:url('/images/weddings/logo/idanazhi_symbol_transparent.svg')] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain] transition-colors duration-300 ${
-                  scrolled ? 'bg-[#7C402E]' : 'bg-white'
-                }`}
+              <img
+                src="/images/weddings/logo/idanazhi_symbol_transparent.svg"
+                alt="IDANAZHI"
+                className={`h-full w-full object-contain transition-all duration-300 ${scrolled ? '' : 'brightness-0 invert'}`}
               />
             </Link>
 
-            {/* Right: Contact Us Button */}
-            <div className="flex items-center justify-end">
-              <button
-                type="button"
-                onClick={() => setContactOpen(true)}
-                className={`font-sans text-[10px] font-medium tracking-[0.14em] uppercase px-3 py-1.5 border transition-all duration-200 ease-in-out whitespace-nowrap active:scale-95 cursor-pointer ${
-                  scrolled
-                    ? 'border-[#7C402E] text-[#7C402E] hover:bg-[#7C402E] hover:text-white'
-                    : 'border-white/85 text-white hover:bg-white hover:text-[#7C402E]'
-                }`}
-              >
-                CONTACT US
-              </button>
-            </div>
+            {/* Right spacer to keep center logo perfectly balanced */}
+            <div className="flex items-center justify-end" aria-hidden="true" />
           </nav>
         </div>
       </header>
 
-      {/* Mobile Luxury Slide-in Drawer from the Left */}
+      {/* Mobile Luxury Full-Screen Menu with Smooth Slide Animation */}
       <div
-        className={`fixed inset-0 z-50 transition-all duration-300 ${
+        className={`fixed inset-0 z-50 transition-all duration-400 ${
           mobileMenuOpen ? 'pointer-events-auto visible' : 'pointer-events-none invisible'
         }`}
         aria-hidden={!mobileMenuOpen}
       >
-        {/* Backdrop blur overlay */}
+        {/* Backdrop overlay */}
         <div
-          className={`fixed inset-0 bg-[rgba(30,16,12,0.6)] backdrop-blur-[6px] transition-opacity duration-300 ease-out ${
+          className={`fixed inset-0 bg-[rgba(30,16,12,0.45)] backdrop-blur-[4px] transition-opacity duration-400 ease-out ${
             mobileMenuOpen ? 'opacity-100' : 'opacity-0'
           }`}
           onClick={() => setMobileMenuOpen(false)}
         />
 
-        {/* Left slide-in drawer container */}
+        {/* Sliding Full-Screen Menu Panel */}
         <aside
           id="mobile-nav-drawer"
           role="dialog"
           aria-modal="true"
           aria-label="Navigation Menu"
-          className={`fixed top-0 left-0 bottom-0 w-[min(380px,86vw)] bg-paper text-ink shadow-[12px_0_40px_rgba(30,16,12,0.3)] flex flex-col justify-between transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] z-10 border-r border-line overflow-hidden ${
+          className={`fixed inset-0 w-full h-[100dvh] bg-paper text-ink flex flex-col justify-between overflow-y-auto overscroll-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform ${
             mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
         >
-          {/* Drawer Top / Header */}
-          <div className="h-[74px] px-6 border-b border-line flex items-center justify-between shrink-0 bg-paper">
+          {/* Top Bar: Emblem (Left) | IDANAZHI (Center) | Close X (Right) */}
+          <div className="h-[68px] sm:h-[76px] px-6 max-[480px]:px-5 grid grid-cols-[auto_1fr_auto] items-center shrink-0 border-b border-line/20 bg-paper sticky top-0 z-20">
+            {/* Left: IDANAZHI Emblem Symbol */}
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-2.5 text-ink no-underline"
+              className="flex items-center text-ink transition-opacity hover:opacity-75"
               aria-label="IDANAZHI Home"
             >
-              <BrandLogo className="h-9 w-auto max-w-[140px]" />
+              <IdanazhiSymbol className="h-6 sm:h-7 w-auto text-ink" />
             </Link>
+
+            {/* Center: Brand Name in clean tracked uppercase typography */}
+            <Link
+              href="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className="font-urbanist text-[15px] sm:text-[16px] font-medium tracking-[0.28em] uppercase text-[#4E2418] no-underline text-center"
+            >
+              IDANAZHI
+            </Link>
+
+            {/* Right: Minimalist Thin Close X Button */}
             <button
               type="button"
-              aria-label="Close menu"
+              aria-label="Close navigation menu"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-9 h-9 rounded-full border border-line flex items-center justify-center text-ink bg-transparent hover:bg-ink/5 transition-colors duration-200 cursor-pointer group"
+              className="p-1.5 -mr-1.5 text-[#4E2418] bg-transparent border-0 cursor-pointer transition-opacity duration-200 hover:opacity-60 active:scale-95"
             >
-              <X size={18} strokeWidth={1.75} className="group-hover:rotate-90 transition-transform duration-200" />
+              <X size={24} strokeWidth={1.25} />
             </button>
           </div>
 
-          {/* Drawer Body (Scrollable) */}
-          <div className="flex-1 overflow-y-auto px-6 py-6 overscroll-contain">
-            <p className="m-0 mb-3.5 uppercase tracking-[0.2em] text-[10px] font-semibold text-muted">
-              NAVIGATION
-            </p>
+          {/* Navigation Items List - Exact arrangement and typography as screenshot */}
+          <div className="flex-1 px-8 max-[480px]:px-7 pt-7 sm:pt-9 pb-10 flex flex-col justify-start">
+            <nav className="flex flex-col gap-1 sm:gap-1.5" aria-label="Mobile Navigation Links">
+              {navLinks.map((item) => {
+                const isActive = currentIndicatorOption === item.label;
 
-            {/* Primary Navigation Links */}
-            <nav className="flex flex-col divide-y divide-line/60">
-              {navLinks.map((item, idx) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="group flex items-center justify-between py-3.5 text-ink no-underline transition-all duration-200 hover:text-forest"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="font-sans text-[10px] tracking-[0.14em] text-muted/70 w-5">
-                      {String(idx + 1).padStart(2, '0')}
-                    </span>
-                    <span className="font-serif text-[21px] font-normal tracking-[-0.01em] transition-transform duration-200 group-hover:translate-x-1">
-                      {item.label}
-                    </span>
+                if (item.hasSubmenu) {
+                  return (
+                    <div key={item.label} className="flex flex-col group/item">
+                      <div className="w-full flex items-center justify-between text-left py-2.5 sm:py-3">
+                        <Link
+                          href={item.href}
+                          onClick={() => {
+                            setSelectedOption(item.label);
+                            setSubmenuOpen(!submenuOpen);
+                          }}
+                          onMouseEnter={() => setHoveredOption(item.label)}
+                          onMouseLeave={() => setHoveredOption(null)}
+                          className={`font-urbanist text-[22px] sm:text-[24px] leading-[1.35] tracking-[0.035em] transition-all duration-300 ${
+                            isActive
+                              ? 'text-[#3E1A10] font-normal translate-x-1'
+                              : 'text-[#5C2E20]/80 font-light hover:text-[#3E1A10] hover:translate-x-0.5'
+                          }`}
+                        >
+                          {item.title}
+                        </Link>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSelectedOption(item.label);
+                            setSubmenuOpen(!submenuOpen);
+                          }}
+                          onMouseEnter={() => setHoveredOption(item.label)}
+                          onMouseLeave={() => setHoveredOption(null)}
+                          aria-label={`Toggle ${item.title} submenu`}
+                          className="p-1 -mr-1 text-[#4E2418] bg-transparent border-0 cursor-pointer flex items-center justify-end min-w-[76px] h-6 overflow-visible"
+                        >
+                          <div
+                            className={`transition-all duration-300 ease-out transform ${
+                              isActive
+                                ? 'opacity-100 translate-x-0'
+                                : 'opacity-0 translate-x-3 pointer-events-none'
+                            }`}
+                          >
+                            <OrnamentalArrow
+                              expanded={submenuOpen}
+                              className="w-[72px] sm:w-[80px] h-4 text-[#4E2418] shrink-0 transition-transform duration-300"
+                            />
+                          </div>
+                        </button>
+                      </div>
+
+                      {/* Expandable Submenu */}
+                      {submenuOpen && (
+                        <div className="pl-4 pt-1.5 pb-3 flex flex-col gap-2.5 border-l border-line/30 my-1 animate-fadeIn">
+                          {item.submenu?.map((sub) => (
+                            <Link
+                              key={sub.name}
+                              href={sub.href}
+                              onClick={() => {
+                                setSelectedOption(item.label);
+                                setMobileMenuOpen(false);
+                              }}
+                              className="font-urbanist text-[16px] font-light text-muted hover:text-[#4E2418] transition-all duration-200 tracking-[0.04em] hover:translate-x-1 py-1"
+                            >
+                              {sub.name}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
+                return (
+                  <div
+                    key={item.label}
+                    className="w-full flex items-center justify-between text-left py-2.5 sm:py-3 group/item cursor-pointer"
+                    onClick={() => setSelectedOption(item.label)}
+                  >
+                    <Link
+                      href={item.href}
+                      onClick={() => {
+                        setSelectedOption(item.label);
+                        setMobileMenuOpen(false);
+                      }}
+                      onMouseEnter={() => setHoveredOption(item.label)}
+                      onMouseLeave={() => setHoveredOption(null)}
+                      className={`font-urbanist text-[22px] sm:text-[24px] leading-[1.35] tracking-[0.035em] transition-all duration-300 ${
+                        isActive
+                          ? 'text-[#3E1A10] font-normal translate-x-1'
+                          : 'text-[#5C2E20]/80 font-light hover:text-[#3E1A10] hover:translate-x-0.5'
+                      }`}
+                    >
+                      {item.title}
+                    </Link>
+
+                    {/* Dynamic Ornamental Arrow for active / selected item */}
+                    <div
+                      className="flex items-center justify-end min-w-[76px] h-6 overflow-visible cursor-pointer"
+                      onClick={() => setSelectedOption(item.label)}
+                      onMouseEnter={() => setHoveredOption(item.label)}
+                      onMouseLeave={() => setHoveredOption(null)}
+                    >
+                      <div
+                        className={`transition-all duration-300 ease-out transform ${
+                          isActive
+                            ? 'opacity-100 translate-x-0'
+                            : 'opacity-0 translate-x-3 pointer-events-none'
+                        }`}
+                      >
+                        <OrnamentalArrow
+                          className="w-[72px] sm:w-[80px] h-4 text-[#4E2418] shrink-0"
+                        />
+                      </div>
+                    </div>
                   </div>
-                  <ChevronRight
-                    size={16}
-                    className="text-muted/60 transition-all duration-200 group-hover:translate-x-1 group-hover:text-ink"
-                  />
-                </Link>
-              ))}
+                );
+              })}
             </nav>
 
-            {/* Explore Section */}
-            <div className="mt-7 pt-6 border-t border-line">
-              <p className="m-0 mb-3.5 uppercase tracking-[0.2em] text-[10px] font-semibold text-muted">
-                EXPLORE IDANAZHI
-              </p>
-              <div className="flex flex-col gap-1">
-                {menuLinks.map((link) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center justify-between py-2 text-[14px] text-ink hover:text-forest transition-colors duration-150"
-                  >
-                    <span>{link.name}</span>
-                    <ChevronRight size={14} className="text-muted/50" />
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Destinations Section */}
-            <div className="mt-6 pt-6 border-t border-line">
-              <p className="m-0 mb-3 uppercase tracking-[0.2em] text-[10px] font-semibold text-muted">
-                DESTINATIONS
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {menuDestinations.map((place) => (
-                  <Link
-                    key={place}
-                    href={
-                      place === 'Singapore'
-                        ? '/singapore/'
-                        : place === 'Dubai'
-                        ? '/dubai/'
-                        : '/hotels-resorts/'
-                    }
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="font-sans text-[10.5px] uppercase tracking-[0.1em] px-2.5 py-1.5 border border-line bg-linen/40 text-ink hover:bg-ink hover:text-white transition-colors duration-150"
-                  >
-                    {place}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Language Preference */}
-            <div className="mt-6 pt-5 border-t border-line flex items-center justify-between">
-              <span className="text-[10px] uppercase tracking-[0.16em] font-semibold text-muted">
-                LANGUAGE
-              </span>
+            {/* Subtle Luxury Footer Utilities */}
+            <div className="mt-10 pt-7 border-t border-line/30 flex items-center gap-3 font-urbanist">
               <button
                 type="button"
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  setLangOpen(true);
+                  setBooking(true);
                 }}
-                className="font-sans text-[11px] uppercase tracking-[0.12em] px-2.5 py-1 border border-line text-ink hover:bg-ink/5 transition-colors cursor-pointer"
+                className="bg-[#4E2418] text-white px-5 py-2.5 text-[10.5px] font-medium tracking-[0.18em] uppercase hover:bg-forest transition-colors cursor-pointer"
               >
-                {currentLang} &middot; CHANGE
+                RESERVE YOUR STAY
               </button>
-            </div>
-          </div>
-
-          {/* Drawer Footer */}
-          <div className="p-5 px-6 border-t border-line bg-linen/35 shrink-0 flex flex-col gap-2.5">
-            <button
-              type="button"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                setBooking(true);
-              }}
-              className="w-full bg-[#7C402E] text-white border border-[#7C402E] py-3 text-[10.5px] font-semibold tracking-[0.16em] uppercase transition-all duration-200 hover:bg-[#5A2D21] shadow-sm text-center cursor-pointer"
-            >
-              CHECK RATES & STAY
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                setContactOpen(true);
-              }}
-              className="w-full bg-white text-ink border border-line py-2.5 text-[10px] font-semibold tracking-[0.16em] uppercase transition-all duration-200 hover:bg-ink/5 text-center cursor-pointer"
-            >
-              CONTACT CONCIERGE
-            </button>
-
-            <div className="flex items-center justify-between text-[11px] text-muted pt-2 border-t border-line/60">
-              <a href="tel:+912942779000" className="flex items-center gap-1.5 hover:text-ink transition-colors">
-                <Phone size={13} className="text-ink" />
-                <span>+91 294 277 9000</span>
-              </a>
-              <a href="mailto:hello@idanazhi.com" className="flex items-center gap-1.5 hover:text-ink transition-colors">
-                <Mail size={13} className="text-ink" />
-                <span>hello@idanazhi.com</span>
-              </a>
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setContactOpen(true);
+                }}
+                className="border border-line text-[#4E2418] px-4 py-2.5 text-[10.5px] font-medium tracking-[0.18em] uppercase hover:bg-ink/5 transition-colors cursor-pointer"
+              >
+                CONTACT
+              </button>
             </div>
           </div>
         </aside>

@@ -32,9 +32,23 @@ export function PropertyCard({ property }: { property: Property }) {
   );
 }
 
-export function SectionIntro({ eyebrow, title, text, action, href = '/hotels-resorts/' }: { eyebrow: string; title: string; text: string; action?: string; href?: string }) {
+export function SectionIntro({
+  eyebrow,
+  title,
+  text,
+  action,
+  href = '/hotels-resorts/',
+  className = '',
+}: {
+  eyebrow: string;
+  title: string;
+  text: string;
+  action?: string;
+  href?: string;
+  className?: string;
+}) {
   return (
-    <section className="max-w-[820px] mx-auto text-center py-[150px] px-6 pb-[112px] max-[720px]:py-[90px] max-[720px]:px-6 max-[720px]:pb-[70px]">
+    <section className={`max-w-[820px] mx-auto text-center py-[68px] px-6 pb-[56px] max-[720px]:py-[38px] max-[720px]:px-6 max-[720px]:pb-[28px] ${className}`}>
       <Eyebrow>{eyebrow}</Eyebrow>
       <h2 className="font-serif text-[clamp(38px,4.1vw,61px)] font-normal leading-none tracking-[-0.045em] m-0 mb-7">{title}</h2>
       <p className="max-w-[600px] mx-auto mb-[30px] text-muted text-[17px]">{text}</p>
