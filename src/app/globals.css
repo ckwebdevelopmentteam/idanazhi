@@ -16,11 +16,8 @@
 
 /* Base resets & defaults */
 @layer base {
-  html {
-    overflow-x: hidden;
-  }
   body {
-    @apply m-0 bg-paper text-ink font-sans text-[15px] leading-[1.55] overflow-x-hidden;
+    @apply m-0 bg-paper text-ink font-sans text-[15px] leading-[1.55];
   }
   a {
     @apply text-inherit no-underline;
