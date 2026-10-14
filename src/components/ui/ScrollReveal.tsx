@@ -20,7 +20,9 @@ export interface ScrollRevealProps {
   containerClassName?: string;
   textClassName?: string;
   rotationEnd?: string;
+  wordAnimationStart?: string;
   wordAnimationEnd?: string;
+  stagger?: number;
   transformOrigin?: string;
   as?: React.ElementType;
 }
@@ -35,14 +37,18 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
   containerClassName = '',
   textClassName = '',
   rotationEnd = 'bottom bottom',
+  wordAnimationStart = 'top bottom-=15%',
   wordAnimationEnd = 'bottom bottom',
+  stagger = 0.05,
   transformOrigin = '50% 50%',
   as: Component = 'h2',
 }) => {
   const containerRef = useRef<HTMLElement | null>(null);
+  const isStringChildren = typeof children === 'string';
 
   const splitText = useMemo(() => {
-    const text = typeof children === 'string' ? children : '';
+    if (!isStringChildren) return null;
+    const text = children as string;
     const lines = text
       .trim()
       .split('\n')
@@ -68,7 +74,7 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
         </span>
       );
     });
-  }, [children]);
+  }, [children, isStringChildren]);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -99,6 +105,7 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
       }
 
       const wordElements = el.querySelectorAll('.word');
+      if (wordElements.length === 0) return;
 
       gsap.fromTo(
         wordElements,
@@ -106,11 +113,11 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
         {
           ease: 'none',
           opacity: 1,
-          stagger: 0.05,
+          stagger: stagger,
           scrollTrigger: {
             trigger: el,
             scroller,
-            start: 'top bottom-=15%',
+            start: wordAnimationStart,
             end: wordAnimationEnd,
             scrub: true,
           },
@@ -124,11 +131,11 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
           {
             ease: 'none',
             filter: 'blur(0px)',
-            stagger: 0.05,
+            stagger: stagger,
             scrollTrigger: {
               trigger: el,
               scroller,
-              start: 'top bottom-=15%',
+              start: wordAnimationStart,
               end: wordAnimationEnd,
               scrub: true,
             },
@@ -146,7 +153,9 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
     baseRotation,
     baseOpacity,
     rotationEnd,
+    wordAnimationStart,
     wordAnimationEnd,
+    stagger,
     blurStrength,
     transformOrigin,
   ]);
@@ -154,9 +163,13 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
   return (
     <Component
       ref={containerRef}
-      className={`scroll-reveal text-center mx-auto ${containerClassName}`}
+      className={`scroll-reveal ${isStringChildren ? 'text-center mx-auto' : ''} ${containerClassName}`}
     >
-      <p className={`scroll-reveal-text text-center mx-auto ${textClassName}`}>{splitText}</p>
+      {isStringChildren ? (
+        <p className={`scroll-reveal-text text-center mx-auto ${textClassName}`}>{splitText}</p>
+      ) : (
+        children
+      )}
     </Component>
   );
 };
