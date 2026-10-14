@@ -16,14 +16,18 @@ export interface WeddingPhotoCard {
 export type WeddingCard = WeddingEditorialCard | WeddingPhotoCard;
 
 export interface WeddingSectionData {
+  eyebrow?: string;
   heading: string;
+  description?: string;
   ctaText: string;
   ctaHref: string;
   cards: WeddingCard[];
 }
 
 export const weddingIntroData: WeddingSectionData = {
+  eyebrow: 'WEDDING EXPERIENCES',
   heading: 'A Timeless Setting for Your Most Meaningful Moments',
+  description: "Rooted in heritage and shaped by timeless character, IDANAZHI offers an extraordinary setting to bring your closest people together and celebrate life's most meaningful beginnings.",
   ctaText: 'Discover Weddings',
   ctaHref: '/hotels-resorts/#celebration',
   cards: [
