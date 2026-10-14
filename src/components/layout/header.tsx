@@ -45,7 +45,7 @@ const languages = [
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
-  const [menu, setMenu] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [booking, setBooking] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
@@ -66,12 +66,25 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    const isAnyModalOpen = menu || booking || contactOpen || langOpen;
+    const isAnyModalOpen = mobileMenuOpen || booking || contactOpen || langOpen;
     document.body.style.overflow = isAnyModalOpen ? 'hidden' : '';
     return () => {
       document.body.style.overflow = '';
     };
-  }, [menu, booking, contactOpen, langOpen]);
+  }, [mobileMenuOpen, booking, contactOpen, langOpen]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMobileMenuOpen(false);
+        setBooking(false);
+        setContactOpen(false);
+        setLangOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   return (
     <>
@@ -82,13 +95,13 @@ export function Header() {
             : ''
         }`}
       >
-        <div className="w-full max-w-[1400px] mx-auto px-6 box-border flex flex-col max-[1080px]:max-w-[1160px] max-[1080px]:px-5 max-[960px]:max-w-full max-[960px]:px-5 max-[640px]:px-4">
-          {/* Primary navigation */}
+        <div className="w-full max-w-[1400px] mx-auto px-6 box-border flex flex-col max-[1080px]:max-w-[1160px] max-[1080px]:px-5 max-[960px]:max-w-full max-[960px]:px-4">
+          {/* Desktop primary navigation (>= 961px) */}
           <nav
-            className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 py-[10px] pb-[13px] w-full box-border max-[1080px]:gap-3 max-[960px]:flex max-[960px]:justify-start max-[960px]:overflow-x-auto max-[960px]:py-2 max-[960px]:pb-[10px] max-[960px]:gap-[18px] max-[960px]:scrollbar-none max-[640px]:py-[6px] max-[640px]:pb-2 max-[640px]:gap-4"
-            aria-label="Primary navigation"
+            className="hidden min-[961px]:grid grid-cols-[1fr_auto_1fr] items-center gap-4 py-[10px] pb-[13px] w-full box-border max-[1080px]:gap-3"
+            aria-label="Desktop primary navigation"
           >
-            <div className="grid grid-cols-3 items-center max-[960px]:contents">
+            <div className="grid grid-cols-3 items-center">
               {navLinks.slice(0, 3).map((item) => (
                 <Link
                   key={item.label}
@@ -102,15 +115,14 @@ export function Header() {
             <Link
               href="/"
               aria-label="IDANAZHI home"
-              className="flex h-9 w-[104px] shrink-0 items-center justify-center justify-self-center max-[1080px]:h-8 max-[1080px]:w-[92px] max-[960px]:order-0 max-[960px]:h-7 max-[960px]:w-[76px]"
+              className="flex h-9 w-[104px] shrink-0 items-center justify-center justify-self-center max-[1080px]:h-8 max-[1080px]:w-[92px]"
             >
-              <img
-                src="/images/weddings/logo/idanazhi_symbol_transparent.svg"
-                alt=""
-                className={`h-full w-full object-contain ${scrolled ? '' : 'brightness-0 invert'}`}
+              <span
+                aria-hidden="true"
+                className={`h-full w-full [mask-image:url('/images/weddings/logo/idanazhi_symbol_transparent.svg')] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] [-webkit-mask-image:url('/images/weddings/logo/idanazhi_symbol_transparent.svg')] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain] transition-colors duration-300 ${scrolled ? 'bg-[#7C402E]' : 'bg-white'}`}
               />
             </Link>
-            <div className="grid grid-cols-3 items-center max-[960px]:contents">
+            <div className="grid grid-cols-3 items-center">
               {navLinks.slice(3).map((item) => (
                 <Link
                   key={item.label}
@@ -122,40 +134,180 @@ export function Header() {
               ))}
             </div>
           </nav>
+
+          {/* Mobile & Tablet navigation (< 961px) */}
+          <nav
+            className="grid min-[961px]:hidden grid-cols-[1fr_auto_1fr] items-center py-2.5 w-full box-border"
+            aria-label="Mobile primary navigation"
+          >
+            {/* Left: Hamburger 3-Line Menu Button */}
+            <div className="flex items-center justify-start">
+              <button
+                type="button"
+                aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+                aria-expanded={mobileMenuOpen}
+                aria-controls="mobile-nav-drawer"
+                onClick={() => setMobileMenuOpen(true)}
+                className={`group inline-flex items-center gap-2 p-1.5 -ml-1.5 bg-transparent border-0 cursor-pointer transition-all duration-200 active:scale-95 ${
+                  scrolled ? 'text-ink' : 'text-white'
+                }`}
+              >
+                <span className="flex flex-col justify-center items-start w-5 h-4 gap-[4.5px]" aria-hidden="true">
+                  <span
+                    className={`block h-[1.75px] w-5 rounded-full transition-all duration-300 ease-out ${
+                      scrolled ? 'bg-[#7C402E]' : 'bg-white'
+                    }`}
+                  />
+                  <span
+                    className={`block h-[1.75px] w-3.5 rounded-full transition-all duration-300 ease-out group-hover:w-5 ${
+                      scrolled ? 'bg-[#7C402E]' : 'bg-white'
+                    }`}
+                  />
+                  <span
+                    className={`block h-[1.75px] w-4.5 rounded-full transition-all duration-300 ease-out group-hover:w-5 ${
+                      scrolled ? 'bg-[#7C402E]' : 'bg-white'
+                    }`}
+                  />
+                </span>
+                <span className="sr-only">Menu</span>
+              </button>
+            </div>
+
+            {/* Center: Brand Logo */}
+            <Link
+              href="/"
+              aria-label="IDANAZHI home"
+              className="flex h-8 w-[92px] shrink-0 items-center justify-center justify-self-center transition-transform duration-200 active:scale-95"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <span
+                aria-hidden="true"
+                className={`h-full w-full [mask-image:url('/images/weddings/logo/idanazhi_symbol_transparent.svg')] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] [-webkit-mask-image:url('/images/weddings/logo/idanazhi_symbol_transparent.svg')] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain] transition-colors duration-300 ${
+                  scrolled ? 'bg-[#7C402E]' : 'bg-white'
+                }`}
+              />
+            </Link>
+
+            {/* Right: Contact Us Button */}
+            <div className="flex items-center justify-end">
+              <button
+                type="button"
+                onClick={() => setContactOpen(true)}
+                className={`font-sans text-[10px] font-medium tracking-[0.14em] uppercase px-3 py-1.5 border transition-all duration-200 ease-in-out whitespace-nowrap active:scale-95 cursor-pointer ${
+                  scrolled
+                    ? 'border-[#7C402E] text-[#7C402E] hover:bg-[#7C402E] hover:text-white'
+                    : 'border-white/85 text-white hover:bg-white hover:text-[#7C402E]'
+                }`}
+              >
+                CONTACT US
+              </button>
+            </div>
+          </nav>
         </div>
       </header>
 
-      {/* Full-Screen Menu Overlay */}
-      {menu && (
-        <div className="fixed z-50 inset-0 bg-paper text-ink overflow-auto" role="dialog" aria-modal="true" aria-label="Main navigation">
-          <div className="h-[88px] flex items-center justify-between border-b border-line px-[5vw]">
-            <button
-              type="button"
-              aria-label="Close menu"
-              className="bg-transparent border-none text-ink cursor-pointer p-2 inline-flex items-center justify-center transition-opacity duration-200 ease-in-out hover:opacity-70"
-              onClick={() => setMenu(false)}
+      {/* Mobile Luxury Slide-in Drawer from the Left */}
+      <div
+        className={`fixed inset-0 z-50 transition-all duration-300 ${
+          mobileMenuOpen ? 'pointer-events-auto visible' : 'pointer-events-none invisible'
+        }`}
+        aria-hidden={!mobileMenuOpen}
+      >
+        {/* Backdrop blur overlay */}
+        <div
+          className={`fixed inset-0 bg-[rgba(30,16,12,0.6)] backdrop-blur-[6px] transition-opacity duration-300 ease-out ${
+            mobileMenuOpen ? 'opacity-100' : 'opacity-0'
+          }`}
+          onClick={() => setMobileMenuOpen(false)}
+        />
+
+        {/* Left slide-in drawer container */}
+        <aside
+          id="mobile-nav-drawer"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation Menu"
+          className={`fixed top-0 left-0 bottom-0 w-[min(380px,86vw)] bg-paper text-ink shadow-[12px_0_40px_rgba(30,16,12,0.3)] flex flex-col justify-between transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] z-10 border-r border-line overflow-hidden ${
+            mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
+        >
+          {/* Drawer Top / Header */}
+          <div className="h-[74px] px-6 border-b border-line flex items-center justify-between shrink-0 bg-paper">
+            <Link
+              href="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-2.5 text-ink no-underline"
+              aria-label="IDANAZHI Home"
             >
-              <X size={22} />
-            </button>
-            <Link href="/" className="flex flex-col items-center justify-center no-underline text-ink cursor-pointer py-[1px]" onClick={() => setMenu(false)}>
-              <BrandLogo className="h-12 w-auto max-w-[182px]" />
+              <BrandLogo className="h-9 w-auto max-w-[140px]" />
             </Link>
             <button
               type="button"
-              className="border border-current bg-white text-ink px-[18px] py-3 text-[10px] tracking-[0.14em] transition-all duration-[180ms] ease-in-out hover:bg-ink hover:text-white"
-              onClick={() => {
-                setMenu(false);
-                setBooking(true);
-              }}
+              aria-label="Close menu"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-9 h-9 rounded-full border border-line flex items-center justify-center text-ink bg-transparent hover:bg-ink/5 transition-colors duration-200 cursor-pointer group"
             >
-              CHECK RATES
+              <X size={18} strokeWidth={1.75} className="group-hover:rotate-90 transition-transform duration-200" />
             </button>
           </div>
 
-          <div className="p-[7vw] grid grid-cols-2 gap-[8vw] max-w-[1250px] max-[720px]:grid-cols-1 max-[720px]:p-[45px_24px] max-[720px]:gap-5">
-            <div>
-              <p className="m-0 mb-[18px] uppercase tracking-[0.18em] text-[10px] font-semibold">DESTINATIONS</p>
-              <div className="border-t border-line">
+          {/* Drawer Body (Scrollable) */}
+          <div className="flex-1 overflow-y-auto px-6 py-6 overscroll-contain">
+            <p className="m-0 mb-3.5 uppercase tracking-[0.2em] text-[10px] font-semibold text-muted">
+              NAVIGATION
+            </p>
+
+            {/* Primary Navigation Links */}
+            <nav className="flex flex-col divide-y divide-line/60">
+              {navLinks.map((item, idx) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="group flex items-center justify-between py-3.5 text-ink no-underline transition-all duration-200 hover:text-forest"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="font-sans text-[10px] tracking-[0.14em] text-muted/70 w-5">
+                      {String(idx + 1).padStart(2, '0')}
+                    </span>
+                    <span className="font-serif text-[21px] font-normal tracking-[-0.01em] transition-transform duration-200 group-hover:translate-x-1">
+                      {item.label}
+                    </span>
+                  </div>
+                  <ChevronRight
+                    size={16}
+                    className="text-muted/60 transition-all duration-200 group-hover:translate-x-1 group-hover:text-ink"
+                  />
+                </Link>
+              ))}
+            </nav>
+
+            {/* Explore Section */}
+            <div className="mt-7 pt-6 border-t border-line">
+              <p className="m-0 mb-3.5 uppercase tracking-[0.2em] text-[10px] font-semibold text-muted">
+                EXPLORE IDANAZHI
+              </p>
+              <div className="flex flex-col gap-1">
+                {menuLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-between py-2 text-[14px] text-ink hover:text-forest transition-colors duration-150"
+                  >
+                    <span>{link.name}</span>
+                    <ChevronRight size={14} className="text-muted/50" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Destinations Section */}
+            <div className="mt-6 pt-6 border-t border-line">
+              <p className="m-0 mb-3 uppercase tracking-[0.2em] text-[10px] font-semibold text-muted">
+                DESTINATIONS
+              </p>
+              <div className="flex flex-wrap gap-2">
                 {menuDestinations.map((place) => (
                   <Link
                     key={place}
@@ -166,52 +318,70 @@ export function Header() {
                         ? '/dubai/'
                         : '/hotels-resorts/'
                     }
-                    className="flex justify-between border-b border-line py-3.5 font-serif text-[30px]"
-                    onClick={() => setMenu(false)}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="font-sans text-[10.5px] uppercase tracking-[0.1em] px-2.5 py-1.5 border border-line bg-linen/40 text-ink hover:bg-ink hover:text-white transition-colors duration-150"
                   >
-                    <span>{place}</span>
-                    <ChevronRight size={18} />
+                    {place}
                   </Link>
                 ))}
               </div>
             </div>
 
-            <div className="flex flex-col justify-between">
-              <p className="m-0 mb-[18px] uppercase tracking-[0.18em] text-[10px] font-semibold">EXPLORE IDANAZHI</p>
-              <div className="pt-7 flex flex-col gap-[18px] font-serif text-[clamp(25px,3vw,43px)] leading-[1.05] max-[720px]:pt-2.5">
-                {menuLinks.map((link) => (
-                  <Link key={link.name} href={link.href} onClick={() => setMenu(false)}>
-                    {link.name}
-                  </Link>
-                ))}
-                <button
-                  type="button"
-                  className="bg-transparent border-none text-inherit font-inherit text-left p-0 cursor-pointer transition-opacity duration-200 ease-in-out hover:opacity-70"
-                  onClick={() => {
-                    setMenu(false);
-                    setContactOpen(true);
-                  }}
-                >
-                  Contact Concierge
-                </button>
-              </div>
-
-              <div className="mt-9">
-                <button
-                  type="button"
-                  className="bg-ink text-white border border-ink w-full border-solid px-[18px] py-3 text-[10px] tracking-[0.14em] transition-all duration-[180ms] ease-in-out"
-                  onClick={() => {
-                    setMenu(false);
-                    setBooking(true);
-                  }}
-                >
-                  RESERVE YOUR STAY
-                </button>
-              </div>
+            {/* Language Preference */}
+            <div className="mt-6 pt-5 border-t border-line flex items-center justify-between">
+              <span className="text-[10px] uppercase tracking-[0.16em] font-semibold text-muted">
+                LANGUAGE
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setLangOpen(true);
+                }}
+                className="font-sans text-[11px] uppercase tracking-[0.12em] px-2.5 py-1 border border-line text-ink hover:bg-ink/5 transition-colors cursor-pointer"
+              >
+                {currentLang} &middot; CHANGE
+              </button>
             </div>
           </div>
-        </div>
-      )}
+
+          {/* Drawer Footer */}
+          <div className="p-5 px-6 border-t border-line bg-linen/35 shrink-0 flex flex-col gap-2.5">
+            <button
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setBooking(true);
+              }}
+              className="w-full bg-[#7C402E] text-white border border-[#7C402E] py-3 text-[10.5px] font-semibold tracking-[0.16em] uppercase transition-all duration-200 hover:bg-[#5A2D21] shadow-sm text-center cursor-pointer"
+            >
+              CHECK RATES & STAY
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setContactOpen(true);
+              }}
+              className="w-full bg-white text-ink border border-line py-2.5 text-[10px] font-semibold tracking-[0.16em] uppercase transition-all duration-200 hover:bg-ink/5 text-center cursor-pointer"
+            >
+              CONTACT CONCIERGE
+            </button>
+
+            <div className="flex items-center justify-between text-[11px] text-muted pt-2 border-t border-line/60">
+              <a href="tel:+912942779000" className="flex items-center gap-1.5 hover:text-ink transition-colors">
+                <Phone size={13} className="text-ink" />
+                <span>+91 294 277 9000</span>
+              </a>
+              <a href="mailto:hello@idanazhi.com" className="flex items-center gap-1.5 hover:text-ink transition-colors">
+                <Mail size={13} className="text-ink" />
+                <span>hello@idanazhi.com</span>
+              </a>
+            </div>
+          </div>
+        </aside>
+      </div>
 
       {/* Contact Modal */}
       {contactOpen && (

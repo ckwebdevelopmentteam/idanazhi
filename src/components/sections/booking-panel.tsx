@@ -24,7 +24,7 @@ export function BookingPanel({ close }: { close: () => void }) {
       aria-modal="true"
       aria-label="Check rates"
     >
-      <div className="w-[min(560px,100%)] h-full bg-paper p-[56px_54px] relative max-[720px]:p-[56px_25px]">
+      <div className="w-[min(560px,100%)] h-full bg-paper p-[56px_54px] relative max-[720px]:p-[56px_25px] overflow-y-auto">
         <button
           className="absolute top-4 right-4 border-0 bg-none text-ink cursor-pointer"
           onClick={close}
