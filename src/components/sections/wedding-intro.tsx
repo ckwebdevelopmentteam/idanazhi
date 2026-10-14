@@ -132,16 +132,16 @@ export function WeddingIntro({
       aria-labelledby="wedding-intro-heading"
     >
       {/* Sticky Viewport Container */}
-      <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden pt-[calc(44px+1vh)] pb-2 max-[720px]:pt-[58px] max-[720px]:pb-3">
+      <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden pt-[calc(30px+1.2vh)] pb-[clamp(14px,2vh,28px)] max-[720px]:pt-[58px] max-[720px]:pb-3">
         {/* Section Header: Centered Eyebrow, Heading, Description & CTA */}
-        <div className="flex flex-col items-center text-center max-w-[860px] mx-auto px-6 mb-3.5 min-[1280px]:mb-4.5 min-[1600px]:mb-5 shrink-0 max-[720px]:mb-3">
+        <div className="flex flex-col items-center text-center max-w-[860px] mx-auto px-6 mb-3.5 min-[1024px]:mb-[clamp(24px,4vh,48px)] shrink-0 max-[720px]:mb-3">
           {data.eyebrow && (
             <motion.p
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-60px' }}
               variants={fadeUpVariants}
-              className="m-0 mb-1.5 uppercase tracking-[0.18em] text-[10px] font-semibold text-muted text-center max-[720px]:mb-1"
+              className="m-0 mb-1.5 min-[1280px]:mb-2.5 uppercase tracking-[0.18em] text-[10px] font-semibold text-muted text-center max-[720px]:mb-1"
             >
               {data.eyebrow}
             </motion.p>
@@ -149,7 +149,7 @@ export function WeddingIntro({
 
           <motion.h2
             id="wedding-intro-heading"
-            className="font-jakarta font-normal text-[clamp(20px,2vw,34px)] leading-[1.2] tracking-[-0.01em] uppercase text-ink m-0 max-w-[860px] text-center max-[720px]:text-[20px] max-[480px]:text-[17px]"
+            className="font-jakarta font-normal text-[clamp(21px,2.1vw,36px)] leading-[1.22] tracking-[-0.01em] uppercase text-ink m-0 max-w-[880px] text-center max-[720px]:text-[20px] max-[480px]:text-[17px]"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-60px' }}
@@ -172,7 +172,7 @@ export function WeddingIntro({
               whileInView="visible"
               viewport={{ once: true, margin: '-60px' }}
               variants={fadeUpVariants}
-              className="m-0 mt-2 max-w-[780px] mx-auto text-muted text-[clamp(12.5px,0.9vw,14px)] leading-[1.55] text-center max-[720px]:text-[12.5px] max-[720px]:mt-1.5"
+              className="m-0 mt-2 min-[1280px]:mt-2.5 max-w-[780px] mx-auto text-muted text-[clamp(12.5px,0.9vw,14px)] leading-[1.58] text-center max-[720px]:text-[12.5px] max-[720px]:mt-1.5"
             >
               <span className="hidden min-[721px]:inline">
                 {line1Words}
@@ -193,11 +193,11 @@ export function WeddingIntro({
               whileInView="visible"
               viewport={{ once: true, margin: '-60px' }}
               variants={ctaVariants}
-              className="mt-3 max-[720px]:mt-2"
+              className="mt-3 min-[1024px]:mt-[clamp(12px,1.8vh,22px)] max-[720px]:mt-2"
             >
               <Link
                 href={data.ctaHref}
-                className="group inline-flex items-center gap-2 text-[14px] font-sans tracking-[0.02em] text-ink focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[4px]"
+                className="group inline-flex items-center gap-2 text-[13.5px] sm:text-[14px] font-sans tracking-[0.05em] uppercase text-ink focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[4px]"
                 aria-label={`${data.ctaText} - View wedding celebrations and offerings`}
               >
                 <span className="relative pb-1 transition-colors duration-300 ease-out group-hover:text-forest">
@@ -292,7 +292,7 @@ export function WeddingIntro({
         </div>
 
         {/* Scroll Progress Indicator */}
-        <div className="flex items-center justify-center gap-3 mt-3 min-[1280px]:mt-4 shrink-0">
+        <div className="flex items-center justify-center gap-3 mt-3 min-[1024px]:mt-[clamp(16px,2.6vh,32px)] shrink-0">
           <span className="text-[10px] tracking-[0.2em] uppercase font-semibold text-muted">01</span>
           <div className="w-36 h-[2px] bg-ink/15 overflow-hidden rounded-full">
             <motion.div

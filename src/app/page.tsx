@@ -4,6 +4,7 @@ import { experiences, images, properties } from '@/data/content';
 import { ImageBlock, PropertyCard, SectionIntro } from '@/components/sections/editorial';
 import { HeroBookingCta } from '@/components/sections/hero-booking-cta';
 import { WeddingIntro } from '@/components/sections/wedding-intro';
+import { StoryOfIdanazhi } from '@/components/sections/story-of-idanazhi';
 
 export default function Home() {
   return (
@@ -32,6 +33,8 @@ export default function Home() {
       </section>
 
       <WeddingIntro />
+
+      <StoryOfIdanazhi />
 
       <SectionIntro
         eyebrow="DESTINATION WEDDINGS"
