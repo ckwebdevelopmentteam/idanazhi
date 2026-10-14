@@ -79,6 +79,12 @@ export function WeddingIntro({
   className = '',
 }: WeddingIntroProps) {
   const words = data.heading.split(' ');
+  const descWords = data.description ? data.description.trim().split(/\s+/) : [];
+  const line3Words = descWords.slice(-3).join(' ');
+  const remainingWords = descWords.slice(0, -3);
+  const splitIndex = 10;
+  const line1Words = remainingWords.slice(0, splitIndex).join(' ');
+  const line2Words = remainingWords.slice(splitIndex).join(' ');
 
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -128,14 +134,14 @@ export function WeddingIntro({
       {/* Sticky Viewport Container */}
       <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden pt-[calc(48px+1vh)] pb-2 max-[720px]:pt-[54px] max-[720px]:pb-2">
         {/* Section Header: Centered Eyebrow, Heading, Description & CTA */}
-        <div className="flex flex-col items-center text-center max-w-[860px] mx-auto px-6 mb-4 min-[1280px]:mb-6 shrink-0 max-[720px]:mb-3">
+        <div className="flex flex-col items-center text-center max-w-[860px] mx-auto px-6 mb-3.5 min-[1280px]:mb-6 shrink-0 max-[720px]:mb-3">
           {data.eyebrow && (
             <motion.p
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-60px' }}
               variants={fadeUpVariants}
-              className="m-0 mb-3 uppercase tracking-[0.18em] text-[10px] font-semibold text-muted text-center max-[720px]:mb-2"
+              className="m-0 mb-1.5 min-[1280px]:mb-2.5 uppercase tracking-[0.18em] text-[10px] font-semibold text-muted text-center max-[720px]:mb-1"
             >
               {data.eyebrow}
             </motion.p>
@@ -143,7 +149,7 @@ export function WeddingIntro({
 
           <motion.h2
             id="wedding-intro-heading"
-            className="font-jakarta font-normal text-[clamp(24px,2.5vw,40px)] leading-[1.25] tracking-[-0.01em] uppercase text-ink m-0 max-w-[860px] text-center max-[720px]:text-[24px] max-[480px]:text-[20px]"
+            className="font-jakarta font-normal text-[clamp(21px,2.1vw,36px)] leading-[1.22] tracking-[-0.01em] uppercase text-ink m-0 max-w-[880px] text-center max-[720px]:text-[20px] max-[480px]:text-[17px]"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-60px' }}
@@ -166,9 +172,18 @@ export function WeddingIntro({
               whileInView="visible"
               viewport={{ once: true, margin: '-60px' }}
               variants={fadeUpVariants}
-              className="m-0 mt-3.5 max-w-[600px] mx-auto text-muted text-[clamp(13px,0.95vw,15px)] leading-[1.65] text-center max-[720px]:text-[13px] max-[720px]:mt-2.5"
+              className="m-0 mt-2 min-[1280px]:mt-2.5 max-w-[780px] mx-auto text-muted text-[clamp(12.5px,0.9vw,14px)] leading-[1.58] text-center max-[720px]:text-[12.5px] max-[720px]:mt-1.5"
             >
-              {data.description}
+              <span className="hidden min-[721px]:inline">
+                {line1Words}
+                <br />
+                {line2Words}
+                <br />
+                {line3Words}
+              </span>
+              <span className="min-[721px]:hidden">
+                {data.description}
+              </span>
             </motion.p>
           )}
 
@@ -178,15 +193,23 @@ export function WeddingIntro({
               whileInView="visible"
               viewport={{ once: true, margin: '-60px' }}
               variants={ctaVariants}
-              className="mt-4 max-[720px]:mt-3"
+              className="mt-3 min-[1024px]:mt-[clamp(12px,1.8vh,22px)] max-[720px]:mt-2"
             >
               <Link
                 href={data.ctaHref}
-                className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.15em] font-semibold uppercase text-ink border-b border-ink pb-1.5 hover:text-forest transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[3px]"
+                className="group inline-flex items-center gap-2 text-[13.5px] sm:text-[14px] font-sans tracking-[0.05em] uppercase text-ink focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[4px]"
                 aria-label={`${data.ctaText} - View wedding celebrations and offerings`}
               >
-                <span>{data.ctaText}</span>
-                <ArrowUpRight size={14} aria-hidden="true" />
+                <span className="relative pb-1 transition-colors duration-300 ease-out group-hover:text-forest">
+                  {data.ctaText}
+                  <span className="absolute bottom-0 left-0 w-full h-[1px] bg-ink/30 transition-colors duration-300" />
+                  <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-forest origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]" />
+                </span>
+                <ArrowUpRight
+                  size={15}
+                  className="text-ink transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-forest group-hover:translate-x-[3px] group-hover:-translate-y-[3px]"
+                  aria-hidden="true"
+                />
               </Link>
             </motion.div>
           )}
@@ -269,7 +292,7 @@ export function WeddingIntro({
         </div>
 
         {/* Scroll Progress Indicator */}
-        <div className="flex items-center justify-center gap-3 mt-5 min-[1400px]:mt-7 shrink-0">
+        <div className="flex items-center justify-center gap-3 mt-4 min-[1400px]:mt-6 shrink-0">
           <span className="text-[10px] tracking-[0.2em] uppercase font-semibold text-muted">01</span>
           <div className="w-36 h-[2px] bg-ink/15 overflow-hidden rounded-full">
             <motion.div

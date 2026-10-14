@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
-import { experiences, images, properties } from '@/data/content';
-import { ImageBlock, PropertyCard, SectionIntro } from '@/components/sections/editorial';
+import { experiences, images } from '@/data/content';
+import { ImageBlock, SectionIntro } from '@/components/sections/editorial';
 import { HeroBookingCta } from '@/components/sections/hero-booking-cta';
 import { WeddingIntro } from '@/components/sections/wedding-intro';
+import { StoryOfIdanazhi } from '@/components/sections/story-of-idanazhi';
+import { CelebrationsAndExperience } from '@/components/sections/celebrations-and-experience';
 
 export default function Home() {
   return (
@@ -26,34 +28,16 @@ export default function Home() {
           />
           <HeroBookingCta />
         </div>
-        <a href="#culture" className="absolute z-1 right-[4vw] bottom-[42px] flex items-center gap-2 text-[10px] tracking-[0.16em] [writing-mode:vertical-rl] max-[720px]:right-[21px] max-[720px]:bottom-[19px]">
+        <a href="#story" className="absolute z-1 right-[4vw] bottom-[42px] flex items-center gap-2 text-[10px] tracking-[0.16em] [writing-mode:vertical-rl] max-[720px]:right-[21px] max-[720px]:bottom-[19px]">
           SCROLL <ArrowDown size={15} />
         </a>
       </section>
 
       <WeddingIntro />
 
-      <SectionIntro
-        eyebrow="DESTINATION WEDDINGS"
-        title="Celebration in extraordinary settings"
-        text="From the edge of the lake to the heart of the city, IDANAZHI creates unforgettable destination weddings, immersive stays and deeply personal moments."
-        action="DISCOVER"
-      />
+      <StoryOfIdanazhi />
 
-      {/* Featured Properties */}
-      <section id="culture" className="px-[5.4vw] pb-[155px] max-[720px]:px-6 max-[720px]:pb-[90px]">
-        <div className="flex justify-between border-t border-line pt-5 mb-[35px]">
-          <p className="m-0 mb-[18px] uppercase tracking-[0.18em] text-[10px] font-semibold">OUR DESTINATIONS</p>
-          <Link href="/hotels-resorts/" className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.15em] font-semibold border-b border-ink pb-1.5 hover:text-forest">
-            VIEW ALL <ArrowUpRight size={15} />
-          </Link>
-        </div>
-        <div className="grid grid-cols-4 gap-[22px] max-[980px]:grid-cols-2 max-[980px]:gap-6 max-[720px]:grid-cols-1">
-          {properties.slice(0, 4).map((property) => (
-            <PropertyCard key={property.slug} property={property} />
-          ))}
-        </div>
-      </section>
+      <CelebrationsAndExperience />
 
       {/* Brand Story */}
       <section className="grid grid-cols-[1.14fr_0.86fr] bg-linen max-[720px]:grid-cols-1">

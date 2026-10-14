@@ -41,8 +41,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${lato.variable} ${cormorant.variable} ${jakarta.variable} ${urbanist.variable}`}>
-      <body className="font-lato antialiased">
+    <html lang="en" className={`bg-paper ${lato.variable} ${cormorant.variable} ${jakarta.variable} ${urbanist.variable}`}>
+      <body className="font-lato antialiased bg-paper">
         <SmoothScrollProvider>
           <Header />
           {children}

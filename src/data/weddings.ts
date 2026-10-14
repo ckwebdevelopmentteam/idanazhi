@@ -28,7 +28,7 @@ export const weddingIntroData: WeddingSectionData = {
   eyebrow: 'WEDDING EXPERIENCES',
   heading: 'A Timeless Setting for Your Most Meaningful Moments',
   description: "Rooted in heritage and shaped by timeless character, IDANAZHI offers an extraordinary setting to bring your closest people together and celebrate life's most meaningful beginnings.",
-  ctaText: 'Discover Weddings',
+  ctaText: 'DISCOVER WEDDINGS',
   ctaHref: '/hotels-resorts/#celebration',
   cards: [
     {
