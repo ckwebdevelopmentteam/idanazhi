@@ -38,9 +38,9 @@ export default function Home() {
 
       <StoryOfIdanazhi />
 
-      <StayAtIdanazhi />
-
       <CelebrationsAndExperience />
+
+      <StayAtIdanazhi />
 
       {/* Brand Story */}
       <section className="grid grid-cols-[1.14fr_0.86fr] bg-linen max-[720px]:grid-cols-1">
