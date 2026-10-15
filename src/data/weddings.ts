@@ -26,18 +26,12 @@ export interface WeddingSectionData {
 
 export const weddingIntroData: WeddingSectionData = {
   eyebrow: 'WEDDING EXPERIENCES',
-  heading: 'A Timeless Setting for Your Most Meaningful Moments',
-  description: "Rooted in heritage and shaped by timeless character, IDANAZHI offers an extraordinary setting to bring your closest people together and celebrate life's most meaningful beginnings.",
+  heading: 'A Timeless Setting for Your Most\nMeaningful Moments',
+  description:
+    "Rooted in heritage and shaped by timeless character,\nIDANAZHI offers an extraordinary setting to bring your closest people together\nand celebrate life's most meaningful beginnings.",
   ctaText: 'DISCOVER WEDDINGS',
   ctaHref: '/hotels-resorts/#celebration',
   cards: [
-    {
-      type: 'editorial',
-      eyebrow: 'CELEBRATIONS AT IDANAZHI',
-      copy: "Some moments deserve more than an ordinary venue. Rooted in heritage and shaped by timeless character, Idanazhi offers a distinctive setting to bring your closest people together and celebrate life's most meaningful beginnings.",
-      linkText: 'Explore the experience',
-      linkHref: '/singapore/experiences/',
-    },
     {
       type: 'photo',
       image: '/images/weddings/stage-heritage-mandapam.jpg',

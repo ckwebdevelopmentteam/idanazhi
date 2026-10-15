@@ -104,10 +104,10 @@ export function CelebrationsAndExperience({ className = '' }: CelebrationsAndExp
   return (
     <section
       id="celebrations-and-experience"
-      className={`relative w-full bg-[#3d1e16] text-white pt-[clamp(56px,7.5vh,90px)] pb-[clamp(36px,5vh,64px)] max-[720px]:pt-[44px] max-[720px]:pb-[24px] border-t border-white/10 overflow-hidden ${className}`}
+      className={`relative w-full h-screen min-h-[100svh] min-h-[100dvh] bg-[#3d1e16] text-white pt-[clamp(28px,4vh,56px)] pb-[clamp(16px,2.5vh,32px)] max-[720px]:pt-[24px] max-[720px]:pb-[16px] border-t border-white/10 overflow-hidden flex flex-col justify-between ${className}`}
       aria-label="Celebrations and Experiences"
     >
-      <div className="w-full flex flex-col">
+      <div className="w-full h-full flex-1 min-h-0 flex flex-col justify-between">
         {/* Row: CELEBRATIONS (Left) | AND (Center) | EXPERIENCES (Right) with Scroll Reveal Effect */}
         <ScrollReveal
           as="div"
@@ -118,7 +118,7 @@ export function CelebrationsAndExperience({ className = '' }: CelebrationsAndExp
           stagger={0.09}
           wordAnimationStart="top bottom-=5%"
           wordAnimationEnd="bottom 55%"
-          containerClassName="!m-0 w-full px-[5.4vw] max-[720px]:px-6 grid grid-cols-3 items-center gap-2 sm:gap-6 pb-6 sm:pb-8"
+          containerClassName="!m-0 w-full px-[5.4vw] max-[720px]:px-6 grid grid-cols-3 items-center gap-2 sm:gap-6 pb-2 sm:pb-4 shrink-0"
         >
           {/* Left: CELEBRATIONS */}
           <div className="flex items-center justify-start">
@@ -148,11 +148,12 @@ export function CelebrationsAndExperience({ className = '' }: CelebrationsAndExp
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
           variants={fadeUpVariants}
-          className="w-full"
+          className="w-full flex-1 min-h-0 flex flex-col"
         >
           <PolaroidLineCarousel
             slides={celebrationSlides}
-            height="clamp(600px, 72vh, 760px)"
+            height="100%"
+            className="flex-1 min-h-0 w-full"
             cardWidth={375}
             sag={48}
             swing={1}

@@ -5,6 +5,7 @@ import { ImageBlock, SectionIntro } from '@/components/sections/editorial';
 import { HeroBookingCta } from '@/components/sections/hero-booking-cta';
 import { WeddingIntro } from '@/components/sections/wedding-intro';
 import { StoryOfIdanazhi } from '@/components/sections/story-of-idanazhi';
+import { StayAtIdanazhi } from '@/components/sections/stay-at-idanazhi';
 import { CelebrationsAndExperience } from '@/components/sections/celebrations-and-experience';
 
 export default function Home() {
@@ -36,6 +37,8 @@ export default function Home() {
       <WeddingIntro />
 
       <StoryOfIdanazhi />
+
+      <StayAtIdanazhi />
 
       <CelebrationsAndExperience />
 
