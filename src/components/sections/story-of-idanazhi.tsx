@@ -146,7 +146,7 @@ export function StoryOfIdanazhi({ className = '' }: StoryOfIdanazhiProps) {
   return (
     <section
       id="story"
-      className={`relative bg-paper py-[clamp(72px,10vh,135px)] px-[5.4vw] max-[720px]:px-6 max-[720px]:py-[60px] overflow-hidden ${className}`}
+      className={`relative bg-paper pt-0 pb-[clamp(72px,10vh,135px)] px-[5.4vw] max-[720px]:px-6 max-[720px]:pt-0 max-[720px]:pb-[60px] overflow-hidden ${className}`}
       aria-labelledby="story-of-idanazhi-heading"
     >
       <div className="w-full max-w-[1480px] mx-auto text-center flex flex-col items-center justify-center">

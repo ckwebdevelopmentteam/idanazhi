@@ -5,6 +5,7 @@ import { ImageBlock, SectionIntro } from '@/components/sections/editorial';
 import { HeroBookingCta } from '@/components/sections/hero-booking-cta';
 import { WeddingIntro } from '@/components/sections/wedding-intro';
 import { StoryOfIdanazhi } from '@/components/sections/story-of-idanazhi';
+import { StayAtIdanazhi } from '@/components/sections/stay-at-idanazhi';
 import { CelebrationsAndExperience } from '@/components/sections/celebrations-and-experience';
 
 export default function Home() {
@@ -38,6 +39,8 @@ export default function Home() {
       <StoryOfIdanazhi />
 
       <CelebrationsAndExperience />
+
+      <StayAtIdanazhi />
 
       {/* Brand Story */}
       <section className="grid grid-cols-[1.14fr_0.86fr] bg-linen max-[720px]:grid-cols-1">
