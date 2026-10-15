@@ -302,6 +302,31 @@ export function WeddingIntro({
     }
   };
 
+  const isDefaultHeading =
+    !data.heading ||
+    data.heading.toLowerCase().includes('meaningful moments');
+
+  const headingContent = isDefaultHeading ? (
+    <span className="block !font-jakarta !font-normal !text-[clamp(20px,2.5vw,38px)] !leading-[1.36] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[940px] mx-auto sm:whitespace-nowrap">
+      <span className="word">A</span>{' '}
+      <span className="word">TIMELESS</span>{' '}
+      <span className="word">SETTING</span>{' '}
+      <span className="word">FOR</span>{' '}
+      <span className="word">YOUR</span>
+      <br className="sm:hidden" />
+      {' '}
+      <span className="word">MOST</span>
+      <br className="hidden sm:block" />
+      {' '}
+      <span className="word">MEANINGFUL</span>
+      <br className="sm:hidden" />
+      {' '}
+      <span className="word">MOMENTS</span>
+    </span>
+  ) : (
+    headingText
+  );
+
   return (
     <section
       id="weddings"
@@ -336,7 +361,7 @@ export function WeddingIntro({
               wordAnimationStart="top 85%"
               wordAnimationEnd="bottom 55%"
             >
-              {headingText}
+              {headingContent}
             </ScrollReveal>
           </div>
 
@@ -349,11 +374,27 @@ export function WeddingIntro({
                 baseRotation={0}
                 blurStrength={5}
                 containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
-                textClassName="!font-sans !font-normal !text-[clamp(15px,1.05vw,17px)] !leading-[1.75] !text-muted text-center max-w-[840px] mx-auto"
                 wordAnimationStart="top 53%"
                 wordAnimationEnd="bottom 28%"
               >
-                {descLines.join('\n')}
+                <span className="block !font-sans !font-normal !text-[clamp(15px,1.05vw,17px)] !leading-[1.75] !text-muted text-center max-w-[840px] mx-auto">
+                  {descLines.map((line, lineIdx) => {
+                    const words = line.trim().split(/\s+/);
+                    return (
+                      <React.Fragment key={lineIdx}>
+                        <span className="sm:block sm:whitespace-nowrap">
+                          {words.map((word, wordIdx) => (
+                            <React.Fragment key={wordIdx}>
+                              <span className="word">{word}</span>
+                              {wordIdx < words.length - 1 && ' '}
+                            </React.Fragment>
+                          ))}
+                        </span>
+                        {lineIdx < descLines.length - 1 && ' '}
+                      </React.Fragment>
+                    );
+                  })}
+                </span>
               </ScrollReveal>
             </div>
           )}
