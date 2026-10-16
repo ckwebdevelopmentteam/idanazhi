@@ -7,7 +7,26 @@
   --color-paper: #f7f3ef;
   --color-linen: #e9ddd5;
   --color-muted: #79665e;
+  --color-muted-foreground: #79665e;
   --color-line: rgba(124, 64, 46, 0.25);
+
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-ink);
+  --color-card: #fdfaf7;
+  --color-card-foreground: var(--color-ink);
+  --color-popover: #fdfaf7;
+  --color-popover-foreground: var(--color-ink);
+  --color-primary: var(--color-ink);
+  --color-primary-foreground: #ffffff;
+  --color-secondary: var(--color-linen);
+  --color-secondary-foreground: var(--color-ink);
+  --color-accent: var(--color-linen);
+  --color-accent-foreground: var(--color-ink);
+  --color-destructive: #991b1b;
+  --color-destructive-foreground: #ffffff;
+  --color-border: rgba(124, 64, 46, 0.16);
+  --color-input: rgba(124, 64, 46, 0.25);
+  --color-ring: var(--color-ink);
 
   --font-serif: var(--font-serif), Georgia, 'Times New Roman', serif;
   --font-sans: var(--font-lato), var(--font-jakarta), Arial, sans-serif;

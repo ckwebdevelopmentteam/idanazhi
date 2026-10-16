@@ -1,11 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { motion, type Variants } from 'framer-motion';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import { HeroCarousel, type HeroCarouselItem } from '@/components/ui/hero-carousel';
+import { BookingPanel } from '@/components/sections/booking-panel';
 
 const fadeUpVariants: Variants = {
   hidden: {
@@ -79,6 +80,8 @@ export interface StayAtIdanazhiProps {
 }
 
 export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
+  const [bookingOpen, setBookingOpen] = useState(false);
+
   return (
     <section
       id="stay"
@@ -203,9 +206,13 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
             mode="cards-only"
             theme="dark"
             defaultIndex={1}
+            actionLabel="BOOK NOW"
+            onCardAction={() => setBookingOpen(true)}
           />
         </div>
       </div>
+
+      {bookingOpen && <BookingPanel close={() => setBookingOpen(false)} />}
     </section>
   );
 }

@@ -18,7 +18,7 @@ import {
   useMotionValue,
   useReducedMotion,
 } from "framer-motion"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -77,6 +77,10 @@ export interface HeroCarouselProps {
   theme?: "light" | "dark"
   /** Whether to show card title/metadata overlay on the focused card in cards-only mode @default true */
   showCardOverlay?: boolean
+  /** Action button text on the expanded card in cards-only mode. Set to false to disable. @default "BOOK NOW" */
+  actionLabel?: string | false
+  /** Callback fired when the expanded card action button is clicked */
+  onCardAction?: (item: HeroCarouselItem, index: number) => void
 }
 
 /* Ratios lifted from the reference layout, all relative to the stage box. */
@@ -115,6 +119,8 @@ export function HeroCarousel({
   cardHeight,
   theme = "light",
   showCardOverlay = true,
+  actionLabel = "BOOK NOW",
+  onCardAction,
 }: HeroCarouselProps) {
   const stageRef = React.useRef<HTMLDivElement>(null)
   const [box, setBox] = React.useState({
@@ -452,12 +458,19 @@ export function HeroCarousel({
           {items.map((item, i) => {
             const isCurrent = i === index
             return (
-              <motion.button
+              <motion.div
                 key={item.id ?? i}
-                type="button"
+                role="button"
+                tabIndex={0}
                 aria-label={item.title.replace(/\n/g, " ")}
                 aria-current={isCurrent}
                 onClick={() => go(i)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault()
+                    go(i)
+                  }
+                }}
                 className={cn(
                   "relative shrink-0 overflow-hidden text-left focus:outline-none transition-shadow duration-300",
                   isCardsOnly
@@ -502,13 +515,13 @@ export function HeroCarousel({
                 {/* Optional overlay label on the focused card in cards-only mode */}
                 {isCardsOnly && showCardOverlay && (
                   <motion.div
-                    className="absolute inset-x-0 bottom-0 p-4 sm:p-5 bg-gradient-to-t from-black/85 via-black/40 to-transparent pointer-events-none"
+                    className="absolute inset-x-0 bottom-0 p-3.5 sm:p-4.5 bg-gradient-to-t from-black/90 via-black/55 to-transparent pointer-events-none"
                     initial={false}
                     animate={{ opacity: isCurrent ? 1 : 0 }}
                     transition={{ duration: 0.3 }}
                   >
                     {item.subtitle && (
-                      <p className="font-mono text-[9.5px] sm:text-[10.5px] uppercase tracking-[0.18em] text-white/80 m-0 mb-1">
+                      <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.18em] text-white/80 m-0 mb-1">
                         {item.subtitle}
                       </p>
                     )}
@@ -520,16 +533,41 @@ export function HeroCarousel({
                         {item.meta.slice(0, 2).map((m, idx) => (
                           <span
                             key={idx}
-                            className="font-mono text-[9px] uppercase tracking-[0.12em] text-white/70"
+                            className="font-mono text-[8.5px] sm:text-[9px] uppercase tracking-[0.12em] text-white/70"
                           >
                             {m}
                           </span>
                         ))}
                       </div>
                     )}
+                    {actionLabel && isCurrent && (
+                      <div className="mt-2.5 sm:mt-3">
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            onCardAction?.(item, i)
+                          }}
+                          className={cn(
+                            "pointer-events-auto w-full inline-flex items-center justify-between",
+                            "px-3 py-2 sm:py-2.5",
+                            "border border-white/80 bg-black/40 hover:bg-white hover:text-ink hover:border-white",
+                            "backdrop-blur-sm text-white font-sans text-[10px] sm:text-[10.5px] font-normal tracking-[0.2em] uppercase",
+                            "transition-all duration-300 ease-out cursor-pointer group/btn"
+                          )}
+                        >
+                          <span>{actionLabel}</span>
+                          <ArrowRight
+                            size={14}
+                            strokeWidth={1.5}
+                            className="transition-transform duration-300 ease-out group-hover/btn:translate-x-1"
+                          />
+                        </button>
+                      </div>
+                    )}
                   </motion.div>
                 )}
-              </motion.button>
+              </motion.div>
             )
           })}
         </motion.div>
