@@ -12,7 +12,7 @@ const SCALE_FACTOR = 0.08;
 const MIN_SCALE = 0.08;
 const MAX_SCALE = 2;
 const HOVER_SCALE_MULTIPLIER = 1.02;
-const CARD_PADDING = 100;
+const CARD_PADDING = 120;
 const FRAME_OFFSET = -30;
 const FRAMES_VISIBLE_LENGTH = 3;
 const SNAP_DISTANCE = 50;
@@ -48,8 +48,8 @@ export interface ScrollableCardStackProps {
 
 export const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
   items,
-  cardHeight = 360,
-  perspective = 1100,
+  cardHeight = 420,
+  perspective = 1200,
   transitionDuration = 220,
   className,
   currentIndex: externalIndex,
@@ -359,14 +359,14 @@ export const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
     [currentIndex, items.length, clamp, shouldReduceMotion],
   );
 
-  const cardWidth = Math.min(520, Math.round(cardHeight * 1.52));
+  const cardWidth = Math.min(660, Math.round(cardHeight * 1.52));
 
   return (
     <section
       aria-atomic="true"
       aria-label="Scrollable card stack"
       aria-live="polite"
-      className={cn("relative mx-auto h-fit w-full max-w-[560px]", className)}
+      className={cn("relative mx-auto h-fit w-full max-w-[700px]", className)}
       onMouseEnter={() => setIsContainerHovered(true)}
       onMouseLeave={() => {
         setIsContainerHovered(false);
@@ -521,8 +521,8 @@ export const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
 
                   {/* Badge over photo */}
                   {item.tag && (
-                    <div className="absolute top-3.5 left-3.5 z-4 rounded-full bg-white/85 backdrop-blur-md px-3 py-1 shadow-sm border border-white/50">
-                      <span className="font-sans text-[10px] font-semibold tracking-[0.16em] uppercase text-ink">
+                    <div className="absolute top-4 left-4 z-4 rounded-full bg-white/90 backdrop-blur-md px-3.5 py-1.5 shadow-sm border border-white/60">
+                      <span className="font-sans text-[11px] font-semibold tracking-[0.18em] uppercase text-ink">
                         {item.tag}
                       </span>
                     </div>
@@ -533,7 +533,7 @@ export const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                 <a
                   aria-label={`View ${item.name}`}
                   className={cn(
-                    "relative z-10 flex items-center justify-between border-t border-line/40 bg-white/95 px-4 py-3 text-decoration-none text-inherit backdrop-blur-md transition-colors duration-200 hover:bg-white",
+                    "relative z-10 flex items-center justify-between border-t border-line/40 bg-white/95 px-5 py-3.5 text-decoration-none text-inherit backdrop-blur-md transition-colors duration-200 hover:bg-white",
                   )}
                   href={item.linkHref || item.href}
                   rel={
@@ -543,26 +543,26 @@ export const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                   }
                   target={item.href?.startsWith("http") ? "_blank" : undefined}
                 >
-                  <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="flex items-center gap-3 min-w-0">
                     <img
                       alt={`${item.name}'s avatar`}
-                      className="h-6 w-6 flex-shrink-0 overflow-hidden rounded-full object-cover border border-line"
+                      className="h-7 w-7 flex-shrink-0 overflow-hidden rounded-full object-cover border border-line"
                       draggable={false}
-                      height={24}
+                      height={28}
                       src={item.avatar}
-                      width={24}
+                      width={28}
                     />
                     <div className="min-w-0 flex flex-col">
-                      <span className="truncate font-serif font-medium text-ink text-[14px] leading-tight">
+                      <span className="truncate font-serif font-medium text-ink text-[15.5px] leading-tight">
                         {item.name}
                       </span>
-                      <span className="truncate font-sans font-normal text-muted text-[11px] leading-tight">
+                      <span className="truncate font-sans font-normal text-muted text-[12px] leading-tight">
                         {item.handle}
                       </span>
                     </div>
                   </div>
 
-                  <span className="flex-shrink-0 font-sans text-[10px] font-semibold uppercase tracking-[0.15em] text-ink/75 hover:text-ink pl-2">
+                  <span className="flex-shrink-0 font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/80 hover:text-ink pl-2">
                     {item.linkText || "View →"}
                   </span>
                 </a>
