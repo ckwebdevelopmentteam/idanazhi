@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Play, Pause, ArrowUpRight, Sparkles } from 'lucide-react';
+import { ArrowUpRight, Sparkles } from 'lucide-react';
 import { ScrollableCardStack, CardItem } from '@/components/ui/scrollable-card-stack';
 
 export interface ExperienceCardItem extends CardItem {
@@ -151,7 +151,6 @@ export function ExperiencesGallery({
   autoPlayInterval = 2000,
 }: ExperiencesGalleryProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
   const total = items.length;
@@ -159,7 +158,7 @@ export function ExperiencesGallery({
 
   // Auto-advance with exactly 2 seconds delay
   useEffect(() => {
-    if (isPaused || isHovered || total <= 1) {
+    if (isHovered || total <= 1) {
       return;
     }
 
@@ -168,19 +167,7 @@ export function ExperiencesGallery({
     }, autoPlayInterval);
 
     return () => clearInterval(timer);
-  }, [isPaused, isHovered, total, autoPlayInterval, activeIndex]);
-
-  const handleNext = useCallback(() => {
-    setActiveIndex((prev) => (prev + 1) % total);
-  }, [total]);
-
-  const handlePrev = useCallback(() => {
-    setActiveIndex((prev) => (prev - 1 + total) % total);
-  }, [total]);
-
-  const handleSelect = useCallback((idx: number) => {
-    setActiveIndex(idx);
-  }, []);
+  }, [isHovered, total, autoPlayInterval, activeIndex]);
 
   return (
     <section
@@ -311,78 +298,6 @@ export function ExperiencesGallery({
                   </div>
                 </motion.div>
               </AnimatePresence>
-            </div>
-
-            {/* 2-Second Visual Progress Bar */}
-            <div className="mt-9 max-w-[540px]">
-              <div className="flex items-center justify-between pb-2 text-[11px] uppercase tracking-[0.18em] text-muted font-medium">
-                <span>Auto-playing • 2s Interval</span>
-                <span>{isPaused ? 'Paused' : 'Playing'}</span>
-              </div>
-              <div className="h-[2.5px] w-full overflow-hidden rounded-full bg-ink/15">
-                <motion.div
-                  key={`progress-${activeIndex}-${isPaused || isHovered}`}
-                  className="h-full bg-ink origin-left"
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: isPaused || isHovered ? 0 : 1 }}
-                  transition={{
-                    duration: isPaused || isHovered ? 0 : autoPlayInterval / 1000,
-                    ease: 'linear',
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* Interactive Controls: Previous / Play-Pause / Next / Indicator Pills */}
-            <div className="mt-7 flex flex-wrap items-center gap-5">
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={handlePrev}
-                  aria-label="Previous slide"
-                  className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-ink/25 text-ink transition-all duration-200 hover:border-ink hover:bg-ink hover:text-white active:scale-95 cursor-pointer shadow-xs"
-                >
-                  <ChevronLeft size={18} />
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setIsPaused((prev) => !prev)}
-                  aria-label={isPaused ? 'Resume auto-play' : 'Pause auto-play'}
-                  title={isPaused ? 'Resume auto-play' : 'Pause auto-play'}
-                  className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-ink/25 text-ink transition-all duration-200 hover:border-ink hover:bg-ink hover:text-white active:scale-95 cursor-pointer shadow-xs"
-                >
-                  {isPaused ? <Play size={14} className="ml-0.5" /> : <Pause size={14} />}
-                </button>
-
-                <button
-                  type="button"
-                  onClick={handleNext}
-                  aria-label="Next slide"
-                  className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-ink/25 text-ink transition-all duration-200 hover:border-ink hover:bg-ink hover:text-white active:scale-95 cursor-pointer shadow-xs"
-                >
-                  <ChevronRight size={18} />
-                </button>
-              </div>
-
-              {/* Quick Tab/Dot Selectors */}
-              <div className="flex items-center gap-2 pl-2" role="tablist">
-                {items.map((item, idx) => (
-                  <button
-                    key={`dot-${item.id}`}
-                    type="button"
-                    role="tab"
-                    aria-selected={idx === activeIndex}
-                    aria-label={`Go to slide ${idx + 1}: ${item.title}`}
-                    onClick={() => handleSelect(idx)}
-                    className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
-                      idx === activeIndex
-                        ? 'w-8 bg-ink'
-                        : 'w-2.5 bg-ink/25 hover:bg-ink/50'
-                    }`}
-                  />
-                ))}
-              </div>
             </div>
           </div>
         </div>
