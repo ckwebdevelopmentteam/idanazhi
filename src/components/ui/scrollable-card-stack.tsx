@@ -44,6 +44,8 @@ export interface ScrollableCardStackProps {
   pauseOnHover?: boolean;
   loop?: boolean;
   showIndicators?: boolean;
+  showCardFooter?: boolean;
+  showCardBadge?: boolean;
 }
 
 export const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
@@ -59,6 +61,8 @@ export const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
   pauseOnHover = true,
   loop = true,
   showIndicators = true,
+  showCardFooter = false,
+  showCardBadge = false,
 }) => {
   const [internalIndex, setInternalIndex] = useState(0);
   const isControlled = externalIndex !== undefined;
@@ -477,8 +481,8 @@ export const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                   <div className="absolute top-2 left-1/2 z-20 h-1 w-10 -translate-x-1/2 rounded-full bg-ink/80 shadow-md" />
                 ) : null}
 
-                {/* Image Container */}
-                <div className="relative w-full flex-1 overflow-hidden bg-linen/50">
+                {/* Image Container - Full Bleed */}
+                <div className="relative w-full h-full flex-1 overflow-hidden bg-linen/50">
                   {/* Subtle placeholder blur */}
                   <img
                     alt=""
@@ -513,14 +517,16 @@ export const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                     width={cardWidth}
                   />
 
-                  {/* Luxury gradient vignette */}
-                  <div
-                    className="absolute inset-0 z-3 bg-gradient-to-t from-black/60 via-black/10 to-transparent pointer-events-none"
-                    aria-hidden="true"
-                  />
+                  {/* Optional Luxury gradient vignette */}
+                  {showCardFooter && (
+                    <div
+                      className="absolute inset-0 z-3 bg-gradient-to-t from-black/60 via-black/10 to-transparent pointer-events-none"
+                      aria-hidden="true"
+                    />
+                  )}
 
-                  {/* Badge over photo */}
-                  {item.tag && (
+                  {/* Optional Badge over photo */}
+                  {showCardBadge && item.tag && (
                     <div className="absolute top-4 left-4 z-4 rounded-full bg-white/90 backdrop-blur-md px-3.5 py-1.5 shadow-sm border border-white/60">
                       <span className="font-sans text-[11px] font-semibold tracking-[0.18em] uppercase text-ink">
                         {item.tag}
@@ -529,43 +535,45 @@ export const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                   )}
                 </div>
 
-                {/* Card Footer: User / Experience Info */}
-                <a
-                  aria-label={`View ${item.name}`}
-                  className={cn(
-                    "relative z-10 flex items-center justify-between border-t border-line/40 bg-white/95 px-5 py-3.5 text-decoration-none text-inherit backdrop-blur-md transition-colors duration-200 hover:bg-white",
-                  )}
-                  href={item.linkHref || item.href}
-                  rel={
-                    item.href?.startsWith("http")
-                      ? "noopener noreferrer"
-                      : undefined
-                  }
-                  target={item.href?.startsWith("http") ? "_blank" : undefined}
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <img
-                      alt={`${item.name}'s avatar`}
-                      className="h-7 w-7 flex-shrink-0 overflow-hidden rounded-full object-cover border border-line"
-                      draggable={false}
-                      height={28}
-                      src={item.avatar}
-                      width={28}
-                    />
-                    <div className="min-w-0 flex flex-col">
-                      <span className="truncate font-serif font-medium text-ink text-[15.5px] leading-tight">
-                        {item.name}
-                      </span>
-                      <span className="truncate font-sans font-normal text-muted text-[12px] leading-tight">
-                        {item.handle}
-                      </span>
+                {/* Optional Card Footer: User / Experience Info */}
+                {showCardFooter && (
+                  <a
+                    aria-label={`View ${item.name}`}
+                    className={cn(
+                      "relative z-10 flex items-center justify-between border-t border-line/40 bg-white/95 px-5 py-3.5 text-decoration-none text-inherit backdrop-blur-md transition-colors duration-200 hover:bg-white",
+                    )}
+                    href={item.linkHref || item.href}
+                    rel={
+                      item.href?.startsWith("http")
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
+                    target={item.href?.startsWith("http") ? "_blank" : undefined}
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <img
+                        alt={`${item.name}'s avatar`}
+                        className="h-7 w-7 flex-shrink-0 overflow-hidden rounded-full object-cover border border-line"
+                        draggable={false}
+                        height={28}
+                        src={item.avatar}
+                        width={28}
+                      />
+                      <div className="min-w-0 flex flex-col">
+                        <span className="truncate font-serif font-medium text-ink text-[15.5px] leading-tight">
+                          {item.name}
+                        </span>
+                        <span className="truncate font-sans font-normal text-muted text-[12px] leading-tight">
+                          {item.handle}
+                        </span>
+                      </div>
                     </div>
-                  </div>
 
-                  <span className="flex-shrink-0 font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/80 hover:text-ink pl-2">
-                    {item.linkText || "View →"}
-                  </span>
-                </a>
+                    <span className="flex-shrink-0 font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/80 hover:text-ink pl-2">
+                      {item.linkText || "View →"}
+                    </span>
+                  </a>
+                )}
               </div>
             </motion.div>
           );
