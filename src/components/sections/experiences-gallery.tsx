@@ -1,308 +1,264 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Sparkles } from 'lucide-react';
-import { ScrollableCardStack, CardItem } from '@/components/ui/scrollable-card-stack';
+import { ArrowUpRight, Move } from 'lucide-react';
+import {
+  DraggableContainer,
+  GridBody,
+  GridItem,
+} from '@/components/ui/infinite-drag-scroll';
 
-export interface ExperienceCardItem extends CardItem {
-  tag: string;
+export interface GalleryPhotoItem {
+  id: number;
   title: string;
-  subtitle?: string;
-  description: string;
-  highlights?: string[];
-  linkText: string;
-  linkHref: string;
+  category: string;
+  src: string;
+  alt: string;
 }
 
-export const experiencesSlides: ExperienceCardItem[] = [
+export const galleryImages: GalleryPhotoItem[] = [
   {
-    id: 'savour',
-    tag: 'GASTRONOMY & CELLAR',
-    title: 'Savour',
-    subtitle: 'Royal Travancore Flavours & Open-Air Twilight Banquets',
-    name: 'Culinary Pavilions',
-    handle: '@idanazhi.dining',
-    avatar: '/images/weddings/logo/smy_mark_hd.png',
-    image: '/images/experiences/savour-dining.jpg',
-    href: '/singapore/#dining',
-    linkText: 'Explore Dining',
-    linkHref: '/singapore/#dining',
-    description:
-      'Celebrated culinary artisans, immersive ancestral journeys, and a spirit of farm-fresh innovation define our open-air pavilions and starlit banquet halls. Here, organic estate harvest meets time-honoured Travancore royal recipes, woodfired earthen spices, and bespoke sommelier pairings crafted to turn every feast into a luminous memory.',
-    highlights: [
-      'Farm-to-Table Organic Harvest',
-      'Royal Travancore Recipes',
-      'Twilight Sommelier Cellar',
-    ],
+    id: 1,
+    title: 'Savour Dining',
+    category: 'GASTRONOMY',
+    src: '/images/experiences/savour-dining.jpg',
+    alt: 'Outdoor dining banquet and twilight pavilions at Idanazhi',
   },
   {
-    id: 'reset',
-    tag: 'AYURVEDA & RETREAT',
-    title: 'Reset',
-    subtitle: 'Holistic Ayurvedic Sanctuaries & Ancient Herbal Healing',
-    name: 'Ayurveda & Retreat',
-    handle: '@idanazhi.wellness',
-    avatar: '/images/weddings/logo/smy_mark_hd.png',
-    image: '/images/experiences/reset-wellness.jpg',
-    href: '/singapore/experiences/',
-    linkText: 'Explore Wellness',
-    linkHref: '/singapore/experiences/',
-    description:
-      'Surrender to the restorative rhythm of Kerala’s ancient medicinal gardens, tranquil reflecting pools, and therapeutic herbal steam sanctuaries. Guided by master Vaidyas and certified wellness practitioners, our bespoke Ayurvedic therapies and mindful meditation pavilions restore harmonious vitality to body, mind, and spirit from within.',
-    highlights: [
-      'Authentic Panchakarma & Vaidya Care',
-      'Herbal Medicinal Flora',
-      'Serene Reflecting Pools',
-    ],
+    id: 2,
+    title: 'Ayurvedic Sanctuary',
+    category: 'WELLBEING',
+    src: '/images/experiences/reset-wellness.jpg',
+    alt: 'Ayurvedic wellness sanctuary and reflecting pool',
   },
   {
-    id: 'celebrate',
-    tag: 'DESTINATION WEDDINGS',
-    title: 'Celebrate',
-    subtitle: 'Grand Floral Mandapams & Regal Landmark Receptions',
-    name: 'Grand Mandapams',
-    handle: '@idanazhi.weddings',
-    avatar: '/images/weddings/logo/smy_mark_hd.png',
-    image: '/images/weddings/stage-grand-reception.jpg',
-    href: '/#celebrations-and-experience',
-    linkText: 'Explore Celebrations',
-    linkHref: '/#celebrations-and-experience',
-    description:
-      'The stage is yours to enchant. Host showstopping wedding ceremonies, auspicious dawn rituals, and landmark family reunions beneath opulent floral mandapams and twinkling banyan canopies. From majestic procession motifs and temple drum crescendos to midnight banquet feasts, our dedicated wedding concierge orchestrates every milestone with impeccable grace.',
-    highlights: [
-      'Bespoke Floral Mandapams',
-      '1,500+ Guest Capacity Arenas',
-      'Dedicated Wedding Concierge',
-    ],
+    id: 3,
+    title: 'Grand Floral Mandapam',
+    category: 'WEDDINGS',
+    src: '/images/weddings/stage-grand-reception.jpg',
+    alt: 'Grand wedding reception stage and floral backdrop',
   },
   {
-    id: 'sanctuary',
-    tag: 'HERITAGE SUITES',
-    title: 'Sanctuary',
-    subtitle: 'Artful Teakwood Illams, Courtyards & Breezy Verandas',
-    name: 'Heritage Illams',
-    handle: '@idanazhi.stays',
-    avatar: '/images/weddings/logo/smy_mark_hd.png',
-    image: '/images/weddings/architecture-corridor.jpg',
-    href: '/#stay',
-    linkText: 'Explore Stays',
-    linkHref: '/#stay',
-    description:
-      'Artful suites and private heritage illams crafted with centuries-old teak columns, brass Urulis, and terracotta-tiled breezeways offer an oasis of unhurried seclusion. Awaken to morning birdcalls across coconut groves, take afternoon tea on shaded colonnades, and immerse in private plunge pools wrapped in lush tropical foliage.',
-    highlights: [
-      'Centuries-Old Teak Architecture',
-      'Shaded Courtyard Colonnades',
-      'Private Veranda Plunge Pools',
-    ],
+    id: 4,
+    title: 'Heritage Teak Corridor',
+    category: 'ARCHITECTURE',
+    src: '/images/weddings/architecture-corridor.jpg',
+    alt: 'Traditional Kerala teakwood illam corridor',
   },
   {
-    id: 'discover',
-    tag: 'CURATED ENCOUNTERS',
-    title: 'Discover',
-    subtitle: 'Historic Manor Architecture, Backwaters & Living Culture',
-    name: 'Varikkasseri Manor',
-    handle: '@idanazhi.estate',
-    avatar: '/images/weddings/logo/smy_mark_hd.png',
-    image: '/images/weddings/varikkasseri.jpg',
-    href: '/singapore/experiences/',
-    linkText: 'Explore Encounters',
-    linkHref: '/singapore/experiences/',
-    description:
-      'Venture beyond the ordinary with curated estate adventures on land and water. Uncover centuries of Travancore history at the historic Varikkasseri Manor, drift through serene palm-fringed backwater canals at golden hour, and immerse your evenings in dramatic Kathakali dance performances and classical percussion rhythms under starlit canopies.',
-    highlights: [
-      'Historic Manor Excursions',
-      'Sunset Backwater Cruises',
-      'Classical Kathakali Soirées',
-    ],
+    id: 5,
+    title: 'Varikkasseri Manor',
+    category: 'ENCOUNTERS',
+    src: '/images/weddings/varikkasseri.jpg',
+    alt: 'Historic Varikkasseri heritage estate manor',
   },
   {
-    id: 'cherish',
-    tag: 'SACRED UNION',
-    title: 'Cherish',
-    subtitle: 'Auspicious Dawn Rituals, Thalappoli & Sacred Bonds',
-    name: 'Sacred Moments',
-    handle: '@idanazhi.moments',
-    avatar: '/images/weddings/logo/smy_mark_hd.png',
-    image: '/images/weddings/card-togetherness-couple.jpg',
-    href: '/singapore/experiences/',
-    linkText: 'Explore Rituals',
-    linkHref: '/singapore/experiences/',
-    description:
-      'From the fragrant jasmine garlands and traditional dawn Thalappoli processions to sacred Vedic vows recited around ceremonial flames, celebrate eternal union enveloped in the spiritual warmth of Kerala. Every cherished tradition is honoured with authenticity, profound joy, and timeless elegance that echoes across generations.',
-    highlights: [
-      'Traditional Dawn Thalappoli',
-      'Sacred Vedic Ceremonies',
-      'Generational Keepsake Photography',
-    ],
+    id: 6,
+    title: 'Sacred Togetherness',
+    category: 'MOMENTS',
+    src: '/images/weddings/card-togetherness-couple.jpg',
+    alt: 'Wedding couple in traditional Kerala wedding attire',
+  },
+  {
+    id: 7,
+    title: 'Coastal Mandapam',
+    category: 'WEDDINGS',
+    src: '/images/weddings/stage-coastal-mandapam.jpg',
+    alt: 'Coastal mandapam with breeze and floral decor',
+  },
+  {
+    id: 8,
+    title: 'Paliam Heritage',
+    category: 'ESTATES',
+    src: '/images/weddings/paliam.jpg',
+    alt: 'Historic Paliam heritage estate palace',
+  },
+  {
+    id: 9,
+    title: 'Vedic Pujan Rituals',
+    category: 'RITUALS',
+    src: '/images/weddings/pair-pujan.jpg',
+    alt: 'Traditional Vedic wedding fire ceremony and pujan',
+  },
+  {
+    id: 10,
+    title: 'Heritage Mandapam',
+    category: 'WEDDINGS',
+    src: '/images/weddings/stage-heritage-mandapam.jpg',
+    alt: 'Carved teakwood heritage mandapam stage',
+  },
+  {
+    id: 11,
+    title: 'Outdoor Banquets',
+    category: 'CELEBRATIONS',
+    src: '/images/weddings/spaces/space-outdoor-1.jpg',
+    alt: 'Banquets under starlit banyan canopies',
+  },
+  {
+    id: 12,
+    title: 'Twilight Courtyard Dinner',
+    category: 'DINING',
+    src: '/images/weddings/spaces/space-dinner-1.jpg',
+    alt: 'Candlelit courtyard dinner under tropical trees',
+  },
+  {
+    id: 13,
+    title: 'Celebration Stage',
+    category: 'WEDDINGS',
+    src: '/images/weddings/spaces/stage-1.jpg',
+    alt: 'Grand wedding stage with warm lighting',
+  },
+  {
+    id: 14,
+    title: 'Joyous Evenings',
+    category: 'CELEBRATIONS',
+    src: '/images/weddings/celebration-1.jpg',
+    alt: 'Luminous celebration and festive laughter',
+  },
+  {
+    id: 15,
+    title: 'Traditional Thalappoli',
+    category: 'RITUALS',
+    src: '/images/weddings/hindu-rituals.jpg',
+    alt: 'Traditional Kerala wedding rituals with brass oil lamps',
+  },
+  {
+    id: 16,
+    title: 'South Indian Wedding',
+    category: 'MOMENTS',
+    src: '/images/weddings/celebration-2.jpg',
+    alt: 'Joyful celebration and bridal moments',
+  },
+  {
+    id: 17,
+    title: 'Private Illam Veranda',
+    category: 'STAYS',
+    src: '/images/weddings/spaces/space-dinner-2.jpg',
+    alt: 'Quiet breezy veranda dining space',
+  },
+  {
+    id: 18,
+    title: 'Floral Splendour',
+    category: 'DECOR',
+    src: '/images/weddings/spaces/stage-2.jpg',
+    alt: 'Floral mandapam styling with jasmine and marigold',
   },
 ];
 
 export interface ExperiencesGalleryProps {
   className?: string;
-  items?: ExperienceCardItem[];
-  autoPlayInterval?: number;
+  images?: GalleryPhotoItem[];
 }
 
 export function ExperiencesGallery({
   className = '',
-  items = experiencesSlides,
-  autoPlayInterval = 2000,
+  images = galleryImages,
 }: ExperiencesGalleryProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-
-  const total = items.length;
-  const current = items[activeIndex] || items[0];
-
-  // Auto-advance with exactly 2 seconds delay
-  useEffect(() => {
-    if (isHovered || total <= 1) {
-      return;
-    }
-
-    const timer = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % total);
-    }, autoPlayInterval);
-
-    return () => clearInterval(timer);
-  }, [isHovered, total, autoPlayInterval, activeIndex]);
-
   return (
-    <section
-      id="gallery"
-      aria-label="Idanazhi Resort Experiences Gallery"
-      className={`relative w-full bg-paper py-[clamp(72px,10vh,130px)] overflow-hidden border-t border-line/25 ${className}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* Background ambient luxury lighting */}
-      <div
-        className="pointer-events-none absolute -top-40 left-0 h-[520px] w-[520px] rounded-full bg-linen/50 blur-[130px]"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute -bottom-40 right-0 h-[520px] w-[520px] rounded-full bg-linen/40 blur-[130px]"
-        aria-hidden="true"
-      />
-
-      <div className="relative mx-auto max-w-[1480px] px-6 sm:px-10 lg:px-14">
-        {/* Top Header Row */}
-        <div className="mb-12 flex flex-wrap items-center justify-between gap-4 border-b border-line/20 pb-6">
-          <div className="flex items-center gap-3.5">
-            <span className="h-[2px] w-9 bg-ink/75" />
-            <span className="font-sans text-[12px] sm:text-[13px] font-semibold uppercase tracking-[0.24em] text-ink">
-              CURATED RESORT EXPERIENCES
+    <div className={`relative w-full ${className}`}>
+      {/* 1 Viewport Full Screen Infinite Drag Canvas */}
+      <section
+        id="gallery"
+        aria-label="Idanazhi Gallery Infinite Canvas"
+        className="relative h-screen min-h-[100svh] max-h-[100svh] w-full overflow-hidden bg-paper select-none border-t border-line/25"
+      >
+        {/* Top Floating Badge */}
+        <div className="pointer-events-none absolute top-7 inset-x-0 z-30 flex justify-center px-4">
+          <div className="pointer-events-auto flex items-center gap-2.5 rounded-full border border-line/30 bg-paper/90 px-5 py-2 shadow-sm backdrop-blur-md">
+            <span className="h-1.5 w-1.5 rounded-full bg-ink animate-pulse" />
+            <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.24em] text-ink">
+              GALLERY • LIVING HERITAGE
             </span>
           </div>
+        </div>
 
+        {/* Bottom Floating Explore More HUD */}
+        <div className="pointer-events-none absolute bottom-8 inset-x-0 z-30 flex flex-col items-center justify-center px-4">
+          <div className="pointer-events-auto flex items-center gap-4 rounded-full border border-line/35 bg-paper/92 px-6 py-3.5 shadow-2xl backdrop-blur-md transition-all duration-200 hover:bg-paper hover:shadow-[0_16px_48px_rgba(124,64,46,0.2)]">
+            <span className="font-serif text-[15px] sm:text-[16px] text-ink font-medium tracking-tight hidden sm:inline">
+              Curated Destination Moments
+            </span>
+            <span className="h-4 w-[1px] bg-ink/25 hidden sm:inline" />
+            <Link
+              href="/singapore/experiences/"
+              className="group inline-flex items-center gap-2 font-sans text-[12px] font-bold uppercase tracking-[0.18em] text-ink transition-colors hover:text-forest"
+            >
+              <span>EXPLORE MORE</span>
+              <ArrowUpRight
+                size={15}
+                className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
+            </Link>
+          </div>
+
+          <div className="mt-2.5 flex items-center gap-1.5 font-sans text-[10.5px] uppercase tracking-[0.2em] text-muted/80">
+            <Move size={11} className="text-ink/60" />
+            <span>DRAG CANVAS IN ANY DIRECTION</span>
+          </div>
+        </div>
+
+        {/* Infinite Draggable Grid */}
+        <DraggableContainer variant="masonry">
+          <GridBody>
+            {images.map((photo) => (
+              <GridItem
+                key={photo.id}
+                className="relative h-64 w-44 sm:h-80 sm:w-56 md:h-[400px] md:w-[280px]"
+              >
+                <img
+                  src={photo.src}
+                  alt={photo.alt}
+                  className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+
+                {/* Subtle luxury photo vignette */}
+                <div
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 transition-opacity duration-300 hover:opacity-100"
+                  aria-hidden="true"
+                />
+
+                {/* Hover title badge */}
+                <div className="pointer-events-none absolute bottom-3 left-3 right-3 flex items-center justify-between text-white drop-shadow-md opacity-0 transition-opacity duration-300 hover:opacity-100">
+                  <span className="truncate font-serif text-[14px]">
+                    {photo.title}
+                  </span>
+                  <span className="font-sans text-[9.5px] font-semibold uppercase tracking-[0.16em] opacity-80">
+                    {photo.category}
+                  </span>
+                </div>
+              </GridItem>
+            ))}
+          </GridBody>
+        </DraggableContainer>
+      </section>
+
+      {/* Explore More Option after 1 Viewport Height */}
+      <div className="w-full bg-linen/40 py-12 px-6 sm:px-12 border-b border-line/20">
+        <div className="max-w-[1360px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.22em] text-ink/75 block mb-1.5">
+              DESTINATION EXPERIENCES
+            </span>
+            <h3 className="font-serif text-[clamp(26px,3vw,38px)] text-ink font-normal tracking-tight m-0">
+              Adventures and encounters crafted for the curious traveller
+            </h3>
+          </div>
           <Link
             href="/singapore/experiences/"
-            className="group inline-flex items-center gap-1.5 font-sans text-[12px] sm:text-[13px] font-semibold uppercase tracking-[0.18em] text-ink transition-colors hover:text-forest"
+            className="flex-shrink-0 group inline-flex items-center gap-2.5 border border-ink bg-ink px-7 py-3.5 text-[11.5px] font-sans font-semibold uppercase tracking-[0.18em] text-white transition-all hover:bg-forest hover:border-forest shadow-md"
           >
-            <span>Explore All</span>
+            <span>EXPLORE ALL EXPERIENCES</span>
             <ArrowUpRight
               size={15}
-              className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
             />
           </Link>
         </div>
-
-        {/* 2-Column Responsive Layout:
-            PHOTO ON THE LEFT, TEXT ON THE RIGHT (swapped per request) */}
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.14fr_1.1fr] lg:gap-16">
-          {/* LEFT SIDE: Gallery Images in 3D Card Stack (Enlarged) */}
-          <div className="relative flex w-full items-center justify-center overflow-visible py-4 order-2 lg:order-1">
-            <ScrollableCardStack
-              items={items}
-              currentIndex={activeIndex}
-              onIndexChange={setActiveIndex}
-              autoPlay={false}
-              cardHeight={420}
-              showIndicators={false}
-              perspective={1200}
-              transitionDuration={220}
-              className="w-full"
-            />
-          </div>
-
-          {/* RIGHT SIDE: Rich Editorial Text & Controls (Enlarged) */}
-          <div className="flex flex-col justify-center order-1 lg:order-2 pl-0 lg:pl-4">
-            {/* Tag / Category and Counter */}
-            <div className="mb-5 flex items-center gap-4">
-              <span className="rounded-full bg-linen/80 px-4 py-1.5 font-sans text-[11.5px] sm:text-[12.5px] font-semibold uppercase tracking-[0.2em] text-ink border border-line/30 shadow-xs">
-                {current.tag}
-              </span>
-              <span className="font-sans text-[13px] sm:text-[14px] font-semibold tracking-[0.14em] text-muted">
-                {String(activeIndex + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
-              </span>
-            </div>
-
-            {/* Animated Title, Subtitle, Description & Highlights */}
-            <div className="min-h-[290px] sm:min-h-[320px]">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={`text-${current.id}`}
-                  initial={{ opacity: 0, y: 18 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -14 }}
-                  transition={{ duration: 0.36, ease: [0.22, 1, 0.36, 1] }}
-                  className="flex flex-col"
-                >
-                  {/* Primary Headline - Enlarged */}
-                  <h3 className="m-0 font-serif text-[clamp(40px,4.6vw,66px)] font-normal leading-[1.0] tracking-[-0.035em] text-ink">
-                    {current.title}
-                  </h3>
-
-                  {/* Subtitle - Enlarged */}
-                  {current.subtitle && (
-                    <p className="m-0 mt-3 font-serif text-[20px] sm:text-[23px] italic text-ink/85 leading-snug">
-                      {current.subtitle}
-                    </p>
-                  )}
-
-                  {/* Rich Narrative Description - Enlarged & Expanded */}
-                  <p className="m-0 mt-5 max-w-[620px] font-sans text-[16px] sm:text-[17.5px] leading-[1.8] text-muted">
-                    {current.description}
-                  </p>
-
-                  {/* Key Experience Highlights */}
-                  {current.highlights && current.highlights.length > 0 && (
-                    <div className="mt-5 flex flex-wrap items-center gap-2">
-                      {current.highlights.map((highlight) => (
-                        <span
-                          key={highlight}
-                          className="inline-flex items-center gap-1.5 rounded-full bg-white/70 px-3 py-1 font-sans text-[11.5px] sm:text-[12px] font-medium text-ink/90 border border-line/25"
-                        >
-                          <Sparkles size={11} className="text-ink/60" />
-                          <span>{highlight}</span>
-                        </span>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Action CTA Link with Luxury Underline - Enlarged */}
-                  <div className="mt-7 sm:mt-9">
-                    <Link
-                      href={current.linkHref || current.href}
-                      className="group relative inline-flex items-center gap-2 pb-1.5 font-sans text-[13px] sm:text-[14px] font-bold uppercase tracking-[0.18em] text-ink transition-colors hover:text-forest"
-                    >
-                      <span>{current.linkText || 'Explore Experience'}</span>
-                      <ArrowUpRight
-                        size={16}
-                        className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                      />
-                      <span className="absolute bottom-0 left-0 h-[2px] w-full bg-ink/40 transition-all duration-200 group-hover:bg-forest" />
-                    </Link>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </div>
-        </div>
       </div>
-    </section>
+    </div>
   );
 }
 
