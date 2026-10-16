@@ -24,8 +24,9 @@ export function PropertyCard({ property }: { property: Property }) {
         <p className="m-0 mb-[9px] uppercase tracking-[0.18em] text-[9px] font-semibold text-muted">{property.city}, {property.country}</p>
         <h3 className="font-serif text-[26px] font-normal leading-[1.05] tracking-[-0.035em] m-0 mb-3">{property.name}</h3>
         <p className="text-muted text-[13px] m-0 mb-5 min-h-[82px] max-[980px]:min-h-0">{property.description}</p>
-        <Link href={property.slug === 'singapore' ? '/singapore/' : property.slug === 'dubai' ? '/dubai/' : '/hotels-resorts/'} className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.15em] font-semibold border-b border-ink pb-1.5 hover:text-forest">
-          DISCOVER <ArrowUpRight size={15} />
+        <Link href={property.slug === 'singapore' ? '/singapore/' : property.slug === 'dubai' ? '/dubai/' : '/hotels-resorts/'} className="card-cta">
+          <span className="cta-text">DISCOVER</span>
+          <ArrowUpRight size={14} className="cta-arrow" />
         </Link>
       </div>
     </article>
@@ -53,8 +54,9 @@ export function SectionIntro({
       <h2 className="font-serif text-[clamp(38px,4.1vw,61px)] font-normal leading-none tracking-[-0.045em] m-0 mb-7">{title}</h2>
       <p className="max-w-[600px] mx-auto mb-[30px] text-muted text-[17px]">{text}</p>
       {action && (
-        <Link className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.15em] font-semibold border-b border-ink pb-1.5 hover:text-forest" href={href}>
-          {action} <ArrowUpRight size={15} />
+        <Link className="luxury-cta" href={href}>
+          <span className="cta-text">{action}</span>
+          <ArrowUpRight size={15} className="cta-arrow" />
         </Link>
       )}
     </section>

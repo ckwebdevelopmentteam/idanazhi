@@ -41,6 +41,9 @@ export type PolaroidLineCarouselProps = {
   string?: string
   background?: string
   ink?: string
+  showControls?: boolean
+  showIndicator?: boolean
+  centerDetails?: boolean
   onChange?: (index: number) => void
   className?: string
   style?: React.CSSProperties
@@ -245,11 +248,15 @@ const PL_CSS = [
   ".pl-peg{position:absolute;left:50%;top:0;width:10px;height:26px;margin-left:-5px;border-radius:2px;background:linear-gradient(90deg,#c9a67a,#e3c9a1 45%,#b8915f);box-shadow:0 2px 3px rgba(0,0,0,.25)}",
   ".pl-peg::after{content:'';position:absolute;left:4px;top:8px;width:2px;height:7px;background:rgba(80,60,30,.45);border-radius:1px}",
   ".pl-bar{position:absolute;left:5.4vw;right:5.4vw;bottom:clamp(20px,4vh,40px);display:flex;align-items:center;gap:clamp(12px,2vw,24px);cursor:default}",
+  ".pl-bar[data-center='1']{justify-content:center;text-align:center;bottom:clamp(14px,2vh,24px)}",
   "@media (max-width:720px){.pl-bar{left:24px;right:24px}}",
   ".pl-cap{flex:1;min-width:0;overflow:hidden;padding-bottom:.15em}",
+  ".pl-bar[data-center='1'] .pl-cap{flex:none;width:100%;max-width:760px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center}",
   ".pl-cap>*{display:block;animation:pl-in .55s cubic-bezier(.2,.8,.2,1) both}",
   ".pl-title{font:500 clamp(18px,2vw,25px)/1.2 var(--font-jakarta),'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;letter-spacing:-0.015em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}",
+  ".pl-bar[data-center='1'] .pl-title{text-align:center;width:100%}",
   ".pl-sub{margin-top:5px;font:400 13.5px/1.45 var(--font-jakarta),'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;color:var(--pl-muted);letter-spacing:0.01em}",
+  ".pl-bar[data-center='1'] .pl-sub{text-align:center;width:100%}",
   ".pl-count{font:500 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;color:var(--pl-muted)}",
   ".pl-count b{color:var(--pl-ink);font-weight:500}",
   ".pl-btn{appearance:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--pl-line);background:transparent;color:inherit;display:grid;place-items:center;cursor:pointer;transition:background .2s ease,color .2s ease}",
@@ -270,6 +277,9 @@ export default function PolaroidLineCarousel({
   string = "#8a7f72",
   background = "var(--color-background, #efece6)",
   ink = "var(--color-foreground, #161513)",
+  showControls = true,
+  showIndicator = true,
+  centerDetails = false,
   onChange,
   className,
   style,
@@ -335,7 +345,7 @@ export default function PolaroidLineCarousel({
       const dt = Math.min(0.033, (now - prev) / 1000)
       prev = now
       const { w, h, cw } = size
-      const y0 = Math.max(26, h * 0.11)
+      const y0 = Math.max(20, Math.min(36, Math.round(h * 0.06)))
       const d = drag.current
       let lineVel: number
       if (d && d.moved) {
@@ -488,24 +498,30 @@ export default function PolaroidLineCarousel({
           <div className="pl-peg" />
         </div>
       ))}
-      <div className="pl-bar">
+      <div className="pl-bar" data-center={centerDetails ? "1" : "0"}>
         <div className="pl-cap" key={active} aria-hidden="true">
           {s.title ? <span className="pl-title">{s.title}</span> : null}
           {s.caption ? <span className="pl-sub">{s.caption}</span> : null}
         </div>
-        <span className="pl-count" aria-hidden="true">
-          <b>{pad2(active + 1)}</b> / {pad2(n)}
-        </span>
-        <button type="button" className="pl-btn" aria-label="Previous" onClick={() => step(-1)}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M10 3 5 8l5 5" stroke="currentColor" strokeWidth="1.4" />
-          </svg>
-        </button>
-        <button type="button" className="pl-btn" aria-label="Next" onClick={() => step(1)}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="m6 3 5 5-5 5" stroke="currentColor" strokeWidth="1.4" />
-          </svg>
-        </button>
+        {showIndicator ? (
+          <span className="pl-count" aria-hidden="true">
+            <b>{pad2(active + 1)}</b> / {pad2(n)}
+          </span>
+        ) : null}
+        {showControls ? (
+          <>
+            <button type="button" className="pl-btn" aria-label="Previous" onClick={() => step(-1)}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M10 3 5 8l5 5" stroke="currentColor" strokeWidth="1.4" />
+              </svg>
+            </button>
+            <button type="button" className="pl-btn" aria-label="Next" onClick={() => step(1)}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="m6 3 5 5-5 5" stroke="currentColor" strokeWidth="1.4" />
+              </svg>
+            </button>
+          </>
+        ) : null}
       </div>
       <div className="pl-sr" aria-live="polite">
         {"Print " + (active + 1) + " of " + n + (s.title ? ": " + s.title : "")}

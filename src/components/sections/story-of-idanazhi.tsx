@@ -193,17 +193,15 @@ FOR MEANINGFUL EXPERIENCES.`}
           >
             <Link
               href="/singapore/#story"
-              className="group inline-flex items-center gap-2 text-[13.5px] sm:text-[14px] font-sans tracking-[0.05em] uppercase text-ink focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[4px]"
+              className="luxury-cta focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[4px]"
               aria-label="Discover Our Story - Read more about Idanazhi heritage"
             >
-              <span className="relative pb-1 transition-colors duration-300 ease-out group-hover:text-forest">
+              <span className="cta-text">
                 Discover Our Story
-                <span className="absolute bottom-0 left-0 w-full h-[1px] bg-ink/30 transition-colors duration-300" />
-                <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-forest origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]" />
               </span>
               <ArrowUpRight
                 size={15}
-                className="text-ink transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-forest group-hover:translate-x-[3px] group-hover:-translate-y-[3px]"
+                className="cta-arrow"
                 aria-hidden="true"
               />
             </Link>
@@ -247,17 +245,15 @@ FOR MEANINGFUL EXPERIENCES.`}
                   <div className="mt-6 pt-4 border-t border-ink/12">
                     <Link
                       href={card.linkHref}
-                      className="group/btn inline-flex items-center gap-2 text-[11px] font-sans tracking-[0.14em] uppercase font-semibold text-ink transition-colors duration-300 group-hover:text-forest focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[3px]"
+                      className="card-cta focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[3px]"
                       aria-label={`${card.linkText} - ${card.title}`}
                     >
-                      <span className="relative pb-0.5">
+                      <span className="cta-text">
                         {card.linkText}
-                        <span className="absolute bottom-0 left-0 w-full h-[1px] bg-ink/30 transition-colors duration-300" />
-                        <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-forest origin-left scale-x-0 group-hover/btn:scale-x-100 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]" />
                       </span>
                       <ArrowUpRight
                         size={14}
-                        className="transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:translate-x-[2px] group-hover/btn:-translate-y-[2px]"
+                        className="cta-arrow"
                         aria-hidden="true"
                       />
                     </Link>

@@ -165,15 +165,18 @@ export function CelebrationsAndExperience({ className = '' }: CelebrationsAndExp
         >
           <PolaroidLineCarousel
             slides={celebrationSlides}
-            height="clamp(470px, 56vh, 540px)"
+            height="clamp(520px, 58vh, 570px)"
             className="w-full"
-            cardWidth={330}
-            sag={34}
+            cardWidth={310}
+            sag={26}
             swing={1}
             autoplay={4500}
             string="#c6a77d"
             background="transparent"
             ink="#ffffff"
+            showControls={false}
+            showIndicator={false}
+            centerDetails={true}
             ariaLabel="Celebrations and Experiences photo carousel"
           />
         </motion.div>

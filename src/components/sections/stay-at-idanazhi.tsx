@@ -89,9 +89,9 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
       aria-labelledby="stay-heading"
     >
       <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 xl:gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12 items-start">
           {/* Left Column: Title, Heading, Desc, CTA */}
-          <div className="lg:col-span-5 flex flex-col items-start text-left max-w-[540px]">
+          <div className="lg:col-span-6 flex flex-col items-start text-left max-w-[600px]">
             {/* Eyebrow / Section Title */}
             <p className="m-0 mb-3 sm:mb-4 uppercase tracking-[0.22em] text-[10.5px] sm:text-[11.5px] font-semibold text-muted text-left">
               STAY AT IDANAZHI
@@ -111,16 +111,23 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
               >
                 <span
                   id="stay-heading"
-                  className="block !font-jakarta !font-normal !text-[clamp(24px,2.8vw,42px)] !leading-[1.28] !tracking-[-0.015em] !uppercase !text-ink text-left"
+                  className="block !font-jakarta !font-normal !text-[clamp(22px,2.1vw,35px)] !leading-[1.28] !tracking-[-0.02em] !uppercase !text-ink text-left"
                 >
-                  <span className="word">A</span>{' '}
-                  <span className="word">SANCTUARY</span>{' '}
-                  <span className="word">OF</span>{' '}
-                  <span className="word">QUIET</span>{' '}
-                  <span className="word">CHARACTER</span>{' '}
-                  <span className="word">AND</span>{' '}
-                  <span className="word">UNHURRIED</span>{' '}
-                  <span className="word">LIVING</span>
+                  <span className="block sm:whitespace-nowrap">
+                    <span className="word">A</span>{' '}
+                    <span className="word">SANCTUARY</span>
+                  </span>
+                  <span className="block sm:whitespace-nowrap">
+                    <span className="word">OF</span>{' '}
+                    <span className="word">QUIET</span>{' '}
+                    <span className="word">CHARACTER</span>
+                  </span>
+                  <span className="block sm:whitespace-nowrap">
+                    <span className="word">AND</span>{' '}
+                    <span className="word">TIMELESS</span>{' '}
+                    <span className="word">UNHURRIED</span>{' '}
+                    <span className="word">LIVING</span>
+                  </span>
                 </span>
               </ScrollReveal>
             </div>
@@ -129,13 +136,13 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
             <div className="w-full text-left mt-4 sm:mt-5">
               <ScrollReveal
                 as="p"
-                baseOpacity={0.12}
+                baseOpacity={0.35}
                 enableBlur={true}
                 baseRotation={0}
-                blurStrength={5}
+                blurStrength={3}
                 containerClassName="!my-0 w-full text-left flex flex-col items-start justify-start"
-                wordAnimationStart="top 53%"
-                wordAnimationEnd="bottom 28%"
+                wordAnimationStart="top 85%"
+                wordAnimationEnd="top 60%"
               >
                 <span className="block !font-sans !font-normal !text-[clamp(14.5px,1vw,16.5px)] !leading-[1.75] !text-muted text-left">
                   <span className="word">Discover</span>{' '}
@@ -183,17 +190,15 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
             >
               <Link
                 href="/singapore/#stay"
-                className="group inline-flex items-center gap-2 text-[13.5px] sm:text-[14px] font-sans tracking-[0.05em] uppercase text-ink focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[4px]"
+                className="luxury-cta focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[4px]"
                 aria-label="Explore Your Stay - Discover accommodation at Idanazhi"
               >
-                <span className="relative pb-1 transition-colors duration-300 ease-out group-hover:text-forest">
+                <span className="cta-text">
                   Explore Your Stay
-                  <span className="absolute bottom-0 left-0 w-full h-[1px] bg-ink/30 transition-colors duration-300" />
-                  <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-forest origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]" />
                 </span>
                 <ArrowUpRight
                   size={15}
-                  className="text-ink transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-forest group-hover:translate-x-[3px] group-hover:-translate-y-[3px]"
+                  className="cta-arrow"
                   aria-hidden="true"
                 />
               </Link>
@@ -201,7 +206,7 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
           </div>
 
           {/* Right Column: Card component */}
-          <div className="lg:col-span-7 w-full overflow-hidden">
+          <div className="lg:col-span-6 w-full overflow-hidden">
             <HeroCarousel
               items={stayRooms}
               mode="cards-only"

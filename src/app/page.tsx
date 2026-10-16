@@ -55,8 +55,9 @@ export default function Home() {
               <p className="m-0 mb-[18px] uppercase tracking-[0.18em] text-[10px] font-semibold">IDANAZHI DESTINATION WEDDINGS</p>
               <h2 className="font-serif text-[clamp(38px,4.1vw,61px)] font-normal leading-none tracking-[-0.045em] m-0 mb-7">A world of elegance and enchanted celebration</h2>
               <p className="text-[16px] max-w-[390px] m-0 mb-[31px]">Founded in the spirit of timeless celebration, IDANAZHI creates destination weddings and luxury escapes that feel personal, immersive and unforgettable. We champion fine art and design, foster culture in all its forms and bring gracious service to every encounter.</p>
-              <Link href="/hotels-resorts/" className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.15em] font-semibold border-b border-ink pb-1.5 hover:text-forest">
-                OUR DESTINATIONS <ArrowUpRight size={15} />
+              <Link href="/hotels-resorts/" className="card-cta">
+                <span className="cta-text">OUR DESTINATIONS</span>
+                <ArrowUpRight size={14} className="cta-arrow" />
               </Link>
             </div>
           </section>
@@ -91,8 +92,9 @@ export default function Home() {
                 <ImageBlock src={experience.image} alt="" />
                 <h3 className="font-serif text-[26px] font-normal leading-[1.05] tracking-[-0.035em] m-0 mt-4">{experience.name}</h3>
                 <p className="text-muted text-[13px] min-h-[65px]">{experience.text}</p>
-                <Link className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.15em] font-semibold border-b border-ink pb-1.5 hover:text-forest" href="/singapore/experiences/">
-                  DISCOVER <ArrowUpRight size={15} />
+                <Link className="card-cta" href="/singapore/experiences/">
+                  <span className="cta-text">DISCOVER</span>
+                  <ArrowUpRight size={14} className="cta-arrow" />
                 </Link>
               </article>
             ))}

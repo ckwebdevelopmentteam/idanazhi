@@ -6,12 +6,44 @@ import {
   type CarouselApi,
   CarouselContent,
   CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
 } from "@/components/ui/carousel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Quote, Star } from "lucide-react";
+import { Quote, Star, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import { cn } from "@/lib/utils";
+
+const fadeUpVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 12,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.65,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
+const ctaVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 16,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.75,
+      delay: 0.25,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
 
 export interface TestimonialItem {
   title: string;
@@ -27,6 +59,8 @@ export interface TestimonialsProps {
   eyebrow?: string;
   titleWords?: string[];
   subtitle?: string;
+  ctaText?: string;
+  ctaHref?: string;
   items?: TestimonialItem[];
   className?: string;
 }
@@ -104,11 +138,39 @@ function Testimonials({
   eyebrow = "GUEST STORIES & REFLECTIONS",
   titleWords = ["CHERISHED", "MEMORIES", "OF", "TIMELESS", "CELEBRATIONS"],
   subtitle = "Memories and reflections from couples, families, and travelers who have experienced the warmth, heritage, and quiet luxury of Idanazhi.",
+  ctaText = "EXPLORE GUEST EXPERIENCES",
+  ctaHref = "#testimonials",
   items = defaultTestimonials,
   className = "",
 }: TestimonialsProps) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [hoverRatio, setHoverRatio] = useState<number>(0);
+  const [showNumberPicker, setShowNumberPicker] = useState<boolean>(false);
+
+  const descLines = [
+    "Memories and reflections from couples, families, and travelers who have experienced",
+    "the warmth, heritage, and quiet luxury of Idanazhi.",
+  ];
+
+  useEffect(() => {
+    if (!api) return;
+
+    setCurrent(api.selectedScrollSnap());
+
+    const onSelect = () => {
+      setCurrent(api.selectedScrollSnap());
+    };
+
+    api.on("select", onSelect);
+    api.on("reInit", onSelect);
+
+    return () => {
+      api.off("select", onSelect);
+      api.off("reInit", onSelect);
+    };
+  }, [api]);
 
   useEffect(() => {
     if (!api) {
@@ -117,11 +179,9 @@ function Testimonials({
 
     const timer = setTimeout(() => {
       if (api.selectedScrollSnap() + 1 === api.scrollSnapList().length) {
-        setCurrent(0);
         api.scrollTo(0);
       } else {
         api.scrollNext();
-        setCurrent(current + 1);
       }
     }, 4500);
 
@@ -131,16 +191,25 @@ function Testimonials({
   return (
     <section
       id="testimonials"
-      className={`relative bg-paper py-[clamp(64px,8.5vh,110px)] overflow-hidden border-t border-ink/10 ${className}`}
+      className={`relative bg-paper py-[clamp(64px,8.5vh,110px)] max-[720px]:py-[50px] overflow-hidden border-t border-ink/10 ${className}`}
       aria-labelledby="testimonials-heading"
     >
       <div className="w-full max-w-[1360px] mx-auto px-6 sm:px-8 lg:px-12">
-        {/* Header matching Idanazhi's luxury editorial design aesthetics */}
-        <div className="flex flex-col items-center text-center max-w-[940px] mx-auto mb-12 sm:mb-16">
-          <p className="m-0 mb-4 sm:mb-5 uppercase tracking-[0.22em] text-[10.5px] sm:text-[11.5px] font-semibold text-muted text-center">
-            {eyebrow}
-          </p>
+        {/* Section Header: Centered Eyebrow, Heading, Description & CTA matching Wedding Intro */}
+        <div className="flex flex-col items-center text-center max-w-[940px] mx-auto px-6 mb-12 sm:mb-16 md:mb-20 min-[1280px]:mb-24 shrink-0">
+          {eyebrow && (
+            <motion.p
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-60px' }}
+              variants={fadeUpVariants}
+              className="m-0 mb-3 sm:mb-4 uppercase tracking-[0.22em] text-[10.5px] sm:text-[11.5px] font-semibold text-muted text-center"
+            >
+              {eyebrow}
+            </motion.p>
+          )}
 
+          {/* Symmetrical Scroll Reveal Heading matching Wedding Intro */}
           <div className="w-full flex justify-center items-center text-center">
             <ScrollReveal
               as="h2"
@@ -149,19 +218,23 @@ function Testimonials({
               baseRotation={0}
               blurStrength={8}
               containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
+              textClassName="!font-jakarta !font-normal !text-[clamp(20px,2.5vw,38px)] !leading-[1.36] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
               wordAnimationStart="top 85%"
               wordAnimationEnd="bottom 55%"
             >
               <span
                 id="testimonials-heading"
-                className="block !font-jakarta !font-normal !text-[clamp(20px,2.5vw,38px)] !leading-[1.36] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
+                className="block !font-jakarta !font-normal !text-[clamp(20px,2.5vw,38px)] !leading-[1.28] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
               >
-                {titleWords.map((word, i) => (
-                  <React.Fragment key={i}>
-                    <span className="word">{word}</span>
-                    {i < titleWords.length - 1 ? " " : ""}
-                  </React.Fragment>
-                ))}
+                <span className="block sm:whitespace-nowrap">
+                  <span className="word">CHERISHED</span>{' '}
+                  <span className="word">MEMORIES</span>
+                </span>
+                <span className="block sm:whitespace-nowrap">
+                  <span className="word">OF</span>{' '}
+                  <span className="word">TIMELESS</span>{' '}
+                  <span className="word">CELEBRATIONS</span>
+                </span>
               </span>
             </ScrollReveal>
           </div>
@@ -175,14 +248,54 @@ function Testimonials({
                 baseRotation={0}
                 blurStrength={5}
                 containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
-                wordAnimationStart="top 53%"
-                wordAnimationEnd="bottom 28%"
+                wordAnimationStart="top 85%"
+                wordAnimationEnd="bottom 55%"
               >
                 <span className="block !font-sans !font-normal !text-[clamp(15px,1.05vw,17px)] !leading-[1.75] !text-muted text-center max-w-[840px] mx-auto">
-                  {subtitle}
+                  {descLines.map((line, lineIdx) => {
+                    const words = line.trim().split(/\s+/);
+                    return (
+                      <React.Fragment key={lineIdx}>
+                        <span className="sm:block sm:whitespace-nowrap">
+                          {words.map((word, wordIdx) => (
+                            <React.Fragment key={wordIdx}>
+                              <span className="word">{word}</span>
+                              {wordIdx < words.length - 1 && ' '}
+                            </React.Fragment>
+                          ))}
+                        </span>
+                        {lineIdx < descLines.length - 1 && ' '}
+                      </React.Fragment>
+                    );
+                  })}
                 </span>
               </ScrollReveal>
             </div>
+          )}
+
+          {ctaText && (
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-60px' }}
+              variants={ctaVariants}
+              className="mt-6 sm:mt-8"
+            >
+              <Link
+                href={ctaHref}
+                className="luxury-cta focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[4px]"
+                aria-label={`${ctaText} - View guest stories and reflections`}
+              >
+                <span className="cta-text">
+                  {ctaText}
+                </span>
+                <ArrowUpRight
+                  size={15}
+                  className="cta-arrow"
+                  aria-hidden="true"
+                />
+              </Link>
+            </motion.div>
           )}
         </div>
 
@@ -254,25 +367,160 @@ function Testimonials({
               ))}
             </CarouselContent>
 
-            {/* Navigation buttons */}
-            <div className="flex justify-center items-center gap-4 mt-8 sm:mt-10">
-              <CarouselPrevious className="static translate-y-0 translate-x-0 h-9 w-9 rounded-full border-ink/20 text-ink hover:bg-ink hover:text-white transition-colors" />
-              <div className="flex items-center gap-2">
-                {items.map((_, dotIdx) => (
-                  <button
-                    key={dotIdx}
-                    type="button"
-                    onClick={() => api?.scrollTo(dotIdx)}
-                    aria-label={`Go to slide ${dotIdx + 1}`}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                      (api ? api.selectedScrollSnap() : current) === dotIdx
-                        ? "w-6 bg-ink"
-                        : "w-1.5 bg-ink/20 hover:bg-ink/40"
-                    }`}
+            {/* Centered Slider Indicator with Hover Scrub & Number Selection */}
+            <div className="relative flex items-center justify-center gap-3 mt-8 sm:mt-10">
+              {/* Number Selector Popover to select card by number */}
+              <AnimatePresence>
+                {showNumberPicker && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 6, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 4, scale: 0.96 }}
+                    transition={{ duration: 0.16 }}
+                    className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 bg-[#fbfaf7] text-ink border border-ink/20 shadow-2xl rounded-[6px] p-1.5 flex items-center gap-1 z-50 whitespace-nowrap"
+                  >
+                    <span className="text-[10px] uppercase font-mono text-muted tracking-wider px-1.5">
+                      Card:
+                    </span>
+                    {items.map((it, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => {
+                          api?.scrollTo(idx);
+                          setShowNumberPicker(false);
+                        }}
+                        onMouseEnter={() => api?.scrollTo(idx)}
+                        className={cn(
+                          "w-7 h-7 rounded-[3px] font-mono text-[11px] font-medium transition-colors flex items-center justify-center cursor-pointer",
+                          (current % items.length) === idx
+                            ? "bg-ink text-white font-semibold shadow-sm"
+                            : "text-ink/70 hover:bg-ink/10 hover:text-ink"
+                        )}
+                        title={it.author}
+                      >
+                        {String(idx + 1).padStart(2, "0")}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Active Number Button: Click to select card by number */}
+              <button
+                type="button"
+                onClick={() => setShowNumberPicker((v) => !v)}
+                title="Click to select card by number"
+                className="font-mono text-[11px] tracking-[0.16em] text-ink font-semibold tabular-nums cursor-pointer transition-all hover:scale-110 hover:text-forest"
+              >
+                {String((hoveredIndex !== null ? hoveredIndex : current % items.length) + 1).padStart(2, "0")}
+              </button>
+
+              {/* Interactive Progress Line: hover along the line to scrub/get the card, click to select */}
+              <div
+                role="slider"
+                aria-valuemin={1}
+                aria-valuemax={items.length}
+                aria-valuenow={(current % items.length) + 1}
+                tabIndex={0}
+                onPointerMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  if (!rect.width) return;
+                  const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+                  const targetIdx = Math.min(items.length - 1, Math.floor(ratio * items.length));
+                  setHoverRatio(ratio);
+                  setHoveredIndex(targetIdx);
+                  api?.scrollTo(targetIdx);
+                }}
+                onMouseMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  if (!rect.width) return;
+                  const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+                  const targetIdx = Math.min(items.length - 1, Math.floor(ratio * items.length));
+                  setHoverRatio(ratio);
+                  setHoveredIndex(targetIdx);
+                  api?.scrollTo(targetIdx);
+                }}
+                onMouseEnter={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  if (!rect.width) return;
+                  const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+                  const targetIdx = Math.min(items.length - 1, Math.floor(ratio * items.length));
+                  setHoverRatio(ratio);
+                  setHoveredIndex(targetIdx);
+                  api?.scrollTo(targetIdx);
+                }}
+                onPointerLeave={() => {
+                  setHoveredIndex(null);
+                }}
+                onMouseLeave={() => {
+                  setHoveredIndex(null);
+                }}
+                onClick={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  if (!rect.width) return;
+                  const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+                  const targetIdx = Math.min(items.length - 1, Math.floor(ratio * items.length));
+                  api?.scrollTo(targetIdx);
+                }}
+                className="relative py-2.5 -my-2.5 cursor-pointer flex items-center"
+              >
+                {/* Floating Card Preview on Hovering the line */}
+                <AnimatePresence>
+                  {hoveredIndex !== null && items[hoveredIndex] && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 6, scale: 0.96 }}
+                      transition={{ duration: 0.18 }}
+                      className="absolute bottom-full mb-3 -translate-x-1/2 pointer-events-none z-50 flex flex-col items-center"
+                      style={{ left: `${hoverRatio * 100}%` }}
+                    >
+                      <div className="bg-[#fbfaf7] text-ink border border-ink/20 shadow-2xl rounded-[4px] p-2 flex flex-col gap-1 w-44">
+                        <div className="flex items-center gap-2">
+                          <Avatar className="h-6 w-6 rounded-full border border-ink/20">
+                            <AvatarImage src={items[hoveredIndex].avatar} alt={items[hoveredIndex].author} />
+                            <AvatarFallback className="text-[9px] font-mono bg-paper-subtle text-ink">
+                              {items[hoveredIndex].author.slice(0, 2).toUpperCase()}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="min-w-0 flex-1">
+                            <div className="text-[10.5px] font-sans font-medium text-ink truncate leading-tight">
+                              {items[hoveredIndex].author}
+                            </div>
+                            <div className="text-[8.5px] font-mono uppercase tracking-wider text-muted truncate">
+                              #{String(hoveredIndex + 1).padStart(2, "0")} • {items[hoveredIndex].role || "Guest"}
+                            </div>
+                          </div>
+                        </div>
+                        <p className="text-[9.5px] font-sans text-muted line-clamp-2 leading-relaxed italic pt-0.5 border-t border-ink/10">
+                          &ldquo;{items[hoveredIndex].quote}&rdquo;
+                        </p>
+                      </div>
+                      <div className="w-2 h-2 rotate-45 bg-[#fbfaf7] border-r border-b border-ink/20 -mt-1" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                <div className="w-28 sm:w-40 h-[2px] bg-ink/15 rounded-full overflow-hidden transition-all duration-200 hover:h-[3.5px]">
+                  <div
+                    className="h-full bg-ink rounded-full transition-all duration-300 ease-out"
+                    style={{
+                      width: `${(((hoveredIndex !== null ? hoveredIndex : current % items.length) + 1) / items.length) * 100}%`,
+                    }}
                   />
-                ))}
+                </div>
               </div>
-              <CarouselNext className="static translate-y-0 translate-x-0 h-9 w-9 rounded-full border-ink/20 text-ink hover:bg-ink hover:text-white transition-colors" />
+
+              {/* Total Number Button: Click to jump directly to the last card */}
+              <button
+                type="button"
+                onClick={() => api?.scrollTo(items.length - 1)}
+                title={`Click to select card ${items.length}`}
+                className="font-mono text-[11px] tracking-[0.16em] text-muted font-medium tabular-nums cursor-pointer transition-all hover:scale-110 hover:text-ink"
+              >
+                {String(items.length).padStart(2, "0")}
+              </button>
             </div>
           </Carousel>
         </div>

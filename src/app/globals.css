@@ -140,3 +140,132 @@ html {
 html::-webkit-scrollbar {
   display: none;
 }
+
+/* Luxury CTA Styles - Bulletproof Underline & Arrow Hover */
+.luxury-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  cursor: pointer;
+  position: relative;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  user-select: none;
+}
+
+.luxury-cta:hover {
+  color: #3f1910;
+}
+
+.luxury-cta .cta-text {
+  position: relative;
+  padding-bottom: 3px;
+  display: inline-block;
+}
+
+.luxury-cta .cta-text::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: rgba(124, 64, 46, 0.28);
+  transition: opacity 0.3s ease;
+}
+
+.luxury-cta .cta-text::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 1.5px;
+  background-color: currentColor;
+  transition: width 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.luxury-cta:hover .cta-text::after {
+  width: 100%;
+}
+
+.luxury-cta .cta-arrow {
+  color: currentColor;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.luxury-cta:hover .cta-arrow {
+  transform: translate(3.5px, -3.5px);
+}
+
+/* Card CTA (11px tracked uppercase link inside cards) */
+.card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  cursor: pointer;
+  position: relative;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  user-select: none;
+}
+
+.card-cta:hover {
+  color: #3f1910;
+}
+
+.card-cta .cta-text {
+  position: relative;
+  padding-bottom: 2px;
+  display: inline-block;
+}
+
+.card-cta .cta-text::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: rgba(124, 64, 46, 0.28);
+  transition: opacity 0.3s ease;
+}
+
+.card-cta .cta-text::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 1.5px;
+  background-color: currentColor;
+  transition: width 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card-cta:hover .cta-text::after {
+  width: 100%;
+}
+
+.card-cta .cta-arrow {
+  color: currentColor;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.card-cta:hover .cta-arrow {
+  transform: translate(3px, -3px);
+}
+

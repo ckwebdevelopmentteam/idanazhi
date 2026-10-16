@@ -18,7 +18,7 @@ import {
   useMotionValue,
   useReducedMotion,
 } from "framer-motion"
-import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -130,6 +130,9 @@ export function HeroCarousel({
   const [uncontrolled, setUncontrolled] = React.useState(defaultIndex)
   const [dragging, setDragging] = React.useState(false)
   const [paused, setPaused] = React.useState(false)
+  const [hoveredRailIndex, setHoveredRailIndex] = React.useState<number | null>(null)
+  const [hoverRailRatio, setHoverRailRatio] = React.useState(0.5)
+  const [showNumberPicker, setShowNumberPicker] = React.useState(false)
   const reduced = useReducedMotion()
 
   const isCardsOnly = mode === "cards-only"
@@ -555,14 +558,14 @@ export function HeroCarousel({
                             "px-3 py-2 sm:py-2.5",
                             "border border-white/80 bg-black/40 hover:bg-white hover:text-ink hover:border-white",
                             "backdrop-blur-sm text-white font-sans text-[10px] sm:text-[10.5px] font-normal tracking-[0.2em] uppercase",
-                            "transition-all duration-300 ease-out cursor-pointer group/btn"
+                            "transition-all duration-300 ease-out cursor-pointer select-none group"
                           )}
                         >
                           <span>{actionLabel}</span>
                           <ArrowRight
                             size={14}
                             strokeWidth={1.5}
-                            className="transition-transform duration-300 ease-out group-hover/btn:translate-x-1"
+                            className="transition-transform duration-300 ease-out group-hover:translate-x-1.5"
                           />
                         </button>
                       </div>
@@ -575,74 +578,177 @@ export function HeroCarousel({
         </motion.div>
       </div>
 
-      {/* ── POSITION RAIL & CONTROLS ── */}
+      {/* ── POSITION RAIL & INDICATOR IN SAME LINE MATCHING WEDDING INTRO ── */}
       <div
-        className="absolute flex items-center gap-3.5"
+        className="absolute flex items-center justify-center gap-3 z-20"
         style={{
           left: isCardsOnly ? "50%" : pad,
-          bottom: isCardsOnly ? 4 : Math.max(14, box.h * 0.022),
-          width: isCardsOnly ? Math.min(360, box.w - 32) : box.w * RAIL,
+          bottom: isCardsOnly ? 8 : Math.max(14, box.h * 0.022),
           transform: isCardsOnly ? "translateX(-50%)" : "none",
         }}
       >
-        {isCardsOnly && (
-          <button
-            type="button"
-            onClick={() => go(index - 1)}
-            disabled={index === 0}
-            aria-label="Previous card"
-            className={cn(
-              "w-7 h-7 rounded-full flex items-center justify-center transition-opacity shrink-0 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed",
-              isDarkTheme ? "text-ink hover:bg-ink/10" : "text-white hover:bg-white/10"
-            )}
-          >
-            <ChevronLeft size={16} />
-          </button>
-        )}
+        {/* Number Selector Popover to select card by number */}
+        <AnimatePresence>
+          {showNumberPicker && (
+            <motion.div
+              initial={{ opacity: 0, y: 6, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 4, scale: 0.96 }}
+              transition={{ duration: 0.16 }}
+              className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 bg-[#fbfaf7] text-ink border border-ink/20 shadow-2xl rounded-[6px] p-1.5 flex items-center gap-1 z-50 whitespace-nowrap"
+            >
+              <span className="text-[10px] uppercase font-mono text-muted tracking-wider px-1.5">
+                Card:
+              </span>
+              {items.map((it, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => {
+                    go(idx)
+                    setShowNumberPicker(false)
+                  }}
+                  onMouseEnter={() => go(idx)}
+                  className={cn(
+                    "w-7 h-7 rounded-[3px] font-mono text-[11px] font-medium transition-colors flex items-center justify-center cursor-pointer",
+                    index === idx
+                      ? "bg-ink text-white font-semibold shadow-sm"
+                      : "text-ink/70 hover:bg-ink/10 hover:text-ink"
+                  )}
+                  title={it.title.replace(/\n/g, " ")}
+                >
+                  {String(idx + 1).padStart(2, "0")}
+                </button>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-        <div className="flex-1">
-          <div
-            className={cn(
-              "flex justify-between font-mono tabular-nums mb-1.5",
-              isDarkTheme ? "text-ink/80" : "text-white/80"
+        {/* Active Number Button: Click to select card by number */}
+        <button
+          type="button"
+          onClick={() => setShowNumberPicker((v) => !v)}
+          title="Click to select card by number"
+          className={cn(
+            "font-mono tracking-[0.16em] font-semibold tabular-nums cursor-pointer transition-all hover:scale-110",
+            isDarkTheme ? "text-ink hover:text-forest" : "text-white hover:text-white/80"
+          )}
+          style={{ fontSize: 11 }}
+        >
+          {String((hoveredRailIndex !== null ? hoveredRailIndex : index) + 1).padStart(2, "0")}
+        </button>
+
+        {/* Interactive Progress Line: hover along the line to scrub/get the card, click to select */}
+        <div
+          role="slider"
+          aria-valuemin={1}
+          aria-valuemax={items.length}
+          aria-valuenow={index + 1}
+          tabIndex={0}
+          onPointerMove={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect()
+            if (!rect.width) return
+            const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width))
+            const targetIdx = Math.min(items.length - 1, Math.floor(ratio * items.length))
+            setHoverRailRatio(ratio)
+            setHoveredRailIndex(targetIdx)
+            go(targetIdx)
+          }}
+          onMouseMove={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect()
+            if (!rect.width) return
+            const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width))
+            const targetIdx = Math.min(items.length - 1, Math.floor(ratio * items.length))
+            setHoverRailRatio(ratio)
+            setHoveredRailIndex(targetIdx)
+            go(targetIdx)
+          }}
+          onMouseEnter={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect()
+            if (!rect.width) return
+            const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width))
+            const targetIdx = Math.min(items.length - 1, Math.floor(ratio * items.length))
+            setHoverRailRatio(ratio)
+            setHoveredRailIndex(targetIdx)
+            go(targetIdx)
+          }}
+          onPointerLeave={() => {
+            setHoveredRailIndex(null)
+          }}
+          onMouseLeave={() => {
+            setHoveredRailIndex(null)
+          }}
+          onClick={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect()
+            if (!rect.width) return
+            const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width))
+            const targetIdx = Math.min(items.length - 1, Math.floor(ratio * items.length))
+            go(targetIdx)
+          }}
+          className="relative py-2.5 -my-2.5 cursor-pointer flex items-center"
+        >
+          {/* Floating Card Preview on Hovering the line */}
+          <AnimatePresence>
+            {hoveredRailIndex !== null && items[hoveredRailIndex] && (
+              <motion.div
+                initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 6, scale: 0.96 }}
+                transition={{ duration: 0.18 }}
+                className="absolute bottom-full mb-3 -translate-x-1/2 pointer-events-none z-50 flex flex-col items-center"
+                style={{ left: `${hoverRailRatio * 100}%` }}
+              >
+                <div className="bg-[#fbfaf7] text-ink border border-ink/20 shadow-2xl rounded-[4px] p-1.5 flex flex-col gap-1 w-36">
+                  <img
+                    src={items[hoveredRailIndex].image}
+                    alt=""
+                    className="w-full h-20 object-cover rounded-[2px]"
+                  />
+                  <div className="flex items-center justify-between text-[10px] font-mono font-semibold px-0.5 pt-0.5">
+                    <span className="text-ink font-bold">#{String(hoveredRailIndex + 1).padStart(2, "0")}</span>
+                    <span className="truncate text-[9.5px] font-sans font-normal text-muted max-w-[85px]">
+                      {items[hoveredRailIndex].title.replace(/\n/g, " ")}
+                    </span>
+                  </div>
+                </div>
+                <div className="w-2 h-2 rotate-45 bg-[#fbfaf7] border-r border-b border-ink/20 -mt-1" />
+              </motion.div>
             )}
-            style={{ fontSize: label }}
-          >
-            <span className="font-semibold">{String(index + 1).padStart(2, "0")}</span>
-            <span className="text-muted/80">{String(items.length).padStart(2, "0")}</span>
-          </div>
+          </AnimatePresence>
+
           <div
             className={cn(
-              "relative h-[2px] w-full rounded-full overflow-hidden",
+              "w-28 sm:w-40 h-[2px] rounded-full overflow-hidden transition-all duration-200 hover:h-[3.5px]",
               isDarkTheme ? "bg-ink/15" : "bg-white/25"
             )}
           >
-            <motion.div
+            <div
               className={cn(
-                "absolute inset-y-0 rounded-full",
-                isDarkTheme ? "bg-forest" : "bg-white"
+                "h-full rounded-full transition-all duration-300 ease-out",
+                isDarkTheme ? "bg-ink" : "bg-white"
               )}
-              style={{ width: `${100 / items.length}%` }}
-              animate={{ left: `${(index / items.length) * 100}%` }}
-              transition={spring}
+              style={{
+                width: `${(((hoveredRailIndex !== null ? hoveredRailIndex : index) + 1) / items.length) * 100}%`,
+              }}
             />
           </div>
         </div>
 
-        {isCardsOnly && (
-          <button
-            type="button"
-            onClick={() => go(index + 1)}
-            disabled={index === last}
-            aria-label="Next card"
-            className={cn(
-              "w-7 h-7 rounded-full flex items-center justify-center transition-opacity shrink-0 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed",
-              isDarkTheme ? "text-ink hover:bg-ink/10" : "text-white hover:bg-white/10"
-            )}
-          >
-            <ChevronRight size={16} />
-          </button>
-        )}
+        {/* Total Number Button: Click to jump directly to the last card */}
+        <button
+          type="button"
+          onClick={() => {
+            go(items.length - 1)
+          }}
+          title={`Click to select card ${items.length}`}
+          className={cn(
+            "font-mono tracking-[0.16em] font-medium tabular-nums cursor-pointer transition-all hover:scale-110",
+            isDarkTheme ? "text-muted hover:text-ink" : "text-white/70 hover:text-white"
+          )}
+          style={{ fontSize: 11 }}
+        >
+          {String(items.length).padStart(2, "0")}
+        </button>
       </div>
     </div>
   )

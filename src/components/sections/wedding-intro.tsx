@@ -3,9 +3,10 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
-import { motion, type Variants } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { gsap } from 'gsap';
 import ScrollReveal from '@/components/ui/ScrollReveal';
+import { cn } from '@/lib/utils';
 import {
   weddingIntroData,
   type WeddingSectionData,
@@ -92,6 +93,9 @@ export function WeddingIntro({
 
   const [activeCard, setActiveCard] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [hoveredCardIndex, setHoveredCardIndex] = useState<number | null>(null);
+  const [hoverRatio, setHoverRatio] = useState<number>(0);
+  const [showNumberPicker, setShowNumberPicker] = useState<boolean>(false);
 
   const cardRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -175,6 +179,19 @@ export function WeddingIntro({
       slideTo(currentIndexRef.current + 1, 1.15, 'power2.inOut');
     });
   }, [slideTo]);
+
+  // Jump to specific card index
+  const jumpToCard = useCallback(
+    (targetCardIdx: number) => {
+      if (timerRef.current) timerRef.current.kill();
+      const currentNorm = ((currentIndexRef.current % cardsCount) + cardsCount) % cardsCount;
+      let diff = ((targetCardIdx - currentNorm + cardsCount) % cardsCount);
+      if (diff > cardsCount / 2) diff -= cardsCount;
+      const targetIndex = currentIndexRef.current + diff;
+      slideTo(targetIndex, 0.75, 'power2.out');
+    },
+    [cardsCount, slideTo]
+  );
 
   // Initial position and resize observer
   useEffect(() => {
@@ -409,17 +426,15 @@ export function WeddingIntro({
             >
               <Link
                 href={data.ctaHref}
-                className="group inline-flex items-center gap-2 text-[13.5px] sm:text-[14px] font-sans tracking-[0.05em] uppercase text-ink focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[4px]"
+                className="luxury-cta focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[4px]"
                 aria-label={`${data.ctaText} - View wedding celebrations and offerings`}
               >
-                <span className="relative pb-1 transition-colors duration-300 ease-out group-hover:text-forest">
+                <span className="cta-text">
                   {data.ctaText}
-                  <span className="absolute bottom-0 left-0 w-full h-[1px] bg-ink/30 transition-colors duration-300" />
-                  <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-forest origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]" />
                 </span>
                 <ArrowUpRight
                   size={15}
-                  className="text-ink transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-forest group-hover:translate-x-[3px] group-hover:-translate-y-[3px]"
+                  className="cta-arrow"
                   aria-hidden="true"
                 />
               </Link>
@@ -468,12 +483,12 @@ export function WeddingIntro({
                             e.preventDefault();
                           }
                         }}
-                        className="group/link inline-flex items-center gap-1.5 text-[11px] tracking-[0.14em] font-semibold uppercase text-ink transition-colors duration-200 ease-in-out hover:text-forest focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[3px]"
+                        className="card-cta focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[3px]"
                         aria-label={`${card.linkText} - Discover wedding celebrations`}
                       >
-                        <span>{card.linkText}</span>
+                        <span className="cta-text">{card.linkText}</span>
                         <ArrowUpRight
-                          className="transition-transform duration-[250ms] ease-[cubic-bezier(0.2,0.7,0.2,1)] group-hover/link:translate-x-[3px] group-hover/link:-translate-y-[3px]"
+                          className="cta-arrow"
                           size={14}
                           aria-hidden="true"
                         />
@@ -512,22 +527,162 @@ export function WeddingIntro({
           </div>
         </div>
 
-        {/* Centered Slider Indicator */}
-        <div className="flex items-center justify-center gap-3 mt-6 sm:mt-8">
-          <span className="font-mono text-[11px] tracking-[0.16em] text-ink font-semibold">
-            {String(activeCard + 1).padStart(2, '0')}
-          </span>
-          <div className="w-28 sm:w-40 h-[2px] bg-ink/15 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-ink transition-all duration-500 ease-out"
-              style={{
-                width: `${((activeCard + 1) / cardsCount) * 100}%`,
-              }}
-            />
+        {/* Centered Slider Indicator with Hover Scrub & Number Selection */}
+        <div className="relative flex items-center justify-center gap-3 mt-6 sm:mt-8">
+          {/* Number Selector Popover to select card by number */}
+          <AnimatePresence>
+            {showNumberPicker && (
+              <motion.div
+                initial={{ opacity: 0, y: 6, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 4, scale: 0.96 }}
+                transition={{ duration: 0.16 }}
+                className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 bg-[#fbfaf7] text-ink border border-ink/20 shadow-2xl rounded-[6px] p-1.5 flex items-center gap-1 z-50 whitespace-nowrap"
+              >
+                <span className="text-[10px] uppercase font-mono text-muted tracking-wider px-1.5">
+                  Card:
+                </span>
+                {data.cards.map((c, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => {
+                      jumpToCard(idx);
+                      setShowNumberPicker(false);
+                    }}
+                    onMouseEnter={() => jumpToCard(idx)}
+                    className={cn(
+                      "w-7 h-7 rounded-[3px] font-mono text-[11px] font-medium transition-colors flex items-center justify-center cursor-pointer",
+                      activeCard === idx
+                        ? "bg-ink text-white font-semibold shadow-sm"
+                        : "text-ink/70 hover:bg-ink/10 hover:text-ink"
+                    )}
+                    title={c.type === 'photo' ? c.overlayLabel : c.eyebrow}
+                  >
+                    {String(idx + 1).padStart(2, '0')}
+                  </button>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Active Number Button: Click to select card by number */}
+          <button
+            type="button"
+            onClick={() => setShowNumberPicker((v) => !v)}
+            title="Click to select card by number"
+            className="font-mono text-[11px] tracking-[0.16em] text-ink font-semibold tabular-nums cursor-pointer transition-all hover:scale-110 hover:text-forest"
+          >
+            {String((hoveredCardIndex !== null ? hoveredCardIndex : activeCard) + 1).padStart(2, '0')}
+          </button>
+
+          {/* Interactive Progress Line: hover along the line to scrub/get the card, click to select */}
+          <div
+            role="slider"
+            aria-valuemin={1}
+            aria-valuemax={cardsCount}
+            aria-valuenow={activeCard + 1}
+            tabIndex={0}
+            onPointerMove={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              if (!rect.width) return;
+              const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+              const targetIdx = Math.min(cardsCount - 1, Math.floor(ratio * cardsCount));
+              setHoverRatio(ratio);
+              setHoveredCardIndex(targetIdx);
+              jumpToCard(targetIdx);
+            }}
+            onMouseMove={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              if (!rect.width) return;
+              const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+              const targetIdx = Math.min(cardsCount - 1, Math.floor(ratio * cardsCount));
+              setHoverRatio(ratio);
+              setHoveredCardIndex(targetIdx);
+              jumpToCard(targetIdx);
+            }}
+            onMouseEnter={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              if (!rect.width) return;
+              const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+              const targetIdx = Math.min(cardsCount - 1, Math.floor(ratio * cardsCount));
+              setHoverRatio(ratio);
+              setHoveredCardIndex(targetIdx);
+              jumpToCard(targetIdx);
+            }}
+            onPointerLeave={() => {
+              setHoveredCardIndex(null);
+              scheduleNext();
+            }}
+            onMouseLeave={() => {
+              setHoveredCardIndex(null);
+              scheduleNext();
+            }}
+            onClick={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              if (!rect.width) return;
+              const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+              const targetIdx = Math.min(cardsCount - 1, Math.floor(ratio * cardsCount));
+              jumpToCard(targetIdx);
+            }}
+            className="relative py-2.5 -my-2.5 cursor-pointer flex items-center"
+          >
+            {/* Floating Card Preview on Hovering the line */}
+            <AnimatePresence>
+              {hoveredCardIndex !== null && data.cards[hoveredCardIndex] && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 6, scale: 0.96 }}
+                  transition={{ duration: 0.18 }}
+                  className="absolute bottom-full mb-3 -translate-x-1/2 pointer-events-none z-50 flex flex-col items-center"
+                  style={{ left: `${hoverRatio * 100}%` }}
+                >
+                  <div className="bg-[#fbfaf7] text-ink border border-ink/20 shadow-2xl rounded-[4px] p-1.5 flex flex-col gap-1 w-36">
+                    {data.cards[hoveredCardIndex].type === 'photo' ? (
+                      <img
+                        src={(data.cards[hoveredCardIndex] as any).image}
+                        alt=""
+                        className="w-full h-20 object-cover rounded-[2px]"
+                      />
+                    ) : (
+                      <div className="w-full h-20 bg-paper-subtle rounded-[2px] p-2 flex items-center justify-center text-center text-[10px] text-muted">
+                        {(data.cards[hoveredCardIndex] as any).eyebrow}
+                      </div>
+                    )}
+                    <div className="flex items-center justify-between text-[10px] font-mono font-semibold px-0.5 pt-0.5">
+                      <span className="text-ink font-bold">#{String(hoveredCardIndex + 1).padStart(2, '0')}</span>
+                      <span className="truncate text-[9.5px] font-sans font-normal text-muted max-w-[85px]">
+                        {data.cards[hoveredCardIndex].type === 'photo'
+                          ? (data.cards[hoveredCardIndex] as any).overlayLabel
+                          : (data.cards[hoveredCardIndex] as any).eyebrow}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="w-2 h-2 rotate-45 bg-[#fbfaf7] border-r border-b border-ink/20 -mt-1" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <div className="w-28 sm:w-40 h-[2px] bg-ink/15 rounded-full overflow-hidden transition-all duration-200 hover:h-[3.5px]">
+              <div
+                className="h-full bg-ink rounded-full transition-all duration-300 ease-out"
+                style={{
+                  width: `${(((hoveredCardIndex !== null ? hoveredCardIndex : activeCard) + 1) / cardsCount) * 100}%`,
+                }}
+              />
+            </div>
           </div>
-          <span className="font-mono text-[11px] tracking-[0.16em] text-muted font-medium">
+
+          {/* Total Number Button: Click to jump directly to the last card */}
+          <button
+            type="button"
+            onClick={() => jumpToCard(cardsCount - 1)}
+            title={`Click to select card ${cardsCount}`}
+            className="font-mono text-[11px] tracking-[0.16em] text-muted font-medium tabular-nums cursor-pointer transition-all hover:scale-110 hover:text-ink"
+          >
             {String(cardsCount).padStart(2, '0')}
-          </span>
+          </button>
         </div>
       </div>
     </section>
