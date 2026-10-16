@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight, Move } from 'lucide-react';
 import {
@@ -155,13 +155,58 @@ export function ExperiencesGallery({
   className = '',
   images = galleryImages,
 }: ExperiencesGalleryProps) {
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    let isAutoSnapping = false;
+    let lastY = typeof window !== 'undefined' ? window.scrollY : 0;
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    const onScroll = () => {
+      const currentY = window.scrollY;
+      const scrollingDown = currentY > lastY;
+      lastY = currentY;
+
+      if (isAutoSnapping) return;
+
+      const el = sectionRef.current;
+      if (!el) return;
+
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+
+      // When user scrolls down from Stay at Idanazhi into Gallery:
+      // If gallery top enters the trigger window (20px to 45% of viewport height)
+      if (scrollingDown && rect.top > 20 && rect.top < vh * 0.45) {
+        isAutoSnapping = true;
+        const targetTop = window.scrollY + rect.top;
+        window.scrollTo({
+          top: targetTop,
+          behavior: 'smooth',
+        });
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          isAutoSnapping = false;
+        }, 750);
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      clearTimeout(timeoutId);
+    };
+  }, []);
+
   return (
     <div className={`relative z-30 w-full ${className}`}>
       {/* 1 Viewport Full Screen Infinite Drag Canvas */}
       <section
         id="gallery"
+        ref={sectionRef}
         aria-label="Idanazhi Gallery Infinite Canvas"
         className="relative z-30 h-screen min-h-[100svh] max-h-[100svh] w-full overflow-hidden bg-paper select-none border-t border-line/35 shadow-[0_-30px_70px_rgba(40,20,10,0.18)]"
+        style={{ scrollSnapAlign: 'start', scrollMarginTop: 0 }}
       >
         {/* Top Floating Badge */}
         <div className="pointer-events-none absolute top-7 inset-x-0 z-30 flex justify-center px-4">
@@ -182,12 +227,12 @@ export function ExperiencesGallery({
             <span className="h-4 w-[1px] bg-ink/25 hidden sm:inline" />
             <Link
               href="/singapore/experiences/"
-              className="group inline-flex items-center gap-2 font-sans text-[12px] font-bold uppercase tracking-[0.18em] text-ink transition-colors hover:text-forest"
+              className="luxury-cta text-[12px] font-bold tracking-[0.18em]"
             >
-              <span>EXPLORE MORE</span>
+              <span className="cta-text">EXPLORE MORE</span>
               <ArrowUpRight
                 size={15}
-                className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                className="cta-arrow"
               />
             </Link>
           </div>
