@@ -156,12 +156,12 @@ export function ExperiencesGallery({
   images = galleryImages,
 }: ExperiencesGalleryProps) {
   return (
-    <div className={`relative w-full ${className}`}>
+    <div className={`relative z-30 w-full ${className}`}>
       {/* 1 Viewport Full Screen Infinite Drag Canvas */}
       <section
         id="gallery"
         aria-label="Idanazhi Gallery Infinite Canvas"
-        className="relative h-screen min-h-[100svh] max-h-[100svh] w-full overflow-hidden bg-paper select-none border-t border-line/25"
+        className="relative z-30 h-screen min-h-[100svh] max-h-[100svh] w-full overflow-hidden bg-paper select-none border-t border-line/35 shadow-[0_-30px_70px_rgba(40,20,10,0.18)]"
       >
         {/* Top Floating Badge */}
         <div className="pointer-events-none absolute top-7 inset-x-0 z-30 flex justify-center px-4">

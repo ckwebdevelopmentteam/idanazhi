@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  animate,
   cubicBezier,
   motion,
   useMotionValue,
@@ -98,29 +97,11 @@ export const DraggableContainer = ({
       }
     }
 
-    const handleWheelScroll = (event: WheelEvent) => {
-      if (!isDragging) {
-        animate(y, y.get() - event.deltaY * 2.2, {
-          type: "tween",
-          duration: 0.9,
-          ease: cubicBezier(0.18, 0.71, 0.11, 1),
-        });
-      }
-    };
-
-    const targetEl = containerWrapperRef.current;
-    if (targetEl) {
-      targetEl.addEventListener("wheel", handleWheelScroll, { passive: true });
-    }
-
     window.addEventListener("resize", setupWrapping);
 
     return () => {
       xSub?.();
       ySub?.();
-      if (targetEl) {
-        targetEl.removeEventListener("wheel", handleWheelScroll);
-      }
       window.removeEventListener("resize", setupWrapping);
     };
   }, [x, y, isDragging]);
