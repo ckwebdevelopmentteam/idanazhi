@@ -161,7 +161,9 @@ export function HeroCarousel({
 
   // In cards-only mode, compute card dimensions gracefully relative to stage width
   const fullH = isCardsOnly
-    ? (cardHeight ?? clamp(Math.round(box.w < 640 ? box.w * 0.78 : box.w < 1024 ? 360 : 420), 260, 460))
+    ? (cardHeight
+        ? Math.min(cardHeight, Math.round(box.w * 0.84))
+        : clamp(Math.round(box.w < 640 ? box.w * 0.78 : box.w < 1024 ? 380 : 420), 260, 460))
     : clamp(box.h * CARD_H, 96, 360)
 
   const halfH = Math.round(fullH * 0.5)

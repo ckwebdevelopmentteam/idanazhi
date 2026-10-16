@@ -88,58 +88,56 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
       className={`relative bg-paper py-[clamp(64px,8.5vh,110px)] overflow-hidden ${className}`}
       aria-labelledby="stay-heading"
     >
-      <div className="w-full flex flex-col items-center">
-        {/* Centered Section Header matching Story & Wedding Intro */}
-        <div className="flex flex-col items-center text-center max-w-[940px] mx-auto px-6 mb-10 sm:mb-14 lg:mb-16">
-          {/* Eyebrow / Section Title matching Story of Idanazhi */}
-          <p className="m-0 mb-4 sm:mb-5 uppercase tracking-[0.22em] text-[10.5px] sm:text-[11.5px] font-semibold text-muted text-center">
-            STAY AT IDANAZHI
-          </p>
+      <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 xl:gap-14 items-center">
+          {/* Left Column: Title, Heading, Desc, CTA */}
+          <div className="lg:col-span-5 flex flex-col items-start text-left max-w-[540px]">
+            {/* Eyebrow / Section Title */}
+            <p className="m-0 mb-3 sm:mb-4 uppercase tracking-[0.22em] text-[10.5px] sm:text-[11.5px] font-semibold text-muted text-left">
+              STAY AT IDANAZHI
+            </p>
 
-          {/* Symmetrical Scroll Reveal Heading matching Wedding Intro */}
-          <div className="w-full flex justify-center items-center text-center">
-            <ScrollReveal
-              as="h2"
-              baseOpacity={0.08}
-              enableBlur={true}
-              baseRotation={0}
-              blurStrength={8}
-              containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
-              wordAnimationStart="top 85%"
-              wordAnimationEnd="bottom 55%"
-            >
-              <span
-                id="stay-heading"
-                className="block !font-jakarta !font-normal !text-[clamp(20px,2.5vw,38px)] !leading-[1.36] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[940px] mx-auto sm:whitespace-nowrap"
+            {/* Scroll Reveal Heading */}
+            <div className="w-full text-left">
+              <ScrollReveal
+                as="h2"
+                baseOpacity={0.08}
+                enableBlur={true}
+                baseRotation={0}
+                blurStrength={8}
+                containerClassName="!my-0 w-full text-left flex flex-col items-start justify-start"
+                wordAnimationStart="top 85%"
+                wordAnimationEnd="bottom 55%"
               >
-                <span className="word">A</span>{' '}
-                <span className="word">SANCTUARY</span>{' '}
-                <span className="word">OF</span>{' '}
-                <span className="word">QUIET</span>{' '}
-                <span className="word">CHARACTER</span>
-                <br className="hidden sm:block" />
-                {' '}
-                <span className="word">AND</span>{' '}
-                <span className="word">UNHURRIED</span>{' '}
-                <span className="word">LIVING</span>
-              </span>
-            </ScrollReveal>
-          </div>
+                <span
+                  id="stay-heading"
+                  className="block !font-jakarta !font-normal !text-[clamp(24px,2.8vw,42px)] !leading-[1.28] !tracking-[-0.015em] !uppercase !text-ink text-left"
+                >
+                  <span className="word">A</span>{' '}
+                  <span className="word">SANCTUARY</span>{' '}
+                  <span className="word">OF</span>{' '}
+                  <span className="word">QUIET</span>{' '}
+                  <span className="word">CHARACTER</span>{' '}
+                  <span className="word">AND</span>{' '}
+                  <span className="word">UNHURRIED</span>{' '}
+                  <span className="word">LIVING</span>
+                </span>
+              </ScrollReveal>
+            </div>
 
-          {/* Centered Supporting Paragraph */}
-          <div className="w-full flex justify-center items-center text-center mt-3.5 sm:mt-5">
-            <ScrollReveal
-              as="p"
-              baseOpacity={0.12}
-              enableBlur={true}
-              baseRotation={0}
-              blurStrength={5}
-              containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
-              wordAnimationStart="top 53%"
-              wordAnimationEnd="bottom 28%"
-            >
-              <span className="block !font-sans !font-normal !text-[clamp(15px,1.05vw,17px)] !leading-[1.75] !text-muted text-center max-w-[840px] mx-auto">
-                <span className="sm:block sm:whitespace-nowrap">
+            {/* Supporting Paragraph */}
+            <div className="w-full text-left mt-4 sm:mt-5">
+              <ScrollReveal
+                as="p"
+                baseOpacity={0.12}
+                enableBlur={true}
+                baseRotation={0}
+                blurStrength={5}
+                containerClassName="!my-0 w-full text-left flex flex-col items-start justify-start"
+                wordAnimationStart="top 53%"
+                wordAnimationEnd="bottom 28%"
+              >
+                <span className="block !font-sans !font-normal !text-[clamp(14.5px,1vw,16.5px)] !leading-[1.75] !text-muted text-left">
                   <span className="word">Discover</span>{' '}
                   <span className="word">a</span>{' '}
                   <span className="word">different</span>{' '}
@@ -153,9 +151,7 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
                   <span className="word">of</span>{' '}
                   <span className="word">a</span>{' '}
                   <span className="word">heritage</span>{' '}
-                  <span className="word">home.</span>
-                </span>{' '}
-                <span className="sm:block sm:whitespace-nowrap">
+                  <span className="word">home.</span>{' '}
                   <span className="word">From</span>{' '}
                   <span className="word">quiet</span>{' '}
                   <span className="word">moments</span>{' '}
@@ -174,41 +170,48 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
                   <span className="word">of</span>{' '}
                   <span className="word">Idanazhi.</span>
                 </span>
-              </span>
-            </ScrollReveal>
+              </ScrollReveal>
+            </div>
+
+            {/* CTA Link */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUpVariants}
+              className="mt-6 sm:mt-8"
+            >
+              <Link
+                href="/singapore/#stay"
+                className="group inline-flex items-center gap-2 text-[13.5px] sm:text-[14px] font-sans tracking-[0.05em] uppercase text-ink focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[4px]"
+                aria-label="Explore Your Stay - Discover accommodation at Idanazhi"
+              >
+                <span className="relative pb-1 transition-colors duration-300 ease-out group-hover:text-forest">
+                  Explore Your Stay
+                  <span className="absolute bottom-0 left-0 w-full h-[1px] bg-ink/30 transition-colors duration-300" />
+                  <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-forest origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]" />
+                </span>
+                <ArrowUpRight
+                  size={15}
+                  className="text-ink transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-forest group-hover:translate-x-[3px] group-hover:-translate-y-[3px]"
+                  aria-hidden="true"
+                />
+              </Link>
+            </motion.div>
           </div>
 
-          {/* CTA Link */}
-          <motion.div variants={fadeUpVariants} className="mt-6 sm:mt-8">
-            <Link
-              href="/singapore/#stay"
-              className="group inline-flex items-center gap-2 text-[13.5px] sm:text-[14px] font-sans tracking-[0.05em] uppercase text-ink focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[4px]"
-              aria-label="Explore Your Stay - Discover accommodation at Idanazhi"
-            >
-              <span className="relative pb-1 transition-colors duration-300 ease-out group-hover:text-forest">
-                Explore Your Stay
-                <span className="absolute bottom-0 left-0 w-full h-[1px] bg-ink/30 transition-colors duration-300" />
-                <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-forest origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]" />
-              </span>
-              <ArrowUpRight
-                size={15}
-                className="text-ink transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-forest group-hover:translate-x-[3px] group-hover:-translate-y-[3px]"
-                aria-hidden="true"
-              />
-            </Link>
-          </motion.div>
-        </div>
-
-        {/* Filmstrip Card Carousel (Cards Only - without background swap or large hero text) */}
-        <div className="w-full overflow-hidden">
-          <HeroCarousel
-            items={stayRooms}
-            mode="cards-only"
-            theme="dark"
-            defaultIndex={1}
-            actionLabel="BOOK NOW"
-            onCardAction={() => setBookingOpen(true)}
-          />
+          {/* Right Column: Card component */}
+          <div className="lg:col-span-7 w-full overflow-hidden">
+            <HeroCarousel
+              items={stayRooms}
+              mode="cards-only"
+              theme="dark"
+              defaultIndex={1}
+              cardHeight={420}
+              actionLabel="BOOK NOW"
+              onCardAction={() => setBookingOpen(true)}
+            />
+          </div>
         </div>
       </div>
 
