@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  animate,
   cubicBezier,
   motion,
   useMotionValue,
@@ -97,11 +98,31 @@ export const DraggableContainer = ({
       }
     }
 
+    const handleWheelScroll = (event: WheelEvent) => {
+      if (!isDragging) {
+        // Flow photos forward / towards front side when scrolling
+        const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+        animate(y, y.get() + delta * 1.8, {
+          type: "tween",
+          duration: 0.85,
+          ease: cubicBezier(0.18, 0.71, 0.11, 1),
+        });
+      }
+    };
+
+    const targetEl = containerWrapperRef.current;
+    if (targetEl) {
+      targetEl.addEventListener("wheel", handleWheelScroll, { passive: true });
+    }
+
     window.addEventListener("resize", setupWrapping);
 
     return () => {
       xSub?.();
       ySub?.();
+      if (targetEl) {
+        targetEl.removeEventListener("wheel", handleWheelScroll);
+      }
       window.removeEventListener("resize", setupWrapping);
     };
   }, [x, y, isDragging]);
