@@ -104,10 +104,23 @@ export function CelebrationsAndExperience({ className = '' }: CelebrationsAndExp
   return (
     <section
       id="celebrations-and-experience"
-      className={`relative w-full h-screen min-h-[100svh] min-h-[100dvh] bg-[#3d1e16] text-white pt-[clamp(28px,4vh,56px)] pb-[clamp(16px,2.5vh,32px)] max-[720px]:pt-[24px] max-[720px]:pb-[16px] border-t border-white/10 overflow-hidden flex flex-col justify-between ${className}`}
+      className={`relative w-full bg-[#3d1e16] text-white py-[clamp(64px,8.5vh,110px)] max-[720px]:py-[50px] border-t border-white/10 overflow-hidden flex flex-col ${className}`}
       aria-label="Celebrations and Experiences"
     >
-      <div className="w-full h-full flex-1 min-h-0 flex flex-col justify-between">
+      {/* Background Texture Image */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <img
+          src="/images/celebrations-bg.jpg"
+          alt=""
+          aria-hidden="true"
+          className="w-full h-full object-cover object-center select-none"
+        />
+        {/* Subtle tonal grading for depth and text legibility */}
+        <div className="absolute inset-0 bg-[#28130d]/15 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40" />
+      </div>
+
+      <div className="relative z-10 w-full flex flex-col">
         {/* Row: CELEBRATIONS (Left) | AND (Center) | EXPERIENCES (Right) with Scroll Reveal Effect */}
         <ScrollReveal
           as="div"
@@ -118,7 +131,7 @@ export function CelebrationsAndExperience({ className = '' }: CelebrationsAndExp
           stagger={0.09}
           wordAnimationStart="top bottom-=5%"
           wordAnimationEnd="bottom 55%"
-          containerClassName="!m-0 w-full px-[5.4vw] max-[720px]:px-6 grid grid-cols-3 items-center gap-2 sm:gap-6 pb-2 sm:pb-4 shrink-0"
+          containerClassName="!m-0 w-full px-[5.4vw] max-[720px]:px-6 grid grid-cols-3 items-center gap-2 sm:gap-6 pb-6 sm:pb-8 md:pb-10 shrink-0"
         >
           {/* Left: CELEBRATIONS */}
           <div className="flex items-center justify-start">
@@ -142,20 +155,20 @@ export function CelebrationsAndExperience({ className = '' }: CelebrationsAndExp
           </div>
         </ScrollReveal>
 
-        {/* Polaroid Line Carousel with larger card sizes */}
+        {/* Polaroid Line Carousel with balanced height and spacing */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
           variants={fadeUpVariants}
-          className="w-full flex-1 min-h-0 flex flex-col"
+          className="w-full flex flex-col"
         >
           <PolaroidLineCarousel
             slides={celebrationSlides}
-            height="100%"
-            className="flex-1 min-h-0 w-full"
-            cardWidth={375}
-            sag={48}
+            height="clamp(470px, 56vh, 540px)"
+            className="w-full"
+            cardWidth={330}
+            sag={34}
             swing={1}
             autoplay={4500}
             string="#c6a77d"
