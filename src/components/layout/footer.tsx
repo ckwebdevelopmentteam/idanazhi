@@ -71,7 +71,7 @@ export function Footer() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.12 }}
-      className="relative w-full bg-[#F6F0E9] text-[#5A3828] overflow-hidden border-t border-[#7C402E]/10"
+      className="relative z-30 w-full bg-[#F6F0E9] text-[#5A3828] overflow-hidden border-t border-[#7C402E]/10"
     >
       {/* Upper Content Area with Background Caricature Illustration */}
       <div className="relative w-full">

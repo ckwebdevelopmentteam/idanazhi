@@ -40,10 +40,12 @@ const rowVariants = {
 
 export const DraggableContainer = ({
   className,
+  containerClassName,
   children,
   variant = "masonry",
 }: {
   className?: string;
+  containerClassName?: string;
   children: React.ReactNode;
   variant?: GridVariant;
 }) => {
@@ -111,7 +113,10 @@ export const DraggableContainer = ({
     <GridVariantContext.Provider value={variant}>
       <div
         ref={containerWrapperRef}
-        className="relative h-screen min-h-[100svh] max-h-[100svh] w-full overflow-hidden select-none bg-paper"
+        className={cn(
+          "relative h-full w-full overflow-hidden select-none bg-paper",
+          containerClassName
+        )}
       >
         <motion.div className="h-full w-full overflow-hidden">
           <motion.div
@@ -155,9 +160,9 @@ export const GridItem = ({
     {
       variants: {
         variant: {
-          default: "rounded-2xl border border-line/30 shadow-lg hover:shadow-2xl bg-white",
+          default: "rounded-none border border-line/30 shadow-lg hover:shadow-2xl bg-white",
           masonry:
-            "even:mt-[50%] rounded-2xl border border-line/30 shadow-lg hover:shadow-2xl bg-white",
+            "even:mt-[50%] rounded-none border border-line/30 shadow-lg hover:shadow-2xl bg-white",
           polaroid:
             "border-[10px] border-b-[38px] border-white shadow-[0_12px_36px_rgba(124,64,46,0.14)] even:rotate-3 odd:-rotate-2 hover:rotate-0 transition-transform ease-out duration-300 even:mt-[50%] bg-white",
         },

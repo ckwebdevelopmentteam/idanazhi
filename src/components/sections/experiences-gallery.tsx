@@ -3,11 +3,28 @@
 import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight, Move } from 'lucide-react';
+import { motion, type Variants } from 'framer-motion';
+import ScrollReveal from '@/components/ui/ScrollReveal';
 import {
   DraggableContainer,
   GridBody,
   GridItem,
 } from '@/components/ui/infinite-drag-scroll';
+
+const fadeUpVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 12,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.65,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
 
 export interface GalleryPhotoItem {
   id: number;
@@ -149,11 +166,15 @@ export const galleryImages: GalleryPhotoItem[] = [
 export interface ExperiencesGalleryProps {
   className?: string;
   images?: GalleryPhotoItem[];
+  eyebrow?: string;
+  headingWords?: string[][];
 }
 
 export function ExperiencesGallery({
   className = '',
   images = galleryImages,
+  eyebrow = 'EXPERIENCES GALLERY',
+  headingWords,
 }: ExperiencesGalleryProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
 
@@ -199,57 +220,68 @@ export function ExperiencesGallery({
   }, []);
 
   return (
-    <div className={`relative z-30 w-full ${className}`}>
-      {/* 1 Viewport Full Screen Infinite Drag Canvas */}
-      <section
-        id="gallery"
-        ref={sectionRef}
-        aria-label="Idanazhi Gallery Infinite Canvas"
-        className="relative z-30 h-screen min-h-[100svh] max-h-[100svh] w-full overflow-hidden bg-paper select-none border-t border-line/35 shadow-[0_-30px_70px_rgba(40,20,10,0.18)]"
-        style={{ scrollSnapAlign: 'start', scrollMarginTop: 0 }}
-      >
-        {/* Top Floating Badge */}
-        <div className="pointer-events-none absolute top-7 inset-x-0 z-30 flex justify-center px-4">
-          <div className="pointer-events-auto flex items-center gap-2.5 rounded-full border border-line/30 bg-paper/90 px-5 py-2 shadow-sm backdrop-blur-md">
-            <span className="h-1.5 w-1.5 rounded-full bg-ink animate-pulse" />
-            <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.24em] text-ink">
-              GALLERY • LIVING HERITAGE
-            </span>
-          </div>
+    <section
+      id="gallery"
+      ref={sectionRef}
+      aria-label="Idanazhi Gallery Infinite Canvas"
+      className={`sticky top-0 z-10 h-screen min-h-[100svh] max-h-[100svh] w-full overflow-hidden bg-paper select-none flex flex-col pt-10 sm:pt-14 md:pt-16 ${className}`}
+      style={{ scrollSnapAlign: 'start', scrollMarginTop: 0 }}
+    >
+      {/* Section Header: Eyebrow Title positioned cleanly ABOVE the gallery component */}
+      {eyebrow && (
+        <div className="flex flex-col items-center text-center max-w-[940px] mx-auto px-6 mb-10 sm:mb-14 md:mb-16 shrink-0 z-30">
+          <motion.p
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-60px' }}
+            variants={fadeUpVariants}
+            className="m-0 uppercase tracking-[0.24em] text-[10.5px] sm:text-[11.5px] font-semibold text-muted text-center"
+          >
+            {eyebrow}
+          </motion.p>
+
+          {headingWords && headingWords.length > 0 && (
+            <div className="w-full flex justify-center items-center text-center mt-2.5">
+              <ScrollReveal
+                as="h2"
+                baseOpacity={0.08}
+                enableBlur={true}
+                baseRotation={0}
+                blurStrength={8}
+                containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
+                textClassName="!font-jakarta !font-normal !text-[clamp(20px,2.5vw,36px)] !leading-[1.25] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
+                wordAnimationStart="top 85%"
+                wordAnimationEnd="bottom 55%"
+              >
+                <span
+                  id="gallery-heading"
+                  className="block !font-jakarta !font-normal !text-[clamp(20px,2.5vw,36px)] !leading-[1.25] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
+                >
+                  {headingWords.map((lineWords, lineIdx) => (
+                    <span key={lineIdx} className="block sm:whitespace-nowrap">
+                      {lineWords.map((word, wordIdx) => (
+                        <React.Fragment key={wordIdx}>
+                          <span className="word">{word}</span>
+                          {wordIdx < lineWords.length - 1 && ' '}
+                        </React.Fragment>
+                      ))}
+                    </span>
+                  ))}
+                </span>
+              </ScrollReveal>
+            </div>
+          )}
         </div>
+      )}
 
-        {/* Bottom Floating Explore More HUD */}
-        <div className="pointer-events-none absolute bottom-8 inset-x-0 z-30 flex flex-col items-center justify-center px-4">
-          <div className="pointer-events-auto flex items-center gap-4 rounded-full border border-line/35 bg-paper/92 px-6 py-3.5 shadow-2xl backdrop-blur-md transition-all duration-200 hover:bg-paper hover:shadow-[0_16px_48px_rgba(124,64,46,0.2)]">
-            <span className="font-serif text-[15px] sm:text-[16px] text-ink font-medium tracking-tight hidden sm:inline">
-              Curated Destination Moments
-            </span>
-            <span className="h-4 w-[1px] bg-ink/25 hidden sm:inline" />
-            <Link
-              href="/singapore/experiences/"
-              className="luxury-cta text-[12px] font-bold tracking-[0.18em]"
-            >
-              <span className="cta-text">EXPLORE MORE</span>
-              <ArrowUpRight
-                size={15}
-                className="cta-arrow"
-              />
-            </Link>
-          </div>
-
-          <div className="mt-2.5 flex items-center gap-1.5 font-sans text-[10.5px] uppercase tracking-[0.2em] text-muted/80">
-            <Move size={11} className="text-ink/60" />
-            <span>DRAG CANVAS IN ANY DIRECTION</span>
-          </div>
-        </div>
-
-        {/* Infinite Draggable Grid */}
+      {/* Infinite Draggable Grid Canvas Component below the Header */}
+      <div className="relative flex-1 min-h-0 w-full overflow-hidden">
         <DraggableContainer variant="masonry">
           <GridBody>
             {images.map((photo) => (
               <GridItem
                 key={photo.id}
-                className="relative h-64 w-44 sm:h-80 sm:w-56 md:h-[400px] md:w-[280px]"
+                className="relative h-64 w-44 sm:h-80 sm:w-56 md:h-[380px] md:w-[270px] rounded-none"
               >
                 <img
                   src={photo.src}
@@ -278,32 +310,33 @@ export function ExperiencesGallery({
             ))}
           </GridBody>
         </DraggableContainer>
-      </section>
 
-      {/* Explore More Option after 1 Viewport Height */}
-      <div className="w-full bg-linen/40 py-12 px-6 sm:px-12 border-b border-line/20">
-        <div className="max-w-[1360px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <div>
-            <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.22em] text-ink/75 block mb-1.5">
-              DESTINATION EXPERIENCES
+        {/* Bottom Floating Explore More HUD */}
+        <div className="pointer-events-none absolute bottom-6 inset-x-0 z-30 flex flex-col items-center justify-center px-4">
+          <div className="pointer-events-auto flex items-center gap-4 rounded-full border border-line/35 bg-paper/92 px-6 py-3 shadow-xl backdrop-blur-md transition-all duration-200 hover:bg-paper hover:shadow-[0_16px_48px_rgba(124,64,46,0.2)]">
+            <span className="font-serif text-[14.5px] sm:text-[15.5px] text-ink font-medium tracking-tight hidden sm:inline">
+              Curated Destination Moments
             </span>
-            <h3 className="font-serif text-[clamp(26px,3vw,38px)] text-ink font-normal tracking-tight m-0">
-              Adventures and encounters crafted for the curious traveller
-            </h3>
+            <span className="h-4 w-[1px] bg-ink/25 hidden sm:inline" />
+            <Link
+              href="/singapore/experiences/"
+              className="luxury-cta text-[11.5px] font-bold tracking-[0.18em]"
+            >
+              <span className="cta-text">EXPLORE MORE</span>
+              <ArrowUpRight
+                size={14}
+                className="cta-arrow"
+              />
+            </Link>
           </div>
-          <Link
-            href="/singapore/experiences/"
-            className="flex-shrink-0 group inline-flex items-center gap-2.5 border border-ink bg-ink px-7 py-3.5 text-[11.5px] font-sans font-semibold uppercase tracking-[0.18em] text-white transition-all hover:bg-forest hover:border-forest shadow-md"
-          >
-            <span>EXPLORE ALL EXPERIENCES</span>
-            <ArrowUpRight
-              size={15}
-              className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-            />
-          </Link>
+
+          <div className="mt-2 flex items-center gap-1.5 font-sans text-[10px] uppercase tracking-[0.2em] text-muted/80">
+            <Move size={10} className="text-ink/60" />
+            <span>DRAG CANVAS IN ANY DIRECTION</span>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
