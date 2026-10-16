@@ -191,7 +191,7 @@ function Testimonials({
   return (
     <section
       id="testimonials"
-      className={`relative bg-paper py-[clamp(64px,8.5vh,110px)] max-[720px]:py-[50px] overflow-hidden border-t border-ink/10 ${className}`}
+      className={`relative z-30 bg-paper py-[clamp(64px,8.5vh,110px)] max-[720px]:py-[50px] overflow-hidden border-t border-ink/10 ${className}`}
       aria-labelledby="testimonials-heading"
     >
       <div className="w-full max-w-[1360px] mx-auto px-6 sm:px-8 lg:px-12">

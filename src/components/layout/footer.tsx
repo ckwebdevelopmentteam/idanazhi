@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { motion, type Variants } from 'framer-motion';
 import { BrandLogo } from '@/components/layout/brand-logo';
-import { IdanazhiSymbol } from '@/components/layout/idanazhi-symbol';
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -101,12 +100,12 @@ export function Footer() {
             {/* Column 1: Brand Logo */}
             <motion.div
               variants={columnVariants}
-              className="col-span-2 sm:col-span-12 lg:col-span-1 flex flex-col items-center justify-center text-center lg:px-6 xl:px-8 first:pl-0 self-center my-auto sm:mb-2 lg:mb-0"
+              className="col-span-2 sm:col-span-12 lg:col-span-1 flex flex-col items-center justify-center text-center lg:px-6 xl:px-8 first:pl-0 lg:self-start lg:pt-1 sm:mb-2 lg:mb-0"
             >
               <Link
                 href="/"
                 aria-label="IDANAZHI Farm Stay"
-                className="inline-block transition-transform duration-300 hover:scale-105"
+                className="inline-block transition-transform duration-300 hover:scale-105 -translate-y-1.5 sm:-translate-y-2 lg:-translate-y-4"
               >
                 <BrandLogo className="h-16 sm:h-20 md:h-22 lg:h-28 xl:h-32 w-auto max-w-[220px] sm:max-w-[260px] md:max-w-[280px] lg:max-w-[320px]" />
               </Link>

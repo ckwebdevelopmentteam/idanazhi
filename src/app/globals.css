@@ -1,5 +1,5 @@
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap');
+@import "tailwindcss";
 
 @theme {
   --color-ink: #7c402e;
@@ -9,6 +9,7 @@
   --color-muted: #79665e;
   --color-muted-foreground: #79665e;
   --color-line: rgba(124, 64, 46, 0.25);
+  --color-brand: #7c402e;
 
   --color-background: var(--color-paper);
   --color-foreground: var(--color-ink);

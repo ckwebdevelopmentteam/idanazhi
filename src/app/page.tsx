@@ -7,6 +7,7 @@ import { WeddingIntro } from '@/components/sections/wedding-intro';
 import { StoryOfIdanazhi } from '@/components/sections/story-of-idanazhi';
 import { StayAtIdanazhi } from '@/components/sections/stay-at-idanazhi';
 import { CelebrationsAndExperience } from '@/components/sections/celebrations-and-experience';
+import { ExperiencesGallery } from '@/components/sections/experiences-gallery';
 import { Testimonials } from '@/components/ui/testimonials';
 
 export default function Home() {
@@ -42,6 +43,8 @@ export default function Home() {
       <CelebrationsAndExperience />
 
       <StayAtIdanazhi />
+
+      <ExperiencesGallery />
 
       <Testimonials />
 
