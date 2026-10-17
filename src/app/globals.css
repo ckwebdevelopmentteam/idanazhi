@@ -43,7 +43,7 @@
   body {
     background-color: var(--color-paper);
     color-scheme: light;
-    overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100vw;
   }
   html {

@@ -71,17 +71,18 @@ export function Footer() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.12 }}
-      className="relative z-30 w-full bg-[#F6F0E9] text-[#5A3828] overflow-hidden border-t border-[#7C402E]/10"
+      className="relative z-30 w-full bg-[#FCF2E7] text-[#5A3828] overflow-hidden border-t border-[#7C402E]/10"
     >
-      {/* Upper Content Area with Background Caricature Illustration */}
+      {/* Upper Content Area with Background Wedding Illustration */}
       <div className="relative w-full">
-        {/* Background caricature illustration with seamless responsive scaling anchored above bottom bar */}
+        {/* Background wedding illustration with seamless responsive scaling anchored above bottom bar */}
         <motion.div
           variants={bgVariants}
           className="absolute inset-0 w-full h-full bg-bottom bg-no-repeat pointer-events-none origin-bottom"
           style={{
-            backgroundImage: "url('/images/guruvayoor-footer-bg.jpg')",
+            backgroundImage: "url('/images/footer.png')",
             backgroundSize: '100% auto',
+            backgroundPosition: 'center bottom',
           }}
         />
 
@@ -95,7 +96,7 @@ export function Footer() {
               - Tablet (640px-1023px): 12 columns. Logo centered on top (12 cols), Explore (4 cols), Your Stay (4 cols), Stay In Touch (4 cols) side-by-side!
               - Desktop (1024px+): 4 columns in 1 row with vertical hairline dividers
           */}
-          <div className="grid grid-cols-2 sm:grid-cols-12 lg:grid-cols-4 gap-x-6 gap-y-10 sm:gap-x-8 sm:gap-y-10 lg:gap-0 lg:divide-x lg:divide-[#7C402E]/20">
+          <div className="grid grid-cols-2 sm:grid-cols-12 lg:grid-cols-4 gap-x-6 gap-y-10 sm:gap-x-8 sm:gap-y-10 lg:gap-0">
             
             {/* Column 1: Brand Logo */}
             <motion.div
@@ -114,8 +115,12 @@ export function Footer() {
             {/* Column 2: EXPLORE */}
             <motion.div
               variants={columnVariants}
-              className="col-span-1 sm:col-span-4 lg:col-span-1 flex flex-col items-start px-1 sm:px-3 md:px-5 lg:px-8 xl:px-10"
+              className="relative col-span-1 sm:col-span-4 lg:col-span-1 flex flex-col items-start px-1 sm:px-3 md:px-5 lg:px-8 xl:px-10"
             >
+              <div
+                aria-hidden="true"
+                className="hidden lg:block absolute left-0 top-1.5 h-1/2 w-[1px] bg-[#7C402E]/20"
+              />
               <span className="h-[2px] w-6 bg-[#84382B] mb-2.5 rounded-full" />
               <h3 className="text-[11px] font-semibold tracking-[0.2em] text-[#7C402E] uppercase mb-3.5">
                 EXPLORE
@@ -157,8 +162,12 @@ export function Footer() {
             {/* Column 3: YOUR STAY */}
             <motion.div
               variants={columnVariants}
-              className="col-span-1 sm:col-span-4 lg:col-span-1 flex flex-col items-start px-1 sm:px-3 md:px-5 lg:px-8 xl:px-10"
+              className="relative col-span-1 sm:col-span-4 lg:col-span-1 flex flex-col items-start px-1 sm:px-3 md:px-5 lg:px-8 xl:px-10"
             >
+              <div
+                aria-hidden="true"
+                className="hidden lg:block absolute left-0 top-1.5 h-1/2 w-[1px] bg-[#7C402E]/20"
+              />
               <span className="h-[2px] w-6 bg-[#84382B] mb-2.5 rounded-full" />
               <h3 className="text-[11px] font-semibold tracking-[0.2em] text-[#7C402E] uppercase mb-3.5">
                 YOUR STAY
@@ -174,24 +183,18 @@ export function Footer() {
                     Manage Reservation
                   </Link>
                 </li>
-                <li>
-                  <Link href="/hotels-resorts/" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
-                    Gift Cards
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/hotels-resorts/" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
-                    Loyalty
-                  </Link>
-                </li>
               </ul>
             </motion.div>
 
             {/* Column 4: STAY IN TOUCH */}
             <motion.div
               variants={columnVariants}
-              className="col-span-2 sm:col-span-4 lg:col-span-1 flex flex-col items-start px-1 sm:px-3 md:px-5 lg:px-8 xl:px-10 pt-4 sm:pt-0 border-t border-[#7C402E]/15 sm:border-t-0"
+              className="relative col-span-2 sm:col-span-4 lg:col-span-1 flex flex-col items-start px-1 sm:px-3 md:px-5 lg:px-8 xl:px-10 pt-4 sm:pt-0 border-t border-[#7C402E]/15 sm:border-t-0"
             >
+              <div
+                aria-hidden="true"
+                className="hidden lg:block absolute left-0 top-1.5 h-1/2 w-[1px] bg-[#7C402E]/20"
+              />
               <span className="h-[2px] w-6 bg-[#84382B] mb-2.5 rounded-full" />
               <h3 className="text-[11px] font-semibold tracking-[0.2em] text-[#7C402E] uppercase mb-2.5">
                 STAY IN TOUCH

@@ -13,17 +13,6 @@ import {
   type WeddingCard,
 } from '@/data/weddings';
 
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.1,
-    },
-  },
-};
-
 
 const fadeUpVariants: Variants = {
   hidden: {
@@ -92,7 +81,6 @@ export function WeddingIntro({
   const extendedCards = [...data.cards, ...data.cards, ...data.cards];
 
   const [activeCard, setActiveCard] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
   const [hoveredCardIndex, setHoveredCardIndex] = useState<number | null>(null);
   const [hoverRatio, setHoverRatio] = useState<number>(0);
   const [showNumberPicker, setShowNumberPicker] = useState<boolean>(false);
@@ -238,7 +226,6 @@ export function WeddingIntro({
       : -(currentIndexRef.current * step);
 
     isDraggingRef.current = true;
-    setIsDragging(true);
     startXRef.current = e.clientX;
     dragStartTrackXRef.current = currentX;
     lastPointerXRef.current = e.clientX;
@@ -273,7 +260,6 @@ export function WeddingIntro({
   const handlePointerUp = (e: React.PointerEvent) => {
     if (!isDraggingRef.current) return;
     isDraggingRef.current = false;
-    setIsDragging(false);
 
     try {
       (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
