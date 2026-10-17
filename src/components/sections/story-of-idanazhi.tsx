@@ -146,7 +146,7 @@ export function StoryOfIdanazhi({ className = '' }: StoryOfIdanazhiProps) {
   return (
     <section
       id="story"
-      className={`relative bg-paper pt-0 pb-[clamp(72px,10vh,135px)] px-[5.4vw] max-[720px]:px-6 max-[720px]:pt-0 max-[720px]:pb-[60px] overflow-hidden ${className}`}
+      className={`relative bg-paper pt-0 pb-[clamp(60px,8vh,135px)] px-4 sm:px-[5.4vw] max-[720px]:pt-0 max-[720px]:pb-[48px] overflow-hidden ${className}`}
       aria-labelledby="story-of-idanazhi-heading"
     >
       <div className="w-full max-w-[1480px] mx-auto text-center flex flex-col items-center justify-center">
@@ -160,7 +160,7 @@ export function StoryOfIdanazhi({ className = '' }: StoryOfIdanazhiProps) {
           {/* Eyebrow Label */}
           <motion.p
             variants={fadeUpVariants}
-            className="m-0 mb-4 sm:mb-5 uppercase tracking-[0.22em] text-[10.5px] sm:text-[11.5px] font-semibold text-muted text-center"
+            className="m-0 mb-3 sm:mb-5 uppercase tracking-[0.22em] text-[10px] sm:text-[11.5px] font-semibold text-muted text-center"
           >
             THE STORY OF IDANAZHI
           </motion.p>
@@ -174,7 +174,7 @@ export function StoryOfIdanazhi({ className = '' }: StoryOfIdanazhiProps) {
               baseRotation={0}
               blurStrength={8}
               containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
-              textClassName="!font-jakarta !font-normal !text-[clamp(20px,2.5vw,38px)] !leading-[1.36] !tracking-[-0.015em] !uppercase !text-ink text-center w-full mx-auto"
+              textClassName="!font-jakarta !font-normal !text-[clamp(16px,2.4vw,38px)] max-[480px]:!text-[15px] !leading-[1.38] !tracking-[-0.015em] !uppercase !text-ink text-center w-full mx-auto"
               rotationEnd="bottom 65%"
               wordAnimationEnd="bottom 50%"
             >
@@ -189,7 +189,7 @@ FOR MEANINGFUL EXPERIENCES.`}
           {/* Minimal Text CTA directly below */}
           <motion.div
             variants={fadeUpVariants}
-            className="flex justify-center mt-8 sm:mt-10"
+            className="flex justify-center mt-6 sm:mt-10"
           >
             <Link
               href="/singapore/#story"
@@ -210,7 +210,7 @@ FOR MEANINGFUL EXPERIENCES.`}
           {/* Three Story Cards with Sequential Down-to-Up Scroll Reveal */}
           <div
             ref={cardsContainerRef}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 w-full max-w-[1280px] mx-auto mt-14 sm:mt-20 text-left"
+            className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 lg:gap-8 w-full max-w-[1280px] mx-auto mt-10 sm:mt-16 md:mt-20 text-left"
           >
             {storyCards.map((card, idx) => (
               <article
@@ -229,12 +229,12 @@ FOR MEANINGFUL EXPERIENCES.`}
                 </div>
 
                 {/* Content */}
-                <div className="p-6 sm:p-7 flex flex-col flex-1 justify-between bg-paper/60 backdrop-blur-[2px]">
+                <div className="p-5 sm:p-7 flex flex-col flex-1 justify-between bg-paper/60 backdrop-blur-[2px]">
                   <div>
-                    <p className="m-0 mb-2.5 text-[10.5px] uppercase tracking-[0.2em] font-semibold text-muted">
+                    <p className="m-0 mb-2 text-[10px] sm:text-[10.5px] uppercase tracking-[0.2em] font-semibold text-muted">
                       {card.eyebrow}
                     </p>
-                    <h3 className="font-serif text-[22px] sm:text-[24px] font-normal leading-[1.2] tracking-[-0.02em] text-ink m-0 mb-3 group-hover:text-forest transition-colors duration-300">
+                    <h3 className="font-serif text-[20px] sm:text-[24px] font-normal leading-[1.2] tracking-[-0.02em] text-ink m-0 mb-2.5 group-hover:text-forest transition-colors duration-300">
                       {card.title}
                     </h3>
                     <p className="m-0 text-[13px] sm:text-[13.5px] leading-[1.65] text-muted font-sans font-light">
@@ -242,7 +242,7 @@ FOR MEANINGFUL EXPERIENCES.`}
                     </p>
                   </div>
 
-                  <div className="mt-6 pt-4 border-t border-ink/12">
+                  <div className="mt-5 pt-3.5 sm:mt-6 sm:pt-4 border-t border-ink/12">
                     <Link
                       href={card.linkHref}
                       className="card-cta focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[3px]"

@@ -213,12 +213,12 @@ export function Footer() {
                     }}
                     placeholder="Your email address"
                     aria-label="Your email address"
-                    className="w-full bg-transparent text-[13px] text-[#5A3828] placeholder:text-[#8C6D5F]/60 placeholder:font-serif outline-none py-1 pr-9"
+                    className="w-full bg-transparent text-[13px] text-[#5A3828] placeholder:text-[#8C6D5F]/60 placeholder:font-serif outline-none py-1.5 pr-10"
                   />
                   <button
                     type="submit"
                     aria-label="Subscribe"
-                    className="absolute right-0 w-7 h-7 rounded-full bg-[#84382B] hover:bg-[#6E2E20] text-white flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-105 active:scale-95"
+                    className="absolute right-0 w-8 h-8 rounded-full bg-[#84382B] hover:bg-[#6E2E20] text-white flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-105 active:scale-95 cursor-pointer"
                   >
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                       <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -239,7 +239,7 @@ export function Footer() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label="Instagram"
-                  className="hover:text-[#84382B] transition-colors p-1 -m-1"
+                  className="hover:text-[#84382B] transition-colors p-2 -m-2 inline-flex items-center justify-center"
                 >
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -253,7 +253,7 @@ export function Footer() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label="YouTube"
-                  className="hover:text-[#84382B] transition-colors p-1 -m-1"
+                  className="hover:text-[#84382B] transition-colors p-2 -m-2 inline-flex items-center justify-center"
                 >
                   <svg width="19" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
@@ -271,8 +271,8 @@ export function Footer() {
         variants={bottomBarVariants}
         className="relative z-20 w-full bg-[#543224] text-[#F6F0E9] border-t border-[#7C402E]/20"
       >
-        <div className="w-full max-w-[1440px] 2xl:max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-16 py-3.5 sm:py-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between text-[11px] sm:text-[11.5px] text-[#F6F0E9]/90 tracking-[0.04em] gap-2.5">
+        <div className="w-full max-w-[1440px] 2xl:max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-16 py-3.5 sm:py-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between text-[10.5px] sm:text-[11.5px] text-[#F6F0E9]/90 tracking-[0.04em] gap-2.5">
             <p className="m-0 text-center sm:text-left font-sans">
               &copy; 2026 Idanazhi Farm Stay, Guruvayoor. All rights reserved.
             </p>

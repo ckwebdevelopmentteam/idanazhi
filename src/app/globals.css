@@ -43,6 +43,8 @@
   body {
     background-color: var(--color-paper);
     color-scheme: light;
+    overflow-x: hidden;
+    max-width: 100vw;
   }
   html {
     color: var(--color-ink);
@@ -310,5 +312,23 @@ html::-webkit-scrollbar {
 
 .card-cta:hover .cta-arrow {
   transform: translate(3px, -3px);
+}
+
+/* Mobile Touch Optimization for CTAs & Interactive Links */
+@media (max-width: 768px) {
+  .luxury-cta {
+    min-height: 44px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .card-cta {
+    min-height: 42px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
 }
 

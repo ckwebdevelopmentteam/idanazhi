@@ -1,16 +1,12 @@
 'use client';
 
 import React, { useState, useId, useMemo } from 'react';
-import Link from 'next/link';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import {
   Search,
   Plus,
-  Minus,
   MessageSquare,
-  Phone,
   Mail,
-  ArrowUpRight,
   Sparkles,
   HelpCircle,
   CheckCircle2,
@@ -227,21 +223,21 @@ export function FAQSection({ items = defaultFaqItems, className = '' }: FAQSecti
   return (
     <section
       id="faq"
-      className={`relative z-20 bg-paper py-[clamp(68px,9vh,120px)] max-[720px]:py-[56px] overflow-hidden border-t border-line/35 ${className}`}
+      className={`relative z-20 bg-paper py-[clamp(54px,7.5vh,110px)] max-[720px]:py-[44px] overflow-hidden border-t border-line/35 ${className}`}
       aria-labelledby="faq-heading"
     >
       {/* Subtle Warm Background Ambience */}
       <div className="absolute inset-0 pointer-events-none opacity-40 bg-[radial-gradient(circle_at_50%_0%,rgba(212,163,115,0.12),transparent_70%)]" />
 
-      <div className="w-full max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
+      <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col items-center text-center max-w-[940px] mx-auto px-4 mb-10 sm:mb-14 md:mb-16">
+        <div className="flex flex-col items-center text-center max-w-[940px] mx-auto px-2 sm:px-4 mb-8 sm:mb-14 md:mb-16">
           <motion.p
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-60px' }}
             variants={fadeUpVariants}
-            className="m-0 mb-3 sm:mb-4 uppercase tracking-[0.22em] text-[10.5px] sm:text-[11.5px] font-semibold text-muted text-center"
+            className="m-0 mb-2.5 sm:mb-4 uppercase tracking-[0.22em] text-[10px] sm:text-[11.5px] font-semibold text-muted text-center"
           >
             FREQUENTLY ASKED QUESTIONS
           </motion.p>
@@ -254,13 +250,13 @@ export function FAQSection({ items = defaultFaqItems, className = '' }: FAQSecti
               baseRotation={0}
               blurStrength={8}
               containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
-              textClassName="!font-jakarta !font-normal !text-[clamp(22px,2.6vw,40px)] !leading-[1.28] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
+              textClassName="!font-jakarta !font-normal !text-[clamp(18px,2.4vw,38px)] !leading-[1.28] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
               wordAnimationStart="top 85%"
               wordAnimationEnd="bottom 55%"
             >
               <span
                 id="faq-heading"
-                className="block !font-jakarta !font-normal !text-[clamp(22px,2.6vw,40px)] !leading-[1.26] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
+                className="block !font-jakarta !font-normal !text-[clamp(18px,2.4vw,38px)] !leading-[1.26] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
               >
                 <span className="block sm:whitespace-nowrap">
                   <span className="word">EVERYTHING</span>{' '}
@@ -447,19 +443,19 @@ export function FAQSection({ items = defaultFaqItems, className = '' }: FAQSecti
                     aria-expanded={isOpen}
                     aria-controls={`faq-answer-${item.id}`}
                     id={`faq-header-${item.id}`}
-                    className="w-full text-left p-5 sm:p-6 lg:p-7 flex items-start justify-between gap-4 cursor-pointer select-none"
+                    className="w-full text-left p-4 sm:p-6 lg:p-7 flex items-start justify-between gap-3 sm:gap-4 cursor-pointer select-none"
                   >
-                    <div className="flex items-start gap-3.5 sm:gap-4.5 flex-1 pr-2">
-                      <span className="font-mono text-[11px] sm:text-[12px] tracking-[0.1em] text-muted/70 pt-1 shrink-0 font-medium">
+                    <div className="flex items-start gap-3 sm:gap-4.5 flex-1 pr-2">
+                      <span className="font-mono text-[10.5px] sm:text-[12px] tracking-[0.1em] text-muted/70 pt-0.5 sm:pt-1 shrink-0 font-medium">
                         {itemNumber}
                       </span>
                       <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1.5">
-                          <span className="inline-block text-[9px] sm:text-[9.5px] uppercase tracking-[0.18em] font-semibold text-ink/75 bg-ink/[0.07] px-2 py-0.5 rounded">
+                        <div className="flex items-center gap-2 mb-1 sm:mb-1.5">
+                          <span className="inline-block text-[8.5px] sm:text-[9.5px] uppercase tracking-[0.18em] font-semibold text-ink/75 bg-ink/[0.07] px-2 py-0.5 rounded">
                             {item.categoryLabel}
                           </span>
                         </div>
-                        <h3 className="font-serif text-[17px] sm:text-[19px] lg:text-[20.5px] text-ink font-normal leading-snug tracking-[-0.01em] group-hover:text-forest transition-colors">
+                        <h3 className="font-serif text-[16px] sm:text-[19px] lg:text-[20.5px] text-ink font-normal leading-snug tracking-[-0.01em] group-hover:text-forest transition-colors">
                           {item.question}
                         </h3>
                       </div>
@@ -467,14 +463,14 @@ export function FAQSection({ items = defaultFaqItems, className = '' }: FAQSecti
 
                     {/* Animated Toggle Icon */}
                     <div
-                      className={`shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all duration-300 ${
+                      className={`shrink-0 w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all duration-300 ${
                         isOpen
                           ? 'bg-ink text-white rotate-45 shadow-sm'
                           : 'bg-ink/[0.06] text-ink group-hover:bg-ink/[0.12]'
                       }`}
                       aria-hidden="true"
                     >
-                      <Plus size={16} className="transition-transform duration-300" />
+                      <Plus size={15} className="transition-transform duration-300" />
                     </div>
                   </button>
 
@@ -491,13 +487,13 @@ export function FAQSection({ items = defaultFaqItems, className = '' }: FAQSecti
                         transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
                         className="overflow-hidden"
                       >
-                        <div className="px-5 sm:px-6 lg:px-7 pb-6 sm:pb-7 pt-1 pl-[48px] sm:pl-[64px] border-t border-line/15">
-                          <p className="font-sans text-[13.5px] sm:text-[15px] leading-[1.8] text-[#5A3828] m-0 mb-3.5">
+                        <div className="px-4 sm:px-6 lg:px-7 pb-5 sm:pb-7 pt-1 pl-[36px] sm:pl-[64px] border-t border-line/15">
+                          <p className="font-sans text-[13px] sm:text-[15px] leading-[1.75] text-[#5A3828] m-0 mb-3 sm:mb-3.5">
                             {item.answer}
                           </p>
 
                           {item.highlight && (
-                            <div className="inline-flex items-center gap-2 bg-[#F3EBE3] border border-line/20 rounded-lg px-3 py-1.5 text-[11.5px] text-ink font-medium">
+                            <div className="inline-flex items-center gap-2 bg-[#F3EBE3] border border-line/20 rounded-lg px-2.5 py-1.5 sm:px-3 text-[11px] sm:text-[11.5px] text-ink font-medium">
                               <CheckCircle2 size={13} className="text-ink/80 shrink-0" />
                               <span>{item.highlight}</span>
                             </div>
@@ -518,7 +514,7 @@ export function FAQSection({ items = defaultFaqItems, className = '' }: FAQSecti
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
           variants={fadeUpVariants}
-          className="max-w-[1040px] mx-auto mt-12 sm:mt-16 bg-[#F6EFE9] border border-line/35 rounded-2xl p-6 sm:p-9 lg:p-10 relative overflow-hidden shadow-[0_4px_30px_rgba(124,64,46,0.05)]"
+          className="max-w-[1040px] mx-auto mt-10 sm:mt-16 bg-[#F6EFE9] border border-line/35 rounded-2xl p-5 sm:p-9 lg:p-10 relative overflow-hidden shadow-[0_4px_30px_rgba(124,64,46,0.05)]"
         >
           {/* Subtle Accent Glow */}
           <div className="absolute right-0 top-0 w-80 h-80 bg-[radial-gradient(circle,rgba(212,163,115,0.2),transparent_70%)] pointer-events-none" />
@@ -531,7 +527,7 @@ export function FAQSection({ items = defaultFaqItems, className = '' }: FAQSecti
                   AT YOUR SERVICE
                 </span>
               </div>
-              <h3 className="font-serif text-[24px] sm:text-[28px] lg:text-[31px] font-normal leading-tight text-ink m-0 mb-2.5">
+              <h3 className="font-serif text-[22px] sm:text-[28px] lg:text-[31px] font-normal leading-tight text-ink m-0 mb-2.5">
                 Have a unique celebration in mind?
               </h3>
               <p className="font-sans text-[13.5px] sm:text-[14.5px] leading-relaxed text-[#5A3828] m-0">

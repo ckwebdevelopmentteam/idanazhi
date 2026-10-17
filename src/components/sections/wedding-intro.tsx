@@ -347,19 +347,19 @@ export function WeddingIntro({
   return (
     <section
       id="weddings"
-      className={`relative bg-paper py-[clamp(64px,8.5vh,110px)] max-[720px]:py-[50px] overflow-hidden ${className}`}
+      className={`relative bg-paper py-[clamp(54px,7.5vh,110px)] max-[720px]:py-[44px] overflow-hidden ${className}`}
       aria-labelledby="wedding-intro-heading"
     >
       <div className="w-full flex flex-col items-center">
         {/* Section Header: Centered Eyebrow, Heading, Description & CTA */}
-        <div className="flex flex-col items-center text-center max-w-[940px] mx-auto px-6 mb-12 sm:mb-16 md:mb-20 min-[1280px]:mb-24 shrink-0">
+        <div className="flex flex-col items-center text-center max-w-[940px] mx-auto px-4 sm:px-6 mb-8 sm:mb-16 md:mb-20 min-[1280px]:mb-24 shrink-0">
           {data.eyebrow && (
             <motion.p
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-60px' }}
               variants={fadeUpVariants}
-              className="m-0 mb-3 sm:mb-4 uppercase tracking-[0.22em] text-[10.5px] sm:text-[11.5px] font-semibold text-muted text-center"
+              className="m-0 mb-2.5 sm:mb-4 uppercase tracking-[0.22em] text-[10px] sm:text-[11.5px] font-semibold text-muted text-center"
             >
               {data.eyebrow}
             </motion.p>
@@ -374,7 +374,7 @@ export function WeddingIntro({
               baseRotation={0}
               blurStrength={8}
               containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
-              textClassName="!font-jakarta !font-normal !text-[clamp(20px,2.5vw,38px)] !leading-[1.36] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
+              textClassName="!font-jakarta !font-normal !text-[clamp(18px,2.5vw,38px)] !leading-[1.32] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
               wordAnimationStart="top 85%"
               wordAnimationEnd="bottom 55%"
             >
@@ -383,7 +383,7 @@ export function WeddingIntro({
           </div>
 
           {data.description && (
-            <div className="w-full flex justify-center items-center text-center mt-3.5 sm:mt-5">
+            <div className="w-full flex justify-center items-center text-center mt-3 sm:mt-5">
               <ScrollReveal
                 as="p"
                 baseOpacity={0.12}
@@ -394,7 +394,7 @@ export function WeddingIntro({
                 wordAnimationStart="top 53%"
                 wordAnimationEnd="bottom 28%"
               >
-                <span className="block !font-sans !font-normal !text-[clamp(15px,1.05vw,17px)] !leading-[1.75] !text-muted text-center max-w-[840px] mx-auto">
+                <span className="block !font-sans !font-normal !text-[clamp(14.5px,1.05vw,17px)] !leading-[1.7] !text-muted text-center max-w-[840px] mx-auto">
                   {descLines.map((line, lineIdx) => {
                     const words = line.trim().split(/\s+/);
                     return (
@@ -422,7 +422,7 @@ export function WeddingIntro({
               whileInView="visible"
               viewport={{ once: true, margin: '-60px' }}
               variants={ctaVariants}
-              className="mt-6 sm:mt-8"
+              className="mt-5 sm:mt-8"
             >
               <Link
                 href={data.ctaHref}
@@ -625,7 +625,25 @@ export function WeddingIntro({
               const targetIdx = Math.min(cardsCount - 1, Math.floor(ratio * cardsCount));
               jumpToCard(targetIdx);
             }}
-            className="relative py-2.5 -my-2.5 cursor-pointer flex items-center"
+            onTouchStart={(e) => {
+              const touch = e.touches[0];
+              if (!touch) return;
+              const rect = e.currentTarget.getBoundingClientRect();
+              if (!rect.width) return;
+              const ratio = Math.max(0, Math.min(1, (touch.clientX - rect.left) / rect.width));
+              const targetIdx = Math.min(cardsCount - 1, Math.floor(ratio * cardsCount));
+              jumpToCard(targetIdx);
+            }}
+            onTouchMove={(e) => {
+              const touch = e.touches[0];
+              if (!touch) return;
+              const rect = e.currentTarget.getBoundingClientRect();
+              if (!rect.width) return;
+              const ratio = Math.max(0, Math.min(1, (touch.clientX - rect.left) / rect.width));
+              const targetIdx = Math.min(cardsCount - 1, Math.floor(ratio * cardsCount));
+              jumpToCard(targetIdx);
+            }}
+            className="relative py-2.5 -my-2.5 cursor-pointer flex items-center touch-pan-x"
           >
             {/* Floating Card Preview on Hovering the line */}
             <AnimatePresence>

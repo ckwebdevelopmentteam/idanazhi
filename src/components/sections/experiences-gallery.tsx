@@ -266,14 +266,14 @@ export function ExperiencesGallery({
     >
       {/* 6-Column Infinite Marquee Canvas matching original card dimensions & spacing */}
       <div className="absolute inset-0 h-full w-full overflow-hidden flex items-center justify-center pointer-events-auto">
-        <div className="flex justify-center items-start gap-x-10 md:gap-x-16 px-5 md:px-10 h-full w-fit shrink-0">
+        <div className="flex justify-center items-start gap-x-4 sm:gap-x-8 md:gap-x-16 px-3 sm:px-6 md:px-10 h-full w-fit shrink-0">
           {columns.map((col, colIdx) => {
             const isDown = col.direction === 'down';
 
             return (
               <div
                 key={colIdx}
-                className="w-44 sm:w-56 md:w-[270px] shrink-0 h-full overflow-hidden"
+                className="w-38 min-[380px]:w-42 sm:w-56 md:w-[270px] shrink-0 h-full overflow-hidden"
               >
                 {/* Moving column track */}
                 <div
@@ -300,7 +300,7 @@ export function ExperiencesGallery({
                           setSelectedPhoto(photo);
                         }
                       }}
-                      className="group relative h-64 w-44 sm:h-80 sm:w-56 md:h-[380px] md:w-[270px] rounded-none overflow-hidden border border-line/30 shadow-lg hover:shadow-2xl bg-white mb-20 sm:mb-28 md:mb-[140px] lg:mb-[150px] shrink-0 cursor-pointer transition-all duration-300"
+                      className="group relative h-56 min-[380px]:h-64 sm:h-80 md:h-[380px] w-38 min-[380px]:w-42 sm:w-56 md:w-[270px] rounded-none overflow-hidden border border-line/30 shadow-lg hover:shadow-2xl bg-white mb-12 min-[380px]:mb-16 sm:mb-24 md:mb-[140px] lg:mb-[150px] shrink-0 cursor-pointer transition-all duration-300"
                     >
                       <img
                         src={photo.src}
@@ -336,7 +336,7 @@ export function ExperiencesGallery({
                       onClick={() => setSelectedPhoto(photo)}
                       role="button"
                       tabIndex={-1}
-                      className="group relative h-64 w-44 sm:h-80 sm:w-56 md:h-[380px] md:w-[270px] rounded-none overflow-hidden border border-line/30 shadow-lg hover:shadow-2xl bg-white mb-20 sm:mb-28 md:mb-[140px] lg:mb-[150px] shrink-0 cursor-pointer transition-all duration-300"
+                      className="group relative h-56 min-[380px]:h-64 sm:h-80 md:h-[380px] w-38 min-[380px]:w-42 sm:w-56 md:w-[270px] rounded-none overflow-hidden border border-line/30 shadow-lg hover:shadow-2xl bg-white mb-12 min-[380px]:mb-16 sm:mb-24 md:mb-[140px] lg:mb-[150px] shrink-0 cursor-pointer transition-all duration-300"
                     >
                       <img
                         src={photo.src}
@@ -486,26 +486,27 @@ export function ExperiencesGallery({
             transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
             className="pointer-events-none fixed bottom-6 inset-x-0 z-25 flex flex-col items-center justify-center px-4"
           >
-            <div className="pointer-events-auto flex items-center gap-4 rounded-full border border-line/35 bg-paper/95 px-6 py-3 shadow-xl backdrop-blur-md transition-all duration-200 hover:bg-paper hover:shadow-[0_16px_48px_rgba(124,64,46,0.2)]">
-              <span className="font-serif text-[14.5px] sm:text-[15.5px] text-ink font-medium tracking-tight hidden sm:inline">
+            <div className="pointer-events-auto flex items-center gap-2.5 sm:gap-4 rounded-full border border-line/35 bg-paper/95 px-4 sm:px-6 py-2.5 sm:py-3 shadow-xl backdrop-blur-md transition-all duration-200 hover:bg-paper hover:shadow-[0_16px_48px_rgba(124,64,46,0.2)]">
+              <span className="font-serif text-[12px] sm:text-[15.5px] text-ink font-medium tracking-tight">
                 Curated Destination Moments
               </span>
-              <span className="h-4 w-[1px] bg-ink/25 hidden sm:inline" />
+              <span className="h-3.5 w-[1px] bg-ink/25" />
               <Link
                 href="/singapore/experiences/"
-                className="luxury-cta text-[11.5px] font-bold tracking-[0.18em]"
+                className="luxury-cta text-[10.5px] sm:text-[11.5px] font-bold tracking-[0.14em] sm:tracking-[0.18em]"
               >
                 <span className="cta-text">EXPLORE MORE</span>
                 <ArrowUpRight
-                  size={14}
+                  size={13}
                   className="cta-arrow"
                 />
               </Link>
             </div>
 
-            <div className="mt-2 flex items-center gap-1.5 font-sans text-[10px] uppercase tracking-[0.2em] text-muted/80">
+            <div className="mt-2 flex items-center gap-1.5 font-sans text-[9px] sm:text-[10px] uppercase tracking-[0.16em] sm:tracking-[0.2em] text-muted/80">
               <Sparkles size={11} className="text-ink/60" />
-              <span>HOVER ANY CARD TO PAUSE &amp; EXPLORE</span>
+              <span className="hidden sm:inline">HOVER ANY CARD TO PAUSE &amp; EXPLORE</span>
+              <span className="sm:hidden">TAP ANY CARD TO EXPLORE</span>
             </div>
           </motion.div>
         )}
@@ -520,7 +521,7 @@ export function ExperiencesGallery({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.22 }}
             onClick={() => setSelectedPhoto(null)}
-            className="fixed inset-0 z-50 bg-[rgba(35,19,14,0.75)] backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
+            className="fixed inset-0 z-50 bg-[rgba(35,19,14,0.75)] backdrop-blur-md flex items-center justify-center p-3 sm:p-6"
             role="dialog"
             aria-modal="true"
             aria-label={selectedPhoto.title}
@@ -537,9 +538,9 @@ export function ExperiencesGallery({
                 type="button"
                 onClick={() => setSelectedPhoto(null)}
                 aria-label="Close photo preview"
-                className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-paper/90 text-ink border border-line/40 flex items-center justify-center hover:bg-ink hover:text-white transition-colors cursor-pointer"
+                className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-paper/90 text-ink border border-line/40 flex items-center justify-center hover:bg-ink hover:text-white transition-colors cursor-pointer"
               >
-                <X size={18} />
+                <X size={16} />
               </button>
 
               <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden bg-black/5">
@@ -550,15 +551,15 @@ export function ExperiencesGallery({
                 />
               </div>
 
-              <div className="p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="p-4 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
                 <div>
-                  <span className="inline-block text-[10px] uppercase tracking-[0.2em] font-semibold text-muted mb-1">
+                  <span className="inline-block text-[9.5px] sm:text-[10px] uppercase tracking-[0.2em] font-semibold text-muted mb-1">
                     {selectedPhoto.category}
                   </span>
-                  <h3 className="font-serif text-[24px] sm:text-[28px] text-ink m-0 leading-tight">
+                  <h3 className="font-serif text-[20px] sm:text-[28px] text-ink m-0 leading-tight">
                     {selectedPhoto.title}
                   </h3>
-                  <p className="font-sans text-[13px] sm:text-[14px] text-muted m-0 mt-1">
+                  <p className="font-sans text-[12.5px] sm:text-[14px] text-muted m-0 mt-1">
                     {selectedPhoto.alt}
                   </p>
                 </div>
@@ -566,7 +567,7 @@ export function ExperiencesGallery({
                 <Link
                   href="/singapore/experiences/"
                   onClick={() => setSelectedPhoto(null)}
-                  className="bg-ink text-white px-5 py-2.5 text-[10.5px] uppercase tracking-[0.16em] font-medium hover:bg-forest transition-colors shrink-0"
+                  className="w-full sm:w-auto text-center bg-ink text-white px-5 py-2.5 text-[10.5px] uppercase tracking-[0.16em] font-medium hover:bg-forest transition-colors shrink-0"
                 >
                   DISCOVER EXPERIENCES
                 </Link>

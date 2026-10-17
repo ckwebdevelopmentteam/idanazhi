@@ -131,25 +131,25 @@ export function CelebrationsAndExperience({ className = '' }: CelebrationsAndExp
           stagger={0.09}
           wordAnimationStart="top bottom-=5%"
           wordAnimationEnd="bottom 55%"
-          containerClassName="!m-0 w-full px-[5.4vw] max-[720px]:px-6 grid grid-cols-3 items-center gap-2 sm:gap-6 pb-6 sm:pb-8 md:pb-10 shrink-0"
+          containerClassName="!m-0 w-full px-3 sm:px-[5.4vw] grid grid-cols-3 items-center gap-1 sm:gap-6 pb-4 sm:pb-8 md:pb-10 shrink-0"
         >
           {/* Left: CELEBRATIONS */}
           <div className="flex items-center justify-start">
-            <span className="word font-jakarta font-normal text-[clamp(20px,2.5vw,38px)] max-[480px]:text-[16px] leading-[1.36] tracking-[-0.015em] uppercase text-white whitespace-nowrap">
+            <span className="word font-jakarta font-normal text-[clamp(12.5px,3.7vw,38px)] sm:text-[clamp(20px,2.5vw,38px)] leading-[1.36] tracking-[-0.015em] uppercase text-white whitespace-nowrap">
               Celebrations
             </span>
           </div>
 
           {/* Center: AND */}
           <div className="flex items-center justify-center text-center">
-            <span className="word font-jakarta font-normal text-[clamp(20px,2.5vw,38px)] max-[480px]:text-[16px] leading-[1.36] tracking-[-0.015em] uppercase text-white whitespace-nowrap">
+            <span className="word font-jakarta font-normal text-[clamp(12.5px,3.7vw,38px)] sm:text-[clamp(20px,2.5vw,38px)] leading-[1.36] tracking-[-0.015em] uppercase text-white whitespace-nowrap">
               And
             </span>
           </div>
 
           {/* Right: EXPERIENCES */}
           <div className="flex items-center justify-end">
-            <span className="word font-jakarta font-normal text-[clamp(20px,2.5vw,38px)] max-[480px]:text-[16px] leading-[1.36] tracking-[-0.015em] uppercase text-white whitespace-nowrap">
+            <span className="word font-jakarta font-normal text-[clamp(12.5px,3.7vw,38px)] sm:text-[clamp(20px,2.5vw,38px)] leading-[1.36] tracking-[-0.015em] uppercase text-white whitespace-nowrap">
               Experiences
             </span>
           </div>
@@ -165,7 +165,7 @@ export function CelebrationsAndExperience({ className = '' }: CelebrationsAndExp
         >
           <PolaroidLineCarousel
             slides={celebrationSlides}
-            height="clamp(520px, 58vh, 570px)"
+            height="clamp(440px, 54vh, 570px)"
             className="w-full"
             cardWidth={310}
             sag={26}
