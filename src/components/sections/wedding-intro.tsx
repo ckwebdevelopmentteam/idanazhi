@@ -638,27 +638,33 @@ export function WeddingIntro({
                   className="absolute bottom-full mb-3 -translate-x-1/2 pointer-events-none z-50 flex flex-col items-center"
                   style={{ left: `${hoverRatio * 100}%` }}
                 >
-                  <div className="bg-[#fbfaf7] text-ink border border-ink/20 shadow-2xl rounded-[4px] p-1.5 flex flex-col gap-1 w-36">
-                    {data.cards[hoveredCardIndex].type === 'photo' ? (
-                      <img
-                        src={(data.cards[hoveredCardIndex] as any).image}
-                        alt=""
-                        className="w-full h-20 object-cover rounded-[2px]"
-                      />
-                    ) : (
-                      <div className="w-full h-20 bg-paper-subtle rounded-[2px] p-2 flex items-center justify-center text-center text-[10px] text-muted">
-                        {(data.cards[hoveredCardIndex] as any).eyebrow}
+                  {(() => {
+                    const hoveredCard = data.cards[hoveredCardIndex];
+                    if (!hoveredCard) return null;
+                    return (
+                      <div className="bg-[#fbfaf7] text-ink border border-ink/20 shadow-2xl rounded-[4px] p-1.5 flex flex-col gap-1 w-36">
+                        {hoveredCard.type === 'photo' ? (
+                          <img
+                            src={hoveredCard.image}
+                            alt=""
+                            className="w-full h-20 object-cover rounded-[2px]"
+                          />
+                        ) : (
+                          <div className="w-full h-20 bg-paper-subtle rounded-[2px] p-2 flex items-center justify-center text-center text-[10px] text-muted">
+                            {hoveredCard.eyebrow}
+                          </div>
+                        )}
+                        <div className="flex items-center justify-between text-[10px] font-mono font-semibold px-0.5 pt-0.5">
+                          <span className="text-ink font-bold">#{String(hoveredCardIndex + 1).padStart(2, '0')}</span>
+                          <span className="truncate text-[9.5px] font-sans font-normal text-muted max-w-[85px]">
+                            {hoveredCard.type === 'photo'
+                              ? hoveredCard.overlayLabel
+                              : hoveredCard.eyebrow}
+                          </span>
+                        </div>
                       </div>
-                    )}
-                    <div className="flex items-center justify-between text-[10px] font-mono font-semibold px-0.5 pt-0.5">
-                      <span className="text-ink font-bold">#{String(hoveredCardIndex + 1).padStart(2, '0')}</span>
-                      <span className="truncate text-[9.5px] font-sans font-normal text-muted max-w-[85px]">
-                        {data.cards[hoveredCardIndex].type === 'photo'
-                          ? (data.cards[hoveredCardIndex] as any).overlayLabel
-                          : (data.cards[hoveredCardIndex] as any).eyebrow}
-                      </span>
-                    </div>
-                  </div>
+                    );
+                  })()}
                   <div className="w-2 h-2 rotate-45 bg-[#fbfaf7] border-r border-b border-ink/20 -mt-1" />
                 </motion.div>
               )}
