@@ -3,23 +3,7 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight, Sparkles, X } from 'lucide-react';
-import { motion, AnimatePresence, type Variants } from 'framer-motion';
-import ScrollReveal from '@/components/ui/ScrollReveal';
-
-const fadeUpVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 12,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.65,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
+import { motion, AnimatePresence } from 'framer-motion';
 
 export interface GalleryPhotoItem {
   id: number;
@@ -183,43 +167,29 @@ export function ExperiencesGallery({
   const sectionRef = useRef<HTMLElement | null>(null);
   const [selectedPhoto, setSelectedPhoto] = useState<GalleryPhotoItem | null>(null);
 
+  const [isGalleryInView, setIsGalleryInView] = useState(false);
+
   useEffect(() => {
-    let isAutoSnapping = false;
-    let lastY = typeof window !== 'undefined' ? window.scrollY : 0;
-    let timeoutId: ReturnType<typeof setTimeout>;
-
-    const onScroll = () => {
-      const currentY = window.scrollY;
-      const scrollingDown = currentY > lastY;
-      lastY = currentY;
-
-      if (isAutoSnapping) return;
-
+    const updateGalleryState = () => {
       const el = sectionRef.current;
       if (!el) return;
 
       const rect = el.getBoundingClientRect();
       const vh = window.innerHeight;
 
-      // When user scrolls down from Stay at Idanazhi into Gallery:
-      if (scrollingDown && rect.top > 20 && rect.top < vh * 0.45) {
-        isAutoSnapping = true;
-        const targetTop = window.scrollY + rect.top;
-        window.scrollTo({
-          top: targetTop,
-          behavior: 'smooth',
-        });
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => {
-          isAutoSnapping = false;
-        }, 750);
-      }
+      // Section begins entering the viewport as soon as it crosses into view (rect.top <= vh * 0.8)
+      // and remains visible until it scrolls off the top (rect.bottom > 60)
+      const inView = rect.top <= vh * 0.8 && rect.bottom > 60;
+      setIsGalleryInView(inView);
     };
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+    updateGalleryState();
+    window.addEventListener('scroll', updateGalleryState, { passive: true });
+    window.addEventListener('resize', updateGalleryState, { passive: true });
+
     return () => {
-      window.removeEventListener('scroll', onScroll);
-      clearTimeout(timeoutId);
+      window.removeEventListener('scroll', updateGalleryState);
+      window.removeEventListener('resize', updateGalleryState);
     };
   }, []);
 
@@ -400,36 +370,40 @@ export function ExperiencesGallery({
         </div>
       </div>
 
-      {/* Transparent Fog Spread Overlay: Atmospheric misty canopy without opaque blocking */}
+      {/* Fog Spread Overlay: Compact atmospheric misty spread canopy over the upper canvas */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-44 sm:h-56 md:h-64 z-20 overflow-hidden"
+        className="pointer-events-none absolute inset-x-0 top-0 h-36 sm:h-44 md:h-52 z-20 overflow-hidden"
       >
-        {/* Progressive fog backdrop blur (diffuses photos drifting underneath) */}
+        {/* Progressive fog backdrop blur (softens photos drifting into the upper canopy) */}
         <div
-          className="absolute inset-0 backdrop-blur-[10px]"
+          className="absolute inset-0 backdrop-blur-2xl"
           style={{
             WebkitMaskImage:
-              'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0) 100%)',
+              'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 32%, rgba(0,0,0,0.7) 62%, rgba(0,0,0,0.15) 86%, transparent 100%)',
             maskImage:
-              'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0) 100%)',
+              'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 32%, rgba(0,0,0,0.7) 62%, rgba(0,0,0,0.15) 86%, transparent 100%)',
           }}
         />
 
-        {/* Truly transparent mist diffusion with ethereal feathering */}
+        {/* Ethereal paper-tone fog spread diffusion - thick at the top, feathering smoothly down */}
         <div
           className="absolute inset-0"
           style={{
             background: `
+              /* Thick paper-tone fog spread canopy: fully solid at top edge, fading smoothly downwards */
               linear-gradient(to bottom, 
-                rgba(247, 243, 239, 0.42) 0%, 
-                rgba(247, 243, 239, 0.22) 35%, 
-                rgba(247, 243, 239, 0.06) 70%, 
+                rgba(247, 243, 239, 1) 0%, 
+                rgba(247, 243, 239, 1) 28%, 
+                rgba(247, 243, 239, 0.88) 48%, 
+                rgba(247, 243, 239, 0.45) 72%, 
+                rgba(247, 243, 239, 0.12) 88%, 
                 transparent 100%
               ),
-              radial-gradient(ellipse 90% 65% at 50% 0%, 
-                rgba(255, 255, 255, 0.35) 0%, 
-                rgba(247, 243, 239, 0.12) 55%, 
+              /* Soft radial ambient mist diffusion centered behind the heading */
+              radial-gradient(ellipse 85% 65% at 50% 20%, 
+                rgba(247, 243, 239, 0.8) 0%, 
+                rgba(247, 243, 239, 0.35) 52%, 
                 transparent 100%
               )
             `,
@@ -460,37 +434,22 @@ export function ExperiencesGallery({
         />
       </div>
 
-      {/* Section Header: positioned over the canvas with pointer-events-none */}
+      {/* Section Header: positioned within the fog spread overlay */}
       {(eyebrow || heading || headingWords) && (
-        <div className="pointer-events-none absolute top-7 sm:top-10 md:top-12 inset-x-0 z-30 flex flex-col items-center text-center max-w-[940px] mx-auto px-6">
-          {eyebrow && (
-            <motion.p
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-60px' }}
-              variants={fadeUpVariants}
-              className="m-0 uppercase tracking-[0.24em] text-[10.5px] sm:text-[11.5px] font-semibold text-muted text-center mb-2 sm:mb-2.5"
-            >
-              {eyebrow}
-            </motion.p>
-          )}
+        <div className="pointer-events-none absolute top-6 sm:top-8 md:top-10 inset-x-0 z-30 flex flex-col items-center justify-center text-center px-4">
+          <div className="flex flex-col items-center justify-center text-center max-w-[960px] mx-auto">
+            {eyebrow && (
+              <p className="m-0 uppercase tracking-[0.24em] text-[10.5px] sm:text-[11.5px] font-semibold text-muted text-center mb-1.5 sm:mb-2">
+                {eyebrow}
+              </p>
+            )}
 
-          {headingWords && headingWords.length > 0 ? (
-            <div className="w-full flex justify-center items-center text-center mt-1">
-              <ScrollReveal
-                as="h2"
-                baseOpacity={0.08}
-                enableBlur={true}
-                baseRotation={0}
-                blurStrength={8}
-                containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
-                textClassName="!font-jakarta !font-normal !text-[clamp(24px,3.2vw,44px)] !leading-[1.22] !tracking-[0.08em] sm:!tracking-[0.14em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
-                wordAnimationStart="top 85%"
-                wordAnimationEnd="bottom 55%"
-              >
-                <span
+            {headingWords && headingWords.length > 0 ? (
+              <div className="w-full flex justify-center items-center text-center mt-1">
+                <h2
                   id="gallery-heading"
-                  className="block !font-jakarta !font-normal !text-[clamp(24px,3.2vw,44px)] !leading-[1.22] !tracking-[0.08em] sm:!tracking-[0.14em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
+                  className="m-0 font-serif font-normal text-[clamp(21px,2.4vw,34px)] leading-[1.22] tracking-[0.14em] sm:tracking-[0.2em] uppercase text-ink text-center select-none"
+                  style={{ color: '#7c402e' }}
                 >
                   {headingWords.map((lineWords, lineIdx) => (
                     <span key={lineIdx} className="block sm:whitespace-nowrap">
@@ -502,48 +461,55 @@ export function ExperiencesGallery({
                       ))}
                     </span>
                   ))}
-                </span>
-              </ScrollReveal>
-            </div>
-          ) : (
-            <motion.h2
-              id="gallery-heading"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-60px' }}
-              variants={fadeUpVariants}
-              className="m-0 font-jakarta font-normal text-[clamp(24px,3.2vw,44px)] leading-[1.22] tracking-[0.08em] sm:tracking-[0.14em] uppercase text-ink text-center drop-shadow-sm"
-            >
-              {heading}
-            </motion.h2>
-          )}
+                </h2>
+              </div>
+            ) : (
+              <h2
+                id="gallery-heading"
+                className="m-0 font-serif font-normal text-[clamp(21px,2.4vw,34px)] leading-[1.22] tracking-[0.14em] sm:tracking-[0.2em] uppercase text-ink text-center select-none"
+                style={{ color: '#7c402e' }}
+              >
+                {heading}
+              </h2>
+            )}
+          </div>
         </div>
       )}
 
-      {/* Bottom Floating Explore More HUD */}
-      <div className="pointer-events-none absolute bottom-6 inset-x-0 z-30 flex flex-col items-center justify-center px-4">
-        <div className="pointer-events-auto flex items-center gap-4 rounded-full border border-line/35 bg-paper/92 px-6 py-3 shadow-xl backdrop-blur-md transition-all duration-200 hover:bg-paper hover:shadow-[0_16px_48px_rgba(124,64,46,0.2)]">
-          <span className="font-serif text-[14.5px] sm:text-[15.5px] text-ink font-medium tracking-tight hidden sm:inline">
-            Curated Destination Moments
-          </span>
-          <span className="h-4 w-[1px] bg-ink/25 hidden sm:inline" />
-          <Link
-            href="/singapore/experiences/"
-            className="luxury-cta text-[11.5px] font-bold tracking-[0.18em]"
+      {/* Bottom Floating Explore More HUD: immediately visible as soon as the section begins entering the viewport */}
+      <AnimatePresence>
+        {isGalleryInView && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 16 }}
+            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+            className="pointer-events-none fixed bottom-6 inset-x-0 z-25 flex flex-col items-center justify-center px-4"
           >
-            <span className="cta-text">EXPLORE MORE</span>
-            <ArrowUpRight
-              size={14}
-              className="cta-arrow"
-            />
-          </Link>
-        </div>
+            <div className="pointer-events-auto flex items-center gap-4 rounded-full border border-line/35 bg-paper/95 px-6 py-3 shadow-xl backdrop-blur-md transition-all duration-200 hover:bg-paper hover:shadow-[0_16px_48px_rgba(124,64,46,0.2)]">
+              <span className="font-serif text-[14.5px] sm:text-[15.5px] text-ink font-medium tracking-tight hidden sm:inline">
+                Curated Destination Moments
+              </span>
+              <span className="h-4 w-[1px] bg-ink/25 hidden sm:inline" />
+              <Link
+                href="/singapore/experiences/"
+                className="luxury-cta text-[11.5px] font-bold tracking-[0.18em]"
+              >
+                <span className="cta-text">EXPLORE MORE</span>
+                <ArrowUpRight
+                  size={14}
+                  className="cta-arrow"
+                />
+              </Link>
+            </div>
 
-        <div className="mt-2 flex items-center gap-1.5 font-sans text-[10px] uppercase tracking-[0.2em] text-muted/80">
-          <Sparkles size={11} className="text-ink/60" />
-          <span>HOVER ANY CARD TO PAUSE &amp; EXPLORE</span>
-        </div>
-      </div>
+            <div className="mt-2 flex items-center gap-1.5 font-sans text-[10px] uppercase tracking-[0.2em] text-muted/80">
+              <Sparkles size={11} className="text-ink/60" />
+              <span>HOVER ANY CARD TO PAUSE &amp; EXPLORE</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Photo Lightbox Modal */}
       <AnimatePresence>

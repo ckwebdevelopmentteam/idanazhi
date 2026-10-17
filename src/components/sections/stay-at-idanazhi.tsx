@@ -85,7 +85,7 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
   return (
     <section
       id="stay"
-      className={`relative z-20 bg-paper pt-[clamp(64px,8.5vh,110px)] pb-[clamp(56px,7.5vh,96px)] overflow-hidden border-b border-line/20 shadow-[0_12px_36px_rgba(40,20,10,0.06)] ${className}`}
+      className={`relative z-20 bg-paper min-h-[85vh] lg:min-h-[92vh] flex flex-col justify-center py-[clamp(80px,11vh,140px)] overflow-hidden ${className}`}
       aria-labelledby="stay-heading"
     >
       <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
