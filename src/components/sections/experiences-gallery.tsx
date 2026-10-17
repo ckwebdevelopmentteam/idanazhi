@@ -261,7 +261,7 @@ export function ExperiencesGallery({
       id="gallery"
       ref={sectionRef}
       aria-label="Idanazhi Gallery Infinite Canvas"
-      className={`sticky top-0 z-10 h-screen min-h-[100svh] max-h-[100svh] w-full overflow-hidden bg-paper select-none relative ${className}`}
+      className={`sticky top-0 z-10 h-screen min-h-[100svh] max-h-[100svh] w-full overflow-hidden bg-paper select-none ${className}`}
       style={{ scrollSnapAlign: 'start', scrollMarginTop: 0 }}
     >
       {/* 6-Column Infinite Marquee Canvas matching original card dimensions & spacing */}

@@ -1,8 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Tenor+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-script: 'Alex Brush', cursive;
   --color-ink: #7c402e;
   --color-forest: #5a2d21;
   --color-paper: #f7f3ef;
@@ -44,7 +43,7 @@
   body {
     background-color: var(--color-paper);
     color-scheme: light;
-    overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100vw;
   }
   html {
