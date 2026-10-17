@@ -87,6 +87,39 @@
   animation: fadeIn 0.22s ease-out forwards;
 }
 
+/* Experiences Gallery Vertical Marquee Animations */
+@keyframes marqueeScrollDown {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes marqueeScrollUp {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.animate-marquee-down {
+  animation: marqueeScrollDown var(--marquee-duration, 42s) linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-up {
+  animation: marqueeScrollUp var(--marquee-duration, 42s) linear infinite;
+  will-change: transform;
+}
+
+.pause-on-hover:hover {
+  animation-play-state: paused;
+}
+
 /* Utility to hide scrollbars */
 .no-scrollbar::-webkit-scrollbar {
   display: none !important;
