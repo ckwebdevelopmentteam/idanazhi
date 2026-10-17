@@ -8,7 +8,7 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Quote, Star, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { Quote, Star, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import ScrollReveal from "@/components/ui/ScrollReveal";
@@ -191,19 +191,19 @@ function Testimonials({
   return (
     <section
       id="testimonials"
-      className={`relative z-30 bg-paper py-[clamp(64px,8.5vh,110px)] max-[720px]:py-[50px] overflow-hidden border-t border-line/40 ${className}`}
+      className={`relative z-30 bg-paper py-[clamp(54px,7.5vh,110px)] max-[720px]:py-[44px] overflow-hidden border-t border-line/40 ${className}`}
       aria-labelledby="testimonials-heading"
     >
-      <div className="w-full max-w-[1360px] mx-auto px-6 sm:px-8 lg:px-12">
+      <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-8 lg:px-12">
         {/* Section Header: Centered Eyebrow, Heading, Description & CTA matching Wedding Intro */}
-        <div className="flex flex-col items-center text-center max-w-[940px] mx-auto px-6 mb-12 sm:mb-16 md:mb-20 min-[1280px]:mb-24 shrink-0">
+        <div className="flex flex-col items-center text-center max-w-[940px] mx-auto px-4 sm:px-6 mb-8 sm:mb-16 md:mb-20 min-[1280px]:mb-24 shrink-0">
           {eyebrow && (
             <motion.p
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-60px' }}
               variants={fadeUpVariants}
-              className="m-0 mb-3 sm:mb-4 uppercase tracking-[0.22em] text-[10.5px] sm:text-[11.5px] font-semibold text-muted text-center"
+              className="m-0 mb-2.5 sm:mb-4 uppercase tracking-[0.22em] text-[10px] sm:text-[11.5px] font-semibold text-muted text-center"
             >
               {eyebrow}
             </motion.p>
@@ -218,13 +218,13 @@ function Testimonials({
               baseRotation={0}
               blurStrength={8}
               containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
-              textClassName="!font-jakarta !font-normal !text-[clamp(20px,2.5vw,38px)] !leading-[1.36] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
+              textClassName="!font-jakarta !font-normal !text-[clamp(18px,2.5vw,38px)] !leading-[1.32] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
               wordAnimationStart="top 85%"
               wordAnimationEnd="bottom 55%"
             >
               <span
                 id="testimonials-heading"
-                className="block !font-jakarta !font-normal !text-[clamp(20px,2.5vw,38px)] !leading-[1.28] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
+                className="block !font-jakarta !font-normal !text-[clamp(18px,2.5vw,38px)] !leading-[1.28] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
               >
                 <span className="block sm:whitespace-nowrap">
                   <span className="word">CHERISHED</span>{' '}
@@ -240,7 +240,7 @@ function Testimonials({
           </div>
 
           {subtitle && (
-            <div className="w-full flex justify-center items-center text-center mt-3.5 sm:mt-5">
+            <div className="w-full flex justify-center items-center text-center mt-3 sm:mt-5">
               <ScrollReveal
                 as="p"
                 baseOpacity={0.12}
@@ -251,7 +251,7 @@ function Testimonials({
                 wordAnimationStart="top 85%"
                 wordAnimationEnd="bottom 55%"
               >
-                <span className="block !font-sans !font-normal !text-[clamp(15px,1.05vw,17px)] !leading-[1.75] !text-muted text-center max-w-[840px] mx-auto">
+                <span className="block !font-sans !font-normal !text-[clamp(14.5px,1.05vw,17px)] !leading-[1.7] !text-muted text-center max-w-[840px] mx-auto">
                   {descLines.map((line, lineIdx) => {
                     const words = line.trim().split(/\s+/);
                     return (
@@ -279,7 +279,7 @@ function Testimonials({
               whileInView="visible"
               viewport={{ once: true, margin: '-60px' }}
               variants={ctaVariants}
-              className="mt-6 sm:mt-8"
+              className="mt-5 sm:mt-8"
             >
               <Link
                 href={ctaHref}
@@ -315,12 +315,12 @@ function Testimonials({
                   key={index}
                   className="pl-4 sm:pl-6 basis-full md:basis-1/2 lg:basis-1/2 xl:basis-1/3"
                 >
-                  <div className="h-full bg-gradient-to-b from-linen/50 via-linen/25 to-paper/80 border border-ink/15 rounded-[3px] p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:border-ink/35 hover:shadow-[0_12px_32px_rgba(40,20,10,0.08)] group">
+                  <div className="h-full bg-gradient-to-b from-linen/50 via-linen/25 to-paper/80 border border-ink/15 rounded-[3px] p-5 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:border-ink/35 hover:shadow-[0_12px_32px_rgba(40,20,10,0.08)] group">
                     <div>
                       {/* Top row: Quote mark + Rating */}
-                      <div className="flex items-center justify-between mb-5">
+                      <div className="flex items-center justify-between mb-4 sm:mb-5">
                         <Quote
-                          size={24}
+                          size={22}
                           className="text-ink/40 transition-colors duration-300 group-hover:text-ink/70"
                         />
                         <div className="flex items-center gap-1">
@@ -335,28 +335,28 @@ function Testimonials({
                       </div>
 
                       {/* Title & Quote */}
-                      <h3 className="font-serif text-[20px] sm:text-[22px] font-normal text-ink leading-tight tracking-[-0.015em] mb-3">
+                      <h3 className="font-serif text-[18px] sm:text-[22px] font-normal text-ink leading-tight tracking-[-0.015em] mb-2.5 sm:mb-3">
                         {item.title}
                       </h3>
-                      <p className="font-sans text-[13.5px] sm:text-[14px] leading-[1.75] text-muted font-light mb-6">
+                      <p className="font-sans text-[13px] sm:text-[14px] leading-[1.7] text-muted font-light mb-5 sm:mb-6">
                         &ldquo;{item.quote}&rdquo;
                       </p>
                     </div>
 
                     {/* Author Footer */}
-                    <div className="flex items-center gap-3.5 pt-4 border-t border-ink/10 mt-auto">
-                      <Avatar className="h-10 w-10 border border-ink/20 shrink-0">
+                    <div className="flex items-center gap-3 sm:gap-3.5 pt-3.5 sm:pt-4 border-t border-ink/10 mt-auto">
+                      <Avatar className="h-9 w-9 sm:h-10 sm:w-10 border border-ink/20 shrink-0">
                         <AvatarImage src={item.avatar} alt={item.author} />
                         <AvatarFallback className="bg-linen text-ink font-mono text-xs">
                           {item.initials || "ID"}
                         </AvatarFallback>
                       </Avatar>
                       <div className="flex flex-col min-w-0">
-                        <span className="font-sans font-medium text-[13.5px] text-ink truncate">
+                        <span className="font-sans font-medium text-[13px] sm:text-[13.5px] text-ink truncate">
                           {item.author}
                         </span>
                         {item.role && (
-                          <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted/80 truncate">
+                          <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.12em] text-muted/80 truncate">
                             {item.role}
                           </span>
                         )}
@@ -463,7 +463,25 @@ function Testimonials({
                   const targetIdx = Math.min(items.length - 1, Math.floor(ratio * items.length));
                   api?.scrollTo(targetIdx);
                 }}
-                className="relative py-2.5 -my-2.5 cursor-pointer flex items-center"
+                onTouchStart={(e) => {
+                  const touch = e.touches[0];
+                  if (!touch) return;
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  if (!rect.width) return;
+                  const ratio = Math.max(0, Math.min(1, (touch.clientX - rect.left) / rect.width));
+                  const targetIdx = Math.min(items.length - 1, Math.floor(ratio * items.length));
+                  api?.scrollTo(targetIdx);
+                }}
+                onTouchMove={(e) => {
+                  const touch = e.touches[0];
+                  if (!touch) return;
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  if (!rect.width) return;
+                  const ratio = Math.max(0, Math.min(1, (touch.clientX - rect.left) / rect.width));
+                  const targetIdx = Math.min(items.length - 1, Math.floor(ratio * items.length));
+                  api?.scrollTo(targetIdx);
+                }}
+                className="relative py-2.5 -my-2.5 cursor-pointer flex items-center touch-pan-x"
               >
                 {/* Floating Card Preview on Hovering the line */}
                 <AnimatePresence>

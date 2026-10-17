@@ -24,7 +24,7 @@ export default function Home() {
           <source src="/hero-video.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(45,25,18,0.52),rgba(45,25,18,0.04)_72%),linear-gradient(0deg,rgba(30,16,12,0.32),transparent_42%)]" />
-        <div className="absolute z-1 inset-[auto_24px_15vh] max-w-none m-0 text-center max-[640px]:bottom-[13vh]">
+        <div className="absolute z-1 inset-[auto_24px_15vh] max-w-none m-0 text-center max-[640px]:bottom-[11vh] max-[480px]:bottom-[9vh]">
           <img
             src="/images/weddings/logo/idanazhi_farm_stay_logo.svg"
             alt="IDANAZHI Farm Stay"
@@ -32,7 +32,7 @@ export default function Home() {
           />
           <HeroBookingCta />
         </div>
-        <a href="#story" className="absolute z-1 right-[4vw] bottom-[42px] flex items-center gap-2 text-[10px] tracking-[0.16em] [writing-mode:vertical-rl] max-[720px]:right-[21px] max-[720px]:bottom-[19px]">
+        <a href="#story" className="absolute z-1 right-[4vw] bottom-[42px] flex items-center gap-2 text-[10px] tracking-[0.16em] [writing-mode:vertical-rl] max-[720px]:right-[16px] max-[720px]:bottom-[16px]">
           SCROLL <ArrowDown size={15} />
         </a>
       </section>

@@ -685,7 +685,25 @@ export function HeroCarousel({
             const targetIdx = Math.min(items.length - 1, Math.floor(ratio * items.length))
             go(targetIdx)
           }}
-          className="relative py-2.5 -my-2.5 cursor-pointer flex items-center"
+          onTouchStart={(e) => {
+            const touch = e.touches[0]
+            if (!touch) return
+            const rect = e.currentTarget.getBoundingClientRect()
+            if (!rect.width) return
+            const ratio = Math.max(0, Math.min(1, (touch.clientX - rect.left) / rect.width))
+            const targetIdx = Math.min(items.length - 1, Math.floor(ratio * items.length))
+            go(targetIdx)
+          }}
+          onTouchMove={(e) => {
+            const touch = e.touches[0]
+            if (!touch) return
+            const rect = e.currentTarget.getBoundingClientRect()
+            if (!rect.width) return
+            const ratio = Math.max(0, Math.min(1, (touch.clientX - rect.left) / rect.width))
+            const targetIdx = Math.min(items.length - 1, Math.floor(ratio * items.length))
+            go(targetIdx)
+          }}
+          className="relative py-2.5 -my-2.5 cursor-pointer flex items-center touch-pan-x"
         >
           {/* Floating Card Preview on Hovering the line */}
           <AnimatePresence>

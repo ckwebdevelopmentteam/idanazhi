@@ -251,8 +251,20 @@ export function Header() {
               />
             </Link>
 
-            {/* Right spacer to keep center logo perfectly balanced */}
-            <div className="flex items-center justify-end" aria-hidden="true" />
+            {/* Right: Quick Reserve Action Button */}
+            <div className="flex items-center justify-end">
+              <button
+                type="button"
+                onClick={() => setBooking(true)}
+                className={`font-sans text-[9.5px] sm:text-[10.5px] tracking-[0.16em] uppercase font-semibold px-2.5 py-1 sm:px-3 sm:py-1.5 border transition-all duration-200 cursor-pointer active:scale-95 ${
+                  scrolled
+                    ? 'border-[#7C402E] text-[#7C402E] hover:bg-[#7C402E] hover:text-white'
+                    : 'border-white/80 text-white hover:bg-white hover:text-ink'
+                }`}
+              >
+                RESERVE
+              </button>
+            </div>
           </nav>
         </div>
       </header>

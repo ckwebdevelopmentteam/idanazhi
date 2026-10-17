@@ -85,15 +85,15 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
   return (
     <section
       id="stay"
-      className={`relative z-20 bg-paper pt-[clamp(64px,8.5vh,110px)] pb-[clamp(56px,7.5vh,96px)] overflow-hidden border-b border-line/20 shadow-[0_12px_36px_rgba(40,20,10,0.06)] ${className}`}
+      className={`relative z-20 bg-paper min-h-[80vh] lg:min-h-[92vh] flex flex-col justify-center py-[clamp(60px,9vh,140px)] max-[720px]:py-[54px] overflow-hidden ${className}`}
       aria-labelledby="stay-heading"
     >
-      <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12 items-start">
+      <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 xl:gap-12 items-start">
           {/* Left Column: Title, Heading, Desc, CTA */}
           <div className="lg:col-span-6 flex flex-col items-start text-left max-w-[600px]">
             {/* Eyebrow / Section Title */}
-            <p className="m-0 mb-3 sm:mb-4 uppercase tracking-[0.22em] text-[10.5px] sm:text-[11.5px] font-semibold text-muted text-left">
+            <p className="m-0 mb-2.5 sm:mb-4 uppercase tracking-[0.22em] text-[10px] sm:text-[11.5px] font-semibold text-muted text-left">
               STAY AT IDANAZHI
             </p>
 
@@ -111,7 +111,7 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
               >
                 <span
                   id="stay-heading"
-                  className="block !font-jakarta !font-normal !text-[clamp(22px,2.1vw,35px)] !leading-[1.28] !tracking-[-0.02em] !uppercase !text-ink text-left"
+                  className="block !font-jakarta !font-normal !text-[clamp(19px,2.1vw,35px)] !leading-[1.28] !tracking-[-0.02em] !uppercase !text-ink text-left"
                 >
                   <span className="block sm:whitespace-nowrap">
                     <span className="word">A</span>{' '}
@@ -133,7 +133,7 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
             </div>
 
             {/* Supporting Paragraph */}
-            <div className="w-full text-left mt-4 sm:mt-5">
+            <div className="w-full text-left mt-3.5 sm:mt-5">
               <ScrollReveal
                 as="p"
                 baseOpacity={0.35}
