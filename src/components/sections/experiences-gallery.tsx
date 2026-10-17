@@ -484,27 +484,27 @@ export function ExperiencesGallery({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 16 }}
             transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-            className="pointer-events-none fixed bottom-6 inset-x-0 z-25 flex flex-col items-center justify-center px-4"
+            className="pointer-events-none fixed bottom-4 sm:bottom-6 inset-x-0 z-25 flex flex-col items-center justify-center px-3 sm:px-4"
           >
-            <div className="pointer-events-auto flex items-center gap-2.5 sm:gap-4 rounded-full border border-line/35 bg-paper/95 px-4 sm:px-6 py-2.5 sm:py-3 shadow-xl backdrop-blur-md transition-all duration-200 hover:bg-paper hover:shadow-[0_16px_48px_rgba(124,64,46,0.2)]">
-              <span className="font-serif text-[12px] sm:text-[15.5px] text-ink font-medium tracking-tight">
+            <div className="pointer-events-auto flex items-center gap-2 sm:gap-4 rounded-full border border-line/35 bg-paper/95 px-3 sm:px-6 py-1.5 sm:py-3 shadow-lg sm:shadow-xl backdrop-blur-md transition-all duration-200 hover:bg-paper hover:shadow-[0_16px_48px_rgba(124,64,46,0.2)]">
+              <span className="font-serif text-[11px] sm:text-[15.5px] text-ink font-medium tracking-tight whitespace-nowrap">
                 Curated Destination Moments
               </span>
-              <span className="h-3.5 w-[1px] bg-ink/25" />
+              <span className="h-3 sm:h-3.5 w-[1px] bg-ink/25" />
               <Link
                 href="/singapore/experiences/"
-                className="luxury-cta text-[10.5px] sm:text-[11.5px] font-bold tracking-[0.14em] sm:tracking-[0.18em]"
+                className="luxury-cta !min-h-0 !py-0 !gap-1.5 sm:!gap-2 text-[9px] sm:text-[11.5px] font-bold tracking-[0.12em] sm:tracking-[0.18em] shrink-0"
               >
                 <span className="cta-text">EXPLORE MORE</span>
                 <ArrowUpRight
                   size={13}
-                  className="cta-arrow"
+                  className="cta-arrow w-2.5 h-2.5 sm:w-[13px] sm:h-[13px] shrink-0"
                 />
               </Link>
             </div>
 
-            <div className="mt-2 flex items-center gap-1.5 font-sans text-[9px] sm:text-[10px] uppercase tracking-[0.16em] sm:tracking-[0.2em] text-muted/80">
-              <Sparkles size={11} className="text-ink/60" />
+            <div className="mt-1.5 sm:mt-2 flex items-center gap-1.5 font-sans text-[8.5px] sm:text-[10px] uppercase tracking-[0.14em] sm:tracking-[0.2em] text-muted/80">
+              <Sparkles size={11} className="w-2.5 h-2.5 sm:w-[11px] sm:h-[11px] text-ink/60 shrink-0" />
               <span className="hidden sm:inline">HOVER ANY CARD TO PAUSE &amp; EXPLORE</span>
               <span className="sm:hidden">TAP ANY CARD TO EXPLORE</span>
             </div>
