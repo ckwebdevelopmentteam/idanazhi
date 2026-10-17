@@ -91,7 +91,6 @@ const STRIP_TOP = 0.5 // strip's shared top edge, down the stage
 const TITLE = 0.067 // headline cap size ÷ stage height
 const LABEL = 0.0103 // small mono label ÷ stage height
 const PAD = 0.017 // page gutter ÷ stage width
-const RAIL = 0.2 // progress rail width ÷ stage width
 
 /** Wheel distance that commits to a step, and the lockout after one. */
 const WHEEL_THRESHOLD = 60

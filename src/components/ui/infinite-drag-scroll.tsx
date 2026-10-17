@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  animate,
   cubicBezier,
   motion,
   useMotionValue,
@@ -12,7 +11,6 @@ import {
   useContext,
   useEffect,
   useRef,
-  useState,
   createContext,
 } from "react";
 import { cva } from "class-variance-authority";
@@ -55,9 +53,7 @@ export const DraggableContainer = ({
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const [isDragging, setIsDragging] = useState(false);
-  const handleIsDragging = () => setIsDragging(true);
-  const handleIsNotDragging = () => setIsDragging(false);
+
 
   useEffect(() => {
     let xSub: (() => void) | undefined;
@@ -132,9 +128,6 @@ export const DraggableContainer = ({
               restDelta: 0,
               bounceStiffness: 0,
             }}
-            onMouseDown={handleIsDragging}
-            onMouseUp={handleIsNotDragging}
-            onMouseLeave={handleIsNotDragging}
             style={{ x, y }}
             ref={ref}
           >

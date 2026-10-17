@@ -136,7 +136,6 @@ const defaultTestimonials: TestimonialItem[] = [
 
 function Testimonials({
   eyebrow = "GUEST STORIES & REFLECTIONS",
-  titleWords = ["CHERISHED", "MEMORIES", "OF", "TIMELESS", "CELEBRATIONS"],
   subtitle = "Memories and reflections from couples, families, and travelers who have experienced the warmth, heritage, and quiet luxury of Idanazhi.",
   ctaText = "EXPLORE GUEST EXPERIENCES",
   ctaHref = "#testimonials",
