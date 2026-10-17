@@ -9,6 +9,7 @@ import { StayAtIdanazhi } from '@/components/sections/stay-at-idanazhi';
 import { CelebrationsAndExperience } from '@/components/sections/celebrations-and-experience';
 import { ExperiencesGallery } from '@/components/sections/experiences-gallery';
 import { Testimonials } from '@/components/ui/testimonials';
+import { FAQSection } from '@/components/sections/faq-section';
 
 export default function Home() {
   return (
@@ -47,6 +48,8 @@ export default function Home() {
       <ExperiencesGallery />
 
       <Testimonials />
+
+      <FAQSection />
 
       {/* Sections hidden per request */}
       {false && (
