@@ -229,11 +229,46 @@ export function ExperiencesGallery({
       className={`sticky top-0 z-10 h-screen min-h-[100svh] max-h-[100svh] w-full overflow-hidden bg-paper select-none flex flex-col pt-8 sm:pt-12 md:pt-14 ${className}`}
       style={{ scrollSnapAlign: 'start', scrollMarginTop: 0 }}
     >
-      {/* Top stacked depth shadow overlay: gives the physical appearance of sliding underneath Stay at Idanazhi */}
+      {/* Fog Spread Overlay: Atmospheric misty canopy spreading across the top boundary */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-20 sm:h-28 bg-gradient-to-b from-ink/[0.14] via-ink/[0.04] to-transparent z-20"
-      />
+        className="pointer-events-none absolute inset-x-0 top-0 h-36 sm:h-48 md:h-56 z-20 overflow-hidden"
+      >
+        {/* Progressive fog backdrop blur (diffuses photos drifting underneath) */}
+        <div
+          className="absolute inset-0 backdrop-blur-md"
+          style={{
+            WebkitMaskImage:
+              'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 45%, rgba(0,0,0,0) 100%)',
+            maskImage:
+              'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 45%, rgba(0,0,0,0) 100%)',
+          }}
+        />
+
+        {/* Atmospheric mist gradient spread matching website paper palette */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `
+              linear-gradient(to bottom, 
+                rgba(247, 243, 239, 0.98) 0%, 
+                rgba(247, 243, 239, 0.85) 30%, 
+                rgba(247, 243, 239, 0.5) 60%, 
+                rgba(247, 243, 239, 0.15) 85%, 
+                transparent 100%
+              ),
+              radial-gradient(ellipse 90% 70% at 50% 0%, 
+                rgba(255, 255, 255, 0.7) 0%, 
+                rgba(247, 243, 239, 0.45) 50%, 
+                transparent 100%
+              )
+            `,
+          }}
+        />
+
+        {/* Delicate mist boundary at the upper edge */}
+        <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-line/20 to-transparent" />
+      </div>
 
       {/* Section Header: Eyebrow and prominent Gallery Heading */}
       {(eyebrow || heading || headingWords) && (
