@@ -226,53 +226,87 @@ export function ExperiencesGallery({
       id="gallery"
       ref={sectionRef}
       aria-label="Idanazhi Gallery Infinite Canvas"
-      className={`sticky top-0 z-10 h-screen min-h-[100svh] max-h-[100svh] w-full overflow-hidden bg-paper select-none flex flex-col pt-8 sm:pt-12 md:pt-14 ${className}`}
+      className={`sticky top-0 z-10 h-screen min-h-[100svh] max-h-[100svh] w-full overflow-hidden bg-paper select-none relative ${className}`}
       style={{ scrollSnapAlign: 'start', scrollMarginTop: 0 }}
     >
-      {/* Fog Spread Overlay: Atmospheric misty canopy spreading across the top boundary */}
+      {/* Infinite Draggable Grid: full viewport canvas so photos glide under the transparent fog */}
+      <div className="absolute inset-0 h-full w-full overflow-hidden">
+        <DraggableContainer variant="masonry">
+          <GridBody>
+            {images.map((photo) => (
+              <GridItem
+                key={photo.id}
+                className="relative h-64 w-44 sm:h-80 sm:w-56 md:h-[380px] md:w-[270px] rounded-none"
+              >
+                <img
+                  src={photo.src}
+                  alt={photo.alt}
+                  className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+
+                {/* Subtle luxury photo vignette */}
+                <div
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 transition-opacity duration-300 hover:opacity-100"
+                  aria-hidden="true"
+                />
+
+                {/* Hover title badge */}
+                <div className="pointer-events-none absolute bottom-3 left-3 right-3 flex items-center justify-between text-white drop-shadow-md opacity-0 transition-opacity duration-300 hover:opacity-100">
+                  <span className="truncate font-serif text-[14px]">
+                    {photo.title}
+                  </span>
+                  <span className="font-sans text-[9.5px] font-semibold uppercase tracking-[0.16em] opacity-80">
+                    {photo.category}
+                  </span>
+                </div>
+              </GridItem>
+            ))}
+          </GridBody>
+        </DraggableContainer>
+      </div>
+
+      {/* Transparent Fog Spread Overlay: Atmospheric misty canopy without opaque blocking */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-36 sm:h-48 md:h-56 z-20 overflow-hidden"
+        className="pointer-events-none absolute inset-x-0 top-0 h-44 sm:h-56 md:h-64 z-20 overflow-hidden"
       >
         {/* Progressive fog backdrop blur (diffuses photos drifting underneath) */}
         <div
-          className="absolute inset-0 backdrop-blur-md"
+          className="absolute inset-0 backdrop-blur-[10px]"
           style={{
             WebkitMaskImage:
-              'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 45%, rgba(0,0,0,0) 100%)',
+              'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0) 100%)',
             maskImage:
-              'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 45%, rgba(0,0,0,0) 100%)',
+              'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0) 100%)',
           }}
         />
 
-        {/* Atmospheric mist gradient spread matching website paper palette */}
+        {/* Truly transparent mist diffusion with ethereal feathering */}
         <div
           className="absolute inset-0"
           style={{
             background: `
               linear-gradient(to bottom, 
-                rgba(247, 243, 239, 0.98) 0%, 
-                rgba(247, 243, 239, 0.85) 30%, 
-                rgba(247, 243, 239, 0.5) 60%, 
-                rgba(247, 243, 239, 0.15) 85%, 
+                rgba(247, 243, 239, 0.42) 0%, 
+                rgba(247, 243, 239, 0.22) 35%, 
+                rgba(247, 243, 239, 0.06) 70%, 
                 transparent 100%
               ),
-              radial-gradient(ellipse 90% 70% at 50% 0%, 
-                rgba(255, 255, 255, 0.7) 0%, 
-                rgba(247, 243, 239, 0.45) 50%, 
+              radial-gradient(ellipse 90% 65% at 50% 0%, 
+                rgba(255, 255, 255, 0.35) 0%, 
+                rgba(247, 243, 239, 0.12) 55%, 
                 transparent 100%
               )
             `,
           }}
         />
-
-        {/* Delicate mist boundary at the upper edge */}
-        <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-line/20 to-transparent" />
       </div>
 
-      {/* Section Header: Eyebrow and prominent Gallery Heading */}
+      {/* Section Header: positioned over the canvas with pointer-events-none */}
       {(eyebrow || heading || headingWords) && (
-        <div className="flex flex-col items-center text-center max-w-[940px] mx-auto px-6 mb-6 sm:mb-8 md:mb-10 shrink-0 z-30">
+        <div className="pointer-events-none absolute top-7 sm:top-10 md:top-12 inset-x-0 z-30 flex flex-col items-center text-center max-w-[940px] mx-auto px-6">
           {eyebrow && (
             <motion.p
               initial="hidden"
@@ -322,7 +356,7 @@ export function ExperiencesGallery({
               whileInView="visible"
               viewport={{ once: true, margin: '-60px' }}
               variants={fadeUpVariants}
-              className="m-0 font-jakarta font-normal text-[clamp(24px,3.2vw,44px)] leading-[1.22] tracking-[0.08em] sm:tracking-[0.14em] uppercase text-ink text-center"
+              className="m-0 font-jakarta font-normal text-[clamp(24px,3.2vw,44px)] leading-[1.22] tracking-[0.08em] sm:tracking-[0.14em] uppercase text-ink text-center drop-shadow-sm"
             >
               {heading}
             </motion.h2>
@@ -330,66 +364,28 @@ export function ExperiencesGallery({
         </div>
       )}
 
-      {/* Infinite Draggable Grid Canvas Component below the Header */}
-      <div className="relative flex-1 min-h-0 w-full overflow-hidden">
-        <DraggableContainer variant="masonry">
-          <GridBody>
-            {images.map((photo) => (
-              <GridItem
-                key={photo.id}
-                className="relative h-64 w-44 sm:h-80 sm:w-56 md:h-[380px] md:w-[270px] rounded-none"
-              >
-                <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-                  loading="lazy"
-                  decoding="async"
-                />
+      {/* Bottom Floating Explore More HUD */}
+      <div className="pointer-events-none absolute bottom-6 inset-x-0 z-30 flex flex-col items-center justify-center px-4">
+        <div className="pointer-events-auto flex items-center gap-4 rounded-full border border-line/35 bg-paper/92 px-6 py-3 shadow-xl backdrop-blur-md transition-all duration-200 hover:bg-paper hover:shadow-[0_16px_48px_rgba(124,64,46,0.2)]">
+          <span className="font-serif text-[14.5px] sm:text-[15.5px] text-ink font-medium tracking-tight hidden sm:inline">
+            Curated Destination Moments
+          </span>
+          <span className="h-4 w-[1px] bg-ink/25 hidden sm:inline" />
+          <Link
+            href="/singapore/experiences/"
+            className="luxury-cta text-[11.5px] font-bold tracking-[0.18em]"
+          >
+            <span className="cta-text">EXPLORE MORE</span>
+            <ArrowUpRight
+              size={14}
+              className="cta-arrow"
+            />
+          </Link>
+        </div>
 
-                {/* Subtle luxury photo vignette */}
-                <div
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 transition-opacity duration-300 hover:opacity-100"
-                  aria-hidden="true"
-                />
-
-                {/* Hover title badge */}
-                <div className="pointer-events-none absolute bottom-3 left-3 right-3 flex items-center justify-between text-white drop-shadow-md opacity-0 transition-opacity duration-300 hover:opacity-100">
-                  <span className="truncate font-serif text-[14px]">
-                    {photo.title}
-                  </span>
-                  <span className="font-sans text-[9.5px] font-semibold uppercase tracking-[0.16em] opacity-80">
-                    {photo.category}
-                  </span>
-                </div>
-              </GridItem>
-            ))}
-          </GridBody>
-        </DraggableContainer>
-
-        {/* Bottom Floating Explore More HUD */}
-        <div className="pointer-events-none absolute bottom-6 inset-x-0 z-30 flex flex-col items-center justify-center px-4">
-          <div className="pointer-events-auto flex items-center gap-4 rounded-full border border-line/35 bg-paper/92 px-6 py-3 shadow-xl backdrop-blur-md transition-all duration-200 hover:bg-paper hover:shadow-[0_16px_48px_rgba(124,64,46,0.2)]">
-            <span className="font-serif text-[14.5px] sm:text-[15.5px] text-ink font-medium tracking-tight hidden sm:inline">
-              Curated Destination Moments
-            </span>
-            <span className="h-4 w-[1px] bg-ink/25 hidden sm:inline" />
-            <Link
-              href="/singapore/experiences/"
-              className="luxury-cta text-[11.5px] font-bold tracking-[0.18em]"
-            >
-              <span className="cta-text">EXPLORE MORE</span>
-              <ArrowUpRight
-                size={14}
-                className="cta-arrow"
-              />
-            </Link>
-          </div>
-
-          <div className="mt-2 flex items-center gap-1.5 font-sans text-[10px] uppercase tracking-[0.2em] text-muted/80">
-            <Move size={10} className="text-ink/60" />
-            <span>DRAG CANVAS IN ANY DIRECTION</span>
-          </div>
+        <div className="mt-2 flex items-center gap-1.5 font-sans text-[10px] uppercase tracking-[0.2em] text-muted/80">
+          <Move size={10} className="text-ink/60" />
+          <span>DRAG CANVAS IN ANY DIRECTION</span>
         </div>
       </div>
     </section>
