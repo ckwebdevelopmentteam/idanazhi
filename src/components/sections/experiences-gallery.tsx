@@ -167,13 +167,15 @@ export interface ExperiencesGalleryProps {
   className?: string;
   images?: GalleryPhotoItem[];
   eyebrow?: string;
+  heading?: string;
   headingWords?: string[][];
 }
 
 export function ExperiencesGallery({
   className = '',
   images = galleryImages,
-  eyebrow = 'EXPERIENCES GALLERY',
+  eyebrow,
+  heading = 'EXPERIENCES GALLERY',
   headingWords,
 }: ExperiencesGalleryProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -224,58 +226,11 @@ export function ExperiencesGallery({
       id="gallery"
       ref={sectionRef}
       aria-label="Idanazhi Gallery Infinite Canvas"
-      className={`sticky top-0 z-10 h-screen min-h-[100svh] max-h-[100svh] w-full overflow-hidden bg-paper select-none flex flex-col pt-10 sm:pt-14 md:pt-16 ${className}`}
+      className={`sticky top-0 z-10 h-screen min-h-[100svh] max-h-[100svh] w-full overflow-hidden bg-paper select-none relative ${className}`}
       style={{ scrollSnapAlign: 'start', scrollMarginTop: 0 }}
     >
-      {/* Section Header: Eyebrow Title positioned cleanly ABOVE the gallery component */}
-      {eyebrow && (
-        <div className="flex flex-col items-center text-center max-w-[940px] mx-auto px-6 mb-10 sm:mb-14 md:mb-16 shrink-0 z-30">
-          <motion.p
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-60px' }}
-            variants={fadeUpVariants}
-            className="m-0 uppercase tracking-[0.24em] text-[10.5px] sm:text-[11.5px] font-semibold text-muted text-center"
-          >
-            {eyebrow}
-          </motion.p>
-
-          {headingWords && headingWords.length > 0 && (
-            <div className="w-full flex justify-center items-center text-center mt-2.5">
-              <ScrollReveal
-                as="h2"
-                baseOpacity={0.08}
-                enableBlur={true}
-                baseRotation={0}
-                blurStrength={8}
-                containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
-                textClassName="!font-jakarta !font-normal !text-[clamp(20px,2.5vw,36px)] !leading-[1.25] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
-                wordAnimationStart="top 85%"
-                wordAnimationEnd="bottom 55%"
-              >
-                <span
-                  id="gallery-heading"
-                  className="block !font-jakarta !font-normal !text-[clamp(20px,2.5vw,36px)] !leading-[1.25] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
-                >
-                  {headingWords.map((lineWords, lineIdx) => (
-                    <span key={lineIdx} className="block sm:whitespace-nowrap">
-                      {lineWords.map((word, wordIdx) => (
-                        <React.Fragment key={wordIdx}>
-                          <span className="word">{word}</span>
-                          {wordIdx < lineWords.length - 1 && ' '}
-                        </React.Fragment>
-                      ))}
-                    </span>
-                  ))}
-                </span>
-              </ScrollReveal>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Infinite Draggable Grid Canvas Component below the Header */}
-      <div className="relative flex-1 min-h-0 w-full overflow-hidden">
+      {/* Infinite Draggable Grid: full viewport canvas so photos glide under the transparent fog */}
+      <div className="absolute inset-0 h-full w-full overflow-hidden">
         <DraggableContainer variant="masonry">
           <GridBody>
             {images.map((photo) => (
@@ -310,30 +265,127 @@ export function ExperiencesGallery({
             ))}
           </GridBody>
         </DraggableContainer>
+      </div>
 
-        {/* Bottom Floating Explore More HUD */}
-        <div className="pointer-events-none absolute bottom-6 inset-x-0 z-30 flex flex-col items-center justify-center px-4">
-          <div className="pointer-events-auto flex items-center gap-4 rounded-full border border-line/35 bg-paper/92 px-6 py-3 shadow-xl backdrop-blur-md transition-all duration-200 hover:bg-paper hover:shadow-[0_16px_48px_rgba(124,64,46,0.2)]">
-            <span className="font-serif text-[14.5px] sm:text-[15.5px] text-ink font-medium tracking-tight hidden sm:inline">
-              Curated Destination Moments
-            </span>
-            <span className="h-4 w-[1px] bg-ink/25 hidden sm:inline" />
-            <Link
-              href="/singapore/experiences/"
-              className="luxury-cta text-[11.5px] font-bold tracking-[0.18em]"
+      {/* Transparent Fog Spread Overlay: Atmospheric misty canopy without opaque blocking */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-44 sm:h-56 md:h-64 z-20 overflow-hidden"
+      >
+        {/* Progressive fog backdrop blur (diffuses photos drifting underneath) */}
+        <div
+          className="absolute inset-0 backdrop-blur-[10px]"
+          style={{
+            WebkitMaskImage:
+              'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0) 100%)',
+            maskImage:
+              'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0) 100%)',
+          }}
+        />
+
+        {/* Truly transparent mist diffusion with ethereal feathering */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `
+              linear-gradient(to bottom, 
+                rgba(247, 243, 239, 0.42) 0%, 
+                rgba(247, 243, 239, 0.22) 35%, 
+                rgba(247, 243, 239, 0.06) 70%, 
+                transparent 100%
+              ),
+              radial-gradient(ellipse 90% 65% at 50% 0%, 
+                rgba(255, 255, 255, 0.35) 0%, 
+                rgba(247, 243, 239, 0.12) 55%, 
+                transparent 100%
+              )
+            `,
+          }}
+        />
+      </div>
+
+      {/* Section Header: positioned over the canvas with pointer-events-none */}
+      {(eyebrow || heading || headingWords) && (
+        <div className="pointer-events-none absolute top-7 sm:top-10 md:top-12 inset-x-0 z-30 flex flex-col items-center text-center max-w-[940px] mx-auto px-6">
+          {eyebrow && (
+            <motion.p
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-60px' }}
+              variants={fadeUpVariants}
+              className="m-0 uppercase tracking-[0.24em] text-[10.5px] sm:text-[11.5px] font-semibold text-muted text-center mb-2 sm:mb-2.5"
             >
-              <span className="cta-text">EXPLORE MORE</span>
-              <ArrowUpRight
-                size={14}
-                className="cta-arrow"
-              />
-            </Link>
-          </div>
+              {eyebrow}
+            </motion.p>
+          )}
 
-          <div className="mt-2 flex items-center gap-1.5 font-sans text-[10px] uppercase tracking-[0.2em] text-muted/80">
-            <Move size={10} className="text-ink/60" />
-            <span>DRAG CANVAS IN ANY DIRECTION</span>
-          </div>
+          {headingWords && headingWords.length > 0 ? (
+            <div className="w-full flex justify-center items-center text-center mt-1">
+              <ScrollReveal
+                as="h2"
+                baseOpacity={0.08}
+                enableBlur={true}
+                baseRotation={0}
+                blurStrength={8}
+                containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
+                textClassName="!font-jakarta !font-normal !text-[clamp(24px,3.2vw,44px)] !leading-[1.22] !tracking-[0.08em] sm:!tracking-[0.14em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
+                wordAnimationStart="top 85%"
+                wordAnimationEnd="bottom 55%"
+              >
+                <span
+                  id="gallery-heading"
+                  className="block !font-jakarta !font-normal !text-[clamp(24px,3.2vw,44px)] !leading-[1.22] !tracking-[0.08em] sm:!tracking-[0.14em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
+                >
+                  {headingWords.map((lineWords, lineIdx) => (
+                    <span key={lineIdx} className="block sm:whitespace-nowrap">
+                      {lineWords.map((word, wordIdx) => (
+                        <React.Fragment key={wordIdx}>
+                          <span className="word">{word}</span>
+                          {wordIdx < lineWords.length - 1 && ' '}
+                        </React.Fragment>
+                      ))}
+                    </span>
+                  ))}
+                </span>
+              </ScrollReveal>
+            </div>
+          ) : (
+            <motion.h2
+              id="gallery-heading"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-60px' }}
+              variants={fadeUpVariants}
+              className="m-0 font-jakarta font-normal text-[clamp(24px,3.2vw,44px)] leading-[1.22] tracking-[0.08em] sm:tracking-[0.14em] uppercase text-ink text-center drop-shadow-sm"
+            >
+              {heading}
+            </motion.h2>
+          )}
+        </div>
+      )}
+
+      {/* Bottom Floating Explore More HUD */}
+      <div className="pointer-events-none absolute bottom-6 inset-x-0 z-30 flex flex-col items-center justify-center px-4">
+        <div className="pointer-events-auto flex items-center gap-4 rounded-full border border-line/35 bg-paper/92 px-6 py-3 shadow-xl backdrop-blur-md transition-all duration-200 hover:bg-paper hover:shadow-[0_16px_48px_rgba(124,64,46,0.2)]">
+          <span className="font-serif text-[14.5px] sm:text-[15.5px] text-ink font-medium tracking-tight hidden sm:inline">
+            Curated Destination Moments
+          </span>
+          <span className="h-4 w-[1px] bg-ink/25 hidden sm:inline" />
+          <Link
+            href="/singapore/experiences/"
+            className="luxury-cta text-[11.5px] font-bold tracking-[0.18em]"
+          >
+            <span className="cta-text">EXPLORE MORE</span>
+            <ArrowUpRight
+              size={14}
+              className="cta-arrow"
+            />
+          </Link>
+        </div>
+
+        <div className="mt-2 flex items-center gap-1.5 font-sans text-[10px] uppercase tracking-[0.2em] text-muted/80">
+          <Move size={10} className="text-ink/60" />
+          <span>DRAG CANVAS IN ANY DIRECTION</span>
         </div>
       </div>
     </section>
