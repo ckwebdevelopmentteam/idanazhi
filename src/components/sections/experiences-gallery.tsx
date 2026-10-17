@@ -167,13 +167,15 @@ export interface ExperiencesGalleryProps {
   className?: string;
   images?: GalleryPhotoItem[];
   eyebrow?: string;
+  heading?: string;
   headingWords?: string[][];
 }
 
 export function ExperiencesGallery({
   className = '',
   images = galleryImages,
-  eyebrow = 'EXPERIENCES GALLERY',
+  eyebrow,
+  heading = 'EXPERIENCES GALLERY',
   headingWords,
 }: ExperiencesGalleryProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -224,24 +226,32 @@ export function ExperiencesGallery({
       id="gallery"
       ref={sectionRef}
       aria-label="Idanazhi Gallery Infinite Canvas"
-      className={`sticky top-0 z-10 h-screen min-h-[100svh] max-h-[100svh] w-full overflow-hidden bg-paper select-none flex flex-col pt-10 sm:pt-14 md:pt-16 ${className}`}
+      className={`sticky top-0 z-10 h-screen min-h-[100svh] max-h-[100svh] w-full overflow-hidden bg-paper select-none flex flex-col pt-8 sm:pt-12 md:pt-14 ${className}`}
       style={{ scrollSnapAlign: 'start', scrollMarginTop: 0 }}
     >
-      {/* Section Header: Eyebrow Title positioned cleanly ABOVE the gallery component */}
-      {eyebrow && (
-        <div className="flex flex-col items-center text-center max-w-[940px] mx-auto px-6 mb-10 sm:mb-14 md:mb-16 shrink-0 z-30">
-          <motion.p
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-60px' }}
-            variants={fadeUpVariants}
-            className="m-0 uppercase tracking-[0.24em] text-[10.5px] sm:text-[11.5px] font-semibold text-muted text-center"
-          >
-            {eyebrow}
-          </motion.p>
+      {/* Top stacked depth shadow overlay: gives the physical appearance of sliding underneath Stay at Idanazhi */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-20 sm:h-28 bg-gradient-to-b from-ink/[0.14] via-ink/[0.04] to-transparent z-20"
+      />
 
-          {headingWords && headingWords.length > 0 && (
-            <div className="w-full flex justify-center items-center text-center mt-2.5">
+      {/* Section Header: Eyebrow and prominent Gallery Heading */}
+      {(eyebrow || heading || headingWords) && (
+        <div className="flex flex-col items-center text-center max-w-[940px] mx-auto px-6 mb-6 sm:mb-8 md:mb-10 shrink-0 z-30">
+          {eyebrow && (
+            <motion.p
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-60px' }}
+              variants={fadeUpVariants}
+              className="m-0 uppercase tracking-[0.24em] text-[10.5px] sm:text-[11.5px] font-semibold text-muted text-center mb-2 sm:mb-2.5"
+            >
+              {eyebrow}
+            </motion.p>
+          )}
+
+          {headingWords && headingWords.length > 0 ? (
+            <div className="w-full flex justify-center items-center text-center mt-1">
               <ScrollReveal
                 as="h2"
                 baseOpacity={0.08}
@@ -249,13 +259,13 @@ export function ExperiencesGallery({
                 baseRotation={0}
                 blurStrength={8}
                 containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
-                textClassName="!font-jakarta !font-normal !text-[clamp(20px,2.5vw,36px)] !leading-[1.25] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
+                textClassName="!font-jakarta !font-normal !text-[clamp(24px,3.2vw,44px)] !leading-[1.22] !tracking-[0.08em] sm:!tracking-[0.14em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
                 wordAnimationStart="top 85%"
                 wordAnimationEnd="bottom 55%"
               >
                 <span
                   id="gallery-heading"
-                  className="block !font-jakarta !font-normal !text-[clamp(20px,2.5vw,36px)] !leading-[1.25] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
+                  className="block !font-jakarta !font-normal !text-[clamp(24px,3.2vw,44px)] !leading-[1.22] !tracking-[0.08em] sm:!tracking-[0.14em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
                 >
                   {headingWords.map((lineWords, lineIdx) => (
                     <span key={lineIdx} className="block sm:whitespace-nowrap">
@@ -270,6 +280,17 @@ export function ExperiencesGallery({
                 </span>
               </ScrollReveal>
             </div>
+          ) : (
+            <motion.h2
+              id="gallery-heading"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-60px' }}
+              variants={fadeUpVariants}
+              className="m-0 font-jakarta font-normal text-[clamp(24px,3.2vw,44px)] leading-[1.22] tracking-[0.08em] sm:tracking-[0.14em] uppercase text-ink text-center"
+            >
+              {heading}
+            </motion.h2>
           )}
         </div>
       )}
