@@ -71,7 +71,7 @@ export function Footer() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.12 }}
-      className="relative z-30 w-full bg-[#FCF2E7] text-[#5A3828] overflow-hidden border-t border-[#7C402E]/10"
+      className="relative z-30 w-full bg-[#FCF2E7] text-[#4A2618] overflow-hidden border-t border-[#7C402E]/10"
     >
       {/* Upper Content Area with Background Wedding Illustration */}
       <div className="relative w-full">
@@ -95,32 +95,32 @@ export function Footer() {
           }}
         />
 
-        {/* Footer Main Content positioned in the upper blank space */}
+        {/* Footer Main Content placed directly in the natural light space */}
         <motion.div
           variants={containerVariants}
-          className="relative z-10 w-full max-w-[1440px] 2xl:max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-16 pt-6 sm:pt-8 lg:pt-10 pb-40 sm:pb-24 md:pb-28 lg:pb-36 xl:pb-40"
+          className="relative z-10 w-full max-w-[1440px] 2xl:max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-16 pt-8 sm:pt-10 md:pt-12 lg:pt-14 pb-56 sm:pb-52 md:pb-56 lg:pb-64 min-h-[540px] sm:min-h-[460px] md:min-h-[480px] lg:min-h-[500px]"
         >
           {/* Responsive Grid:
-              - Mobile (<640px): Centered, balanced luxury stack.
-                - Logo: Centered at top, moved lower
+              - Mobile (<640px): Centered, balanced luxury stack in light space.
+                - Logo: Centered at top
                 - Explore & Your Stay: 2 symmetrical columns (centered in each half)
                 - Stay In Touch: Centered minimal CTA
               - Tablet (640px-1023px): 12 columns. Logo (12 cols), Explore (4 cols), Your Stay (4 cols), Stay In Touch (4 cols)
               - Desktop (1024px+): 12 columns. Logo (4 cols), Explore (2 cols), Your Stay (2 cols), Stay In Touch (4 cols on right)
           */}
-          <div className="grid grid-cols-2 sm:grid-cols-12 lg:grid-cols-12 gap-x-6 sm:gap-x-8 lg:gap-x-8 gap-y-6 sm:gap-y-7">
+          <div className="grid grid-cols-2 sm:grid-cols-12 lg:grid-cols-12 gap-x-6 sm:gap-x-8 lg:gap-x-8 gap-y-6 sm:gap-y-7 items-start">
             
-            {/* Column 1: Brand Logo (moved lower for natural balance) */}
+            {/* Column 1: Brand Logo */}
             <motion.div
               variants={columnVariants}
-              className="col-span-2 sm:col-span-12 lg:col-span-4 xl:col-span-4 flex flex-col items-center sm:items-start text-center sm:text-left pr-0 sm:pr-4 lg:pr-6 pt-2 sm:pt-3 lg:pt-4"
+              className="col-span-2 sm:col-span-12 lg:col-span-4 xl:col-span-4 flex flex-col items-center sm:items-start text-center sm:text-left pr-0 sm:pr-4 lg:pr-6"
             >
               <Link
                 href="/"
                 aria-label="IDANAZHI Farm Stay"
-                className="inline-block transition-transform duration-300 hover:scale-[1.03] mt-2 sm:mt-3 lg:mt-4 mx-auto sm:mx-0"
+                className="inline-block transition-transform duration-300 hover:scale-[1.03] mx-auto sm:mx-0"
               >
-                <BrandLogo className="h-16 sm:h-22 md:h-26 lg:h-28 xl:h-32 w-auto max-w-[230px] sm:max-w-[300px] md:max-w-[340px] lg:max-w-[380px]" />
+                <BrandLogo className="h-16 sm:h-20 md:h-24 lg:h-26 xl:h-28 w-auto max-w-[220px] sm:max-w-[280px] md:max-w-[320px] lg:max-w-[340px]" />
               </Link>
             </motion.div>
 
@@ -133,11 +133,11 @@ export function Footer() {
                 aria-hidden="true"
                 className="hidden lg:block absolute left-0 top-1.5 h-1/2 w-[1px] bg-[#7C402E]/20"
               />
-              <span className="h-[2px] w-6 bg-[#84382B] mb-2.5 rounded-full mx-auto sm:mx-0" />
-              <h3 className="text-[11px] font-semibold tracking-[0.2em] text-[#7C402E] uppercase mb-3.5">
+              <span className="h-[2px] w-6 bg-[#84382B] mb-2 rounded-full mx-auto sm:mx-0" />
+              <h3 className="text-[11px] font-semibold tracking-[0.2em] text-[#7C402E] uppercase mb-3">
                 EXPLORE
               </h3>
-              <ul className="space-y-2.5 text-[13px] sm:text-[13.5px] font-serif text-[#5A3828]">
+              <ul className="space-y-2 text-[13px] sm:text-[13.5px] font-serif text-[#4A2618]">
                 <li>
                   <Link href="/story" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
                     Story
@@ -170,11 +170,11 @@ export function Footer() {
                 aria-hidden="true"
                 className="hidden lg:block absolute left-0 top-1.5 h-1/2 w-[1px] bg-[#7C402E]/20"
               />
-              <span className="h-[2px] w-6 bg-[#84382B] mb-2.5 rounded-full mx-auto sm:mx-0" />
-              <h3 className="text-[11px] font-semibold tracking-[0.2em] text-[#7C402E] uppercase mb-3.5">
+              <span className="h-[2px] w-6 bg-[#84382B] mb-2 rounded-full mx-auto sm:mx-0" />
+              <h3 className="text-[11px] font-semibold tracking-[0.2em] text-[#7C402E] uppercase mb-3">
                 YOUR STAY
               </h3>
-              <ul className="space-y-2.5 text-[13px] sm:text-[13.5px] font-serif text-[#5A3828]">
+              <ul className="space-y-2 text-[13px] sm:text-[13.5px] font-serif text-[#4A2618]">
                 <li>
                   <a href="mailto:hello@idanazhi.com" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
                     Contact Us
@@ -188,26 +188,26 @@ export function Footer() {
               </ul>
             </motion.div>
 
-            {/* Column 4: STAY IN TOUCH (Centered on mobile, right side on desktop) */}
+            {/* Column 4: STAY IN TOUCH */}
             <motion.div
               variants={columnVariants}
-              className="relative col-span-2 sm:col-span-4 lg:col-span-4 xl:col-span-4 flex flex-col items-center sm:items-start text-center sm:text-left px-2 sm:px-4 md:px-6 lg:px-8 xl:px-10"
+              className="relative col-span-2 sm:col-span-4 lg:col-span-4 xl:col-span-4 flex flex-col items-center sm:items-start text-center sm:text-left px-2 sm:px-4 md:px-6 lg:px-6 xl:px-8"
             >
               <div
                 aria-hidden="true"
                 className="hidden lg:block absolute left-0 top-1.5 h-1/2 w-[1px] bg-[#7C402E]/20"
               />
               <span className="h-[2px] w-6 bg-[#84382B] mb-2 rounded-full mx-auto sm:mx-0" />
-              <h3 className="text-[10px] font-semibold tracking-[0.2em] text-[#7C402E] uppercase mb-1.5">
+              <h3 className="text-[10.5px] font-semibold tracking-[0.2em] text-[#7C402E] uppercase mb-1.5">
                 STAY IN TOUCH
               </h3>
-              <p className="font-serif text-[11.5px] sm:text-[12px] leading-relaxed text-[#5A3828]/85 mb-2.5 max-w-[260px] mx-auto sm:mx-0">
+              <p className="font-serif text-[11.5px] sm:text-[12px] leading-relaxed text-[#4A2618]/90 mb-2.5 max-w-[260px] mx-auto sm:mx-0">
                 Get inspiration, offers and stories from Idanazhi.
               </p>
 
-              {/* Sleek, Minimal Pill Input Form */}
-              <form onSubmit={handleSubmit} className="w-full max-w-[280px] sm:max-w-[260px] mx-auto sm:mx-0" noValidate>
-                <div className="relative flex items-center rounded-full bg-white/75 hover:bg-white/90 focus-within:bg-white border border-[#7C402E]/20 focus-within:border-[#84382B] py-1 pl-3.5 pr-1 shadow-xs transition-all duration-200">
+              {/* Minimal Pill Form */}
+              <form onSubmit={handleSubmit} className="w-full max-w-[270px] sm:max-w-[250px] mx-auto sm:mx-0" noValidate>
+                <div className="relative flex items-center rounded-full bg-white/80 hover:bg-white focus-within:bg-white border border-[#7C402E]/25 focus-within:border-[#84382B] py-1 pl-3.5 pr-1 shadow-xs transition-all duration-200">
                   <input
                     type="email"
                     value={email}
@@ -217,7 +217,7 @@ export function Footer() {
                     }}
                     placeholder="Your email address"
                     aria-label="Your email address"
-                    className="w-full bg-transparent text-[11.5px] sm:text-[12px] text-[#5A3828] placeholder:text-[#8C6D5F]/65 placeholder:font-serif outline-none pr-2 font-serif text-center sm:text-left"
+                    className="w-full bg-transparent text-[11.5px] sm:text-[12px] text-[#4A2618] placeholder:text-[#8C6D5F]/70 placeholder:font-serif outline-none pr-2 font-serif text-center sm:text-left"
                   />
                   <button
                     type="submit"
@@ -246,8 +246,8 @@ export function Footer() {
         variants={bottomBarVariants}
         className="relative z-20 w-full bg-[#543224] text-[#F6F0E9] border-t border-[#7C402E]/20"
       >
-        <div className="w-full max-w-[1440px] 2xl:max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-16 py-3 sm:py-3.5">
-          <p className="m-0 text-center text-[10.5px] sm:text-[11.5px] text-[#F6F0E9]/90 tracking-[0.04em] font-sans">
+        <div className="w-full max-w-[1440px] 2xl:max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-16 py-1.5 sm:py-2">
+          <p className="m-0 text-center text-[10px] sm:text-[11px] leading-normal text-[#F6F0E9]/90 tracking-[0.04em] font-sans">
             &copy; 2026 Idanazhi Farm Stay. All rights reserved.
           </p>
         </div>
