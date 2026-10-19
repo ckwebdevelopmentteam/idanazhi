@@ -40,6 +40,26 @@ const nextConfig: NextConfig = {
         destination: '/stay',
         permanent: true,
       },
+      {
+        source: '/celebrations-and-experience',
+        destination: '/celebrations',
+        permanent: true,
+      },
+      {
+        source: '/celebration',
+        destination: '/celebrations',
+        permanent: true,
+      },
+      {
+        source: '/weddings',
+        destination: '/celebrations',
+        permanent: true,
+      },
+      {
+        source: '/experiences',
+        destination: '/celebrations',
+        permanent: true,
+      },
     ];
   },
 };

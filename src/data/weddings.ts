@@ -30,7 +30,7 @@ export const weddingIntroData: WeddingSectionData = {
   description:
     "Rooted in heritage and shaped by timeless character,\nIDANAZHI offers an extraordinary setting to bring your closest people together\nand celebrate life's most meaningful beginnings.",
   ctaText: 'DISCOVER WEDDINGS',
-  ctaHref: '/hotels-resorts/#celebration',
+  ctaHref: '/celebrations',
   cards: [
     {
       type: 'photo',

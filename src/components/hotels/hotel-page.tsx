@@ -22,9 +22,9 @@ export function HotelPage({ hotelKey }: { hotelKey: HotelKey }) {
           <p className="m-0 mb-[18px] uppercase tracking-[0.18em] text-[10px] font-semibold">{hotel.eyebrow}</p>
           <h1 className="font-serif text-[clamp(53px,6.6vw,100px)] font-normal leading-[0.91] tracking-[-0.055em] m-0 mb-[23px]">{hotel.heroTitle}</h1>
           <p className="max-w-[420px] m-0 mb-[30px]">{hotel.heroText}</p>
-          <a className="border border-current bg-transparent px-[18px] py-3 text-[10px] tracking-[0.14em] transition-all duration-[180ms] ease-in-out text-white hover:bg-ink hover:text-white" href="#stay">
+          <Link className="border border-current bg-transparent px-[18px] py-3 text-[10px] tracking-[0.14em] transition-all duration-[180ms] ease-in-out text-white hover:bg-ink hover:text-white" href="/stay">
             EXPLORE THE HOTEL
-          </a>
+          </Link>
         </div>
       </section>
 
@@ -33,11 +33,11 @@ export function HotelPage({ hotelKey }: { hotelKey: HotelKey }) {
         className="h-[70px] flex justify-center items-center gap-[38px] sticky top-0 z-20 bg-paper border-b border-line uppercase tracking-[0.15em] text-[10px] max-[720px]:h-[54px] max-[720px]:justify-start max-[720px]:overflow-auto max-[720px]:px-[21px] max-[720px]:gap-[23px]"
         aria-label={`${hotel.eyebrow} navigation`}
       >
-        <a href="#stay" className="whitespace-nowrap">Stay</a>
-        <a href="#dining" className="whitespace-nowrap">Dining</a>
-        <a href="#experiences" className="whitespace-nowrap">Experiences</a>
-        <a href="#story" className="whitespace-nowrap">Our story</a>
-        <a href="#contact" className="whitespace-nowrap">Contact</a>
+        <Link href="/stay" className="whitespace-nowrap">Stay</Link>
+        <Link href="/stay" className="whitespace-nowrap">Dining</Link>
+        <Link href="/celebrations" className="whitespace-nowrap">Experiences</Link>
+        <Link href="/story" className="whitespace-nowrap">Our story</Link>
+        <Link href="/stay" className="whitespace-nowrap">Contact</Link>
       </nav>
 
       {/* Stay Section */}

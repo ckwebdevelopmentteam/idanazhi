@@ -17,15 +17,15 @@ const experiences = [
     title: 'The Heritage',
     description:
       'A closer look at the property’s Thachu Shastra architecture, hand-carved timber joinery, and distinctive ancestral character.',
-    href: '#architecture',
-    linkText: 'Explore Architecture',
+    href: '/gallery',
+    linkText: 'Explore Visual Gallery',
   },
   {
     index: '02',
     title: 'The Stay',
     description:
       'Discover quiet chambers, central open-air courtyards, and the unhurried rhythm of authentic Kerala living.',
-    href: '/#stay',
+    href: '/stay',
     linkText: 'Explore Your Stay',
   },
   {
@@ -33,7 +33,7 @@ const experiences = [
     title: 'The Celebrations',
     description:
       'Explore possibilities for intimate sacred weddings, family rituals, and meaningful milestones framed by timeless grace.',
-    href: '/#celebrations-and-experience',
+    href: '/celebrations',
     linkText: 'Discover Celebrations',
   },
 ];
@@ -481,7 +481,7 @@ export default function StoryPage() {
             {/* Subtle Editorial Link */}
             <div>
               <Link
-                href="/#celebrations-and-experience"
+                href="/celebrations"
                 className="inline-flex items-center gap-2 text-[12px] font-sans font-semibold tracking-[0.18em] uppercase text-[#7C402E] hover:text-[#4A2618] transition-colors group pb-1 border-b border-[#7C402E]/30 hover:border-[#7C402E]"
               >
                 <span>Discover Wedding Experiences</span>
@@ -600,7 +600,7 @@ export default function StoryPage() {
             {/* Restrained Text Links */}
             <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 pb-4">
               <Link
-                href="/#stay"
+                href="/stay"
                 className="inline-flex items-center gap-2 text-[12px] sm:text-[12.5px] font-sans font-semibold tracking-[0.18em] uppercase text-[#7C402E] hover:text-[#4A2618] transition-colors group pb-1 border-b border-[#7C402E]/35 hover:border-[#7C402E]"
               >
                 <span>Explore Your Stay</span>
@@ -611,7 +611,7 @@ export default function StoryPage() {
               </Link>
 
               <Link
-                href="/#celebrations-and-experience"
+                href="/celebrations"
                 className="inline-flex items-center gap-2 text-[12px] sm:text-[12.5px] font-sans font-semibold tracking-[0.18em] uppercase text-[#7C402E] hover:text-[#4A2618] transition-colors group pb-1 border-b border-[#7C402E]/35 hover:border-[#7C402E]"
               >
                 <span>Discover Wedding Experiences</span>

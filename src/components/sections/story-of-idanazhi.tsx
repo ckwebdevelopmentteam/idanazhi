@@ -67,7 +67,7 @@ const storyCards = [
     description:
       'A luminous setting for destination weddings and family rituals, celebrating sacred beginnings with unmatched grace and hospitality.',
     linkText: 'VIEW CELEBRATIONS',
-    linkHref: '/#celebrations-and-experience',
+    linkHref: '/celebrations',
   },
 ];
 

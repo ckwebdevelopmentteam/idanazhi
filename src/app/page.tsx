@@ -1,8 +1,9 @@
 import Link from 'next/link';
-import { ArrowDown, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { experiences, images } from '@/data/content';
 import { ImageBlock, SectionIntro } from '@/components/sections/editorial';
 import { HeroBookingCta } from '@/components/sections/hero-booking-cta';
+import { HeroScrollButton } from '@/components/ui/hero-scroll-button';
 import { WeddingIntro } from '@/components/sections/wedding-intro';
 import { StoryOfIdanazhi } from '@/components/sections/story-of-idanazhi';
 import { StayAtIdanazhi } from '@/components/sections/stay-at-idanazhi';
@@ -32,9 +33,7 @@ export default function Home() {
           />
           <HeroBookingCta />
         </div>
-        <a href="#story" className="absolute z-1 right-[4vw] bottom-[42px] flex items-center gap-2 text-[10px] tracking-[0.16em] [writing-mode:vertical-rl] max-[720px]:right-[16px] max-[720px]:bottom-[16px]">
-          SCROLL <ArrowDown size={15} />
-        </a>
+        <HeroScrollButton />
       </section>
 
       <WeddingIntro />
@@ -88,7 +87,7 @@ export default function Home() {
             title="Adventures and encounters crafted for the curious traveller"
             text="In every destination, discover a world of deeply personal experiences designed to open your mind, move your heart and illuminate your stay."
             action="EXPLORE EXPERIENCES"
-            href="/#celebrations-and-experience"
+            href="/celebrations"
           />
 
           {/* Experience Grid */}

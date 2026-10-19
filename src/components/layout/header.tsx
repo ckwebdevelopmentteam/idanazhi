@@ -11,8 +11,8 @@ import { BookingPanel } from '@/components/sections/booking-panel';
 
 const navLinks = [
   { label: 'STORY', title: 'Story', href: '/story' },
-  { label: 'STAY', title: 'Stay', href: '/#stay' },
-  { label: 'GALLERY', title: 'Gallery', href: '/#gallery' },
+  { label: 'STAY', title: 'Stay', href: '/stay' },
+  { label: 'GALLERY', title: 'Gallery', href: '/gallery' },
   { label: 'BLOGS', title: 'Blogs', href: '/blogs' },
 ];
 
@@ -27,7 +27,6 @@ const languages = [
 
 export function Header() {
   const pathname = usePathname();
-  const [currentHash, setCurrentHash] = useState('');
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [hoveredOption, setHoveredOption] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
@@ -39,53 +38,32 @@ export function Header() {
   const [currentLang, setCurrentLang] = useState('EN');
   const lastScrollYRef = useRef(0);
 
+  // Sync active option with current route
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setCurrentHash(window.location.hash);
-      const handleHashChange = () => setCurrentHash(window.location.hash);
-      window.addEventListener('hashchange', handleHashChange);
-      return () => window.removeEventListener('hashchange', handleHashChange);
-    }
-  }, []);
-
-  // Sync active option with the current URL route and hash
-  useEffect(() => {
-    if (pathname.includes('/story')) {
+    if (pathname.startsWith('/story')) {
       setSelectedOption('STORY');
-    } else if (pathname.includes('/stay')) {
+    } else if (pathname.startsWith('/stay')) {
       setSelectedOption('STAY');
-    } else if (pathname.includes('/blogs')) {
-      setSelectedOption('BLOGS');
-    } else if (currentHash === '#stay') {
-      setSelectedOption('STAY');
-    } else if (currentHash === '#gallery') {
+    } else if (pathname.startsWith('/gallery')) {
       setSelectedOption('GALLERY');
-    } else if (currentHash === '#story') {
-      setSelectedOption('STORY');
-    } else if (pathname === '/') {
-      if (currentHash === '#stay') {
-        setSelectedOption('STAY');
-      } else if (currentHash === '#gallery') {
-        setSelectedOption('GALLERY');
-      } else {
-        setSelectedOption('STORY');
-      }
+    } else if (pathname.startsWith('/blogs')) {
+      setSelectedOption('BLOGS');
+    } else {
+      setSelectedOption(null);
     }
-  }, [pathname, currentHash]);
+  }, [pathname]);
 
   const activeOption =
     selectedOption ||
-    (pathname.includes('/story')
+    (pathname.startsWith('/story')
       ? 'STORY'
-      : pathname.includes('/stay')
+      : pathname.startsWith('/stay')
       ? 'STAY'
-      : pathname.includes('/blogs')
-      ? 'BLOGS'
-      : currentHash === '#stay'
-      ? 'STAY'
-      : currentHash === '#gallery'
+      : pathname.startsWith('/gallery')
       ? 'GALLERY'
-      : 'STORY');
+      : pathname.startsWith('/blogs')
+      ? 'BLOGS'
+      : null);
   const currentIndicatorOption = hoveredOption ?? activeOption;
 
   useEffect(() => {
