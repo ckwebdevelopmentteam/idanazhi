@@ -241,30 +241,15 @@ export function Footer() {
         </motion.div>
       </div>
 
-      {/* Bottom Copyright & Legal Links Bar with Rich Terracotta Grounding */}
+      {/* Bottom Copyright Bar with Rich Terracotta Grounding */}
       <motion.div
         variants={bottomBarVariants}
         className="relative z-20 w-full bg-[#543224] text-[#F6F0E9] border-t border-[#7C402E]/20"
       >
-        <div className="w-full max-w-[1440px] 2xl:max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-16 py-3.5 sm:py-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between text-[10.5px] sm:text-[11.5px] text-[#F6F0E9]/90 tracking-[0.04em] gap-2.5">
-            <p className="m-0 text-center sm:text-left font-sans">
-              &copy; 2026 Idanazhi Farm Stay, Guruvayoor. All rights reserved.
-            </p>
-            <div className="flex items-center gap-3 text-[#F6F0E9]/80 font-sans">
-              <Link href="/privacy" className="hover:text-white transition-colors py-0.5">
-                Privacy
-              </Link>
-              <span>·</span>
-              <Link href="/terms" className="hover:text-white transition-colors py-0.5">
-                Terms
-              </Link>
-              <span>·</span>
-              <Link href="/accessibility" className="hover:text-white transition-colors py-0.5">
-                Accessibility
-              </Link>
-            </div>
-          </div>
+        <div className="w-full max-w-[1440px] 2xl:max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-16 py-3 sm:py-3.5">
+          <p className="m-0 text-center text-[10.5px] sm:text-[11.5px] text-[#F6F0E9]/90 tracking-[0.04em] font-sans">
+            &copy; 2026 Idanazhi Farm Stay. All rights reserved.
+          </p>
         </div>
       </motion.div>
     </motion.footer>
