@@ -12,7 +12,7 @@ import { BookingPanel } from '@/components/sections/booking-panel';
 const navLinks = [
   { label: 'STORY', title: 'Story', href: '/story' },
   { label: 'STAY', title: 'Stay', href: '/#stay' },
-  { label: 'EXPERIENCES', title: 'Experiences', href: '/#celebrations-and-experience' },
+  { label: 'GALLERY', title: 'Gallery', href: '/#gallery' },
   { label: 'BLOGS', title: 'Blogs', href: '/blogs' },
 ];
 
@@ -56,15 +56,15 @@ export function Header() {
       setSelectedOption('BLOGS');
     } else if (currentHash === '#stay') {
       setSelectedOption('STAY');
-    } else if (currentHash === '#celebrations-and-experience' || currentHash === '#celebration') {
-      setSelectedOption('EXPERIENCES');
+    } else if (currentHash === '#gallery') {
+      setSelectedOption('GALLERY');
     } else if (currentHash === '#story') {
       setSelectedOption('STORY');
     } else if (pathname === '/') {
       if (currentHash === '#stay') {
         setSelectedOption('STAY');
-      } else if (currentHash === '#celebrations-and-experience') {
-        setSelectedOption('EXPERIENCES');
+      } else if (currentHash === '#gallery') {
+        setSelectedOption('GALLERY');
       } else {
         setSelectedOption('STORY');
       }
@@ -79,8 +79,8 @@ export function Header() {
       ? 'BLOGS'
       : currentHash === '#stay'
       ? 'STAY'
-      : currentHash === '#celebrations-and-experience'
-      ? 'EXPERIENCES'
+      : currentHash === '#gallery'
+      ? 'GALLERY'
       : 'STORY');
   const currentIndicatorOption = hoveredOption ?? activeOption;
 
