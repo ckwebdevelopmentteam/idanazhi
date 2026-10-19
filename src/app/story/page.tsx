@@ -2,122 +2,95 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, ArrowUpRight, Compass, Sparkles, Feather, Sun, Heart, Check, Flower2 } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import ScrollReveal from '@/components/ui/ScrollReveal';
 import { BookingPanel } from '@/components/sections/booking-panel';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const chapters = [
+const experiences = [
   {
-    number: '01',
-    era: 'THE INSPIRATION',
-    title: 'The Meaning of Idanazhi',
-    lead: 'In the timeless vernacular of Kerala’s ancestral Nalukettu manors, the "Idanazhi" (ഇടനാഴി) is the sheltered breezeway—the connecting corridor between private chambers and the open sky.',
+    index: '01',
+    title: 'The Heritage',
     description:
-      'It is where generations of families gathered as twilight softened into night, watching rain fall into the central courtyard while sharing stories that bound them together. We founded Idanazhi Farm Stay to recreate this sacred threshold in a world that moves too quickly.',
-    image: '/images/weddings/architecture-corridor.jpg',
-    imageAlt: 'Idanazhi traditional carved wooden colonnaded corridor',
+      'A closer look at the property’s Thachu Shastra architecture, hand-carved timber joinery, and distinctive ancestral character.',
+    href: '#architecture',
+    linkText: 'Explore Architecture',
   },
   {
-    number: '02',
-    era: 'SACRED ARCHITECTURE',
-    title: 'Built with Wood, Earth & Sky',
-    lead: 'Constructed according to the ancient canons of Thachu Shastra, Idanazhi does not wall out nature; it breathes with it.',
+    index: '02',
+    title: 'The Stay',
     description:
-      'Master carpenter artisans (Thachans) crafted the estate using reclaimed aged teak, rosewood, and natural porous laterite stone. Without a single harsh industrial finish, our high-gabled terracotta roofs and Nadumuttam rain-courts maintain a gentle natural microclimate even during the warmest tropical afternoons.',
-    image: '/images/weddings/kerala-courtyard-planter.jpg',
-    imageAlt: 'Heritage open sky courtyard with sacred tulasi planter',
+      'Discover quiet chambers, central open-air courtyards, and the unhurried rhythm of authentic Kerala living.',
+    href: '/#stay',
+    linkText: 'Explore Your Stay',
   },
   {
-    number: '03',
-    era: 'THE GURUVAYOOR ROOTS',
-    title: 'The Sanctum of Guruvayoor',
-    lead: 'Rooted in the spiritual soil of Guruvayoor, our farm stay carries the sacred grace and devotional purity of Kerala’s heartland.',
+    index: '03',
+    title: 'The Celebrations',
     description:
-      'Mornings here begin with the distant chime of temple bells and the soothing fragrance of fresh tulsi and damp soil. Whether solemnising sacred matrimonial vows at our carved heritage mandapam or resting in quiet contemplation, guests feel enveloped in a serenity that is ancient and deeply restorative.',
-    image: '/images/weddings/stage-heritage-mandapam.jpg',
-    imageAlt: 'Carved heritage wedding mandapam adorned with fresh marigolds and brass lamps',
-  },
-  {
-    number: '04',
-    era: 'FARM-TO-TABLE LIVING',
-    title: 'Nourishment from the Earth',
-    lead: 'True hospitality begins in the soil. At Idanazhi, living is entwined with the rhythm of our surrounding organic groves.',
-    description:
-      'From tender coconut water harvested fresh at dawn to traditional Sadya feasts served on emerald plantain leaves, our cuisine celebrates heirloom Kerala recipes. We honor the Ayurvedic principle of Shadrasa—the harmony of the six tastes—creating food that nourishes the body and comforts the soul.',
-    image: '/images/experiences/savour-dining.jpg',
-    imageAlt: 'Authentic Kerala traditional farm-to-table Sadya feast served on plantain leaves in a heritage verandah',
-  },
-];
-
-const pillars = [
-  {
-    icon: Compass,
-    title: 'Sacred Vastu & Geometry',
-    description:
-      'Every doorway, courtyard, and breezeway is aligned with the cardinal directions to optimize natural light, cross-ventilation, and positive energetic flow.',
-  },
-  {
-    icon: Feather,
-    title: 'Living Timber Craftsmanship',
-    description:
-      'Carved teak and rosewood joinery assembled with traditional tongue-and-groove wooden pegs that breathe and age gracefully with the monsoon.',
-  },
-  {
-    icon: Sun,
-    title: 'The Open Sky Nadumuttam',
-    description:
-      'Central open-to-sky courtyards that invite morning dew, cooling rainfall, and starry night skies directly into the center of family life.',
-  },
-  {
-    icon: Heart,
-    title: 'Gracious Kerala Hospitality',
-    description:
-      'Attentive, discreet, and deeply personal care where guests are welcomed not as tourists, but as cherished members of an ancestral home.',
+      'Explore possibilities for intimate sacred weddings, family rituals, and meaningful milestones framed by timeless grace.',
+    href: '/#celebrations-and-experience',
+    linkText: 'Discover Celebrations',
   },
 ];
 
 export default function StoryPage() {
   const [bookingOpen, setBookingOpen] = useState(false);
-  const chaptersContainerRef = useRef<HTMLElement>(null);
-  const pillarsContainerRef = useRef<HTMLElement>(null);
-  const custodianRef = useRef<HTMLDivElement>(null);
+  const pageContainerRef = useRef<HTMLElement>(null);
+  const beginningSectionRef = useRef<HTMLElement>(null);
+  const architectureSectionRef = useRef<HTMLElement>(null);
+  const momentsSectionRef = useRef<HTMLElement>(null);
+  const experiencesSectionRef = useRef<HTMLElement>(null);
+  const closingSectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const chaptersContainer = chaptersContainerRef.current;
-    const pillarsContainer = pillarsContainerRef.current;
-    const custodian = custodianRef.current;
-
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      // Desktop & Tablet (min-width: 768px): smooth down-to-up reveal with blur scrub
+      // Subtle editorial reveals on Desktop & Tablet
       mm.add('(min-width: 768px)', () => {
-        // Alternating Chapter Cards: Each card reveals as user scrolls to it
-        if (chaptersContainer) {
-          const chapterCards = chaptersContainer.querySelectorAll<HTMLElement>('.chapter-card');
-          chapterCards.forEach((card) => {
-            gsap.fromTo(
-              card,
-              {
-                y: 110,
-                opacity: 0,
-                filter: 'blur(8px)',
+        // Section 02 reveal
+        if (beginningSectionRef.current) {
+          gsap.fromTo(
+            beginningSectionRef.current.querySelectorAll('.editorial-reveal'),
+            { y: 60, opacity: 0, filter: 'blur(6px)' },
+            {
+              y: 0,
+              opacity: 1,
+              filter: 'blur(0px)',
+              duration: 1.1,
+              stagger: 0.15,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: beginningSectionRef.current,
+                start: 'top bottom-=12%',
+                end: 'top 45%',
+                scrub: 1.1,
               },
+            }
+          );
+        }
+
+        // Section 03 Architecture visual elements reveal
+        if (architectureSectionRef.current) {
+          const archImages = architectureSectionRef.current.querySelectorAll('.arch-image-card');
+          archImages.forEach((el, idx) => {
+            gsap.fromTo(
+              el,
+              { y: 70 + idx * 20, opacity: 0, filter: 'blur(8px)' },
               {
                 y: 0,
                 opacity: 1,
                 filter: 'blur(0px)',
                 ease: 'power2.out',
                 scrollTrigger: {
-                  trigger: card,
-                  start: 'top bottom-=8%',
-                  end: 'top 55%',
+                  trigger: el,
+                  start: 'top bottom-=10%',
+                  end: 'top 50%',
                   scrub: 1.2,
                 },
               }
@@ -125,137 +98,95 @@ export default function StoryPage() {
           });
         }
 
-        // Architectural Pillar Cards: Sequential down-to-up stagger like homepage story cards
-        if (pillarsContainer) {
-          const pillarCards = pillarsContainer.querySelectorAll<HTMLElement>('.pillar-card');
-          if (pillarCards.length) {
-            gsap.fromTo(
-              pillarCards,
-              {
-                y: 110,
-                opacity: 0,
-                filter: 'blur(8px)',
-              },
-              {
-                y: 0,
-                opacity: 1,
-                filter: 'blur(0px)',
-                ease: 'power2.out',
-                stagger: 0.25,
-                scrollTrigger: {
-                  trigger: pillarsContainer,
-                  start: 'top bottom-=10%',
-                  end: 'bottom 80%',
-                  scrub: 1.2,
-                },
-              }
-            );
-          }
-        }
-
-        // Custodians' Note quote card
-        if (custodian) {
+        // Section 04 Moments reveal
+        if (momentsSectionRef.current) {
           gsap.fromTo(
-            custodian,
-            {
-              y: 80,
-              opacity: 0,
-              filter: 'blur(6px)',
-            },
+            momentsSectionRef.current.querySelectorAll('.moments-reveal'),
+            { y: 60, opacity: 0, filter: 'blur(6px)' },
             {
               y: 0,
               opacity: 1,
               filter: 'blur(0px)',
+              duration: 1.1,
+              stagger: 0.15,
               ease: 'power2.out',
               scrollTrigger: {
-                trigger: custodian,
-                start: 'top bottom-=8%',
-                end: 'top 65%',
+                trigger: momentsSectionRef.current,
+                start: 'top bottom-=10%',
+                end: 'top 50%',
                 scrub: 1.2,
+              },
+            }
+          );
+        }
+
+        // Section 05 Experiences rows stagger
+        if (experiencesSectionRef.current) {
+          const expRows = experiencesSectionRef.current.querySelectorAll('.experience-editorial-row');
+          gsap.fromTo(
+            expRows,
+            { y: 50, opacity: 0, filter: 'blur(6px)' },
+            {
+              y: 0,
+              opacity: 1,
+              filter: 'blur(0px)',
+              stagger: 0.2,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: experiencesSectionRef.current,
+                start: 'top bottom-=10%',
+                end: 'bottom 75%',
+                scrub: 1.1,
+              },
+            }
+          );
+        }
+
+        // Section 06 Closing
+        if (closingSectionRef.current) {
+          gsap.fromTo(
+            closingSectionRef.current.querySelectorAll('.closing-reveal'),
+            { y: 50, opacity: 0, filter: 'blur(6px)' },
+            {
+              y: 0,
+              opacity: 1,
+              filter: 'blur(0px)',
+              stagger: 0.15,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: closingSectionRef.current,
+                start: 'top bottom-=10%',
+                end: 'top 50%',
+                scrub: 1.1,
               },
             }
           );
         }
       });
 
-      // Mobile (max-width: 767px): Each card rises from down to up as you scroll to it
+      // Mobile: gentle sequential triggers
       mm.add('(max-width: 767px)', () => {
-        if (chaptersContainer) {
-          const chapterCards = chaptersContainer.querySelectorAll<HTMLElement>('.chapter-card');
-          chapterCards.forEach((card) => {
-            gsap.fromTo(
-              card,
-              {
-                y: 70,
-                opacity: 0,
-                filter: 'blur(6px)',
-              },
-              {
-                y: 0,
-                opacity: 1,
-                filter: 'blur(0px)',
-                ease: 'power2.out',
-                scrollTrigger: {
-                  trigger: card,
-                  start: 'top bottom-=5%',
-                  end: 'top 55%',
-                  scrub: 1,
-                },
-              }
-            );
-          });
-        }
-
-        if (pillarsContainer) {
-          const pillarCards = pillarsContainer.querySelectorAll<HTMLElement>('.pillar-card');
-          pillarCards.forEach((card) => {
-            gsap.fromTo(
-              card,
-              {
-                y: 70,
-                opacity: 0,
-                filter: 'blur(6px)',
-              },
-              {
-                y: 0,
-                opacity: 1,
-                filter: 'blur(0px)',
-                ease: 'power2.out',
-                scrollTrigger: {
-                  trigger: card,
-                  start: 'top bottom-=5%',
-                  end: 'top 60%',
-                  scrub: 1,
-                },
-              }
-            );
-          });
-        }
-
-        if (custodian) {
+        const revealItems = document.querySelectorAll('.mobile-fade');
+        revealItems.forEach((item) => {
           gsap.fromTo(
-            custodian,
-            {
-              y: 50,
-              opacity: 0,
-              filter: 'blur(4px)',
-            },
+            item,
+            { y: 35, opacity: 0 },
             {
               y: 0,
               opacity: 1,
-              filter: 'blur(0px)',
+              duration: 0.8,
               ease: 'power2.out',
               scrollTrigger: {
-                trigger: custodian,
+                trigger: item,
                 start: 'top bottom-=5%',
                 end: 'top 65%',
                 scrub: 1,
               },
             }
           );
-        }
+        });
       });
-    });
+    }, pageContainerRef);
 
     const refreshTimer = setTimeout(() => {
       ScrollTrigger.refresh();
@@ -268,261 +199,428 @@ export default function StoryPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-paper text-ink pt-[95px] pb-0 selection:bg-[#7C402E] selection:text-white">
-      {/* Editorial Page Header & Hero */}
-      <section className="relative w-full bg-gradient-to-b from-[#FAF4EC] to-paper py-14 sm:py-24 px-6 sm:px-12 overflow-hidden">
-        {/* Subtle Decorative Background Motif */}
-        <div className="absolute right-0 top-0 w-96 h-96 bg-[radial-gradient(ellipse_at_center,rgba(124,64,46,0.06),transparent_70%)] pointer-events-none" />
-
-        <div className="max-w-[1280px] mx-auto flex flex-col items-center text-center relative z-10">
-          {/* Back Link */}
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-[11px] font-sans font-medium uppercase tracking-[0.2em] text-[#7C402E] hover:text-[#52291D] transition-colors mb-6 group"
-          >
-            <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1" />
-            Back to Idanazhi Home
-          </Link>
-
-          <p className="m-0 mb-3 uppercase tracking-[0.26em] text-[10.5px] sm:text-[12px] font-semibold text-[#84382B]">
-            THE STORY OF IDANAZHI · GURUVAYOOR, KERALA
-          </p>
-
-          <h1 className="font-jakarta uppercase text-[clamp(28px,3.8vw,52px)] font-normal leading-[1.28] tracking-[-0.015em] text-ink m-0 mb-6 max-w-[960px]">
-            Where Ancestral Timber Breathes &amp; Sacred Moments Unfold
-          </h1>
-
-          <p className="font-sans text-[16px] sm:text-[18px] text-[#5A3828] max-w-[720px] leading-relaxed m-0 mb-10 font-light">
-            An unhurried journey through traditional Kerala Nalukettu architecture, sacred family corridors,
-            and the timeless art of hospitality in the heart of Guruvayoor.
-          </p>
-
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <button
-              type="button"
-              onClick={() => setBookingOpen(true)}
-              className="bg-[#7C402E] hover:bg-[#5E2B1D] text-white px-7 py-3.5 text-[11px] font-sans font-semibold tracking-[0.18em] uppercase transition-all shadow-sm hover:shadow-md cursor-pointer active:scale-95"
-            >
-              RESERVE YOUR STAY
-            </button>
+    <main
+      ref={pageContainerRef}
+      className="min-h-screen bg-paper text-ink pt-[95px] pb-0 selection:bg-[#7C402E] selection:text-white"
+    >
+      {/* =========================================================================
+          SECTION 01 — EDITORIAL STORY HERO
+          ========================================================================= */}
+      <section
+        aria-labelledby="story-hero-heading"
+        className="relative w-full border-b border-[#7C402E]/15 bg-gradient-to-b from-[#FAF4EC] via-paper to-paper pt-8 sm:pt-12 md:pt-16 pb-16 sm:pb-24 px-5 sm:px-8 lg:px-12"
+      >
+        <div className="max-w-[1360px] mx-auto flex flex-col">
+          {/* Top Meta Bar: Back Navigation + Location Identifier */}
+          <div className="flex flex-wrap items-center justify-between gap-4 pb-8 sm:pb-12 border-b border-[#7C402E]/15 text-[11px] font-sans tracking-[0.2em] uppercase">
             <Link
-              href="/#celebrations-and-experience"
-              className="border border-[#7C402E]/35 text-[#4E2418] hover:bg-[#7C402E]/10 px-6 py-3.5 text-[11px] font-sans font-semibold tracking-[0.18em] uppercase transition-all"
+              href="/"
+              className="inline-flex items-center gap-2 text-[#7C402E] hover:text-[#4A2618] transition-colors group"
+              aria-label="Back to Idanazhi Home"
             >
-              VIEW CELEBRATIONS
+              <ArrowLeft size={13} className="transition-transform group-hover:-translate-x-1" />
+              <span>Back to Home</span>
             </Link>
-          </div>
-        </div>
-      </section>
 
-      {/* Hero Full-Width Panorama */}
-      <section className="w-full max-w-[1400px] mx-auto px-4 sm:px-8 -mt-6 sm:-mt-10 mb-20 relative z-20">
-        <div className="relative aspect-[21/9] sm:aspect-[2.4/1] w-full overflow-hidden border border-[#7C402E]/20 shadow-2xl bg-[#FAF4EC]">
-          <img
-            src="/images/weddings/architecture-corridor.jpg"
-            alt="Idanazhi Kerala heritage breezeway and carved wooden colonnade"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-          <div className="absolute bottom-6 left-6 sm:bottom-10 sm:left-10 text-white max-w-[600px]">
-            <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.24em] font-medium text-white/80 m-0 mb-1">
-              THE SACRED CORRIDOR
-            </p>
-            <p className="font-jakarta text-[16px] sm:text-[20px] font-normal leading-snug m-0">
-              &ldquo;The Idanazhi is not simply a passageway; it is the soul of the home where family, breeze, and sky convene.&rdquo;
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Statement of Philosophy Section with Scroll Reveal */}
-      <section className="max-w-[1040px] mx-auto px-6 sm:px-12 mb-24 text-center">
-        <span className="inline-block h-[2px] w-12 bg-[#84382B] mb-5 rounded-full" />
-        
-        {/* Scroll Reveal Heading */}
-        <div className="w-full flex justify-center items-center text-center">
-          <ScrollReveal
-            as="h2"
-            baseOpacity={0.08}
-            enableBlur={true}
-            baseRotation={0}
-            blurStrength={8}
-            containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
-            textClassName="!font-jakarta !font-normal !text-[clamp(20px,2.6vw,38px)] !leading-[1.32] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[900px] mx-auto"
-            wordAnimationStart="top 85%"
-            wordAnimationEnd="bottom 55%"
-          >
-{`A SANCTUARY BUILT UPON THE CONVICTION THAT
-TRUE LUXURY IS UNHURRIED`}
-          </ScrollReveal>
-        </div>
-
-        {/* Scroll Reveal Supporting Paragraph */}
-        <div className="w-full flex justify-center items-center text-center mt-4 sm:mt-5">
-          <ScrollReveal
-            as="p"
-            baseOpacity={0.15}
-            enableBlur={true}
-            baseRotation={0}
-            blurStrength={4}
-            containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
-            wordAnimationStart="top 85%"
-            wordAnimationEnd="top 60%"
-          >
-            <span className="block font-sans text-[15px] sm:text-[17px] text-[#5A3828] leading-[1.8] font-light max-w-[820px] mx-auto text-center">
-              {"In an era where hotels often feel interchangeable and hurried, Idanazhi was conceived as an authentic return to the roots. Here in Guruvayoor, Kerala, surrounded by lush palm groves and spiritual serenity, we created a living estate where every pillar was hand-carved, every courtyard celebrates the rain, and every celebration is treated as a sacred beginning.".split(' ').map((word, i) => (
-                <React.Fragment key={i}>
-                  <span className="word inline-block">{word}</span>{' '}
-                </React.Fragment>
-              ))}
+            <span className="text-[#84382B] font-semibold">
+              GURUVAYOOR, KERALA · HERITAGE SANCTUM
             </span>
-          </ScrollReveal>
+          </div>
+
+          {/* Asymmetrical Editorial Headline + Supporting Copy Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 py-10 sm:py-16 items-start">
+            <div className="lg:col-span-8 flex flex-col">
+              <p className="m-0 mb-4 uppercase tracking-[0.24em] text-[10.5px] sm:text-[11.5px] font-semibold text-[#84382B]">
+                THE STORY OF IDANAZHI
+              </p>
+              <h1
+                id="story-hero-heading"
+                className="font-jakarta uppercase text-[clamp(28px,3.8vw,54px)] font-normal leading-[1.18] tracking-[-0.02em] text-ink m-0"
+              >
+                A Place Where Heritage Finds Its Way Into Every Moment.
+              </h1>
+            </div>
+
+            <div className="lg:col-span-4 flex flex-col justify-end pt-2 lg:pt-10">
+              <p className="font-sans font-light text-[15.5px] sm:text-[17px] leading-[1.8] text-[#5A3828] m-0 border-l-2 border-[#84382B]/35 pl-5 sm:pl-6">
+                &ldquo;Some places carry a character of their own. Idanazhi invites you to discover
+                a distinctive setting shaped by architecture, atmosphere, and the moments people
+                share within it.&rdquo;
+              </p>
+            </div>
+          </div>
+
+          {/* Dominant Architectural Photograph */}
+          <div className="relative w-full aspect-[21/10] sm:aspect-[2.3/1] max-h-[640px] overflow-hidden border border-[#7C402E]/20 bg-[#FAF4EC] shadow-xl group">
+            <img
+              src="/images/weddings/architecture-corridor.jpg"
+              alt="Idanazhi traditional carved wooden colonnaded corridor overlooking palm groves"
+              className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
+            
+            {/* Architectural Detail Badge */}
+            <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-8 text-white max-w-[560px]">
+              <span className="text-[9.5px] sm:text-[10.5px] uppercase tracking-[0.24em] font-medium text-white/80 block mb-1">
+                ARCHITECTURAL SIGNATURE
+              </span>
+              <p className="font-jakarta text-[14px] sm:text-[17px] font-normal leading-snug m-0 text-white/95">
+                The Idanazhi Breezeway · The connecting corridor between private chambers and the open sky
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Chapters of the Story: Alternating Editorial Spreads with Scroll Reveal */}
+      {/* =========================================================================
+          SECTION 02 — THE BEGINNING OF THE STORY
+          ========================================================================= */}
       <section
-        ref={chaptersContainerRef}
-        className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-12 space-y-20 sm:space-y-28 mb-28"
+        ref={beginningSectionRef}
+        aria-labelledby="beginning-heading"
+        className="max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-12 py-20 sm:py-28 lg:py-32"
       >
-        {chapters.map((ch, idx) => {
-          const isEven = idx % 2 === 1;
-
-          return (
-            <article
-              key={ch.number}
-              className={`chapter-card will-change-transform grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16 items-center ${
-                isEven ? 'lg:flex-row-reverse' : ''
-              }`}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-14 lg:gap-18 items-center">
+          {/* Narrative Column */}
+          <div className="lg:col-span-6 flex flex-col text-left editorial-reveal mobile-fade">
+            <p className="m-0 mb-3 uppercase tracking-[0.24em] text-[10.5px] sm:text-[11.5px] font-semibold text-[#84382B]">
+              A SENSE OF PLACE
+            </p>
+            <h2
+              id="beginning-heading"
+              className="font-jakarta uppercase text-[clamp(24px,2.8vw,42px)] font-normal text-ink leading-[1.24] tracking-[-0.015em] m-0 mb-6"
             >
-              {/* Text Side */}
-              <div
-                className={`lg:col-span-6 flex flex-col justify-center text-left ${
-                  isEven ? 'lg:order-2' : 'lg:order-1'
-                }`}
-              >
-                <div className="flex items-center gap-3 text-[11px] font-sans tracking-[0.22em] uppercase text-[#84382B] mb-3 font-semibold">
-                  <span>CHAPTER {ch.number}</span>
-                  <span>·</span>
-                  <span>{ch.era}</span>
-                </div>
+              More Than a Place to Stay
+            </h2>
 
-                <h2 className="font-jakarta uppercase text-[clamp(21px,2.4vw,34px)] font-normal text-ink leading-[1.28] tracking-[-0.015em] m-0 mb-4">
-                  {ch.title}
-                </h2>
+            <p className="font-sans text-[16px] sm:text-[17.5px] text-[#5A3828] leading-[1.8] font-light m-0 mb-5">
+              Every place has a feeling that stays with you long after you leave. At Idanazhi, the
+              experience begins with its distinctive architectural character and the atmosphere of a
+              place designed to be experienced, not simply passed through.
+            </p>
 
-                <p className="font-sans text-[16px] sm:text-[17.5px] italic text-[#7C402E] leading-relaxed m-0 mb-4 font-light">
-                  {ch.lead}
-                </p>
+            <p className="font-sans text-[14.5px] sm:text-[15.5px] text-[#5A3828]/90 leading-[1.8] font-light m-0">
+              Rooted in the calm palm groves of Guruvayoor, Kerala, Idanazhi was conceived as an
+              authentic sanctuary where time adopts a gentler rhythm. Here, every carved timber
+              pillar, every terracotta threshold, and every courtyard breezeway welcomes you into an
+              ancestral haven where silence and nature commune freely.
+            </p>
+          </div>
 
-                <p className="font-sans text-[14.5px] sm:text-[15.5px] text-[#5A3828] leading-[1.8] font-light m-0 mb-6">
-                  {ch.description}
-                </p>
-              </div>
-
-              {/* Photo Side */}
-              <div
-                className={`lg:col-span-6 relative aspect-[16/11] sm:aspect-[4/3] overflow-hidden border border-[#7C402E]/20 shadow-xl bg-[#FAF4EC] ${
-                  isEven ? 'lg:order-1' : 'lg:order-2'
-                }`}
-              >
-                <img
-                  src={ch.image}
-                  alt={ch.imageAlt}
-                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                />
-              </div>
-            </article>
-          );
-        })}
+          {/* Authentic Architectural Photograph Column */}
+          <div className="lg:col-span-6 editorial-reveal mobile-fade">
+            <figure className="relative aspect-[4/3] sm:aspect-[16/11] overflow-hidden border border-[#7C402E]/20 bg-[#FAF4EC] shadow-xl group m-0">
+              <img
+                src="/images/weddings/kerala-courtyard-planter.jpg"
+                alt="Traditional open-to-sky courtyard with sacred tulasi planter and ancient terracotta eaves"
+                className="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.03]"
+              />
+              <figcaption className="p-3.5 sm:p-4 bg-paper/95 border-t border-[#7C402E]/15 text-[11.5px] sm:text-[12px] font-sans text-[#5A3828] flex items-center justify-between">
+                <span>The central Nadumuttam &amp; sacred tulasi courtyard</span>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-[#84382B] font-semibold">
+                  Open Sky Court
+                </span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
       </section>
 
-      {/* Four Architectural Pillars with Sequential Staggered Scroll Reveal */}
+      {/* =========================================================================
+          SECTION 03 — ARCHITECTURE THAT TELLS A STORY
+          ========================================================================= */}
       <section
-        ref={pillarsContainerRef}
-        className="bg-[#FAF4EC] border-y border-[#7C402E]/20 py-20 px-6 sm:px-12 mb-28"
+        id="architecture"
+        ref={architectureSectionRef}
+        aria-labelledby="architecture-heading"
+        className="w-full bg-[#FAF4EC] border-y border-[#7C402E]/20 py-20 sm:py-28 lg:py-32 px-5 sm:px-8 lg:px-12"
       >
-        <div className="max-w-[1280px] mx-auto text-center">
-          <p className="m-0 mb-3 uppercase tracking-[0.24em] text-[10.5px] font-semibold text-[#84382B]">
-            FOUNDATIONS OF IDANAZHI
-          </p>
-          <h2 className="font-jakarta uppercase text-[clamp(24px,2.8vw,38px)] font-normal text-ink m-0 mb-14 leading-[1.28] tracking-[-0.015em]">
-            The Architectural &amp; Living Pillars
-          </h2>
+        <div className="max-w-[1360px] mx-auto flex flex-col">
+          {/* Section Heading & Introduction */}
+          <div className="max-w-[820px] text-left mb-12 sm:mb-16">
+            <p className="m-0 mb-3 uppercase tracking-[0.24em] text-[10.5px] sm:text-[11.5px] font-semibold text-[#84382B]">
+              HERITAGE CRAFTSMANSHIP
+            </p>
+            <h2
+              id="architecture-heading"
+              className="font-jakarta uppercase text-[clamp(24px,3vw,44px)] font-normal text-ink leading-[1.22] tracking-[-0.015em] m-0 mb-5"
+            >
+              Character in Every Corner
+            </h2>
+            <p className="font-sans text-[15.5px] sm:text-[17px] text-[#5A3828] leading-[1.8] font-light m-0">
+              From the rhythm of its corridors to the character of its traditional architectural
+              details, Idanazhi offers a setting with a distinctive sense of place. Built with aged
+              teak, rosewood, porous laterite, and earthen clay tiles, the estate breathes in harmony
+              with Kerala&rsquo;s tropical microclimate.
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-left">
-            {pillars.map((pillar, pIdx) => {
-              const IconComp = pillar.icon;
-              return (
-                <div
-                  key={pIdx}
-                  className="pillar-card will-change-transform bg-paper p-7 sm:p-8 border border-[#7C402E]/15 hover:border-[#7C402E]/40 shadow-xs hover:shadow-lg transition-[border-color,box-shadow] duration-300 flex flex-col justify-between"
-                >
-                  <div>
-                    <div className="w-12 h-12 rounded-full bg-[#7C402E]/10 text-[#7C402E] flex items-center justify-center mb-5">
-                      <IconComp size={22} />
-                    </div>
-                    <h3 className="font-jakarta uppercase text-[17px] sm:text-[18px] font-normal text-ink m-0 mb-3 tracking-[-0.015em]">
-                      {pillar.title}
+          {/* Clean, Asymmetric Image Arrangement */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
+            {/* Primary Large Architectural Photograph */}
+            <div className="lg:col-span-7 flex flex-col arch-image-card mobile-fade">
+              <figure className="relative h-full min-h-[380px] sm:min-h-[460px] overflow-hidden border border-[#7C402E]/20 bg-paper shadow-lg flex flex-col m-0 group">
+                <div className="relative flex-1 overflow-hidden">
+                  <img
+                    src="/images/weddings/varikkasseri.jpg"
+                    alt="Traditional Kerala Nalukettu architectural facade with high-gabled terracotta tiled roofs"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.025]"
+                  />
+                </div>
+                <figcaption className="p-4 sm:p-5 bg-paper border-t border-[#7C402E]/15">
+                  <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.2em] text-[#84382B] font-semibold mb-1">
+                    <span>Thachu Shastra Canons</span>
+                    <span>Elevation</span>
+                  </div>
+                  <p className="font-sans text-[13px] sm:text-[13.5px] text-[#5A3828] leading-relaxed m-0 font-light">
+                    High-gabled clay terracotta roofs and timber louvers designed to channel gentle
+                    cross-ventilation throughout the estate.
+                  </p>
+                </figcaption>
+              </figure>
+            </div>
+
+            {/* Asymmetrical Supporting Duo */}
+            <div className="lg:col-span-5 flex flex-col gap-8 justify-between arch-image-card mobile-fade">
+              {/* Supporting Photo 1: Timber Colonnades */}
+              <figure className="relative overflow-hidden border border-[#7C402E]/20 bg-paper shadow-md m-0 group flex flex-col">
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <img
+                    src="/images/weddings/architecture-corridor.jpg"
+                    alt="Hand-turned teak colonnades and wooden joinery along the verandah"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                  />
+                </div>
+                <figcaption className="p-3.5 sm:p-4 bg-paper border-t border-[#7C402E]/15">
+                  <div className="flex items-center justify-between text-[10.5px] uppercase tracking-[0.2em] text-[#84382B] font-semibold mb-1">
+                    <span>Living Timber</span>
+                    <span>Corridor Detail</span>
+                  </div>
+                  <p className="font-sans text-[12.5px] sm:text-[13px] text-[#5A3828] leading-relaxed m-0 font-light">
+                    Solid carved teak and rosewood joinery assembled with traditional tongue-and-groove
+                    wooden pegs that age gracefully.
+                  </p>
+                </figcaption>
+              </figure>
+
+              {/* Supporting Photo 2: Courtyard Threshold */}
+              <figure className="relative overflow-hidden border border-[#7C402E]/20 bg-paper shadow-md m-0 group flex flex-col">
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <img
+                    src="/images/weddings/paliam.jpg"
+                    alt="Heritage stone paved courtyard threshold reflecting quiet stillness"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                  />
+                </div>
+                <figcaption className="p-3.5 sm:p-4 bg-paper border-t border-[#7C402E]/15">
+                  <div className="flex items-center justify-between text-[10.5px] uppercase tracking-[0.2em] text-[#84382B] font-semibold mb-1">
+                    <span>Earth &amp; Stone</span>
+                    <span>Courtyard Paving</span>
+                  </div>
+                  <p className="font-sans text-[12.5px] sm:text-[13px] text-[#5A3828] leading-relaxed m-0 font-light">
+                    Porous laterite stone and natural lime finishes that maintain a soothing, grounded
+                    temperature through tropical afternoons.
+                  </p>
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          SECTION 04 — THE MEANING OF TOGETHERNESS
+          ========================================================================= */}
+      <section
+        ref={momentsSectionRef}
+        aria-labelledby="moments-heading"
+        className="max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-12 py-20 sm:py-28 lg:py-32"
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-14 lg:gap-18 items-center">
+          {/* Emotionally Engaging Photograph Column */}
+          <div className="lg:col-span-6 lg:order-1 moments-reveal mobile-fade">
+            <figure className="relative aspect-[4/3] sm:aspect-[16/11] overflow-hidden border border-[#7C402E]/20 bg-[#FAF4EC] shadow-xl group m-0">
+              <img
+                src="/images/weddings/stage-heritage-mandapam.jpg"
+                alt="Traditional hand-carved heritage wedding mandapam with fresh marigold floral decor and brass lamps"
+                className="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.03]"
+              />
+              <figcaption className="p-3.5 sm:p-4 bg-paper/95 border-t border-[#7C402E]/15 text-[11.5px] sm:text-[12px] font-sans text-[#5A3828] flex items-center justify-between">
+                <span>The Heritage Mandapam · Sacred Celebrations</span>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-[#84382B] font-semibold">
+                  Intimate Weddings
+                </span>
+              </figcaption>
+            </figure>
+          </div>
+
+          {/* Text Column with Subtle Link */}
+          <div className="lg:col-span-6 lg:order-2 flex flex-col text-left moments-reveal mobile-fade">
+            <p className="m-0 mb-3 uppercase tracking-[0.24em] text-[10.5px] sm:text-[11.5px] font-semibold text-[#84382B]">
+              SHARED MEMORIES
+            </p>
+            <h2
+              id="moments-heading"
+              className="font-jakarta uppercase text-[clamp(24px,2.8vw,42px)] font-normal text-ink leading-[1.24] tracking-[-0.015em] m-0 mb-6"
+            >
+              Made for Moments That Matter
+            </h2>
+
+            <p className="font-sans text-[16px] sm:text-[17.5px] text-[#5A3828] leading-[1.8] font-light m-0 mb-5">
+              Some of life&rsquo;s most meaningful moments are the simplest ones: time with family,
+              conversations that linger, and celebrations shared with the people closest to us.
+              Idanazhi offers a distinctive backdrop for experiences worth remembering.
+            </p>
+
+            <p className="font-sans text-[14.5px] sm:text-[15.5px] text-[#5A3828]/90 leading-[1.8] font-light m-0 mb-8">
+              Whether gathering on the sheltered colonnaded verandahs as dusk settles over
+              Guruvayoor, sharing traditional plantain-leaf Sadya feasts, or celebrating sacred vows
+              surrounded by heritage timber, the estate cradles family milestones in understated grace.
+            </p>
+
+            {/* Subtle Editorial Link */}
+            <div>
+              <Link
+                href="/#celebrations-and-experience"
+                className="inline-flex items-center gap-2 text-[12px] font-sans font-semibold tracking-[0.18em] uppercase text-[#7C402E] hover:text-[#4A2618] transition-colors group pb-1 border-b border-[#7C402E]/30 hover:border-[#7C402E]"
+              >
+                <span>Discover Wedding Experiences</span>
+                <ArrowUpRight
+                  size={15}
+                  className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          SECTION 05 — A DIFFERENT WAY TO EXPERIENCE IDANAZHI
+          ========================================================================= */}
+      <section
+        ref={experiencesSectionRef}
+        aria-labelledby="experiences-heading"
+        className="w-full bg-[#FAF4EC] border-y border-[#7C402E]/20 py-20 sm:py-28 lg:py-32 px-5 sm:px-8 lg:px-12"
+      >
+        <div className="max-w-[1360px] mx-auto flex flex-col">
+          {/* Header */}
+          <div className="max-w-[760px] text-left mb-12 sm:mb-16">
+            <p className="m-0 mb-3 uppercase tracking-[0.24em] text-[10.5px] sm:text-[11.5px] font-semibold text-[#84382B]">
+              WAYS TO EXPERIENCE
+            </p>
+            <h2
+              id="experiences-heading"
+              className="font-jakarta uppercase text-[clamp(24px,3vw,44px)] font-normal text-ink leading-[1.22] tracking-[-0.015em] m-0 mb-4"
+            >
+              Experience Idanazhi
+            </h2>
+            <p className="font-sans text-[15px] sm:text-[16.5px] text-[#5A3828] leading-[1.75] font-light m-0">
+              Explore the different dimensions of the estate—from architectural immersion and restful
+              stays to sacred wedding milestones.
+            </p>
+          </div>
+
+          {/* Three Editorial Links */}
+          <div className="flex flex-col border-t border-[#7C402E]/20">
+            {experiences.map((item) => (
+              <Link
+                key={item.index}
+                href={item.href}
+                className="experience-editorial-row group block border-b border-[#7C402E]/20 py-8 sm:py-10 px-2 sm:px-4 -mx-2 sm:-mx-4 transition-all duration-300 hover:bg-white/60 focus-visible:outline-2 focus-visible:outline-[#7C402E]"
+                aria-label={`${item.title} - ${item.linkText}`}
+              >
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-center">
+                  {/* Left: Index + Title */}
+                  <div className="md:col-span-5 flex items-baseline gap-5 sm:gap-7">
+                    <span className="font-sans text-[12px] sm:text-[13px] font-semibold text-[#84382B] tracking-[0.2em] w-7 shrink-0">
+                      {item.index}
+                    </span>
+                    <h3 className="font-jakarta uppercase text-[20px] sm:text-[23px] font-normal text-ink m-0 tracking-[-0.015em] group-hover:text-[#84382B] transition-colors">
+                      {item.title}
                     </h3>
-                    <p className="font-sans text-[13.5px] leading-[1.7] text-[#5A3828] font-light m-0">
-                      {pillar.description}
+                  </div>
+
+                  {/* Middle: Description */}
+                  <div className="md:col-span-5 pl-12 md:pl-0">
+                    <p className="font-sans text-[14px] sm:text-[15px] text-[#5A3828] leading-[1.75] font-light m-0 max-w-[500px]">
+                      {item.description}
                     </p>
                   </div>
+
+                  {/* Right: Refined Arrow Link */}
+                  <div className="md:col-span-2 flex items-center justify-start md:justify-end pl-12 md:pl-0 pt-2 md:pt-0">
+                    <span className="inline-flex items-center gap-2 text-[11.5px] font-sans font-semibold tracking-[0.18em] uppercase text-[#7C402E] group-hover:text-[#4A2618] transition-colors">
+                      <span className="pb-0.5 border-b border-[#7C402E]/30 group-hover:border-[#7C402E] transition-colors">
+                        {item.linkText}
+                      </span>
+                      <ArrowUpRight
+                        size={15}
+                        className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                      />
+                    </span>
+                  </div>
                 </div>
-              );
-            })}
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Custodians' Note & Vision with Scroll Reveal */}
-      <section className="max-w-[880px] mx-auto px-6 sm:px-12 mb-24 text-center">
-        <div
-          ref={custodianRef}
-          className="border border-[#7C402E]/25 bg-white/70 backdrop-blur-xs p-8 sm:p-14 shadow-sm relative will-change-transform"
-        >
-          <Flower2 size={28} className="mx-auto text-[#7C402E] mb-6 opacity-75" />
-          <blockquote className="font-sans text-[18px] sm:text-[22px] text-[#2D1912] italic leading-[1.65] font-light m-0 mb-6">
-            &ldquo;We built Idanazhi not to be admired from afar, but to be lived in—to hear the rain on clay tiles,
-            to smell the crushed marigold garlands at dawn, and to share sacred beginnings with those who matter most.&rdquo;
-          </blockquote>
-          <div className="pt-4 border-t border-[#7C402E]/15">
-            <p className="font-sans text-[14.5px] font-semibold text-[#7C402E] m-0">
-              The Custodians of Idanazhi
-            </p>
-            <p className="font-sans text-[11px] uppercase tracking-[0.18em] text-muted m-0 mt-0.5">
-              Farm Stay &amp; Heritage Sanctum, Guruvayoor
-            </p>
+      {/* =========================================================================
+          SECTION 06 — A CLOSING VISUAL MOMENT
+          ========================================================================= */}
+      <section
+        ref={closingSectionRef}
+        aria-labelledby="closing-heading"
+        className="relative w-full py-20 sm:py-28 lg:py-36 px-5 sm:px-8 lg:px-12 overflow-hidden bg-paper"
+      >
+        <div className="max-w-[1120px] mx-auto flex flex-col items-center text-center">
+          {/* Atmospheric Photograph */}
+          <div className="w-full aspect-[21/9] sm:aspect-[2.4/1] overflow-hidden border border-[#7C402E]/20 bg-[#FAF4EC] shadow-2xl mb-12 sm:mb-16 closing-reveal mobile-fade group">
+            <img
+              src="/images/weddings/paliam.jpg"
+              alt="Atmospheric view of the Idanazhi heritage estate with terracotta roofs"
+              className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
+            />
           </div>
-        </div>
-      </section>
-      {/* Final Action Invitation - Full Width */}
-      <section className="w-full bg-gradient-to-br from-[#4E2418] to-[#2D1912] text-white py-16 sm:py-24 px-6 sm:px-12 border-t border-[#7C402E]/20">
-        <div className="max-w-[840px] mx-auto text-center flex flex-col items-center">
-          <p className="m-0 mb-3 uppercase tracking-[0.24em] text-[10.5px] font-semibold text-[#E5B59C]">
-            EXPERIENCE THE STORY FIRSTHAND
-          </p>
-          <h2 className="font-jakarta uppercase text-[clamp(24px,3vw,38px)] font-normal text-white m-0 mb-4 max-w-[680px] leading-[1.28] tracking-[-0.015em]">
-            Begin Your Unhurried Chapter at Idanazhi
-          </h2>
-          <p className="font-sans text-[15px] sm:text-[16px] text-white/80 max-w-[540px] leading-relaxed m-0 mb-8 font-light">
-            Whether for a sacred destination wedding, an intimate family gathering, or a quiet retreat away from the world.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <button
-              type="button"
-              onClick={() => setBookingOpen(true)}
-              className="bg-white hover:bg-[#FCF2E7] text-[#4E2418] px-7 py-3.5 text-[11px] font-sans font-semibold tracking-[0.18em] uppercase transition-colors shadow-sm cursor-pointer"
+
+          {/* Understated Closing Headline + Copy */}
+          <div className="max-w-[780px] flex flex-col items-center closing-reveal mobile-fade">
+            <h2
+              id="closing-heading"
+              className="font-jakarta uppercase text-[clamp(26px,3.4vw,46px)] font-normal text-ink leading-[1.22] tracking-[-0.015em] m-0 mb-5"
             >
-              RESERVE YOUR STAY
-            </button>
-            <Link
-              href="/blogs"
-              className="border border-white/50 text-white hover:bg-white/10 px-6 py-3.5 text-[11px] font-sans font-semibold tracking-[0.18em] uppercase transition-colors"
-            >
-              READ OUR STORIES
-            </Link>
+              Some Places Stay With You.
+            </h2>
+            <p className="font-sans text-[15.5px] sm:text-[17px] text-[#5A3828] leading-[1.8] font-light m-0 mb-10 max-w-[620px]">
+              Discover the character of Idanazhi and find the experience that feels right for you.
+            </p>
+
+            {/* Restrained Text Links */}
+            <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 pb-4">
+              <Link
+                href="/#stay"
+                className="inline-flex items-center gap-2 text-[12px] sm:text-[12.5px] font-sans font-semibold tracking-[0.18em] uppercase text-[#7C402E] hover:text-[#4A2618] transition-colors group pb-1 border-b border-[#7C402E]/35 hover:border-[#7C402E]"
+              >
+                <span>Explore Your Stay</span>
+                <ArrowUpRight
+                  size={15}
+                  className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </Link>
+
+              <Link
+                href="/#celebrations-and-experience"
+                className="inline-flex items-center gap-2 text-[12px] sm:text-[12.5px] font-sans font-semibold tracking-[0.18em] uppercase text-[#7C402E] hover:text-[#4A2618] transition-colors group pb-1 border-b border-[#7C402E]/35 hover:border-[#7C402E]"
+              >
+                <span>Discover Wedding Experiences</span>
+                <ArrowUpRight
+                  size={15}
+                  className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
