@@ -52,6 +52,8 @@ export function Header() {
   useEffect(() => {
     if (pathname.includes('/story')) {
       setSelectedOption('STORY');
+    } else if (pathname.includes('/stay')) {
+      setSelectedOption('STAY');
     } else if (pathname.includes('/blogs')) {
       setSelectedOption('BLOGS');
     } else if (currentHash === '#stay') {
@@ -75,6 +77,8 @@ export function Header() {
     selectedOption ||
     (pathname.includes('/story')
       ? 'STORY'
+      : pathname.includes('/stay')
+      ? 'STAY'
       : pathname.includes('/blogs')
       ? 'BLOGS'
       : currentHash === '#stay'

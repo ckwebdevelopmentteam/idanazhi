@@ -189,9 +189,9 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
               className="mt-6 sm:mt-8"
             >
               <Link
-                href="/singapore/#stay"
+                href="/stay"
                 className="luxury-cta focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[4px]"
-                aria-label="Explore Your Stay - Discover accommodation at Idanazhi"
+                aria-label="Explore Your Stay - Discover traditional accommodation at Idanazhi"
               >
                 <span className="cta-text">
                   Explore Your Stay

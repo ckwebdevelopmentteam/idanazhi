@@ -181,7 +181,7 @@ export function Footer() {
                   </a>
                 </li>
                 <li>
-                  <Link href="/#stay" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
+                  <Link href="/stay" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
                     Accommodations
                   </Link>
                 </li>

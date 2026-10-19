@@ -492,7 +492,7 @@ export function ExperiencesGallery({
               </span>
               <span className="h-3 sm:h-3.5 w-[1px] bg-ink/25" />
               <Link
-                href="/singapore/experiences/"
+                href="/#celebrations-and-experience"
                 className="luxury-cta !min-h-0 !py-0 !gap-1.5 sm:!gap-2 text-[9px] sm:text-[11.5px] font-bold tracking-[0.12em] sm:tracking-[0.18em] shrink-0"
               >
                 <span className="cta-text">EXPLORE MORE</span>
@@ -565,7 +565,7 @@ export function ExperiencesGallery({
                 </div>
 
                 <Link
-                  href="/singapore/experiences/"
+                  href="/#celebrations-and-experience"
                   onClick={() => setSelectedPhoto(null)}
                   className="w-full sm:w-auto text-center bg-ink text-white px-5 py-2.5 text-[10.5px] uppercase tracking-[0.16em] font-medium hover:bg-forest transition-colors shrink-0"
                 >

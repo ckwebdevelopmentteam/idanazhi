@@ -1,2 +1,5 @@
-import { HotelPage } from '@/components/hotels/hotel-page';
-export default function DubaiPage() { return <HotelPage hotelKey="dubai"/>; }
+import { redirect } from 'next/navigation';
+
+export default function DubaiPage() {
+  redirect('/stay');
+}

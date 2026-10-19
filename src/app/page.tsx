@@ -77,7 +77,7 @@ export default function Home() {
               <h2 className="font-serif text-[clamp(54px,6vw,90px)] font-normal leading-[0.9] tracking-[-0.06em] m-0 mb-8 max-[720px]:text-[60px]">
                 Your Celebration<br />Perfected.
               </h2>
-              <Link href="/singapore/experiences/" className="border border-current bg-transparent px-[18px] py-3 text-[10px] tracking-[0.14em] transition-all duration-[180ms] ease-in-out text-white hover:bg-ink hover:text-white">
+              <Link href="/stay" className="border border-current bg-transparent px-[18px] py-3 text-[10px] tracking-[0.14em] transition-all duration-[180ms] ease-in-out text-white hover:bg-ink hover:text-white">
                 DISCOVER
               </Link>
             </div>
@@ -88,7 +88,7 @@ export default function Home() {
             title="Adventures and encounters crafted for the curious traveller"
             text="In every destination, discover a world of deeply personal experiences designed to open your mind, move your heart and illuminate your stay."
             action="EXPLORE EXPERIENCES"
-            href="/singapore/experiences/"
+            href="/#celebrations-and-experience"
           />
 
           {/* Experience Grid */}
@@ -98,7 +98,7 @@ export default function Home() {
                 <ImageBlock src={experience.image} alt="" />
                 <h3 className="font-serif text-[26px] font-normal leading-[1.05] tracking-[-0.035em] m-0 mt-4">{experience.name}</h3>
                 <p className="text-muted text-[13px] min-h-[65px]">{experience.text}</p>
-                <Link className="card-cta" href="/singapore/experiences/">
+                <Link className="card-cta" href="/stay">
                   <span className="cta-text">DISCOVER</span>
                   <ArrowUpRight size={14} className="cta-arrow" />
                 </Link>
