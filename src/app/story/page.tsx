@@ -1,9 +1,16 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, ArrowUpRight, Compass, Sparkles, Feather, Sun, Heart, Check, Flower2 } from 'lucide-react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import ScrollReveal from '@/components/ui/ScrollReveal';
 import { BookingPanel } from '@/components/sections/booking-panel';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const chapters = [
   {
@@ -77,11 +84,193 @@ const pillars = [
 
 export default function StoryPage() {
   const [bookingOpen, setBookingOpen] = useState(false);
+  const chaptersContainerRef = useRef<HTMLElement>(null);
+  const pillarsContainerRef = useRef<HTMLElement>(null);
+  const custodianRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const chaptersContainer = chaptersContainerRef.current;
+    const pillarsContainer = pillarsContainerRef.current;
+    const custodian = custodianRef.current;
+
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+
+      // Desktop & Tablet (min-width: 768px): smooth down-to-up reveal with blur scrub
+      mm.add('(min-width: 768px)', () => {
+        // Alternating Chapter Cards: Each card reveals as user scrolls to it
+        if (chaptersContainer) {
+          const chapterCards = chaptersContainer.querySelectorAll<HTMLElement>('.chapter-card');
+          chapterCards.forEach((card) => {
+            gsap.fromTo(
+              card,
+              {
+                y: 110,
+                opacity: 0,
+                filter: 'blur(8px)',
+              },
+              {
+                y: 0,
+                opacity: 1,
+                filter: 'blur(0px)',
+                ease: 'power2.out',
+                scrollTrigger: {
+                  trigger: card,
+                  start: 'top bottom-=8%',
+                  end: 'top 55%',
+                  scrub: 1.2,
+                },
+              }
+            );
+          });
+        }
+
+        // Architectural Pillar Cards: Sequential down-to-up stagger like homepage story cards
+        if (pillarsContainer) {
+          const pillarCards = pillarsContainer.querySelectorAll<HTMLElement>('.pillar-card');
+          if (pillarCards.length) {
+            gsap.fromTo(
+              pillarCards,
+              {
+                y: 110,
+                opacity: 0,
+                filter: 'blur(8px)',
+              },
+              {
+                y: 0,
+                opacity: 1,
+                filter: 'blur(0px)',
+                ease: 'power2.out',
+                stagger: 0.25,
+                scrollTrigger: {
+                  trigger: pillarsContainer,
+                  start: 'top bottom-=10%',
+                  end: 'bottom 80%',
+                  scrub: 1.2,
+                },
+              }
+            );
+          }
+        }
+
+        // Custodians' Note quote card
+        if (custodian) {
+          gsap.fromTo(
+            custodian,
+            {
+              y: 80,
+              opacity: 0,
+              filter: 'blur(6px)',
+            },
+            {
+              y: 0,
+              opacity: 1,
+              filter: 'blur(0px)',
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: custodian,
+                start: 'top bottom-=8%',
+                end: 'top 65%',
+                scrub: 1.2,
+              },
+            }
+          );
+        }
+      });
+
+      // Mobile (max-width: 767px): Each card rises from down to up as you scroll to it
+      mm.add('(max-width: 767px)', () => {
+        if (chaptersContainer) {
+          const chapterCards = chaptersContainer.querySelectorAll<HTMLElement>('.chapter-card');
+          chapterCards.forEach((card) => {
+            gsap.fromTo(
+              card,
+              {
+                y: 70,
+                opacity: 0,
+                filter: 'blur(6px)',
+              },
+              {
+                y: 0,
+                opacity: 1,
+                filter: 'blur(0px)',
+                ease: 'power2.out',
+                scrollTrigger: {
+                  trigger: card,
+                  start: 'top bottom-=5%',
+                  end: 'top 55%',
+                  scrub: 1,
+                },
+              }
+            );
+          });
+        }
+
+        if (pillarsContainer) {
+          const pillarCards = pillarsContainer.querySelectorAll<HTMLElement>('.pillar-card');
+          pillarCards.forEach((card) => {
+            gsap.fromTo(
+              card,
+              {
+                y: 70,
+                opacity: 0,
+                filter: 'blur(6px)',
+              },
+              {
+                y: 0,
+                opacity: 1,
+                filter: 'blur(0px)',
+                ease: 'power2.out',
+                scrollTrigger: {
+                  trigger: card,
+                  start: 'top bottom-=5%',
+                  end: 'top 60%',
+                  scrub: 1,
+                },
+              }
+            );
+          });
+        }
+
+        if (custodian) {
+          gsap.fromTo(
+            custodian,
+            {
+              y: 50,
+              opacity: 0,
+              filter: 'blur(4px)',
+            },
+            {
+              y: 0,
+              opacity: 1,
+              filter: 'blur(0px)',
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: custodian,
+                start: 'top bottom-=5%',
+                end: 'top 65%',
+                scrub: 1,
+              },
+            }
+          );
+        }
+      });
+    });
+
+    const refreshTimer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 200);
+
+    return () => {
+      clearTimeout(refreshTimer);
+      ctx.revert();
+    };
+  }, []);
 
   return (
-    <main className="min-h-screen bg-paper text-ink pt-[95px] pb-24 selection:bg-[#7C402E] selection:text-white">
+    <main className="min-h-screen bg-paper text-ink pt-[95px] pb-0 selection:bg-[#7C402E] selection:text-white">
       {/* Editorial Page Header & Hero */}
-      <section className="relative w-full border-b border-[#7C402E]/15 bg-gradient-to-b from-[#FAF4EC] to-paper py-14 sm:py-24 px-6 sm:px-12 overflow-hidden">
+      <section className="relative w-full bg-gradient-to-b from-[#FAF4EC] to-paper py-14 sm:py-24 px-6 sm:px-12 overflow-hidden">
         {/* Subtle Decorative Background Motif */}
         <div className="absolute right-0 top-0 w-96 h-96 bg-[radial-gradient(ellipse_at_center,rgba(124,64,46,0.06),transparent_70%)] pointer-events-none" />
 
@@ -146,28 +335,63 @@ export default function StoryPage() {
         </div>
       </section>
 
-      {/* Statement of Philosophy Section */}
+      {/* Statement of Philosophy Section with Scroll Reveal */}
       <section className="max-w-[1040px] mx-auto px-6 sm:px-12 mb-24 text-center">
         <span className="inline-block h-[2px] w-12 bg-[#84382B] mb-5 rounded-full" />
-        <h2 className="font-jakarta uppercase text-[clamp(22px,2.6vw,38px)] font-normal leading-[1.32] tracking-[-0.015em] text-ink m-0 mb-6 max-w-[900px] mx-auto">
-          A Sanctuary Built Upon the Conviction That True Luxury is Unhurried
-        </h2>
-        <p className="font-sans text-[15px] sm:text-[17px] text-[#5A3828] leading-[1.8] font-light max-w-[820px] mx-auto m-0 mb-6">
-          In an era where hotels often feel interchangeable and hurried, Idanazhi was conceived as an authentic return to the roots.
-          Here in Guruvayoor, Kerala, surrounded by lush palm groves and spiritual serenity, we created a living estate where every pillar was hand-carved,
-          every courtyard celebrates the rain, and every celebration is treated as a sacred beginning.
-        </p>
+        
+        {/* Scroll Reveal Heading */}
+        <div className="w-full flex justify-center items-center text-center">
+          <ScrollReveal
+            as="h2"
+            baseOpacity={0.08}
+            enableBlur={true}
+            baseRotation={0}
+            blurStrength={8}
+            containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
+            textClassName="!font-jakarta !font-normal !text-[clamp(20px,2.6vw,38px)] !leading-[1.32] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[900px] mx-auto"
+            wordAnimationStart="top 85%"
+            wordAnimationEnd="bottom 55%"
+          >
+{`A SANCTUARY BUILT UPON THE CONVICTION THAT
+TRUE LUXURY IS UNHURRIED`}
+          </ScrollReveal>
+        </div>
+
+        {/* Scroll Reveal Supporting Paragraph */}
+        <div className="w-full flex justify-center items-center text-center mt-4 sm:mt-5">
+          <ScrollReveal
+            as="p"
+            baseOpacity={0.15}
+            enableBlur={true}
+            baseRotation={0}
+            blurStrength={4}
+            containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
+            wordAnimationStart="top 85%"
+            wordAnimationEnd="top 60%"
+          >
+            <span className="block font-sans text-[15px] sm:text-[17px] text-[#5A3828] leading-[1.8] font-light max-w-[820px] mx-auto text-center">
+              {"In an era where hotels often feel interchangeable and hurried, Idanazhi was conceived as an authentic return to the roots. Here in Guruvayoor, Kerala, surrounded by lush palm groves and spiritual serenity, we created a living estate where every pillar was hand-carved, every courtyard celebrates the rain, and every celebration is treated as a sacred beginning.".split(' ').map((word, i) => (
+                <React.Fragment key={i}>
+                  <span className="word inline-block">{word}</span>{' '}
+                </React.Fragment>
+              ))}
+            </span>
+          </ScrollReveal>
+        </div>
       </section>
 
-      {/* Chapters of the Story: Alternating Editorial Spreads */}
-      <section className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-12 space-y-20 sm:space-y-28 mb-28">
+      {/* Chapters of the Story: Alternating Editorial Spreads with Scroll Reveal */}
+      <section
+        ref={chaptersContainerRef}
+        className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-12 space-y-20 sm:space-y-28 mb-28"
+      >
         {chapters.map((ch, idx) => {
           const isEven = idx % 2 === 1;
 
           return (
             <article
               key={ch.number}
-              className={`grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16 items-center ${
+              className={`chapter-card will-change-transform grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16 items-center ${
                 isEven ? 'lg:flex-row-reverse' : ''
               }`}
             >
@@ -213,8 +437,11 @@ export default function StoryPage() {
         })}
       </section>
 
-      {/* Four Architectural Pillars */}
-      <section className="bg-[#FAF4EC] border-y border-[#7C402E]/20 py-20 px-6 sm:px-12 mb-28">
+      {/* Four Architectural Pillars with Sequential Staggered Scroll Reveal */}
+      <section
+        ref={pillarsContainerRef}
+        className="bg-[#FAF4EC] border-y border-[#7C402E]/20 py-20 px-6 sm:px-12 mb-28"
+      >
         <div className="max-w-[1280px] mx-auto text-center">
           <p className="m-0 mb-3 uppercase tracking-[0.24em] text-[10.5px] font-semibold text-[#84382B]">
             FOUNDATIONS OF IDANAZHI
@@ -229,7 +456,7 @@ export default function StoryPage() {
               return (
                 <div
                   key={pIdx}
-                  className="bg-paper p-7 sm:p-8 border border-[#7C402E]/15 hover:border-[#7C402E]/40 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
+                  className="pillar-card will-change-transform bg-paper p-7 sm:p-8 border border-[#7C402E]/15 hover:border-[#7C402E]/40 shadow-xs hover:shadow-lg transition-[border-color,box-shadow] duration-300 flex flex-col justify-between"
                 >
                   <div>
                     <div className="w-12 h-12 rounded-full bg-[#7C402E]/10 text-[#7C402E] flex items-center justify-center mb-5">
@@ -249,9 +476,12 @@ export default function StoryPage() {
         </div>
       </section>
 
-      {/* Custodians' Note & Vision */}
+      {/* Custodians' Note & Vision with Scroll Reveal */}
       <section className="max-w-[880px] mx-auto px-6 sm:px-12 mb-24 text-center">
-        <div className="border border-[#7C402E]/25 bg-white/70 backdrop-blur-xs p-8 sm:p-14 shadow-sm relative">
+        <div
+          ref={custodianRef}
+          className="border border-[#7C402E]/25 bg-white/70 backdrop-blur-xs p-8 sm:p-14 shadow-sm relative will-change-transform"
+        >
           <Flower2 size={28} className="mx-auto text-[#7C402E] mb-6 opacity-75" />
           <blockquote className="font-sans text-[18px] sm:text-[22px] text-[#2D1912] italic leading-[1.65] font-light m-0 mb-6">
             &ldquo;We built Idanazhi not to be admired from afar, but to be lived in—to hear the rain on clay tiles,
@@ -267,10 +497,9 @@ export default function StoryPage() {
           </div>
         </div>
       </section>
-
-      {/* Final Action Invitation */}
-      <section className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-12">
-        <div className="bg-gradient-to-br from-[#4E2418] to-[#2D1912] text-white p-10 sm:p-16 text-center flex flex-col items-center shadow-xl">
+      {/* Final Action Invitation - Full Width */}
+      <section className="w-full bg-gradient-to-br from-[#4E2418] to-[#2D1912] text-white py-16 sm:py-24 px-6 sm:px-12 border-t border-[#7C402E]/20">
+        <div className="max-w-[840px] mx-auto text-center flex flex-col items-center">
           <p className="m-0 mb-3 uppercase tracking-[0.24em] text-[10.5px] font-semibold text-[#E5B59C]">
             EXPERIENCE THE STORY FIRSTHAND
           </p>
