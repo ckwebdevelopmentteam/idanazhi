@@ -47,7 +47,7 @@ const storyCards = [
     description:
       'Inspired by authentic Kerala architectural passageways, connecting quiet family chambers with open colonnades and sacred breezes.',
     linkText: 'EXPLORE ARCHITECTURE',
-    linkHref: '/singapore/#culture',
+    linkHref: '/story',
   },
   {
     image: '/images/weddings/kerala-courtyard-planter.jpg',
@@ -57,7 +57,7 @@ const storyCards = [
     description:
       'Centered around the timeless Nadumuttam courtyard, where sunlight and tropical rain bring nature directly into living celebrations.',
     linkText: 'DISCOVER COURTYARDS',
-    linkHref: '/singapore/#culture',
+    linkHref: '/story',
   },
   {
     image: '/images/weddings/stage-heritage-mandapam.jpg',
@@ -67,7 +67,7 @@ const storyCards = [
     description:
       'A luminous setting for destination weddings and family rituals, celebrating sacred beginnings with unmatched grace and hospitality.',
     linkText: 'VIEW CELEBRATIONS',
-    linkHref: '/singapore/experiences/',
+    linkHref: '/#celebrations-and-experience',
   },
 ];
 
@@ -192,12 +192,12 @@ FOR MEANINGFUL EXPERIENCES.`}
             className="flex justify-center mt-6 sm:mt-10"
           >
             <Link
-              href="/singapore/#story"
+              href="/story"
               className="luxury-cta focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[4px]"
               aria-label="Discover Our Story - Read more about Idanazhi heritage"
             >
               <span className="cta-text">
-                Discover Our Story
+                Discover Our Full Story
               </span>
               <ArrowUpRight
                 size={15}

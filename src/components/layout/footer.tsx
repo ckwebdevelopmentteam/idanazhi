@@ -127,33 +127,23 @@ export function Footer() {
               </h3>
               <ul className="space-y-2 text-[13px] sm:text-[13.5px] font-serif text-[#5A3828]">
                 <li>
-                  <Link href="/hotels-resorts/#story" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
+                  <Link href="/story" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
                     Story
                   </Link>
                 </li>
                 <li>
-                  <Link href="/hotels-resorts/#gallery" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
-                    Gallery
+                  <Link href="/#stay" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
+                    Stay
                   </Link>
                 </li>
                 <li>
-                  <Link href="/singapore/experiences/" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
+                  <Link href="/#celebrations-and-experience" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
                     Experiences
                   </Link>
                 </li>
                 <li>
-                  <Link href="/hotels-resorts/#offers" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
-                    Offers
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/hotels-resorts/#rooms" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
-                    Rooms
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/hotels-resorts/#celebration" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
-                    Celebrations
+                  <Link href="/blogs" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
+                    Blogs
                   </Link>
                 </li>
               </ul>
@@ -179,8 +169,8 @@ export function Footer() {
                   </a>
                 </li>
                 <li>
-                  <Link href="/hotels-resorts/" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
-                    Manage Reservation
+                  <Link href="/#stay" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
+                    Accommodations
                   </Link>
                 </li>
               </ul>

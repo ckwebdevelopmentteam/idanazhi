@@ -10,24 +10,10 @@ import { OrnamentalArrow } from '@/components/layout/ornamental-arrow';
 import { BookingPanel } from '@/components/sections/booking-panel';
 
 const navLinks = [
-  { label: 'STORY', title: 'Story', href: '/singapore/#story' },
-  { label: 'GALLERY', title: 'Gallery', href: '/singapore/#story' },
-  {
-    label: 'EXPERIENCES',
-    title: 'Experiences',
-    href: '/singapore/experiences/',
-    hasSubmenu: true,
-    submenu: [
-      { name: 'Destination Weddings', href: '/hotels-resorts/#celebration' },
-      { name: 'Heritage Mandapam', href: '/hotels-resorts/#celebration' },
-      { name: 'Lakeside Ceremonies', href: '/singapore/#story' },
-      { name: 'Fine Dining & Feasts', href: '/singapore/experiences/' },
-      { name: 'Wellness & Escapes', href: '/singapore/#stay' },
-    ],
-  },
-  { label: 'OFFERS', title: 'Offers', href: '/hotels-resorts/' },
-  { label: 'ROOMS', title: 'Rooms', href: '/singapore/#stay' },
-  { label: 'CELEBRATIONS', title: 'Celebrations', href: '/singapore/experiences/' },
+  { label: 'STORY', title: 'Story', href: '/story' },
+  { label: 'STAY', title: 'Stay', href: '/#stay' },
+  { label: 'EXPERIENCES', title: 'Experiences', href: '/#celebrations-and-experience' },
+  { label: 'BLOGS', title: 'Blogs', href: '/blogs' },
 ];
 
 const languages = [
@@ -47,7 +33,6 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [submenuOpen, setSubmenuOpen] = useState(false);
   const [booking, setBooking] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
@@ -65,29 +50,37 @@ export function Header() {
 
   // Sync active option with the current URL route and hash
   useEffect(() => {
-    if (pathname.includes('/experiences')) {
-      setSelectedOption('EXPERIENCES');
-    } else if (pathname.includes('/hotels-resorts')) {
-      setSelectedOption('OFFERS');
+    if (pathname.includes('/story')) {
+      setSelectedOption('STORY');
+    } else if (pathname.includes('/blogs')) {
+      setSelectedOption('BLOGS');
     } else if (currentHash === '#stay') {
-      setSelectedOption('ROOMS');
+      setSelectedOption('STAY');
+    } else if (currentHash === '#celebrations-and-experience' || currentHash === '#celebration') {
+      setSelectedOption('EXPERIENCES');
     } else if (currentHash === '#story') {
       setSelectedOption('STORY');
-    } else if (pathname.includes('/singapore')) {
-      setSelectedOption('ROOMS');
     } else if (pathname === '/') {
-      setSelectedOption('STORY');
+      if (currentHash === '#stay') {
+        setSelectedOption('STAY');
+      } else if (currentHash === '#celebrations-and-experience') {
+        setSelectedOption('EXPERIENCES');
+      } else {
+        setSelectedOption('STORY');
+      }
     }
   }, [pathname, currentHash]);
 
   const activeOption =
     selectedOption ||
-    (pathname.includes('/experiences')
-      ? 'EXPERIENCES'
-      : pathname.includes('/hotels-resorts')
-      ? 'OFFERS'
+    (pathname.includes('/story')
+      ? 'STORY'
+      : pathname.includes('/blogs')
+      ? 'BLOGS'
       : currentHash === '#stay'
-      ? 'ROOMS'
+      ? 'STAY'
+      : currentHash === '#celebrations-and-experience'
+      ? 'EXPERIENCES'
       : 'STORY');
   const currentIndicatorOption = hoveredOption ?? activeOption;
 
@@ -164,12 +157,12 @@ export function Header() {
             className="hidden min-[961px]:grid grid-cols-[1fr_auto_1fr] items-center gap-4 py-[10px] pb-[13px] w-full box-border max-[1080px]:gap-3"
             aria-label="Desktop primary navigation"
           >
-            <div className="grid grid-cols-3 items-center">
-              {navLinks.slice(0, 3).map((item) => (
+            <div className="grid grid-cols-2 items-center">
+              {navLinks.slice(0, 2).map((item) => (
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={`justify-self-center font-sans text-[10.5px] font-normal tracking-[0.14em] uppercase text-inherit no-underline whitespace-nowrap py-1 transition-opacity duration-200 ease-in-out hover:opacity-[0.65] max-[1080px]:text-[10px] max-[1080px]:tracking-[0.11em] ${scrolled ? 'hover:!opacity-100 hover:!text-ink' : ''}`}
+                  className={`justify-self-center font-sans text-[11px] font-normal tracking-[0.16em] uppercase text-inherit no-underline whitespace-nowrap py-1 transition-opacity duration-200 ease-in-out hover:opacity-[0.65] max-[1080px]:text-[10px] max-[1080px]:tracking-[0.12em] ${scrolled ? 'hover:!opacity-100 hover:!text-ink' : ''} ${currentIndicatorOption === item.label ? 'font-semibold tracking-[0.18em]' : ''}`}
                 >
                   {item.label}
                 </Link>
@@ -186,12 +179,12 @@ export function Header() {
                 className={`h-full w-full object-contain ${scrolled ? '' : 'brightness-0 invert'}`}
               />
             </Link>
-            <div className="grid grid-cols-3 items-center">
-              {navLinks.slice(3).map((item) => (
+            <div className="grid grid-cols-2 items-center">
+              {navLinks.slice(2).map((item) => (
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={`justify-self-center font-sans text-[10.5px] font-normal tracking-[0.14em] uppercase text-inherit no-underline whitespace-nowrap py-1 transition-opacity duration-200 ease-in-out hover:opacity-[0.65] max-[1080px]:text-[10px] max-[1080px]:tracking-[0.11em] ${scrolled ? 'hover:!opacity-100 hover:!text-ink' : ''}`}
+                  className={`justify-self-center font-sans text-[11px] font-normal tracking-[0.16em] uppercase text-inherit no-underline whitespace-nowrap py-1 transition-opacity duration-200 ease-in-out hover:opacity-[0.65] max-[1080px]:text-[10px] max-[1080px]:tracking-[0.12em] ${scrolled ? 'hover:!opacity-100 hover:!text-ink' : ''} ${currentIndicatorOption === item.label ? 'font-semibold tracking-[0.18em]' : ''}`}
                 >
                   {item.label}
                 </Link>
@@ -331,74 +324,6 @@ export function Header() {
             <nav className="flex flex-col gap-1 sm:gap-1.5" aria-label="Mobile Navigation Links">
               {navLinks.map((item) => {
                 const isActive = currentIndicatorOption === item.label;
-
-                if (item.hasSubmenu) {
-                  return (
-                    <div key={item.label} className="flex flex-col group/item">
-                      <div className="w-full flex items-center justify-between text-left py-2.5 sm:py-3">
-                        <Link
-                          href={item.href}
-                          onClick={() => {
-                            setSelectedOption(item.label);
-                            setSubmenuOpen(!submenuOpen);
-                          }}
-                          onMouseEnter={() => setHoveredOption(item.label)}
-                          onMouseLeave={() => setHoveredOption(null)}
-                          className={`font-urbanist text-[22px] sm:text-[24px] leading-[1.35] tracking-[0.035em] transition-all duration-300 ${
-                            isActive
-                              ? 'text-[#3E1A10] font-normal translate-x-1'
-                              : 'text-[#5C2E20]/80 font-light hover:text-[#3E1A10] hover:translate-x-0.5'
-                          }`}
-                        >
-                          {item.title}
-                        </Link>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setSelectedOption(item.label);
-                            setSubmenuOpen(!submenuOpen);
-                          }}
-                          onMouseEnter={() => setHoveredOption(item.label)}
-                          onMouseLeave={() => setHoveredOption(null)}
-                          aria-label={`Toggle ${item.title} submenu`}
-                          className="p-1 -mr-1 text-[#4E2418] bg-transparent border-0 cursor-pointer flex items-center justify-end min-w-[76px] h-6 overflow-visible"
-                        >
-                          <div
-                            className={`transition-all duration-300 ease-out transform ${
-                              isActive
-                                ? 'opacity-100 translate-x-0'
-                                : 'opacity-0 translate-x-3 pointer-events-none'
-                            }`}
-                          >
-                            <OrnamentalArrow
-                              expanded={submenuOpen}
-                              className="w-[72px] sm:w-[80px] h-4 text-[#4E2418] shrink-0 transition-transform duration-300"
-                            />
-                          </div>
-                        </button>
-                      </div>
-
-                      {/* Expandable Submenu */}
-                      {submenuOpen && (
-                        <div className="pl-4 pt-1.5 pb-3 flex flex-col gap-2.5 border-l border-line/30 my-1 animate-fadeIn">
-                          {item.submenu?.map((sub) => (
-                            <Link
-                              key={sub.name}
-                              href={sub.href}
-                              onClick={() => {
-                                setSelectedOption(item.label);
-                                setMobileMenuOpen(false);
-                              }}
-                              className="font-urbanist text-[16px] font-light text-muted hover:text-[#4E2418] transition-all duration-200 tracking-[0.04em] hover:translate-x-1 py-1"
-                            >
-                              {sub.name}
-                            </Link>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  );
-                }
 
                 return (
                   <div
