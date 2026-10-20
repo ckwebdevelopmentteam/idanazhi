@@ -98,6 +98,7 @@ export function Header() {
   }, []);
 
   const isHeaderVisible = isVisible || mobileMenuOpen || booking || contactOpen || langOpen;
+  const isLightHeader = scrolled || pathname !== '/';
 
   useEffect(() => {
     const isAnyModalOpen = mobileMenuOpen || booking || contactOpen || langOpen;
@@ -124,7 +125,7 @@ export function Header() {
     <>
       <header
         className={`fixed z-40 top-0 left-0 w-full text-white bg-[rgba(45,25,18,0.36)] backdrop-blur-[12px] flex! flex-col! h-auto! p-0! border-b-0! transition-all duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)] will-change-transform ${
-          scrolled
+          isLightHeader
             ? '!text-ink !bg-paper/98 !backdrop-blur-[14px] !shadow-[0_4px_20px_rgba(45,25,18,0.06)] !border-transparent'
             : ''
         } ${
@@ -144,7 +145,7 @@ export function Header() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={`justify-self-center font-sans text-[11px] font-normal tracking-[0.16em] uppercase text-inherit no-underline whitespace-nowrap py-1 transition-opacity duration-200 ease-in-out hover:opacity-[0.65] max-[1080px]:text-[10px] max-[1080px]:tracking-[0.12em] ${scrolled ? 'hover:!opacity-100 hover:!text-ink' : ''} ${currentIndicatorOption === item.label ? 'font-semibold tracking-[0.18em]' : ''}`}
+                  className={`justify-self-center font-sans text-[11px] font-normal tracking-[0.16em] uppercase text-inherit no-underline whitespace-nowrap py-1 transition-opacity duration-200 ease-in-out hover:opacity-[0.65] max-[1080px]:text-[10px] max-[1080px]:tracking-[0.12em] ${isLightHeader ? 'hover:!opacity-100 hover:!text-ink' : ''} ${currentIndicatorOption === item.label ? 'font-semibold tracking-[0.18em]' : ''}`}
                 >
                   {item.label}
                 </Link>
@@ -158,7 +159,7 @@ export function Header() {
               <img
                 src="/images/weddings/logo/idanazhi_symbol_transparent.svg"
                 alt=""
-                className={`h-full w-full object-contain ${scrolled ? '' : 'brightness-0 invert'}`}
+                className={`h-full w-full object-contain ${isLightHeader ? '' : 'brightness-0 invert'}`}
               />
             </Link>
             <div className="grid grid-cols-2 items-center">
@@ -166,7 +167,7 @@ export function Header() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={`justify-self-center font-sans text-[11px] font-normal tracking-[0.16em] uppercase text-inherit no-underline whitespace-nowrap py-1 transition-opacity duration-200 ease-in-out hover:opacity-[0.65] max-[1080px]:text-[10px] max-[1080px]:tracking-[0.12em] ${scrolled ? 'hover:!opacity-100 hover:!text-ink' : ''} ${currentIndicatorOption === item.label ? 'font-semibold tracking-[0.18em]' : ''}`}
+                  className={`justify-self-center font-sans text-[11px] font-normal tracking-[0.16em] uppercase text-inherit no-underline whitespace-nowrap py-1 transition-opacity duration-200 ease-in-out hover:opacity-[0.65] max-[1080px]:text-[10px] max-[1080px]:tracking-[0.12em] ${isLightHeader ? 'hover:!opacity-100 hover:!text-ink' : ''} ${currentIndicatorOption === item.label ? 'font-semibold tracking-[0.18em]' : ''}`}
                 >
                   {item.label}
                 </Link>
@@ -188,23 +189,23 @@ export function Header() {
                 aria-controls="mobile-nav-drawer"
                 onClick={() => setMobileMenuOpen(true)}
                 className={`group inline-flex items-center gap-2 p-1.5 -ml-1.5 bg-transparent border-0 cursor-pointer transition-all duration-200 active:scale-95 ${
-                  scrolled ? 'text-ink' : 'text-white'
+                  isLightHeader ? 'text-ink' : 'text-white'
                 }`}
               >
                 <span className="flex flex-col justify-center items-start w-5 h-4 gap-[4.5px]" aria-hidden="true">
                   <span
                     className={`block h-[1.75px] w-5 rounded-full transition-all duration-300 ease-out ${
-                      scrolled ? 'bg-[#7C402E]' : 'bg-white'
+                      isLightHeader ? 'bg-[#7C402E]' : 'bg-white'
                     }`}
                   />
                   <span
                     className={`block h-[1.75px] w-3.5 rounded-full transition-all duration-300 ease-out group-hover:w-5 ${
-                      scrolled ? 'bg-[#7C402E]' : 'bg-white'
+                      isLightHeader ? 'bg-[#7C402E]' : 'bg-white'
                     }`}
                   />
                   <span
                     className={`block h-[1.75px] w-4.5 rounded-full transition-all duration-300 ease-out group-hover:w-5 ${
-                      scrolled ? 'bg-[#7C402E]' : 'bg-white'
+                      isLightHeader ? 'bg-[#7C402E]' : 'bg-white'
                     }`}
                   />
                 </span>
@@ -222,7 +223,7 @@ export function Header() {
               <img
                 src="/images/weddings/logo/idanazhi_symbol_transparent.svg"
                 alt="IDANAZHI"
-                className={`h-full w-full object-contain transition-all duration-300 ${scrolled ? '' : 'brightness-0 invert'}`}
+                className={`h-full w-full object-contain transition-all duration-300 ${isLightHeader ? '' : 'brightness-0 invert'}`}
               />
             </Link>
 
@@ -232,7 +233,7 @@ export function Header() {
                 type="button"
                 onClick={() => setBooking(true)}
                 className={`font-sans text-[9.5px] sm:text-[10.5px] tracking-[0.16em] uppercase font-semibold px-2.5 py-1 sm:px-3 sm:py-1.5 border transition-all duration-200 cursor-pointer active:scale-95 ${
-                  scrolled
+                  isLightHeader
                     ? 'border-[#7C402E] text-[#7C402E] hover:bg-[#7C402E] hover:text-white'
                     : 'border-white/80 text-white hover:bg-white hover:text-ink'
                 }`}
