@@ -32,11 +32,11 @@ export const experiences = [
 
 export const hotels = {
   singapore: {
-    eyebrow: 'IDANAZHI Singapore', heroTitle: 'A legendary setting for unforgettable celebrations', heroText: 'Since the beginning of our story, IDANAZHI Singapore has welcomed couples, families and guests to a place of possibility and wonder.', heroImage: images.singapore,
-    stayLabel: 'Suites', stayTitle: 'Your private sanctuary in Singapore', stayText: 'A suite at IDANAZHI Singapore blends tropical elegance, personalised service and refined comfort for a deeply memorable stay.',
-    diningTitle: 'A gastronomic world of wonder', dining: ['1887 by André', '藝 yì by Jereme Leung', 'Butcher’s Block', 'Tiffin Room', 'The Grand Lobby', 'Writers Bar', 'Long Bar'],
-    experienceTitle: 'Celebrations & Encounters', experienceText: 'Uncover the rich layers of Singapore life with experiences designed for destination weddings, quiet escapes and unforgettable gatherings.',
-    storyLabel: 'Our story', storyTitle: 'A true original', storyText: 'At the heart of the city, IDANAZHI Singapore brings heritage, glamour and modern celebration together in one remarkable address.',
+    eyebrow: 'IDANAZHI Farm Stay', heroTitle: 'Ancestral living in the heart of Guruvayoor', heroText: 'Since the beginning of our story, IDANAZHI has welcomed families, couples, and seekers to a sacred haven of Kerala heritage and timeless serenity.', heroImage: '/images/weddings/idanazhi-room.jpg',
+    stayLabel: 'Heritage Suites', stayTitle: 'Your private sanctuary in Guruvayoor', stayText: 'A suite at IDANAZHI blends authentic Nalukettu architecture, personalized heritage service, and sacred tranquility for a deeply memorable stay.',
+    diningTitle: 'Authentic Kerala Gastronomy & Sadhya Feasts', dining: ['Traditional Sattvic Sadya', 'Verandah High-Tea', 'Courtyard Dining', 'Ayurvedic Herbarium'],
+    experienceTitle: 'Sacred Rituals & Celebrations', experienceText: 'Uncover the rich cultural layers of Kerala heritage living with experiences designed for destination weddings, quiet retreats, and unforgettable celebrations.',
+    storyLabel: 'Our Story', storyTitle: 'Living Heritage in Timber', storyText: 'Rooted in the spiritual soil of Guruvayoor, IDANAZHI brings authentic Nalukettu craftsmanship, sacred architecture, and warm hospitality together in one remarkable estate.',
   },
   dubai: {
     eyebrow: 'IDANAZHI Dubai', heroTitle: 'An icon of the city', heroText: 'A soaring landmark inspired by ancient tradition and given a singularly modern soul.', heroImage: images.dubai,

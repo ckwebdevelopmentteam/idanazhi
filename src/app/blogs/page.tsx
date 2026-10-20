@@ -671,7 +671,7 @@ export default function BlogsPage() {
                   </p>
                 </div>
                 <Link
-                  href="/#stay"
+                  href="/stay"
                   onClick={() => setActiveArticle(null)}
                   className="bg-[#7C402E] hover:bg-[#5E2B1D] text-white px-5 py-2.5 text-[10.5px] font-sans font-semibold tracking-[0.16em] uppercase whitespace-nowrap transition-colors"
                 >

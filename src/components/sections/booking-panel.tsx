@@ -38,17 +38,19 @@ export function BookingPanel({ close }: { close: () => void }) {
 
         <form onSubmit={submit}>
           <label className="flex flex-col gap-2 uppercase tracking-[0.14em] text-[10px] mb-[19px]">
-            Destination
+            Sanctuary or Suite
             <select
               value={destination}
               onChange={(e) => setDestination(e.target.value)}
-              className="bg-transparent border-0 border-b border-ink h-[42px] text-ink rounded-none"
+              className="bg-transparent border-0 border-b border-ink h-[42px] text-ink rounded-none cursor-pointer"
             >
-              <option value="">Select destination</option>
-              <option>IDANAZHI Singapore</option>
-              <option>IDANAZHI Dubai</option>
-              <option>IDANAZHI Bali</option>
-              <option>IDANAZHI Boston</option>
+              <option value="">IDANAZHI Farm Stay · Guruvayoor, Kerala</option>
+              <option>The Nalukettu Master Suite</option>
+              <option>The Nadumuttam Courtyard Chamber</option>
+              <option>The Illam Royal Retreat</option>
+              <option>The Thinnai Breezeway Suite</option>
+              <option>The Machakam Garden Villa</option>
+              <option>The Tharavadu Heritage Chamber</option>
             </select>
           </label>
 

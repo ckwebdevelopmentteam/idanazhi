@@ -24,7 +24,7 @@ export function PropertyCard({ property }: { property: Property }) {
         <p className="m-0 mb-[9px] uppercase tracking-[0.18em] text-[9px] font-semibold text-muted">{property.city}, {property.country}</p>
         <h3 className="font-serif text-[26px] font-normal leading-[1.05] tracking-[-0.035em] m-0 mb-3">{property.name}</h3>
         <p className="text-muted text-[13px] m-0 mb-5 min-h-[82px] max-[980px]:min-h-0">{property.description}</p>
-        <Link href={property.slug === 'singapore' ? '/singapore/' : property.slug === 'dubai' ? '/dubai/' : '/hotels-resorts/'} className="card-cta">
+        <Link href="/stay" className="card-cta">
           <span className="cta-text">DISCOVER</span>
           <ArrowUpRight size={14} className="cta-arrow" />
         </Link>
