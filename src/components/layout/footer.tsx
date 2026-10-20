@@ -29,12 +29,11 @@ const columnVariants: Variants = {
 };
 
 const bgVariants: Variants = {
-  hidden: { opacity: 0, scale: 1.03 },
+  hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    scale: 1,
     transition: {
-      duration: 1.3,
+      duration: 0.8,
       ease: [0.16, 1, 0.3, 1],
     },
   },
@@ -70,27 +69,27 @@ export function Footer() {
     <motion.footer
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.12 }}
-      className="relative z-30 w-full bg-[#FCF2E7] text-[#4A2618] overflow-hidden border-t border-[#7C402E]/10"
+      viewport={{ once: true, amount: 0.08 }}
+      className="relative z-30 w-full bg-[#F6EDE1] text-[#4A2618] overflow-hidden"
     >
       {/* Upper Content Area with Background Wedding Illustration */}
       <div className="relative w-full">
         {/* Background wedding illustration: Mobile portrait crop vs Desktop/Tablet landscape */}
         <motion.div
           variants={bgVariants}
-          className="block sm:hidden absolute inset-0 w-full h-full bg-bottom bg-no-repeat pointer-events-none origin-bottom"
+          className="block sm:hidden absolute inset-0 w-full h-full bg-no-repeat pointer-events-none"
           style={{
             backgroundImage: "url('/images/mobile-footer.png')",
-            backgroundSize: '100% auto',
+            backgroundSize: 'cover',
             backgroundPosition: 'center bottom',
           }}
         />
         <motion.div
           variants={bgVariants}
-          className="hidden sm:block absolute inset-0 w-full h-full bg-bottom bg-no-repeat pointer-events-none origin-bottom"
+          className="hidden sm:block absolute inset-0 w-full h-full bg-no-repeat pointer-events-none"
           style={{
             backgroundImage: "url('/images/footer.png')",
-            backgroundSize: '100% auto',
+            backgroundSize: 'cover',
             backgroundPosition: 'center bottom',
           }}
         />
@@ -98,7 +97,7 @@ export function Footer() {
         {/* Footer Main Content placed directly in the natural light space */}
         <motion.div
           variants={containerVariants}
-          className="relative z-10 w-full max-w-[1440px] 2xl:max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-16 pt-8 sm:pt-10 md:pt-12 lg:pt-14 pb-56 sm:pb-52 md:pb-56 lg:pb-64 min-h-[540px] sm:min-h-[460px] md:min-h-[480px] lg:min-h-[500px]"
+          className="relative z-10 w-full max-w-[1440px] 2xl:max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-16 pt-5 sm:pt-8 md:pt-10 lg:pt-14 pb-44 sm:pb-52 md:pb-56 lg:pb-64 min-h-[460px] sm:min-h-[460px] md:min-h-[480px] lg:min-h-[500px]"
         >
           {/* Responsive Grid:
               - Mobile (<640px): Centered, balanced luxury stack in light space.
