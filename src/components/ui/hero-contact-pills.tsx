@@ -7,12 +7,13 @@ const WHATSAPP_URL =
 const PHONE_NUMBER = '+912942779000';
 
 export function HeroContactPills() {
-  // Start open so it is immediately visible on entrance, then smoothly closes sideways after a delay
+  // On desktop: start open on entrance, then smoothly closes sideways after a delay.
+  // On mobile: stays closed permanently as compact circular icons (no animation).
   const [isOpenInitially, setIsOpenInitially] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    // Automatically close sideways after delay (3.8 seconds)
+    // Automatically close sideways on desktop after delay (3.8 seconds)
     const timer = setTimeout(() => {
       setIsOpenInitially(false);
     }, 3800);
@@ -27,7 +28,7 @@ export function HeroContactPills() {
       aria-label="Direct Contact Actions"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="fixed z-[60] right-5 bottom-8 sm:right-9 sm:bottom-10 flex flex-col items-end gap-3 pointer-events-auto select-none"
+      className="fixed z-[60] right-5 bottom-8 md:right-9 md:bottom-10 flex flex-col items-end gap-3 pointer-events-auto select-none"
     >
       {/* Call Us Button */}
       <a
@@ -35,14 +36,9 @@ export function HeroContactPills() {
         aria-label="Call Idanazhi Concierge: +91 294 277 9000"
         onFocus={() => setIsHovered(true)}
         onBlur={() => setIsHovered(false)}
-        className="group relative flex items-center h-12 rounded-full bg-[#F4E3CB] hover:bg-[#F9EDE0] border-2 border-[#DFCBA8] text-[#442D15] shadow-lg hover:shadow-xl overflow-hidden cursor-pointer active:scale-95"
-        style={{
-          width: isOpen ? '164px' : '48px',
-          minWidth: isOpen ? '164px' : '48px',
-          transitionProperty: 'width, min-width, background-color, transform, box-shadow',
-          transitionDuration: '500ms',
-          transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
-        }}
+        className={`group relative flex items-center h-12 rounded-full bg-[#F4E3CB] hover:bg-[#F9EDE0] border-2 border-[#DFCBA8] text-[#442D15] shadow-lg hover:shadow-xl overflow-hidden cursor-pointer active:scale-95 w-12 max-md:!w-12 md:transition-[width,background-color,transform,box-shadow] md:duration-500 md:[transition-timing-function:cubic-bezier(0.16,1,0.3,1)] ${
+          isOpen ? 'md:w-[164px]' : 'md:w-12'
+        }`}
       >
         {/* Phone Icon - perfectly centered in the 44px inner circle */}
         <span className="w-[44px] h-[44px] flex items-center justify-center shrink-0">
@@ -56,10 +52,10 @@ export function HeroContactPills() {
           </svg>
         </span>
 
-        {/* Call Us Label */}
+        {/* Call Us Label - desktop only, hidden on mobile */}
         <span
-          className={`font-sans font-medium text-[14.5px] text-[#442D15] tracking-[0.01em] whitespace-nowrap pr-5 transition-all duration-300 ${
-            isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-3 pointer-events-none'
+          className={`hidden md:inline-block font-sans font-medium text-[14.5px] text-[#442D15] tracking-[0.01em] whitespace-nowrap pr-5 transition-all duration-300 ${
+            isOpen ? 'md:opacity-100 md:translate-x-0' : 'md:opacity-0 md:-translate-x-3 md:pointer-events-none'
           }`}
         >
           Call Us
@@ -74,14 +70,9 @@ export function HeroContactPills() {
         aria-label="Chat with Idanazhi Concierge on WhatsApp"
         onFocus={() => setIsHovered(true)}
         onBlur={() => setIsHovered(false)}
-        className="group relative flex items-center h-12 rounded-full bg-[#20321A] hover:bg-[#283E21] border-2 border-[#DFCBA8] text-white shadow-lg hover:shadow-xl overflow-hidden cursor-pointer active:scale-95"
-        style={{
-          width: isOpen ? '164px' : '48px',
-          minWidth: isOpen ? '164px' : '48px',
-          transitionProperty: 'width, min-width, background-color, transform, box-shadow',
-          transitionDuration: '500ms',
-          transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
-        }}
+        className={`group relative flex items-center h-12 rounded-full bg-[#20321A] hover:bg-[#283E21] border-2 border-[#DFCBA8] text-white shadow-lg hover:shadow-xl overflow-hidden cursor-pointer active:scale-95 w-12 max-md:!w-12 md:transition-[width,background-color,transform,box-shadow] md:duration-500 md:[transition-timing-function:cubic-bezier(0.16,1,0.3,1)] ${
+          isOpen ? 'md:w-[164px]' : 'md:w-12'
+        }`}
       >
         {/* WhatsApp Icon - crisp, official vector perfectly centered in the 44px inner circle */}
         <span className="w-[44px] h-[44px] flex items-center justify-center shrink-0">
@@ -95,10 +86,10 @@ export function HeroContactPills() {
           </svg>
         </span>
 
-        {/* WhatsApp Label */}
+        {/* WhatsApp Label - desktop only, hidden on mobile */}
         <span
-          className={`font-sans font-medium text-[14.5px] text-white tracking-[0.01em] whitespace-nowrap pr-5 transition-all duration-300 ${
-            isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-3 pointer-events-none'
+          className={`hidden md:inline-block font-sans font-medium text-[14.5px] text-white tracking-[0.01em] whitespace-nowrap pr-5 transition-all duration-300 ${
+            isOpen ? 'md:opacity-100 md:translate-x-0' : 'md:opacity-0 md:-translate-x-3 md:pointer-events-none'
           }`}
         >
           WhatsApp
