@@ -11,6 +11,7 @@ import { CelebrationsAndExperience } from '@/components/sections/celebrations-an
 import { ExperiencesGallery } from '@/components/sections/experiences-gallery';
 import { Testimonials } from '@/components/ui/testimonials';
 import { FAQSection } from '@/components/sections/faq-section';
+import { ContactSection } from '@/components/sections/contact-section';
 
 export default function Home() {
   return (
@@ -49,6 +50,8 @@ export default function Home() {
       <Testimonials />
 
       <FAQSection />
+
+      <ContactSection />
 
       {/* Sections hidden per request */}
       {false && (
