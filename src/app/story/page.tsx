@@ -362,7 +362,7 @@ export default function StoryPage() {
               <figure className="relative h-full min-h-[380px] sm:min-h-[460px] overflow-hidden border border-[#7C402E]/20 bg-paper shadow-lg flex flex-col m-0 group">
                 <div className="relative flex-1 overflow-hidden">
                   <img
-                    src="/images/weddings/varikkasseri.jpg"
+                    src="/images/weddings/architecture-1.jpg"
                     alt="Traditional Kerala Nalukettu architectural facade with high-gabled terracotta tiled roofs"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.025]"
                   />

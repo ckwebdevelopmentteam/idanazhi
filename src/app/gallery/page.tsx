@@ -118,10 +118,10 @@ const galleryData: GalleryItem[] = [
   },
   {
     id: 12,
-    title: 'Varikkasseri Timeless Illam',
+    title: 'Ancestral Timber Manor',
     category: 'Architecture',
     categoryLabel: 'MANOR',
-    src: '/images/weddings/varikkasseri.jpg',
+    src: '/images/weddings/architecture-1.jpg',
     alt: 'Carved wooden doorway and wooden pillars of traditional Kerala illam',
     caption: 'Majestic woodwork and stone foundations echoing centuries of cultural storytelling.',
   },

@@ -180,11 +180,11 @@ const blogPosts: BlogPost[] = [
     tags: ['Ayurveda', 'Slow Living', 'Dinacharya', 'Wellness', 'Mindfulness'],
   },
   {
-    id: 'varikkasseri-illams',
-    title: 'Varikkasseri & The Grand Illams: A Tapestry of Legend and Woodcraft',
+    id: 'ancestral-illams',
+    title: 'The Grand Illams of Kerala: A Tapestry of Legend and Woodcraft',
     subtitle: 'The architectural lore of Kerala aristocratic manors and secret granary vaults',
     category: 'Heritage & Architecture',
-    image: '/images/weddings/varikkasseri.jpg',
+    image: '/images/weddings/architecture-1.jpg',
     readTime: '5 min read',
     date: 'September 05, 2026',
     author: {
@@ -195,7 +195,7 @@ const blogPosts: BlogPost[] = [
       'A journey through the grand gables, wooden machus, and secret corridors of central Kerala’s most revered ancestral manors.',
     content: {
       lead:
-        'The historic illams of Valluvanad and Thrissur stand as proud sentinels of Kerala’s architectural zenith. Varikkasseri Mana, with its imposing multi-tiered wooden gables and sweeping courtyard expanses, inspired many of the design motifs that grace Idanazhi today.',
+        'The historic illams of Valluvanad and Thrissur stand as proud sentinels of Kerala’s architectural zenith, with imposing multi-tiered wooden gables and sweeping courtyard expanses that inspired many of the design motifs that grace Idanazhi today.',
       sections: [
         {
           heading: 'Mastery of the Traditional Thachan',
@@ -208,7 +208,7 @@ const blogPosts: BlogPost[] = [
         },
       ],
     },
-    tags: ['Varikkasseri', 'Ancestral Manors', 'Thachan Craft', 'Kerala History'],
+    tags: ['Ancestral Manors', 'Thachan Craft', 'Kerala History', 'Traditional Architecture'],
   },
   {
     id: 'starlit-banquets',

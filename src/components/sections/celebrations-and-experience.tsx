@@ -83,8 +83,8 @@ const celebrationSlides: Slide[] = [
     alt: 'Heritage banquet dining setup for celebrations',
   },
   {
-    image: '/images/weddings/varikkasseri.jpg',
-    title: 'Historic Mana',
+    image: '/images/weddings/architecture-1.jpg',
+    title: 'Heritage Illam',
     caption: 'Majestic Kerala heritage estate architecture with sloping tiled gables.',
     alt: 'Traditional Kerala heritage manor architecture',
   },
