@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+  <!-- Matching outer circle with exact same 41px diameter and 3.5px margin as WhatsApp icon -->
+  <circle cx="24" cy="24" r="20.5" fill="url(#terracottaGrad)"/>
+  <defs>
+    <linearGradient id="terracottaGrad" x1="10" y1="8" x2="38" y2="40" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#84382B"/>
+      <stop offset="1" stop-color="#5E2419"/>
+    </linearGradient>
+  </defs>
+  <!-- Beautiful centered classic solid phone handset matching WhatsApp inner handset proportions -->
+  <g transform="translate(13, 13) scale(0.916)">
+    <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.05-.24 11.72 11.72 0 003.68.59 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.72 11.72 0 00.59 3.68 1 1 0 01-.24 1.05l-2.23 2.06z" fill="white"/>
+  </g>
+</svg>

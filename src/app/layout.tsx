@@ -5,6 +5,7 @@ import './globals.css';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { SmoothScrollProvider } from '@/components/providers/smooth-scroll-provider';
+import { HeroContactPills } from '@/components/ui/hero-contact-pills';
 
 const lato = Lato({
   subsets: ['latin'],
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <Header />
           {children}
           <Footer />
+          <HeroContactPills />
         </SmoothScrollProvider>
       </body>
     </html>

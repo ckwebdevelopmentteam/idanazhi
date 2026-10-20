@@ -246,13 +246,13 @@ export function Footer() {
         </motion.div>
       </div>
 
-      {/* Bottom Copyright Bar with Rich Terracotta Grounding */}
+      {/* Bottom Copyright */}
       <motion.div
         variants={bottomBarVariants}
-        className="relative z-20 w-full bg-[#543224] text-[#F6F0E9] border-t border-[#7C402E]/20"
+        className="relative z-20 w-full py-2.5 sm:py-3.5"
       >
-        <div className="w-full max-w-[1440px] 2xl:max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-16 py-1.5 sm:py-2">
-          <p className="m-0 text-center text-[10px] sm:text-[11px] leading-normal text-[#F6F0E9]/90 tracking-[0.04em] font-sans">
+        <div className="w-full max-w-[1440px] 2xl:max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-16">
+          <p className="m-0 text-center text-[10.5px] sm:text-[11.5px] leading-normal text-[#543224] tracking-[0.04em] font-sans">
             &copy; 2026 Idanazhi Farm Stay. All rights reserved.
           </p>
         </div>
