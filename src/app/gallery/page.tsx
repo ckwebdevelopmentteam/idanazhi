@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, X, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { ArrowUpRight, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BookingPanel } from '@/components/sections/booking-panel';
 
@@ -165,11 +165,6 @@ export default function GalleryPage() {
     <main className="min-h-screen bg-paper pt-[100px] sm:pt-[120px] pb-24 text-ink">
       {/* Editorial Page Header */}
       <section className="px-6 sm:px-10 lg:px-16 max-w-[1280px] mx-auto text-center pt-8 sm:pt-14 pb-12">
-        <div className="inline-flex items-center gap-2 mb-4 px-3.5 py-1 rounded-full bg-[#7C402E]/10 border border-[#7C402E]/20 text-[#84382B] text-[10.5px] uppercase font-semibold tracking-[0.2em]">
-          <Sparkles size={12} />
-          <span>The Idanazhi Archive</span>
-        </div>
-
         <h1 className="font-serif text-[clamp(34px,4.5vw,58px)] font-normal leading-[1.08] tracking-[-0.035em] text-[#2D1912] m-0 mb-5">
           Visual Stories &amp; Heritage Moments
         </h1>
