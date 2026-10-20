@@ -7,76 +7,67 @@ const WHATSAPP_URL =
 const PHONE_NUMBER = '+912942779000';
 
 export function HeroContactPills() {
-  const [isInitialOpen, setIsInitialOpen] = useState(false);
+  // Start open so it is immediately visible on entrance, then smoothly closes after a delay
+  const [isOpenInitially, setIsOpenInitially] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    // Opening animation trigger: smoothly expand sideways after brief page load delay
-    const openTimer = setTimeout(() => {
-      setIsInitialOpen(true);
-    }, 600);
+    // Automatically close sideways after delay (3.8 seconds)
+    const timer = setTimeout(() => {
+      setIsOpenInitially(false);
+    }, 3800);
 
-    // Close after a delay (stays open for ~3.9 seconds so visitor can read both)
-    const closeTimer = setTimeout(() => {
-      setIsInitialOpen(false);
-    }, 4500);
-
-    return () => {
-      clearTimeout(openTimer);
-      clearTimeout(closeTimer);
-    };
+    return () => clearTimeout(timer);
   }, []);
 
-  const isOpen = isInitialOpen || isHovered;
+  const isOpen = isOpenInitially || isHovered;
 
   return (
     <aside
-      aria-label="Direct Contact Actions"
+      aria-label="Concierge Direct Contact"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="fixed z-[45] right-[4vw] bottom-[42px] flex flex-col items-end gap-2.5 sm:gap-3 max-[720px]:right-[20px] max-[720px]:bottom-[24px] select-none pointer-events-auto"
+      className="fixed z-[60] right-5 bottom-8 sm:right-9 sm:bottom-10 flex flex-col items-end gap-3 pointer-events-auto select-none"
     >
-      {/* Call Us Pill Button */}
+      {/* Call Us Button */}
       <a
         href={`tel:${PHONE_NUMBER}`}
         aria-label="Call Idanazhi Concierge: +91 294 277 9000"
         title="Call Us: +91 294 277 9000"
         onFocus={() => setIsHovered(true)}
         onBlur={() => setIsHovered(false)}
-        className={`group relative flex items-center h-[44px] sm:h-[48px] rounded-full bg-[#F4E3CB] hover:bg-[#F9EDE0] border-[1.5px] border-[#DFCBA8] text-[#442D15] shadow-[0_8px_24px_rgba(0,0,0,0.22)] hover:shadow-[0_10px_28px_rgba(0,0,0,0.32)] overflow-hidden cursor-pointer active:scale-95 transition-all duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] ${
-          isOpen
-            ? 'w-[146px] sm:w-[164px]'
-            : 'w-[44px] sm:w-[48px]'
-        }`}
+        className="group relative flex items-center h-12 rounded-full bg-[#F4E3CB] hover:bg-[#F9EDE0] border-2 border-[#DFCBA8] text-[#442D15] shadow-lg hover:shadow-xl overflow-hidden cursor-pointer active:scale-95"
         style={{
-          transitionDelay: isOpen ? '0ms' : '100ms',
+          width: isOpen ? '164px' : '48px',
+          minWidth: isOpen ? '164px' : '48px',
+          transitionProperty: 'width, min-width, background-color, transform, box-shadow',
+          transitionDuration: '500ms',
+          transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
-        {/* Fixed Icon Container - perfectly centered when closed, left cap aligned when open */}
-        <span className="w-[44px] sm:w-[48px] h-[44px] sm:h-[48px] flex items-center justify-center shrink-0">
+        {/* Phone Icon */}
+        <span className="w-12 h-12 flex items-center justify-center shrink-0">
           <svg
             viewBox="0 0 24 24"
             fill="currentColor"
-            className="w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] text-[#442D15] transition-transform duration-300 ease-out group-hover:rotate-12"
+            className="w-5 h-5 text-[#442D15] transition-transform duration-300 group-hover:rotate-12"
             aria-hidden="true"
           >
             <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.05-.24 11.72 11.72 0 003.68.59 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.72 11.72 0 00.59 3.68 1 1 0 01-.24 1.05l-2.23 2.06z" />
           </svg>
         </span>
 
-        {/* Text Label - revealed smoothly sideways */}
+        {/* Call Us Label */}
         <span
-          className={`text-[13.5px] sm:text-[14.5px] font-sans font-medium text-[#442D15] tracking-[0.01em] leading-none whitespace-nowrap pl-0 pr-4 transition-all duration-300 ${
-            isOpen
-              ? 'opacity-100 translate-x-0 delay-150'
-              : 'opacity-0 -translate-x-2 pointer-events-none delay-0'
+          className={`font-sans font-medium text-[14.5px] text-[#442D15] tracking-[0.01em] whitespace-nowrap pr-5 transition-all duration-300 ${
+            isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-3 pointer-events-none'
           }`}
         >
           Call Us
         </span>
       </a>
 
-      {/* WhatsApp Pill Button */}
+      {/* WhatsApp Button */}
       <a
         href={WHATSAPP_URL}
         target="_blank"
@@ -85,21 +76,21 @@ export function HeroContactPills() {
         title="Chat with us on WhatsApp"
         onFocus={() => setIsHovered(true)}
         onBlur={() => setIsHovered(false)}
-        className={`group relative flex items-center h-[44px] sm:h-[48px] rounded-full bg-[#20321A] hover:bg-[#283E21] border-[1.5px] border-[#DFCBA8] text-white shadow-[0_8px_24px_rgba(0,0,0,0.28)] hover:shadow-[0_10px_28px_rgba(0,0,0,0.38)] overflow-hidden cursor-pointer active:scale-95 transition-all duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] ${
-          isOpen
-            ? 'w-[146px] sm:w-[164px]'
-            : 'w-[44px] sm:w-[48px]'
-        }`}
+        className="group relative flex items-center h-12 rounded-full bg-[#20321A] hover:bg-[#283E21] border-2 border-[#DFCBA8] text-white shadow-lg hover:shadow-xl overflow-hidden cursor-pointer active:scale-95"
         style={{
-          transitionDelay: isOpen ? '100ms' : '0ms',
+          width: isOpen ? '164px' : '48px',
+          minWidth: isOpen ? '164px' : '48px',
+          transitionProperty: 'width, min-width, background-color, transform, box-shadow',
+          transitionDuration: '500ms',
+          transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
-        {/* Fixed Icon Container */}
-        <span className="w-[44px] sm:w-[48px] h-[44px] sm:h-[48px] flex items-center justify-center shrink-0">
+        {/* WhatsApp Icon */}
+        <span className="w-12 h-12 flex items-center justify-center shrink-0">
           <svg
             viewBox="0 0 24 24"
             fill="none"
-            className="w-[19px] h-[19px] sm:w-[21px] sm:h-[21px] text-white transition-transform duration-300 ease-out group-hover:scale-110"
+            className="w-[21px] h-[21px] text-white transition-transform duration-300 group-hover:scale-110"
             aria-hidden="true"
           >
             <path
@@ -116,12 +107,10 @@ export function HeroContactPills() {
           </svg>
         </span>
 
-        {/* Text Label - revealed smoothly sideways */}
+        {/* WhatsApp Label */}
         <span
-          className={`text-[13.5px] sm:text-[14.5px] font-sans font-medium text-white tracking-[0.01em] leading-none whitespace-nowrap pl-0 pr-4 transition-all duration-300 ${
-            isOpen
-              ? 'opacity-100 translate-x-0 delay-150'
-              : 'opacity-0 -translate-x-2 pointer-events-none delay-0'
+          className={`font-sans font-medium text-[14.5px] text-white tracking-[0.01em] whitespace-nowrap pr-5 transition-all duration-300 ${
+            isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-3 pointer-events-none'
           }`}
         >
           WhatsApp
