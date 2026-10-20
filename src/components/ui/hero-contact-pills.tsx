@@ -7,7 +7,7 @@ const WHATSAPP_URL =
 const PHONE_NUMBER = '+912942779000';
 
 export function HeroContactPills() {
-  // Start open so it is immediately visible on entrance, then smoothly closes after a delay
+  // Start open so it is immediately visible on entrance, then smoothly closes sideways after a delay
   const [isOpenInitially, setIsOpenInitially] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -24,7 +24,7 @@ export function HeroContactPills() {
 
   return (
     <aside
-      aria-label="Concierge Direct Contact"
+      aria-label="Direct Contact Actions"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className="fixed z-[60] right-5 bottom-8 sm:right-9 sm:bottom-10 flex flex-col items-end gap-3 pointer-events-auto select-none"
@@ -33,7 +33,6 @@ export function HeroContactPills() {
       <a
         href={`tel:${PHONE_NUMBER}`}
         aria-label="Call Idanazhi Concierge: +91 294 277 9000"
-        title="Call Us: +91 294 277 9000"
         onFocus={() => setIsHovered(true)}
         onBlur={() => setIsHovered(false)}
         className="group relative flex items-center h-12 rounded-full bg-[#F4E3CB] hover:bg-[#F9EDE0] border-2 border-[#DFCBA8] text-[#442D15] shadow-lg hover:shadow-xl overflow-hidden cursor-pointer active:scale-95"
@@ -73,7 +72,6 @@ export function HeroContactPills() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with Idanazhi Concierge on WhatsApp"
-        title="Chat with us on WhatsApp"
         onFocus={() => setIsHovered(true)}
         onBlur={() => setIsHovered(false)}
         className="group relative flex items-center h-12 rounded-full bg-[#20321A] hover:bg-[#283E21] border-2 border-[#DFCBA8] text-white shadow-lg hover:shadow-xl overflow-hidden cursor-pointer active:scale-95"
