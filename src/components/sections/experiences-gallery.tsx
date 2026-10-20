@@ -65,10 +65,10 @@ export const galleryImages: GalleryPhotoItem[] = [
   },
   {
     id: 8,
-    title: 'Paliam Heritage',
+    title: 'Heritage Manor Estate',
     category: 'ESTATES',
-    src: '/images/weddings/paliam.jpg',
-    alt: 'Historic Paliam heritage estate palace',
+    src: '/images/weddings/heritage-manor-facade.jpg',
+    alt: 'Traditional Kerala heritage estate architecture with terracotta gables',
   },
   {
     id: 9,

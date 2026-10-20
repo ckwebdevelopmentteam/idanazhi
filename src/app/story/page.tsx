@@ -407,7 +407,7 @@ export default function StoryPage() {
               <figure className="relative overflow-hidden border border-[#7C402E]/20 bg-paper shadow-md m-0 group flex flex-col">
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <img
-                    src="/images/weddings/paliam.jpg"
+                    src="/images/weddings/kerala-courtyard-planter.jpg"
                     alt="Heritage stone paved courtyard threshold reflecting quiet stillness"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                   />
@@ -577,11 +577,11 @@ export default function StoryPage() {
       >
         <div className="max-w-[1120px] mx-auto flex flex-col items-center text-center">
           {/* Atmospheric Photograph */}
-          <div className="w-full aspect-[21/9] sm:aspect-[2.4/1] overflow-hidden border border-[#7C402E]/20 bg-[#FAF4EC] shadow-2xl mb-12 sm:mb-16 closing-reveal mobile-fade group">
+          <div className="w-full aspect-[16/9] sm:aspect-[2.1/1] max-h-[540px] overflow-hidden border border-[#7C402E]/20 bg-[#FAF4EC] shadow-2xl mb-12 sm:mb-16 closing-reveal mobile-fade group">
             <img
-              src="/images/weddings/paliam.jpg"
+              src="/images/weddings/heritage-manor-facade.jpg"
               alt="Atmospheric view of the Idanazhi heritage estate with terracotta roofs"
-              className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
+              className="w-full h-full object-cover object-center transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
             />
           </div>
 

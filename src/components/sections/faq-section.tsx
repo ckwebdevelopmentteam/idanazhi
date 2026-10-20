@@ -85,7 +85,7 @@ export function FAQSection({
   eyebrow = 'A FEW THINGS TO KNOW',
   heading = 'Questions, answered.',
   supportingText = 'Everything you need to know before planning your celebration, gathering, or stay at Idanazhi. From intimate wedding ceremonies and traditional rituals to unhurried farm stays among ancestral greenery, our heritage estate is curated for moments that feel personal, timeless, and gracefully hosted.',
-  contactText = 'Have another question? Get in touch',
+  contactText = 'PLAN YOUR CELEBRATION',
   contactHref = 'mailto:hello@idanazhi.com',
   items = defaultFaqItems,
   className = '',
@@ -140,7 +140,7 @@ export function FAQSection({
                 className="group border border-ink bg-ink text-white px-6 py-3.5 text-[11px] font-sans font-medium tracking-[0.18em] uppercase transition-all duration-300 ease-out hover:bg-forest hover:border-forest flex items-center justify-center gap-2 rounded-none w-full sm:w-auto text-center"
                 aria-label="Plan your celebration - Email Enquiry"
               >
-                <span>PLAN YOUR CELEBRATION</span>
+                <span>{contactText}</span>
                 <ArrowUpRight
                   size={14}
                   className="transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"

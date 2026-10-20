@@ -73,11 +73,11 @@ const galleryData: GalleryItem[] = [
   },
   {
     id: 7,
-    title: 'Paliam Royal Heritage Manor',
+    title: 'Heritage Courtyard Manor',
     category: 'Architecture',
     categoryLabel: 'HERITAGE',
-    src: '/images/weddings/paliam.jpg',
-    alt: 'Historic Paliam heritage manor with tiered gables and clay roof tiles',
+    src: '/images/weddings/heritage-manor-facade.jpg',
+    alt: 'Traditional Kerala heritage manor with tiered terracotta gables and stone courtyard',
     caption: 'Classic Kerala vernacular architecture with sloping roofs, carved gables, and timber eaves.',
   },
   {
@@ -94,9 +94,9 @@ const galleryData: GalleryItem[] = [
     title: 'Sanctuary Suite & Verandah',
     category: 'Living',
     categoryLabel: 'SANCTUARY',
-    src: '/images/weddings/idanazhi-room.jpg',
-    alt: 'Traditional Kerala heritage bedroom with carved wooden furnishings',
-    caption: 'Quiet heritage room with polished wood surfaces, gentle courtyard daylight, and brass accessories.',
+    src: '/images/weddings/spaces/stay1.png',
+    alt: 'Traditional Kerala heritage living suite with carved wooden rafters and furnishings',
+    caption: 'Quiet heritage room with authentic timber rafters, gentle daylight, and brass accessories.',
   },
   {
     id: 10,

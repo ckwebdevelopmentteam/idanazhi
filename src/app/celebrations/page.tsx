@@ -64,7 +64,7 @@ const celebrationServices = [
   {
     title: 'Farm Stay Guest Sanctuary',
     description:
-      'Accommodate your most cherished family and friends across peaceful Nalukettu villas and heritage rooms with gracious hospitality.',
+      'Accommodate your closest family members across the 3 private guest chambers of our single heritage compound with dedicated hospitality.',
   },
 ];
 
@@ -140,8 +140,8 @@ export default function CelebrationsPage() {
             Bespoke Settings for Every Sacred Chapter
           </h2>
           <p className="font-sans text-[15px] sm:text-[16px] text-[#5A3828] font-light m-0">
-            From the intimate sanctum of our open-air courtyard to starlit lakeside banquet
-            lawns, discover venues tailored to your wedding vision.
+            From the intimate sanctum of our open-air courtyard to starlit banquet lawns, discover
+            celebration spaces situated together within our private heritage compound.
           </p>
         </div>
 

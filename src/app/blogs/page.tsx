@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, ArrowUpRight, Search, Clock, Calendar, Tag, X, Share2, BookOpen, ChevronRight, Check } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Search, Clock, Calendar, Tag, X, Share2, BookOpen, Check } from 'lucide-react';
 
 interface BlogPost {
   id: string;
@@ -275,9 +275,10 @@ export default function BlogsPage() {
 
   const featuredPost = blogPosts[0];
 
-  const handleShare = (post: BlogPost) => {
+  const handleShare = (post?: BlogPost) => {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      navigator.clipboard.writeText(window.location.href);
+      const shareUrl = post ? `${window.location.origin}/blogs#${post.id}` : window.location.href;
+      navigator.clipboard.writeText(shareUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
     }

@@ -55,19 +55,18 @@ const roomsData: RoomItem[] = [
     number: '01',
     totalRooms: '03',
     title: 'The Nalukettu Master Suite',
-    kicker: 'HERITAGE SUITE · SPACIOUS INTERIORS',
+    kicker: 'HERITAGE SUITE · MAIN NALUKETTU',
     sqft: 1200,
     occupancy: '2 – 4 Guests',
     bed: 'King-size Bed',
-    mainImage: '/images/weddings/idanazhi-room.jpg',
+    mainImage: '/images/weddings/spaces/stay1.png',
     gallery: [
-      '/images/weddings/idanazhi-room.jpg',
-      '/images/stay/heritage-veranda-hero.jpg',
-      '/images/stay/brass-soaking-tub.jpg',
-      '/images/weddings/kerala-courtyard-planter.jpg',
+      '/images/weddings/spaces/stay1.png',
+      '/images/weddings/spaces/stay2.png',
+      '/images/weddings/spaces/stay3.png',
     ],
     description:
-      'A spacious suite featuring traditional wooden architecture, elegant interiors, and a comfortable setting for a relaxing stay.',
+      'A spacious suite located in the main ancestral Nalukettu of our compound, featuring traditional wooden architecture, exposed rafters, elegant interiors, and a comfortable setting for a relaxing stay.',
     highlights: [
       'Air conditioning',
       'Attached bathroom',
@@ -81,7 +80,7 @@ const roomsData: RoomItem[] = [
     secondaryText: 'ENQUIRE NOW',
     secondaryType: 'concierge',
     architectureStory:
-      'Crafted according to classical Kerala wooden architecture principles, featuring hand-carved pillars, spacious timber ceilings, and peaceful courtyard views that preserve an authentic ancestral character.',
+      'Crafted according to classical Kerala wooden architecture principles in the main house, featuring hand-carved pillars, spacious timber ceilings, and peaceful courtyard views that preserve an authentic ancestral character within our single compound.',
     amenities: [
       'Air conditioning',
       'Attached bathroom',
@@ -98,19 +97,18 @@ const roomsData: RoomItem[] = [
     number: '02',
     totalRooms: '03',
     title: 'The Nadumuttam Chamber',
-    kicker: 'TRADITIONAL ROOM · COURTYARD SETTING',
+    kicker: 'TRADITIONAL ROOM · COURTYARD ENCLAVE',
     sqft: 850,
     occupancy: '2 Guests',
     bed: 'Comfortable Heritage Bed',
-    mainImage: '/images/weddings/kerala-courtyard-planter.jpg',
+    mainImage: '/images/weddings/spaces/stay3.png',
     gallery: [
-      '/images/weddings/kerala-courtyard-planter.jpg',
-      '/images/stay/heritage-veranda-hero.jpg',
-      '/images/weddings/architecture-corridor.jpg',
-      '/images/weddings/idanazhi-room.jpg',
+      '/images/weddings/spaces/stay3.png',
+      '/images/weddings/spaces/stay1.png',
+      '/images/weddings/spaces/stay2.png',
     ],
     description:
-      'Inspired by the traditional Kerala nalukettu, this room offers a calm atmosphere with heritage-inspired architecture and comfortable accommodation.',
+      'Opening directly onto the open-to-sky central courtyard of the compound, this room offers a calm atmosphere with heritage-inspired architecture and comfortable accommodation.',
     highlights: [
       'Air conditioning',
       'Attached bathroom',
@@ -124,7 +122,7 @@ const roomsData: RoomItem[] = [
     secondaryText: 'VIEW DETAILS',
     secondaryType: 'details',
     architectureStory:
-      'Centered near the tranquil open-air courtyard breezeways, framing warm terracotta elements and natural light for a meditative and restorative stay.',
+      'Centered directly along the tranquil open-air courtyard breezeways within our single estate, framing warm terracotta elements and natural light for a meditative and restorative stay.',
     amenities: [
       'Air conditioning',
       'Attached bathroom',
@@ -141,19 +139,18 @@ const roomsData: RoomItem[] = [
     number: '03',
     totalRooms: '03',
     title: 'The Garden Villa',
-    kicker: 'PRIVATE STAY · GARDEN SURROUNDINGS',
+    kicker: 'PRIVATE SUITE · COMPOUND GARDEN GROUNDS',
     sqft: 1450,
     occupancy: '2 – 4 Guests',
     bed: 'Comfortable Villa Bed',
-    mainImage: '/images/experiences/reset-wellness.jpg',
+    mainImage: '/images/weddings/spaces/stay2.png',
     gallery: [
-      '/images/experiences/reset-wellness.jpg',
-      '/images/stay/heritage-veranda-hero.jpg',
-      '/images/stay/brass-soaking-tub.jpg',
-      '/images/weddings/spaces/space-outdoor-1.jpg',
+      '/images/weddings/spaces/stay2.png',
+      '/images/weddings/spaces/stay3.png',
+      '/images/weddings/spaces/stay1.png',
     ],
     description:
-      'Enjoy a relaxing stay surrounded by greenery, with comfortable interiors and a welcoming atmosphere for guests seeking a peaceful getaway.',
+      'Nestled within the lush garden grounds of our private compound, with comfortable interiors and a welcoming atmosphere for guests seeking a peaceful getaway.',
     highlights: [
       'Air conditioning',
       'Attached bathroom',
@@ -167,7 +164,7 @@ const roomsData: RoomItem[] = [
     secondaryText: 'ENQUIRE NOW',
     secondaryType: 'concierge',
     architectureStory:
-      'Tucked amid tropical foliage, bamboo, and fragrant flowering plants, offering quiet privacy, spacious shaded verandas, and natural garden serenity.',
+      'Tucked amid tropical foliage, bamboo, and fragrant flowering plants within the Idanazhi estate boundary, offering quiet privacy, spacious shaded verandas, and natural garden serenity just steps from the central courtyard and pool.',
     amenities: [
       'Air conditioning',
       'Attached bathroom',
@@ -183,8 +180,8 @@ const additionalFacilities: FacilityItem[] = [
   {
     id: 'swimming-pool',
     category: 'Swimming pool',
-    heading: 'A Refreshing Escape',
-    description: 'Unwind and enjoy a refreshing break during your stay.',
+    heading: 'Private Swimming Pool',
+    description: 'A serene open-air pool located within the private garden walls of our compound.',
     image: '/images/stay/swimming-pool.jpg',
     ctaText: 'Enquire via concierge',
     isConcierge: true,
@@ -192,8 +189,8 @@ const additionalFacilities: FacilityItem[] = [
   {
     id: 'dining',
     category: 'Dining',
-    heading: 'A Taste of Kerala',
-    description: 'Discover local flavours and traditional Kerala cuisine.',
+    heading: 'Traditional Dining Hall',
+    description: 'Savour authentic Kerala meals and flavours prepared fresh right on the estate.',
     image: '/images/experiences/kerala-sadhya-dining.jpg',
     ctaText: 'Enquire via concierge',
     isConcierge: true,
@@ -201,8 +198,8 @@ const additionalFacilities: FacilityItem[] = [
   {
     id: 'garden',
     category: 'Garden',
-    heading: 'Surrounded by Greenery',
-    description: "Enjoy the calm atmosphere of the property's outdoor spaces.",
+    heading: 'Lush Estate Grounds',
+    description: 'Stroll through private green lawns and tropical coconut groves surrounding the rooms.',
     image: '/images/weddings/spaces/space-outdoor-1.jpg',
     ctaText: 'Explore outdoor grounds',
     isConcierge: true,
@@ -210,8 +207,8 @@ const additionalFacilities: FacilityItem[] = [
   {
     id: 'events',
     category: 'Events',
-    heading: 'Celebrate at Edanazhi',
-    description: 'Explore the venue for weddings and special occasions.',
+    heading: 'Celebration Lawns & Mandapam',
+    description: 'Dedicated open-air celebration venues right here on our single property.',
     image: '/images/weddings/stage-heritage-mandapam.jpg',
     ctaText: 'Explore celebrations venue',
     ctaHref: '/celebrations',
@@ -219,8 +216,8 @@ const additionalFacilities: FacilityItem[] = [
   {
     id: 'guest-services',
     category: 'Guest services',
-    heading: 'Comfort in Every Detail',
-    description: 'Discover the services available to make your stay comfortable.',
+    heading: 'Dedicated Estate Concierge',
+    description: 'Personalized, warm hospitality tailored specifically to your stay in our private compound.',
     image: '/images/stay/heritage-veranda-hero.jpg',
     ctaText: 'Speak to concierge',
     isConcierge: true,
@@ -300,7 +297,9 @@ function UsersSpecIcon() {
 }
 
 export default function TraditionalStayPage() {
-  const [activeTab, setActiveTab] = useState<'all' | 'courtyard' | 'villas'>('all');
+  const [activeTab, setActiveTab] = useState<
+    'all' | 'nalukettu-suite' | 'nadumuttam-chamber' | 'garden-villa'
+  >('all');
   const [activeImages, setActiveImages] = useState<Record<string, string>>({});
   const [bookingOpen, setBookingOpen] = useState(false);
   const [selectedRoomDetails, setSelectedRoomDetails] = useState<RoomItem | null>(null);
@@ -312,17 +311,8 @@ export default function TraditionalStayPage() {
 
   const filteredRooms = useMemo(() => {
     if (activeTab === 'all') return roomsData;
-    return roomsData.filter((r) => r.category === activeTab);
+    return roomsData.filter((r) => r.id === activeTab);
   }, [activeTab]);
-
-  const courtyardCount = useMemo(
-    () => roomsData.filter((r) => r.category === 'courtyard').length,
-    []
-  );
-  const villasCount = useMemo(
-    () => roomsData.filter((r) => r.category === 'villas').length,
-    []
-  );
 
   const handleSelectThumbnail = (roomId: string, imageSrc: string) => {
     setActiveImages((prev) => ({
@@ -379,7 +369,7 @@ export default function TraditionalStayPage() {
 
               {/* Kicker */}
               <p className="text-[10px] sm:text-[11px] font-sans font-semibold uppercase tracking-[0.2em] sm:tracking-[0.22em] text-[#8B4836] m-0 mb-2 sm:mb-2.5">
-                HERITAGE STAY AT EDANAZHI
+                SINGLE HERITAGE RESORT COMPOUND · GURUVAYOOR
               </p>
 
               {/* Main Headline */}
@@ -389,14 +379,14 @@ export default function TraditionalStayPage() {
 
               {/* Description */}
               <p className="font-sans font-light text-[13.5px] sm:text-[15px] leading-[1.65] text-[#554B43] m-0 mb-6 sm:mb-8 max-w-[480px]">
-                Experience traditional Kerala architecture with comfortable interiors, wooden
-                craftsmanship, and peaceful surroundings. Discover a stay that brings together
-                heritage character and modern convenience.
+                An intimate ancestral farm stay in Guruvayoor. Experience authentic wooden
+                craftsmanship, peaceful courtyards, our 3 exclusive guest chambers, swimming pool,
+                and celebration grounds — all within one unified private compound.
               </p>
             </div>
 
-            {/* Filter Tabs with Active Underline Bar - Touch-friendly & horizontally scrollable on mobile */}
-            <div className="flex items-center gap-3.5 sm:gap-6 lg:gap-8 pt-2 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 mt-4 lg:mt-auto">
+            {/* Filter Tabs with Active Underline Bar - Direct chamber selectors */}
+            <div className="flex items-center gap-3 sm:gap-5 lg:gap-6 pt-2 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 mt-4 lg:mt-auto">
               <button
                 type="button"
                 onClick={() => setActiveTab('all')}
@@ -406,7 +396,7 @@ export default function TraditionalStayPage() {
                     : 'text-[#7A6E65] hover:text-[#1C1917]'
                 }`}
               >
-                <span>ALL ROOMS ({roomsData.length})</span>
+                <span>ALL 3 CHAMBERS</span>
                 {activeTab === 'all' && (
                   <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#6E2E1D]" />
                 )}
@@ -414,30 +404,45 @@ export default function TraditionalStayPage() {
 
               <button
                 type="button"
-                onClick={() => setActiveTab('courtyard')}
+                onClick={() => setActiveTab('nalukettu-suite')}
                 className={`shrink-0 relative pb-2 text-[10.5px] sm:text-[11px] font-sans font-semibold uppercase tracking-[0.16em] sm:tracking-[0.18em] transition-colors cursor-pointer ${
-                  activeTab === 'courtyard'
+                  activeTab === 'nalukettu-suite'
                     ? 'text-[#1C1917]'
                     : 'text-[#7A6E65] hover:text-[#1C1917]'
                 }`}
               >
-                <span>COURTYARD ROOMS ({courtyardCount})</span>
-                {activeTab === 'courtyard' && (
+                <span>01. MASTER SUITE</span>
+                {activeTab === 'nalukettu-suite' && (
                   <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#6E2E1D]" />
                 )}
               </button>
 
               <button
                 type="button"
-                onClick={() => setActiveTab('villas')}
+                onClick={() => setActiveTab('nadumuttam-chamber')}
                 className={`shrink-0 relative pb-2 text-[10.5px] sm:text-[11px] font-sans font-semibold uppercase tracking-[0.16em] sm:tracking-[0.18em] transition-colors cursor-pointer ${
-                  activeTab === 'villas'
+                  activeTab === 'nadumuttam-chamber'
                     ? 'text-[#1C1917]'
                     : 'text-[#7A6E65] hover:text-[#1C1917]'
                 }`}
               >
-                <span>GARDEN VILLAS ({villasCount})</span>
-                {activeTab === 'villas' && (
+                <span>02. NADUMUTTAM</span>
+                {activeTab === 'nadumuttam-chamber' && (
+                  <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#6E2E1D]" />
+                )}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setActiveTab('garden-villa')}
+                className={`shrink-0 relative pb-2 text-[10.5px] sm:text-[11px] font-sans font-semibold uppercase tracking-[0.16em] sm:tracking-[0.18em] transition-colors cursor-pointer ${
+                  activeTab === 'garden-villa'
+                    ? 'text-[#1C1917]'
+                    : 'text-[#7A6E65] hover:text-[#1C1917]'
+                }`}
+              >
+                <span>03. GARDEN VILLA</span>
+                {activeTab === 'garden-villa' && (
                   <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#6E2E1D]" />
                 )}
               </button>
@@ -476,8 +481,8 @@ export default function TraditionalStayPage() {
                     isEven ? 'lg:order-2' : 'lg:order-1'
                   }`}
                 >
-                  {/* Main Display Image */}
-                  <div className="relative aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/3] w-full overflow-hidden bg-[#261711] rounded-xs shadow-xs">
+                  {/* Main Display Image - Exact 4:3 native ratio */}
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#261711] rounded-xs shadow-xs">
                     <img
                       src={currentMain}
                       alt={room.title}
@@ -485,9 +490,13 @@ export default function TraditionalStayPage() {
                     />
                   </div>
 
-                  {/* 4 Interactive Thumbnails in a Row */}
+                  {/* Interactive Thumbnails in a Row */}
                   {room.gallery && room.gallery.length > 0 && (
-                    <div className="grid grid-cols-4 gap-2 sm:gap-2.5 md:gap-3 mt-2.5 sm:mt-3">
+                    <div
+                      className={`grid ${
+                        room.gallery.length === 3 ? 'grid-cols-3' : 'grid-cols-4'
+                      } gap-2 sm:gap-2.5 md:gap-3 mt-2.5 sm:mt-3`}
+                    >
                       {room.gallery.slice(0, 4).map((thumb, tIdx) => {
                         const isSelected = currentMain === thumb;
                         return (
@@ -644,14 +653,15 @@ export default function TraditionalStayPage() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 sm:gap-6 mb-8 sm:mb-12">
           <div className="max-w-[620px]">
             <p className="text-[10px] sm:text-[11px] font-sans font-semibold uppercase tracking-[0.2em] text-[#8B4836] m-0 mb-2 sm:mb-3">
-              ADDITIONAL RESORT FACILITIES
+              WITHIN OUR PRIVATE COMPOUND
             </p>
             <h2 className="font-serif text-[clamp(26px,3.8vw,44px)] font-normal text-[#1C1917] leading-[1.14] m-0 mb-2.5 sm:mb-3.5">
-              Facilities &amp; Experiences
+              Compound Facilities &amp; Grounds
             </h2>
             <p className="font-sans font-light text-[13px] sm:text-[15px] text-[#554B43] leading-[1.65] m-0">
-              Thoughtfully curated spaces and amenities designed to make your stay comfortable,
-              relaxing, and memorable.
+              All facilities are situated together within our single private estate in Guruvayoor —
+              step directly from your chamber to the pool, dining hall, open courtyard, and lush
+              celebration lawns.
             </p>
           </div>
           <button
@@ -762,7 +772,7 @@ export default function TraditionalStayPage() {
               {selectedRoomDetails.title}
             </h2>
 
-            <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#2D1912] mb-4 sm:mb-6 rounded-xs">
+            <div className="relative aspect-[4/3] sm:aspect-[16/10] max-h-[380px] w-full overflow-hidden bg-[#2D1912] mb-4 sm:mb-6 rounded-xs">
               <img
                 src={selectedRoomDetails.mainImage}
                 alt={selectedRoomDetails.title}
