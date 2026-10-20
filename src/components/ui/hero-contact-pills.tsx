@@ -34,7 +34,7 @@ export function HeroContactPills() {
       aria-label="Direct Contact Actions"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="absolute z-10 right-[4vw] bottom-[42px] flex flex-col items-end gap-2.5 sm:gap-3 max-[720px]:right-[20px] max-[720px]:bottom-[24px] select-none pointer-events-auto"
+      className="fixed z-[45] right-[4vw] bottom-[42px] flex flex-col items-end gap-2.5 sm:gap-3 max-[720px]:right-[20px] max-[720px]:bottom-[24px] select-none pointer-events-auto"
     >
       {/* Call Us Pill Button */}
       <a

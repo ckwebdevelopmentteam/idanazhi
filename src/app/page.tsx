@@ -4,7 +4,6 @@ import { experiences, images } from '@/data/content';
 import { ImageBlock, SectionIntro } from '@/components/sections/editorial';
 import { HeroBookingCta } from '@/components/sections/hero-booking-cta';
 import { HeroScrollButton } from '@/components/ui/hero-scroll-button';
-import { HeroContactPills } from '@/components/ui/hero-contact-pills';
 import { WeddingIntro } from '@/components/sections/wedding-intro';
 import { StoryOfIdanazhi } from '@/components/sections/story-of-idanazhi';
 import { StayAtIdanazhi } from '@/components/sections/stay-at-idanazhi';
@@ -35,7 +34,6 @@ export default function Home() {
           <HeroBookingCta />
         </div>
         <HeroScrollButton />
-        <HeroContactPills />
       </section>
 
       <WeddingIntro />
