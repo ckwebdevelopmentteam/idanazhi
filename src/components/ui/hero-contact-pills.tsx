@@ -37,11 +37,11 @@ export function HeroContactPills() {
         onFocus={() => setIsHovered(true)}
         onBlur={() => setIsHovered(false)}
         className={`group relative flex items-center h-12 rounded-full bg-[#F4E3CB] hover:bg-[#F9EDE0] border-2 border-[#DFCBA8] text-[#442D15] shadow-lg hover:shadow-xl overflow-hidden cursor-pointer active:scale-95 w-12 max-md:!w-12 md:transition-[width,background-color,transform,box-shadow] md:duration-500 md:[transition-timing-function:cubic-bezier(0.16,1,0.3,1)] ${
-          isOpen ? 'md:w-[164px]' : 'md:w-12'
+          isOpen ? 'md:w-[164px]' : 'aspect-square md:w-12'
         }`}
       >
-        {/* Phone Icon - perfectly centered in the 44px inner circle */}
-        <span className="w-[44px] h-[44px] flex items-center justify-center shrink-0">
+        {/* Phone Icon - centered in the inner circle */}
+        <span className="h-full aspect-square flex items-center justify-center shrink-0">
           <svg
             viewBox="0 0 24 24"
             fill="currentColor"
@@ -71,11 +71,11 @@ export function HeroContactPills() {
         onFocus={() => setIsHovered(true)}
         onBlur={() => setIsHovered(false)}
         className={`group relative flex items-center h-12 rounded-full bg-[#20321A] hover:bg-[#283E21] border-2 border-[#DFCBA8] text-white shadow-lg hover:shadow-xl overflow-hidden cursor-pointer active:scale-95 w-12 max-md:!w-12 md:transition-[width,background-color,transform,box-shadow] md:duration-500 md:[transition-timing-function:cubic-bezier(0.16,1,0.3,1)] ${
-          isOpen ? 'md:w-[164px]' : 'md:w-12'
+          isOpen ? 'md:w-[164px]' : 'aspect-square md:w-12'
         }`}
       >
-        {/* WhatsApp Icon - crisp, official vector perfectly centered in the 44px inner circle */}
-        <span className="w-[44px] h-[44px] flex items-center justify-center shrink-0">
+        {/* WhatsApp Icon - crisp, official vector perfectly centered in the inner circle */}
+        <span className="h-full aspect-square flex items-center justify-center shrink-0">
           <svg
             viewBox="0 0 24 24"
             fill="currentColor"
