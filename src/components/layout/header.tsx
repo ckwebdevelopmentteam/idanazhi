@@ -170,7 +170,7 @@ export function Header() {
                   return (
                     <div
                       key={item.label}
-                      className="relative"
+                      className="relative group"
                       onMouseEnter={handleDropdownMouseEnter}
                       onMouseLeave={handleDropdownMouseLeave}
                     >
@@ -189,7 +189,7 @@ export function Header() {
                         <span>{item.label}</span>
                         <ChevronDown
                           size={13}
-                          className={`transition-transform duration-200 ${
+                          className={`transition-transform duration-200 group-hover:rotate-180 ${
                             experienceDropdownOpen ? 'rotate-180' : ''
                           }`}
                         />
@@ -197,7 +197,7 @@ export function Header() {
 
                       {/* Dropdown Menu for Experience Sub-Categories (Pure White Background, Brown Text, No Descriptions) */}
                       <div
-                        className={`absolute top-full left-1/2 -translate-x-1/2 pt-2.5 w-[275px] transition-all duration-200 ease-out z-50 ${
+                        className={`absolute top-full left-1/2 -translate-x-1/2 pt-2.5 w-[275px] transition-all duration-200 ease-out z-50 group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto group-hover:visible ${
                           experienceDropdownOpen
                             ? 'opacity-100 translate-y-0 pointer-events-auto visible'
                             : 'opacity-0 -translate-y-1 pointer-events-none invisible'
