@@ -1,18 +1,112 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { motion, AnimatePresence, type Variants } from 'framer-motion';
-import {
-  ArrowUpRight,
-  Clock,
-  Sun,
-  Check,
-  ChevronUp,
-  ChevronDown,
-} from 'lucide-react';
-import { experienceSubCategories } from '@/data/navigation';
-import { BookingPanel } from '@/components/sections/booking-panel';
+import { ArrowUpRight } from 'lucide-react';
+
+interface ExperienceItem {
+  id: string;
+  number: string;
+  category: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  details: {
+    timing: string;
+    duration: string;
+    setting: string;
+  };
+  highlights: string[];
+  image: string;
+  secondaryImage?: string;
+}
+
+const experiences: ExperienceItem[] = [
+  {
+    id: 'rice-farming',
+    number: '01',
+    category: 'Agrarian Heritage',
+    title: 'Traditional Rice Farming',
+    subtitle: 'Walking the emerald bunds of ancestral paddy fields',
+    description:
+      'Step barefoot onto the cool, earthen ridges of Kerala’s historic paddy fields. Guided by generational farmers who have tended these soils for decades, you will experience the unhurried rhythms of traditional agriculture—from transplanting heirloom saplings and understanding ancient stone water channels to tasting sweet, fresh tender coconut under the morning sun.',
+    details: {
+      timing: 'Early Morning (6:30 AM – 9:00 AM)',
+      duration: '2.5 Hours',
+      setting: 'Idanazhi Organic Fields & Irrigation Bunds',
+    },
+    highlights: [
+      'Barefoot mud-walk along ancient field bunds',
+      'Hands-on planting of native heirloom paddy varieties',
+      'Understanding traditional gravity-fed water channels',
+      'Fresh tender coconut water served in the field',
+    ],
+    image: '/images/experiences/paddy-farming-experience.jpg',
+    secondaryImage: '/images/experiences/working-fields.jpg',
+  },
+  {
+    id: 'kumbidi-village',
+    number: '02',
+    category: 'Village & Craft',
+    title: 'Kumbidi Village Experience',
+    subtitle: 'A stroll through quiet artisan hamlets and red-earth lanes',
+    description:
+      'Kumbidi is a living rural hamlet where craft and community remain gentle and unchanged. Wander along shaded village pathways flanked by betel nut palms, sit beside master potters shaping terracotta vessels on hand-turned wheels, observe local weavers at their wooden looms, and pause at a traditional village chayakada for steaming cardamom tea and quiet conversation.',
+    details: {
+      timing: 'Morning (9:00 AM) or Afternoon (3:30 PM)',
+      duration: '3.0 Hours',
+      setting: 'Kumbidi Artisan Quarter & Village Pathways',
+    },
+    highlights: [
+      'Interactive clay pottery on traditional wheels',
+      'Visits to generational handloom weaving ateliers',
+      'Tea and warm snacks at a local village chayakada',
+      'Unhurried conversations with village elders and artisans',
+    ],
+    image: '/images/experiences/kumbidi-village-experience.jpg',
+  },
+  {
+    id: 'temple-experience',
+    number: '03',
+    category: 'Sacred Heritage',
+    title: 'Temple Experience',
+    subtitle: 'Timeless wooden architecture and the silence of evening oil lamps',
+    description:
+      'Centuries-old Kerala temples are sanctums of profound stillness, built with teak joinery, laterite stone, and cosmic geometric alignment. Accompanied by our resident cultural custodian, discover the sacred architecture of the region, listen to the resonant notes of Sopana Sangeetham, and witness the Deeparadhana as hundreds of brass oil lamps flicker to life against ancient stone.',
+    details: {
+      timing: 'Dawn (6:00 AM) or Twilight (6:00 PM)',
+      duration: '2.0 Hours',
+      setting: 'Historic Temple Sanctums of the Bharatapuzha Valley',
+    },
+    highlights: [
+      'Architectural walk through historic teak wood gopurams',
+      'Witnessing the Deeparadhana brass oil lamp ritual',
+      'Traditional temple prasadam prepared by heritage cooks',
+      'Insights into sacred Thachu Shastra design principles',
+    ],
+    image: '/images/experiences/temple-heritage-experience.jpg',
+  },
+  {
+    id: 'fishing-harbor',
+    number: '04',
+    category: 'River & Waters',
+    title: 'Live Fishing Experience',
+    subtitle: 'Dawn canoe excursions and traditional throw-net craft',
+    description:
+      'As first light breaks through the river mist, board a traditional wooden country craft with local fishermen. Watch the graceful, practiced unfurling of the Veechu Vala (circular cast net), observe the morning sorting of fresh river pearl spot (Karimeen), and return to Idanazhi where our culinary team prepares the morning catch with freshly pressed coconut milk.',
+    details: {
+      timing: 'Sunrise Departure (5:30 AM – 8:00 AM)',
+      duration: '2.5 Hours',
+      setting: 'River Shore, Country Canoe & Landing Point',
+    },
+    highlights: [
+      'Early morning wooden canoe excursion on quiet waters',
+      'Live demonstration and practice of traditional throw-net casting',
+      'Observing the morning river catch and native fish species',
+      'Fresh catch preparation demonstration by Idanazhi chefs',
+    ],
+    image: '/images/experiences/fishing-harbor-experience.jpg',
+  },
+];
 
 const AUTO_SLIDE_INTERVAL = 3000; // 3 seconds per activity transition
 
@@ -95,573 +189,223 @@ const vignetteVariants: Variants = {
 };
 
 export default function ExperiencesPage() {
-  const [bookingOpen, setBookingOpen] = useState(false);
-  const [selectedExperience, setSelectedExperience] = useState<string | null>(null);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [direction, setDirection] = useState<number>(1);
+  const [activeSection, setActiveSection] = useState<string>('rice-farming');
 
-  const total = experienceSubCategories.length;
-  const prevIndex = (currentIndex - 1 + total) % total;
-  const nextIndex = (currentIndex + 1) % total;
+  const handleOpenBooking = () => {
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('open-booking-modal'));
+    }
+  };
 
-  const prevExperience = experienceSubCategories[prevIndex];
-  const activeExperience = experienceSubCategories[currentIndex];
-  const nextExperience = experienceSubCategories[nextIndex];
-
-  // Auto-scrolling continuous vertical transition loop
+  // Scroll spy to highlight current section in anchor bar
   useEffect(() => {
-    const timer = setInterval(() => {
-      setDirection(1);
-      setCurrentIndex((prev) => (prev + 1) % total);
-    }, AUTO_SLIDE_INTERVAL);
+    const handleScroll = () => {
+      const scrollPos = window.scrollY + 200;
+      for (const exp of experiences) {
+        const el = document.getElementById(exp.id);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPos >= top && scrollPos < top + height) {
+            setActiveSection(exp.id);
+            break;
+          }
+        }
+      }
+    };
 
-    return () => clearInterval(timer);
-  }, [total, currentIndex]);
-
-  const goToPrev = (e?: React.MouseEvent) => {
-    e?.stopPropagation();
-    setDirection(-1);
-    setCurrentIndex((prev) => (prev === 0 ? total - 1 : prev - 1));
-  };
-
-  const goToNext = (e?: React.MouseEvent) => {
-    e?.stopPropagation();
-    setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % total);
-  };
-
-  const handleBookExperience = (expTitle: string) => {
-    setSelectedExperience(expTitle);
-    setBookingOpen(true);
-  };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <main className="bg-paper min-h-screen text-ink overflow-x-hidden">
+    <main className="bg-[#FAF8F5] min-h-screen text-[#2D1912] selection:bg-[#7C402E] selection:text-white">
       {/* =========================================================================
-          HERO SPLIT-SCREEN
-          Left: Warm Paper Panel with Brand Crest, Vertical-Animated Editorial Quote, Button
-          Right: Full-Bleed Photograph (Matches Middle Vignette Exactly!)
-          Center Seam:
-            - Top Vignette: Previous Activity (Click to slide vertically up)
-            - Middle Vignette: Active Activity (IDENTICAL to Main Right Photo!)
-            - Bottom Vignette: Next Activity (Click to slide vertically down)
+          HERO: CALM, EDITORIAL & SPACIOUS
           ========================================================================= */}
-      <section
-        className="relative w-full min-h-screen lg:min-h-[100svh] flex flex-col lg:flex-row bg-[#F4EFE6] border-b border-ink/10 select-none group/hero"
-      >
-        {/* Left Column: Editorial & Brand Core */}
-        <div className="w-full lg:w-[48%] xl:w-[46%] bg-[#F4EFE6] flex flex-col justify-between items-center text-center px-6 sm:px-12 lg:px-16 pt-[125px] sm:pt-[140px] pb-10 lg:pb-14 min-h-[580px] lg:min-h-screen relative z-10 box-border">
-          {/* Top Brand Crest / Emblem */}
-          <div className="flex flex-col items-center">
-            <span className="font-sans text-[8.5px] sm:text-[9.5px] uppercase tracking-[0.32em] text-[#7A5A43] font-semibold mb-2">
-              FARM STAY &amp; HERITAGE EXPERIENCES
-            </span>
-            <div className="relative w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center my-1">
-              <img
-                src="/images/weddings/logo/smy_mark_hd.png"
-                alt="Idanazhi Heritage Emblem"
-                className="w-full h-full object-contain opacity-90 drop-shadow-xs"
-              />
-            </div>
-            <span className="font-serif text-[17px] sm:text-[19px] tracking-[0.24em] text-[#3E1A10] font-normal uppercase mt-1">
-              IDANAZHI
-            </span>
-            <span className="font-sans text-[8px] sm:text-[9px] tracking-[0.28em] text-[#7A5A43] uppercase font-light">
-              KUMBIDI · KERALA
-            </span>
-          </div>
-
-          {/* Middle Main Editorial Headline & Framed Action Button with Vertical Motion */}
-          <div className="my-auto py-6 max-w-[460px] w-full mx-auto flex flex-col items-center text-center min-h-[230px] justify-center overflow-hidden">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={`headline-${activeExperience.id}`}
-                custom={direction}
-                variants={textVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                className="flex flex-col items-center w-full"
-              >
-                <span className="inline-block font-sans text-[9px] uppercase tracking-[0.22em] text-[#84382B] font-semibold mb-3">
-                  Immersion 0{currentIndex + 1} of 0{total}
-                </span>
-
-                <h1 className="font-serif text-[clamp(24px,2.4vw,36px)] font-normal text-[#381E15] leading-[1.38] sm:leading-[1.42] tracking-[-0.015em] m-0 mb-7 text-center">
-                  {activeExperience.heroHeadline || activeExperience.title}
-                </h1>
-
-                <button
-                  type="button"
-                  onClick={() => handleBookExperience(activeExperience.title)}
-                  className="inline-block border border-[#4E2418]/45 px-7 py-2.5 text-[10.5px] font-sans font-medium uppercase tracking-[0.22em] text-[#4E2418] bg-transparent hover:bg-[#4E2418] hover:text-white transition-all duration-300 cursor-pointer active:scale-95 shadow-2xs"
-                  aria-label={`Explore ${activeExperience.title}`}
-                >
-                  EXPLORE {activeExperience.shortTitle.toUpperCase()}
-                </button>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Bottom Quotation Mark, Micro-Copy & Navigation Timer */}
-          <div className="max-w-[440px] w-full mx-auto flex flex-col items-center text-center pt-2">
-            <span className="block font-serif text-[26px] sm:text-[28px] leading-none text-[#84382B]/60 select-none mb-1">
-              “
-            </span>
-
-            <div className="min-h-[46px] flex items-center justify-center overflow-hidden">
-              <AnimatePresence mode="wait" custom={direction}>
-                <motion.p
-                  key={`quote-${activeExperience.id}`}
-                  custom={direction}
-                  variants={textVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  className="font-sans text-[11px] sm:text-[12px] font-light text-[#5C2E20]/80 leading-relaxed m-0 italic"
-                >
-                  {activeExperience.poeticQuote ||
-                    'At Idanazhi, time slows to the whisper of emerald paddy fields, the chime of temple bells, and the timeless warmth of village living.'}
-                </motion.p>
-              </AnimatePresence>
-            </div>
-
-            {/* Subtle Progress Bar & Vertical Controls */}
-            <div className="flex items-center justify-center gap-3 mt-6 pt-3 border-t border-[#4E2418]/10 w-full max-w-[260px]">
-              <button
-                type="button"
-                onClick={goToPrev}
-                className="p-1.5 text-[#4E2418]/60 hover:text-[#4E2418] hover:bg-black/5 rounded-full transition-colors cursor-pointer"
-                title={`Previous: ${prevExperience.shortTitle}`}
-                aria-label="Previous Activity"
-              >
-                <ChevronUp size={16} />
-              </button>
-
-              {/* Progress Line */}
-              <div className="flex-1 h-[2px] bg-[#4E2418]/15 relative overflow-hidden rounded-full">
-                <motion.div
-                  key={`progress-${currentIndex}`}
-                  initial={{ width: '0%' }}
-                  animate={{ width: '100%' }}
-                  transition={{
-                    duration: AUTO_SLIDE_INTERVAL / 1000,
-                    ease: 'linear',
-                  }}
-                  className="h-full bg-[#84382B]"
-                />
-              </div>
-
-              <button
-                type="button"
-                onClick={goToNext}
-                className="p-1.5 text-[#4E2418]/60 hover:text-[#4E2418] hover:bg-black/5 rounded-full transition-colors cursor-pointer"
-                title={`Next: ${nextExperience.shortTitle}`}
-                aria-label="Next Activity"
-              >
-                <ChevronDown size={16} />
-              </button>
-            </div>
-          </div>
+      <section className="pt-32 pb-16 md:pt-40 md:pb-24 px-6 sm:px-10 lg:px-16 max-w-[1360px] mx-auto">
+        <div className="max-w-[860px]">
+          <p className="text-[12px] uppercase font-sans tracking-[0.25em] text-[#84382B] mb-4 font-medium">
+            Experiences &amp; Immersions
+          </p>
+          <h1 className="font-serif text-[clamp(36px,5.2vw,72px)] font-normal text-[#2D1912] leading-[1.08] tracking-[-0.025em] mb-6">
+            Four unhurried ways to live with the soil, heritage, and quiet waters of Kumbidi.
+          </h1>
+          <p className="font-sans font-light text-[16px] sm:text-[18px] leading-relaxed text-[#5A4238] max-w-[680px]">
+            Every experience at Idanazhi is hosted privately with generational custodians. No scripted tours, no crowds—just genuine encounters rooted in the living traditions of Kerala.
+          </p>
         </div>
 
-        {/* Right Column: Full-Bleed Main Photograph (MATCHES MIDDLE VIGNETTE EXACTLY) */}
-        <div className="w-full lg:w-[52%] xl:w-[54%] relative overflow-hidden h-[460px] sm:h-[560px] lg:h-auto lg:min-h-full bg-[#351e15]">
-          <AnimatePresence mode="popLayout" custom={direction}>
-            <motion.img
-              key={`main-photo-${activeExperience.id}`}
-              custom={direction}
-              variants={mainImageVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              src={activeExperience.image}
-              alt={activeExperience.title}
-              className="w-full h-full object-cover object-center absolute inset-0"
-            />
-          </AnimatePresence>
-
-          {/* Subtle gradient wash over bottom/edges */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/10 pointer-events-none z-1" />
-        </div>
-
-        {/* =====================================================================
-            CENTER 3 FLOATING COLLAGE VIGNETTES
-            - Top Vignette: Previous activity picture (Click -> vertical transition)
-            - Middle Vignette: Current activity picture (IDENTICAL to main right picture!)
-            - Bottom Vignette: Next activity picture (Click -> vertical transition)
-            ===================================================================== */}
-        {/* Desktop Positioning */}
-        <div className="hidden lg:block pointer-events-none z-20">
-          {/* Top Vignette (PREVIOUS Activity Image - Clickable, No Border) */}
-          <div
-            onClick={goToPrev}
-            className="absolute top-[8%] xl:top-[10%] left-[48%] xl:left-[46%] -translate-x-1/2 w-[120px] xl:w-[135px] h-[140px] xl:h-[160px] overflow-hidden shadow-[0_16px_36px_rgba(45,25,18,0.22)] pointer-events-auto cursor-pointer transition-transform duration-500 ease-out hover:scale-105 group bg-[#EAE3D6]"
-            title={`Click to view previous: ${prevExperience.shortTitle}`}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => e.key === 'Enter' && goToPrev()}
-            aria-label={`Previous activity: ${prevExperience.shortTitle}`}
-          >
-            <AnimatePresence mode="popLayout" custom={direction}>
-              <motion.img
-                key={`top-prev-${prevExperience.id}`}
-                custom={direction}
-                variants={vignetteVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                src={prevExperience.image}
-                alt={`Previous: ${prevExperience.title}`}
-                className="w-full h-full object-cover absolute inset-0"
-              />
-            </AnimatePresence>
-
-            {/* Hover overlay indicator */}
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-white p-2 text-center pointer-events-none">
-              <ChevronUp size={20} className="mb-0.5 text-white animate-bounce" />
-              <span className="font-sans text-[8.5px] uppercase tracking-[0.18em] font-semibold">
-                PREV
-              </span>
-              <span className="font-serif text-[11px] leading-tight line-clamp-1 mt-0.5">
-                {prevExperience.shortTitle}
-              </span>
-            </div>
-
-            {/* Subtle corner badge */}
-            <div className="absolute bottom-1.5 left-1.5 bg-black/60 backdrop-blur-xs px-1.5 py-0.5 text-[8px] font-sans font-medium text-white tracking-widest uppercase rounded-2xs z-10">
-              0{prevIndex + 1}
-            </div>
-          </div>
-
-          {/* Middle Vignette (CURRENT Activity Image - SAME AS RIGHT MAIN PICTURE, No Border) */}
-          <div
-            onClick={() => handleBookExperience(activeExperience.title)}
-            className="absolute top-[42%] xl:top-[44%] left-[44%] xl:left-[42%] -translate-x-1/2 w-[138px] xl:w-[158px] h-[138px] xl:h-[158px] overflow-hidden shadow-[0_22px_48px_rgba(45,25,18,0.30)] pointer-events-auto cursor-pointer transition-transform duration-500 ease-out hover:scale-105 group bg-[#EAE3D6]"
-            title={`Current: ${activeExperience.shortTitle} (Click to explore)`}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => e.key === 'Enter' && handleBookExperience(activeExperience.title)}
-            aria-label={`Current activity: ${activeExperience.shortTitle}`}
-          >
-            <AnimatePresence mode="popLayout" custom={direction}>
-              <motion.img
-                key={`mid-active-${activeExperience.id}`}
-                custom={direction}
-                variants={vignetteVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                src={activeExperience.image}
-                alt={`Current: ${activeExperience.title}`}
-                className="w-full h-full object-cover absolute inset-0"
-              />
-            </AnimatePresence>
-
-            {/* Active Tag */}
-            <div className="absolute top-1.5 right-1.5 bg-[#84382B] text-white px-2 py-0.5 text-[7.5px] font-sans font-bold tracking-[0.2em] uppercase shadow-xs z-10">
-              ACTIVE
-            </div>
-
-            {/* Hover details overlay */}
-            <div className="absolute inset-0 bg-black/45 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-white p-2.5 text-center pointer-events-none">
-              <span className="font-sans text-[8px] uppercase tracking-[0.2em] text-[#FAF7F2]/90 font-medium mb-1">
-                IMMERSION 0{currentIndex + 1}
-              </span>
-              <span className="font-serif text-[12px] leading-tight line-clamp-2">
-                {activeExperience.shortTitle}
-              </span>
-            </div>
-          </div>
-
-          {/* Bottom Vignette (NEXT Activity Image - Clickable, No Border) */}
-          <div
-            onClick={goToNext}
-            className="absolute top-[72%] xl:top-[74%] left-[49%] xl:left-[47%] -translate-x-1/2 w-[125px] xl:w-[145px] h-[125px] xl:h-[145px] overflow-hidden shadow-[0_18px_38px_rgba(45,25,18,0.24)] pointer-events-auto cursor-pointer transition-transform duration-500 ease-out hover:scale-105 group bg-[#EAE3D6]"
-            title={`Click to view next: ${nextExperience.shortTitle}`}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => e.key === 'Enter' && goToNext()}
-            aria-label={`Next activity: ${nextExperience.shortTitle}`}
-          >
-            <AnimatePresence mode="popLayout" custom={direction}>
-              <motion.img
-                key={`bot-next-${nextExperience.id}`}
-                custom={direction}
-                variants={vignetteVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                src={nextExperience.image}
-                alt={`Next: ${nextExperience.title}`}
-                className="w-full h-full object-cover absolute inset-0"
-              />
-            </AnimatePresence>
-
-            {/* Hover overlay indicator */}
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-white p-2 text-center pointer-events-none">
-              <ChevronDown size={20} className="mt-0.5 text-white animate-bounce" />
-              <span className="font-sans text-[8.5px] uppercase tracking-[0.18em] font-semibold">
-                NEXT
-              </span>
-              <span className="font-serif text-[11px] leading-tight line-clamp-1 mt-0.5">
-                {nextExperience.shortTitle}
-              </span>
-            </div>
-
-            {/* Subtle corner badge */}
-            <div className="absolute top-1.5 left-1.5 bg-black/60 backdrop-blur-xs px-1.5 py-0.5 text-[8px] font-sans font-medium text-white tracking-widest uppercase rounded-2xs z-10">
-              0{nextIndex + 1}
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile/Tablet Inset Vignette Row (No Borders) */}
-        <div className="lg:hidden flex items-center justify-center gap-3 px-4 py-4 bg-[#F4EFE6] border-t border-ink/10 overflow-x-auto">
-          {/* Prev thumbnail */}
-          <div
-            onClick={goToPrev}
-            className="w-[95px] h-[105px] shrink-0 overflow-hidden shadow-md bg-linen relative cursor-pointer"
-            role="button"
-            tabIndex={0}
-          >
-            <img
-              src={prevExperience.image}
-              alt={prevExperience.shortTitle}
-              className="w-full h-full object-cover opacity-75"
-            />
-            <div className="absolute inset-0 bg-black/35 flex flex-col items-center justify-center text-white text-[8px] font-sans uppercase tracking-widest">
-              <ChevronUp size={14} />
-              <span>PREV</span>
-            </div>
-          </div>
-
-          {/* Active thumbnail (SAME as main photo, No Border) */}
-          <div
-            className="w-[115px] h-[115px] shrink-0 overflow-hidden shadow-lg bg-linen relative"
-          >
-            <img
-              src={activeExperience.image}
-              alt={activeExperience.shortTitle}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute bottom-1 right-1 bg-[#84382B] text-white px-1.5 py-0.5 text-[7px] font-bold uppercase tracking-wider">
-              ACTIVE
-            </div>
-          </div>
-
-          {/* Next thumbnail */}
-          <div
-            onClick={goToNext}
-            className="w-[95px] h-[105px] shrink-0 overflow-hidden shadow-md bg-linen relative cursor-pointer"
-            role="button"
-            tabIndex={0}
-          >
-            <img
-              src={nextExperience.image}
-              alt={nextExperience.shortTitle}
-              className="w-full h-full object-cover opacity-75"
-            />
-            <div className="absolute inset-0 bg-black/35 flex flex-col items-center justify-center text-white text-[8px] font-sans uppercase tracking-widest">
-              <ChevronDown size={14} />
-              <span>NEXT</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================================
-          ACTIVITY SELECTOR BAR (Fast interactive switching across all 7 activities)
-          ========================================================================= */}
-      <nav
-        aria-label="Experience Activities Navigation"
-        className="sticky top-0 z-30 bg-paper/95 backdrop-blur-md border-b border-ink/10 py-3.5 px-4 sm:px-8 shadow-xs"
-      >
-        <div className="max-w-[1400px] mx-auto flex items-center justify-start lg:justify-center gap-2 sm:gap-3 overflow-x-auto no-scrollbar">
-          {experienceSubCategories.map((exp, index) => {
-            const isActive = index === currentIndex;
-            return (
-              <button
-                key={exp.id}
-                type="button"
-                onClick={() => {
-                  setDirection(index > currentIndex ? 1 : -1);
-                  setCurrentIndex(index);
-                  const el = document.getElementById(exp.slug);
-                  if (el) {
-                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }
-                }}
-                className={`whitespace-nowrap px-3.5 py-1.5 text-[10.5px] uppercase tracking-[0.16em] font-sans transition-all duration-200 cursor-pointer ${
-                  isActive
-                    ? 'bg-[#4E2418] text-white font-medium shadow-xs'
-                    : 'bg-transparent text-[#4E2418]/80 hover:text-[#4E2418] hover:bg-black/5'
-                }`}
-              >
-                0{index + 1}. {exp.shortTitle}
-              </button>
-            );
-          })}
-        </div>
-      </nav>
-
-      {/* =========================================================================
-          DETAILED ACTIVITY CHAPTERS (Deep Storytelling, Timing & Full Photography)
-          ========================================================================= */}
-      <section className="px-6 md:px-12 lg:px-16 max-w-[1400px] mx-auto py-20 lg:py-28 space-y-28 lg:space-y-36">
-        {experienceSubCategories.map((exp, index) => {
-          const isEven = index % 2 === 0;
-
-          return (
-            <article
+        {/* Quiet Anchor Navigation matching the Navbar Subcategories */}
+        <div className="mt-12 md:mt-16 pt-6 border-t border-[#E8E1D9] flex flex-wrap items-center gap-x-8 gap-y-3">
+          <span className="text-[11px] uppercase tracking-[0.2em] text-[#8C7A70] font-sans">
+            Jump to:
+          </span>
+          {experiences.map((exp) => (
+            <a
               key={exp.id}
-              id={exp.slug}
-              className={`scroll-mt-[100px] grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center ${
-                isEven ? '' : 'lg:[&>*:first-child]:order-2'
+              href={`#${exp.id}`}
+              className={`text-[13px] font-sans transition-colors duration-200 ${
+                activeSection === exp.id
+                  ? 'text-[#84382B] font-semibold border-b border-[#84382B] pb-0.5'
+                  : 'text-[#5A4238] hover:text-[#2D1912]'
               }`}
             >
-              {/* Photo & Collage Column */}
-              <div className="lg:col-span-7 space-y-4">
-                {/* Main Large Photograph */}
-                <div className="relative group overflow-hidden border border-ink/10 shadow-[0_16px_44px_rgba(45,25,18,0.1)] aspect-[16/10] bg-linen">
-                  <img
-                    src={exp.image}
-                    alt={exp.title}
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
-                  {/* Subtle Number Tag */}
-                  <div className="absolute top-4 left-4 bg-paper/95 backdrop-blur-xs px-3 py-1 border border-ink/10 text-[9px] uppercase tracking-[0.24em] font-semibold text-[#84382B]">
-                    Activity 0{index + 1}
-                  </div>
-                </div>
-
-                {/* Micro Collage Vignette Thumbnails (No Border) */}
-                <div className="grid grid-cols-3 gap-3">
-                  {exp.vignette1 && (
-                    <div className="aspect-[4/3] overflow-hidden bg-linen shadow-2xs group">
-                      <img
-                        src={exp.vignette1}
-                        alt={`${exp.title} thumbnail 1`}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                  )}
-                  {exp.vignette2 && (
-                    <div className="aspect-[4/3] overflow-hidden bg-linen shadow-2xs group">
-                      <img
-                        src={exp.vignette2}
-                        alt={`${exp.title} thumbnail 2`}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                  )}
-                  {exp.vignette3 && (
-                    <div className="aspect-[4/3] overflow-hidden bg-linen shadow-2xs group">
-                      <img
-                        src={exp.vignette3}
-                        alt={`${exp.title} thumbnail 3`}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Text & Activity Narrative Column */}
-              <div className="lg:col-span-5 flex flex-col justify-center">
-                <p className="m-0 mb-2 uppercase tracking-[0.22em] text-[10px] font-semibold text-[#84382B]">
-                  {exp.subtitle}
-                </p>
-                <h2 className="font-serif text-[clamp(28px,3.2vw,44px)] font-normal text-[#2D1912] leading-[1.14] m-0 mb-4 tracking-[-0.02em]">
-                  {exp.title}
-                </h2>
-                <p className="font-sans text-[14.5px] text-[#5A3828]/95 leading-relaxed font-light m-0 mb-6">
-                  {exp.longDescription}
-                </p>
-
-                {/* Meta details: Duration & Optimal Time */}
-                <div className="grid grid-cols-2 gap-3 py-3.5 mb-6 border-y border-ink/12">
-                  {exp.duration && (
-                    <div className="flex items-center gap-2">
-                      <Clock size={15} className="text-[#84382B] shrink-0" />
-                      <div>
-                        <span className="block text-[8.5px] uppercase tracking-[0.16em] text-muted font-medium">
-                          Duration
-                        </span>
-                        <span className="text-[12px] font-medium text-[#2D1912]">{exp.duration}</span>
-                      </div>
-                    </div>
-                  )}
-                  {exp.bestTime && (
-                    <div className="flex items-center gap-2">
-                      <Sun size={15} className="text-[#84382B] shrink-0" />
-                      <div>
-                        <span className="block text-[8.5px] uppercase tracking-[0.16em] text-muted font-medium">
-                          Optimal Timing
-                        </span>
-                        <span className="text-[12px] font-medium text-[#2D1912]">{exp.bestTime}</span>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Highlights List */}
-                <div className="mb-8">
-                  <p className="m-0 mb-2.5 text-[10px] uppercase tracking-[0.18em] font-semibold text-muted">
-                    Activity Highlights
-                  </p>
-                  <ul className="list-none p-0 m-0 space-y-2">
-                    {exp.highlights.map((h, i) => (
-                      <li
-                        key={i}
-                        className="flex items-start gap-2.5 text-[13px] text-[#4E2418]/90 font-light leading-snug"
-                      >
-                        <Check size={14} className="text-[#84382B] mt-[2px] shrink-0" />
-                        <span>{h}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Action CTAs */}
-                <div className="flex flex-wrap items-center gap-4">
-                  <button
-                    type="button"
-                    onClick={() => handleBookExperience(exp.title)}
-                    className="inline-flex items-center justify-center px-6 py-3 bg-[#4E2418] text-white font-sans text-[10.5px] font-medium tracking-[0.18em] uppercase transition-all duration-200 hover:bg-[#84382B] active:scale-95 cursor-pointer shadow-xs"
-                  >
-                    RESERVE THIS EXPERIENCE
-                  </button>
-                  <Link
-                    href="/#contact"
-                    className="inline-flex items-center gap-1.5 text-[11px] font-medium tracking-[0.14em] text-[#84382B] hover:text-[#4E2418] transition-colors"
-                  >
-                    <span>General Inquiry</span>
-                    <ArrowUpRight size={14} />
-                  </Link>
-                </div>
-              </div>
-            </article>
-          );
-        })}
+              <span className="text-[#8C7A70] mr-1.5 font-normal">{exp.number}</span>
+              {exp.title}
+            </a>
+          ))}
+        </div>
       </section>
 
       {/* =========================================================================
-          BOOKING & ENQUIRY MODAL (Full custom modal integration)
+          EXPERIENCES: DEDICATED EDITORIAL SECTIONS
           ========================================================================= */}
-      {bookingOpen && (
-        <BookingPanel
-          defaultOccasion={
-            selectedExperience?.toLowerCase().includes('stay')
-              ? 'heritage-stay'
-              : 'celebration'
-          }
-          close={() => {
-            setBookingOpen(false);
-            setSelectedExperience(null);
-          }}
-        />
-      )}
+      <div className="space-y-24 md:space-y-36 pb-28 md:pb-40">
+        {experiences.map((exp, index) => {
+          const isEven = index % 2 === 1;
+
+          return (
+            <section
+              key={exp.id}
+              id={exp.id}
+              className="scroll-mt-28 md:scroll-mt-36 px-6 sm:px-10 lg:px-16 max-w-[1360px] mx-auto"
+            >
+              <div
+                className={`grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center ${
+                  isEven ? 'lg:flex-row-reverse' : ''
+                }`}
+              >
+                {/* Visual Frame */}
+                <div
+                  className={`lg:col-span-7 ${
+                    isEven ? 'lg:order-2' : 'lg:order-1'
+                  }`}
+                >
+                  <div className="relative group overflow-hidden bg-[#ECE6DF]">
+                    <img
+                      src={exp.image}
+                      alt={exp.title}
+                      className="w-full h-[400px] sm:h-[500px] lg:h-[580px] object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                    />
+                  </div>
+                  {exp.secondaryImage && (
+                    <div className="hidden sm:flex items-center gap-4 mt-4 text-[#7A6B63] text-[12px] font-sans">
+                      <div className="w-16 h-12 overflow-hidden bg-[#ECE6DF] flex-shrink-0">
+                        <img
+                          src={exp.secondaryImage}
+                          alt="Detail"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <p className="m-0 italic">
+                        Hands-on participation guided by local farming elders.
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Narrative & Details */}
+                <div
+                  className={`lg:col-span-5 flex flex-col justify-center ${
+                    isEven ? 'lg:order-1' : 'lg:order-2'
+                  }`}
+                >
+                  {/* Category & Number */}
+                  <div className="flex items-center gap-3 mb-4 text-[#84382B] text-[11px] uppercase tracking-[0.22em] font-sans font-medium">
+                    <span>{exp.number}</span>
+                    <span className="w-6 h-[1px] bg-[#84382B]/40" />
+                    <span>{exp.category}</span>
+                  </div>
+
+                  {/* Main Title */}
+                  <h2 className="font-serif text-[clamp(28px,3.2vw,44px)] font-normal text-[#2D1912] leading-[1.15] tracking-[-0.02em] mb-3">
+                    {exp.title}
+                  </h2>
+
+                  {/* Poetic Subtitle */}
+                  <p className="font-serif italic text-[16px] sm:text-[18px] text-[#7A5A4D] mb-6 leading-snug">
+                    {exp.subtitle}
+                  </p>
+
+                  {/* Body Paragraph */}
+                  <p className="font-sans font-light text-[14.5px] sm:text-[15.5px] leading-relaxed text-[#5A4238] mb-8">
+                    {exp.description}
+                  </p>
+
+                  {/* Highlights List */}
+                  <div className="mb-8 pt-6 border-t border-[#E8E1D9]">
+                    <p className="text-[11px] uppercase tracking-[0.2em] font-sans text-[#8C7A70] font-medium mb-3">
+                      Experience Highlights
+                    </p>
+                    <ul className="space-y-2.5 p-0 m-0 list-none font-sans text-[13.5px] text-[#4A3730]">
+                      {exp.highlights.map((item, i) => (
+                        <li key={i} className="flex items-start gap-2.5">
+                          <span className="text-[#84382B] text-[12px] mt-0.5">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Practical Details */}
+                  <div className="grid grid-cols-2 gap-4 py-4 mb-8 border-y border-[#E8E1D9] text-[12.5px] font-sans">
+                    <div>
+                      <span className="block text-[#8C7A70] text-[10.5px] uppercase tracking-[0.16em] mb-1">
+                        Timing
+                      </span>
+                      <span className="text-[#2D1912] font-medium">{exp.details.timing}</span>
+                    </div>
+                    <div>
+                      <span className="block text-[#8C7A70] text-[10.5px] uppercase tracking-[0.16em] mb-1">
+                        Duration
+                      </span>
+                      <span className="text-[#2D1912] font-medium">{exp.details.duration}</span>
+                    </div>
+                  </div>
+
+                  {/* Clean Action Button */}
+                  <div>
+                    <button
+                      type="button"
+                      onClick={handleOpenBooking}
+                      className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-[#4E2418] hover:bg-[#683020] text-white text-[11px] font-sans uppercase tracking-[0.18em] font-medium transition-colors duration-200 cursor-pointer"
+                    >
+                      <span>Enquire About This Experience</span>
+                      <ArrowUpRight size={14} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </section>
+          );
+        })}
+      </div>
+
+      {/* =========================================================================
+          BESPOKE CURATION & PRIVATE GROUP CALLOUT (Clean & Understated)
+          ========================================================================= */}
+      <section className="bg-[#F3EFEA] border-t border-[#E5DDD2] py-20 md:py-28 px-6 sm:px-10 lg:px-16 text-center">
+        <div className="max-w-[720px] mx-auto">
+          <p className="text-[11px] uppercase font-sans tracking-[0.24em] text-[#84382B] font-medium mb-3">
+            Tailored Itineraries
+          </p>
+          <h2 className="font-serif text-[clamp(28px,3.4vw,46px)] font-normal text-[#2D1912] leading-[1.18] mb-5">
+            Planning for a wedding group or private family retreat?
+          </h2>
+          <p className="font-sans font-light text-[15px] sm:text-[16.5px] text-[#5A4238] leading-relaxed mb-8">
+            All experiences can be customized into private morning or twilight sessions for wedding parties, extended families, or cultural enthusiasts. Let our concierge design an unhurried itinerary aligned with your stay.
+          </p>
+          <button
+            type="button"
+            onClick={handleOpenBooking}
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#4E2418] hover:bg-[#683020] text-white text-[11.5px] font-sans uppercase tracking-[0.2em] font-medium transition-colors duration-200 cursor-pointer"
+          >
+            <span>Plan a Custom Experience</span>
+            <ArrowUpRight size={14} />
+          </button>
+        </div>
+      </section>
     </main>
   );
 }

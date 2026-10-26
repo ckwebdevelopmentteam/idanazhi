@@ -102,13 +102,6 @@ export const experienceSubCategories: ExperienceSubCategory[] = [
       'Step barefoot into the fertile soil of Kerala’s ancestral paddy fields. Guided by local farming elders, participate in traditional seedling transplanting, water wheel irrigation, and organic grain harvesting, connecting deeply with the land that sustains us.',
     href: '/experiences#rice-farming',
     image: '/images/experiences/paddy-farming-experience.jpg',
-    heroHeadline:
-      'Step barefoot into fertile ancestral soil, learning the time-honoured art of seedling transplantation and the poetry of green fields',
-    poeticQuote:
-      'Here, rice farming is not an occupation; it is a sacred conversation with the rain, the soil, and centuries of ancestral wisdom.',
-    vignette1: '/images/experiences/paddy-farming-experience.jpg',
-    vignette2: '/images/weddings/spaces/space-outdoor-1.jpg',
-    vignette3: '/images/weddings/spaces/stay3.png',
     highlights: [
       'Hands-on traditional seedling transplantation',
       'Guided walk through ancient water channels',
@@ -130,13 +123,6 @@ export const experienceSubCategories: ExperienceSubCategory[] = [
       'Kumbidi is a living tapestry of rural Kerala culture nestled alongside the Bharathapuzha river basin. Discover clay pottery workshops, traditional handloom weaving, serene temple paths, and warm family homes where authentic chai and snacks are shared.',
     href: '/experiences#kumbidi-village',
     image: '/images/experiences/kumbidi-village-experience.jpg',
-    heroHeadline:
-      'Wander through the tranquil lanes of Kumbidi, meeting master weavers, pottery artisans at their wheels, and native village storytellers',
-    poeticQuote:
-      'In Kumbidi village, neighbors greet you as family, and ancient crafts are practiced with quiet grace beneath swaying palm canopies.',
-    vignette1: '/images/weddings/architecture-corridor.jpg',
-    vignette2: '/images/weddings/spaces/stay2.png',
-    vignette3: '/images/weddings/architecture-4.jpg',
     highlights: [
       'Interactive clay pottery wheel demonstration',
       'Handloom weaving atelier visit',
@@ -158,13 +144,6 @@ export const experienceSubCategories: ExperienceSubCategory[] = [
       'Kerala’s ancient temple architecture reflects cosmic geometry and deep silence. Accompany our resident cultural custodian to historical temple sanctums, observe the sacred lighting of brass oil lamps (Deeparadhana), and listen to resonant Sopana Sangeetham melodies.',
     href: '/experiences#temple-experience',
     image: '/images/experiences/temple-heritage-experience.jpg',
-    heroHeadline:
-      'Experience the profound peace of centuries-old temple sanctums, resonating with Vedic chants, brass oil lamps, and sacred silence',
-    poeticQuote:
-      'The chime of evening sanctum bells dissolves the noise of the outside world, leaving only stillness, devotion, and golden lamplight.',
-    vignette1: '/images/weddings/pair-pujan.jpg',
-    vignette2: '/images/weddings/stage-heritage-mandapam.jpg',
-    vignette3: '/images/weddings/architecture-1.jpg',
     highlights: [
       'Architectural tour of ancient teak gopurams',
       'Vedic chanting & morning Deeparadhana blessings',
@@ -186,13 +165,6 @@ export const experienceSubCategories: ExperienceSubCategory[] = [
       'Join artisanal fishermen at the break of dawn as the morning mist lifts over the water. Learn the delicate physics of casting a traditional circular net (Cheena Vala and Veechu Vala), watch wooden boatmen glide through calm backwaters, and inspect the fresh catch of river pearl spot (Karimeen).',
     href: '/experiences#fishing-harbor',
     image: '/images/experiences/fishing-harbor-experience.jpg',
-    heroHeadline:
-      'Cast traditional nets from tranquil riverbanks and glide on wooden watercraft as dawn breaks across Kerala’s serene waterways',
-    poeticQuote:
-      'At first light, the river reflects the awakening sky, and patient casting nets bring forth the living bounty of the backwaters.',
-    vignette1: '/images/weddings/stage-coastal-mandapam.jpg',
-    vignette2: '/images/weddings/spaces/space-dinner-4.jpg',
-    vignette3: '/images/weddings/spaces/stage-3.jpg',
     highlights: [
       'Live net-casting demonstration with master fishermen',
       'Wooden canoe excursion along calm river shores',
