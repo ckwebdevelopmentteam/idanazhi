@@ -108,8 +108,14 @@ export function Header() {
         setSelectedExperience(null);
       }
     };
+    const handleOpenBooking = () => setBooking(true);
+
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('open-booking-modal', handleOpenBooking);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('open-booking-modal', handleOpenBooking);
+    };
   }, []);
 
   const handleDropdownMouseEnter = () => {

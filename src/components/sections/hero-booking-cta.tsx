@@ -12,15 +12,8 @@ export function HeroBookingCta({ className = '' }: HeroBookingCtaProps) {
 
   const handleBookClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    const target = document.getElementById('contact');
-    if (lenis && target) {
-      lenis.scrollTo(target, { duration: 1.5, offset: -20 });
-      window.history.pushState(null, '', '#contact');
-    } else if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-      window.history.pushState(null, '', '#contact');
-    } else {
-      window.location.href = '/#contact';
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('open-booking-modal'));
     }
   };
 
