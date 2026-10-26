@@ -35,8 +35,6 @@ export function Header() {
       setSelectedOption('EXPERIENCE');
     } else if (pathname.startsWith('/events') || pathname.startsWith('/celebrations')) {
       setSelectedOption('EVENTS');
-    } else if (pathname.startsWith('/business-model')) {
-      setSelectedOption('BUSINESS MODEL');
     } else {
       setSelectedOption(null);
     }
@@ -50,8 +48,6 @@ export function Header() {
       ? 'EXPERIENCE'
       : pathname.startsWith('/events') || pathname.startsWith('/celebrations')
       ? 'EVENTS'
-      : pathname.startsWith('/business-model')
-      ? 'BUSINESS MODEL'
       : null);
   const currentIndicatorOption = hoveredOption ?? activeOption;
 
@@ -166,7 +162,7 @@ export function Header() {
               />
             </Link>
 
-            {/* Center: Main Tabs (Stay, Experience, Events, Business Model) */}
+            {/* Center: Main Tabs (Stay, Experience, Events) */}
             <div className="flex items-center gap-6 lg:gap-8 xl:gap-9">
               {mainNavLinks.map((item) => {
                 const isActive = activeOption === item.label;
@@ -399,7 +395,7 @@ export function Header() {
             </button>
           </div>
 
-          {/* Navigation Items List - Main Tabs: Stay, Experience (with subcategories), Events, Business Model */}
+          {/* Navigation Items List - Main Tabs: Stay, Experience (with subcategories), Events */}
           <div className="flex-1 px-8 max-[480px]:px-6 pt-6 sm:pt-8 pb-10 flex flex-col justify-start">
             <nav className="flex flex-col gap-1 sm:gap-1.5" aria-label="Mobile Navigation Links">
               {mainNavLinks.map((item) => {

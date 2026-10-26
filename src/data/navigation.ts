@@ -117,7 +117,7 @@ export const experienceSubCategories: ExperienceSubCategory[] = [
 
 /**
  * Main navigation items for Idanazhi.
- * Order: Stay, Experience (with subcategories), Events, Business Model.
+ * Order: Stay, Experience (with subcategories), Events.
  */
 export const mainNavLinks: NavItem[] = [
   {
@@ -138,11 +138,5 @@ export const mainNavLinks: NavItem[] = [
     label: 'EVENTS',
     title: 'Events',
     href: '/events',
-  },
-  {
-    id: 'business-model',
-    label: 'BUSINESS MODEL',
-    title: 'Business Model',
-    href: '/business-model',
   },
 ];
