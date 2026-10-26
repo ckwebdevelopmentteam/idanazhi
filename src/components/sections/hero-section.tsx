@@ -131,7 +131,7 @@ export function HeroSection() {
 
           {/* Main Headline - Centered */}
           <h1 className="font-serif text-[clamp(42px,6.5vw,82px)] font-normal text-white leading-[1.02] sm:leading-[1.06] tracking-[-0.02em] m-0 mb-3.5 sm:mb-4.5 drop-shadow-[0_4px_24px_rgba(0,0,0,0.7)] text-center max-w-[780px]">
-            Moments that stay with you
+            Moments that stay <br /> with you
           </h1>
 
           {/* Subtitle Paragraph - Centered */}
@@ -139,9 +139,9 @@ export function HeroSection() {
             A serene farm stay in Kerala for slow mornings, meaningful celebrations, and unforgettable days outdoors.
           </p>
 
-          {/* Dual Action CTA Buttons - Center Aligned */}
+          {/* Dual Action CTA Buttons - Both sharing Book Your Stay pill design */}
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-            {/* Primary CTA: White Pill "BOOK YOUR STAY ->" */}
+            {/* Primary CTA: White Pill "BOOK YOUR STAY" */}
             <a
               href="#contact"
               onClick={handleBookClick}
@@ -154,15 +154,17 @@ export function HeroSection() {
               </span>
             </a>
 
-            {/* Secondary CTA: Outlined Glass Pill "EXPLORE EXPERIENCES ->" */}
+            {/* Secondary CTA: White Pill "EXPLORE EXPERIENCES" matching Book Your Stay */}
             <a
               href="#celebrations-and-experience"
               onClick={handleExperiencesClick}
-              className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-full border border-white/50 bg-black/25 hover:bg-white hover:text-[#1C1917] hover:border-white text-white font-sans text-[11px] font-medium tracking-[0.16em] uppercase transition-all duration-300 backdrop-blur-md no-underline active:scale-95 shadow-md cursor-pointer"
+              className="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 sm:py-3 rounded-full bg-white text-[#1a382e] font-sans text-[11px] font-semibold tracking-[0.16em] uppercase transition-all duration-300 hover:bg-[#FAF7F2] hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)] shadow-lg no-underline active:scale-95 cursor-pointer"
               aria-label="Explore Experiences"
             >
               <span>EXPLORE EXPERIENCES</span>
-              <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+              <span className="w-7 h-7 rounded-full bg-[#1a382e] text-white flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:translate-x-1">
+                <ArrowRight size={13} strokeWidth={2.5} />
+              </span>
             </a>
           </div>
         </div>
