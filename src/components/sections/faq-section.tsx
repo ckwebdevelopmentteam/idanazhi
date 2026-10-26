@@ -84,7 +84,7 @@ export interface FAQSectionProps {
 
 export function FAQSection({
   eyebrow = 'A FEW THINGS TO KNOW',
-  heading = 'Questions, answered.',
+  heading = 'FREQUENTLY ASKED QUESTIONS',
   items = defaultFaqItems,
   className = '',
 }: FAQSectionProps) {

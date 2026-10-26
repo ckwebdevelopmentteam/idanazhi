@@ -36,6 +36,7 @@ const urbanist = Urbanist({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://idanazhi.com'),
   title: 'IDANAZHI | Destination Wedding Resort',
   description: 'A destination wedding and luxury resort experience inspired by elegance, heritage, and celebration.',
 };

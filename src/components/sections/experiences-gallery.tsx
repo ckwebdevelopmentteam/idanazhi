@@ -44,10 +44,10 @@ export const galleryImages: GalleryPhotoItem[] = [
   },
   {
     id: 5,
-    title: 'Varikkasseri Manor',
+    title: 'Heritage Illam Estate',
     category: 'ENCOUNTERS',
-    src: '/images/weddings/varikkasseri.jpg',
-    alt: 'Historic Varikkasseri heritage estate manor',
+    src: '/images/weddings/architecture-1.jpg',
+    alt: 'Traditional Kerala heritage estate architecture',
   },
   {
     id: 6,
@@ -65,10 +65,10 @@ export const galleryImages: GalleryPhotoItem[] = [
   },
   {
     id: 8,
-    title: 'Paliam Heritage',
+    title: 'Heritage Manor Estate',
     category: 'ESTATES',
-    src: '/images/weddings/paliam.jpg',
-    alt: 'Historic Paliam heritage estate palace',
+    src: '/images/weddings/heritage-manor-facade.jpg',
+    alt: 'Traditional Kerala heritage estate architecture with terracotta gables',
   },
   {
     id: 9,
@@ -203,7 +203,7 @@ export function ExperiencesGallery({
   const columns: ColumnSetup[] = useMemo(() => {
     const list = images.length >= 18 ? images : galleryImages;
 
-    // Col 1: Heritage mandapam, couple with balloons, Varikkasseri roof
+    // Col 1: Heritage mandapam, couple with balloons, Heritage estate roof
     const col1 = [list[9], list[13], list[4]];
     // Col 2: Wellness/flowers, chairs on lawn, courtyard dinner
     const col2 = [list[1], list[16], list[11]];

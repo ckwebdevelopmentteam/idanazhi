@@ -2,13 +2,15 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { X, Phone, Mail, MapPin, ChevronDown, ArrowRight, ArrowUpRight } from 'lucide-react';
+import { X, Phone, Mail, MapPin, ChevronDown, ArrowRight } from 'lucide-react';
 import { useEffect, useState, useRef } from 'react';
 import { BrandLogo } from '@/components/layout/brand-logo';
 import { IdanazhiSymbol } from '@/components/layout/idanazhi-symbol';
 import { OrnamentalArrow } from '@/components/layout/ornamental-arrow';
 import { BookingPanel } from '@/components/sections/booking-panel';
 import { mainNavLinks, experienceSubCategories } from '@/data/navigation';
+import { ExperienceModal } from '@/components/ui/experience-modal';
+import { experiencesData, ExperienceItem } from '@/data/experiences';
 
 export function Header() {
   const pathname = usePathname();
@@ -21,6 +23,7 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [booking, setBooking] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
+  const [selectedExperience, setSelectedExperience] = useState<ExperienceItem | null>(null);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const lastScrollYRef = useRef(0);
 
@@ -84,16 +87,16 @@ export function Header() {
     };
   }, []);
 
-  const isHeaderVisible = isVisible || mobileMenuOpen || booking || contactOpen;
+  const isHeaderVisible = isVisible || mobileMenuOpen || booking || contactOpen || Boolean(selectedExperience);
   const isLightHeader = scrolled || pathname !== '/';
 
   useEffect(() => {
-    const isAnyModalOpen = mobileMenuOpen || booking || contactOpen;
+    const isAnyModalOpen = mobileMenuOpen || booking || contactOpen || Boolean(selectedExperience);
     document.body.style.overflow = isAnyModalOpen ? 'hidden' : '';
     return () => {
       document.body.style.overflow = '';
     };
-  }, [mobileMenuOpen, booking, contactOpen]);
+  }, [mobileMenuOpen, booking, contactOpen, selectedExperience]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -102,6 +105,7 @@ export function Header() {
         setBooking(false);
         setContactOpen(false);
         setExperienceDropdownOpen(false);
+        setSelectedExperience(null);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -136,7 +140,7 @@ export function Header() {
         }`}
       >
         <div className="w-full max-w-[1400px] mx-auto px-6 box-border flex flex-col max-[1080px]:max-w-[1160px] max-[1080px]:px-5 max-[960px]:max-w-full max-[960px]:px-4">
-          {/* Desktop primary navigation (>= 961px) - Logo moved to Corner, Main Tabs in Center, Book Now on Right */}
+          {/* Desktop primary navigation (>= 961px) - Corner Full Logo, Main Tabs, Book Now */}
           <nav
             className="hidden min-[961px]:flex items-center justify-between gap-6 py-[11px] pb-[13px] w-full box-border"
             aria-label="Desktop primary navigation"
@@ -191,7 +195,7 @@ export function Header() {
                         />
                       </Link>
 
-                      {/* Dropdown Menu for Experience Sub-Categories */}
+                      {/* Dropdown Menu for Experience Sub-Categories (Pure White Background, Brown Text, No Descriptions) */}
                       <div
                         className={`absolute top-full left-1/2 -translate-x-1/2 pt-2.5 w-[275px] transition-all duration-200 ease-out z-50 ${
                           experienceDropdownOpen
@@ -270,7 +274,7 @@ export function Header() {
             </div>
           </nav>
 
-          {/* Mobile & Tablet navigation (< 961px) - Corner Logo & Corner Actions */}
+          {/* Mobile & Tablet navigation (< 961px) - Corner Full Logo & Corner Actions */}
           <nav
             className="flex min-[961px]:hidden items-center justify-between py-2.5 w-full box-border"
             aria-label="Mobile primary navigation"
@@ -436,7 +440,7 @@ export function Header() {
                           mobileExpExpanded ? 'block' : 'hidden'
                         }`}
                       >
-                        {experienceSubCategories.map((sub, i) => (
+                        {experienceSubCategories.map((sub) => (
                           <Link
                             key={sub.id}
                             href={sub.href}
@@ -609,6 +613,18 @@ export function Header() {
       {booking && (
         <BookingPanel
           close={() => setBooking(false)}
+        />
+      )}
+
+      {/* Experience Details Modal if triggered */}
+      {selectedExperience && (
+        <ExperienceModal
+          experience={selectedExperience}
+          onClose={() => setSelectedExperience(null)}
+          onBookNow={() => {
+            setSelectedExperience(null);
+            setBooking(true);
+          }}
         />
       )}
     </>

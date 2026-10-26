@@ -26,51 +26,43 @@ const fadeUpVariants: Variants = {
 const stayRooms: HeroCarouselItem[] = [
   {
     id: 'heritage-suite',
-    title: 'The Heritage\nSuite',
-    subtitle: 'Suite 01',
-    image: '/images/weddings/idanazhi-room.jpg',
-    meta: ['GARDEN VIEW', 'KING BED', 'HERITAGE TIMBER'],
+    title: 'The Nalukettu\nMaster Suite',
+    subtitle: 'Chamber 01',
+    image: '/images/weddings/spaces/stay1.png',
+    meta: ['MAIN NALUKETTU', 'KING BED', 'HERITAGE TIMBER'],
     accent: '#8c6754',
   },
   {
-    id: 'nalukettu-chamber',
-    title: 'The Nalukettu\nChamber',
+    id: 'nadumuttam-chamber',
+    title: 'The Nadumuttam\nChamber',
     subtitle: 'Chamber 02',
-    image: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1200&q=80',
-    meta: ['VERANDAH ACCESS', 'COURTYARD VISTA', 'EN-SUITE'],
+    image: '/images/weddings/spaces/stay3.png',
+    meta: ['COURTYARD VISTA', 'OPEN ATRIUM', 'EN-SUITE'],
     accent: '#7c402e',
   },
   {
-    id: 'colonnaded-sanctuary',
-    title: 'Verandah\nSanctuary',
-    subtitle: 'Sanctuary 03',
-    image: '/images/weddings/architecture-corridor.jpg',
-    meta: ['NATURAL BREEZE', 'WOODEN PILLARS', 'LOUNGE'],
+    id: 'garden-villa',
+    title: 'The Garden\nVilla',
+    subtitle: 'Chamber 03',
+    image: '/images/weddings/spaces/stay2.png',
+    meta: ['GARDEN GROUNDS', 'WOODEN PILLARS', 'LOUNGE'],
     accent: '#6b4f3b',
   },
   {
-    id: 'courtyard-pavilions',
-    title: 'Courtyard\nPavilions',
-    subtitle: 'Pavilion 04',
+    id: 'estate-courtyard',
+    title: 'The Central\nNadumuttam',
+    subtitle: 'Estate Courtyard',
     image: '/images/weddings/kerala-courtyard-planter.jpg',
-    meta: ['ATRIUM VIEW', 'NATURAL LIGHT', 'RAIN COURT'],
+    meta: ['OPEN SKY ATRIUM', 'CLAY ROOF TILES', 'ESTATE HEART'],
     accent: '#7a5a43',
   },
   {
-    id: 'illam-retreat',
-    title: 'The Illam\nRetreat',
-    subtitle: 'Retreat 05',
-    image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80',
-    meta: ['ESTATE VISTA', 'TEAK CARVINGS', 'PRIVATE BALCONY'],
+    id: 'estate-pool',
+    title: 'Private\nSwimming Pool',
+    subtitle: 'Compound Leisure',
+    image: '/images/stay/swimming-pool.jpg',
+    meta: ['GARDEN RETREAT', 'PRIVATE LEISURE', 'RELAXATION'],
     accent: '#82533e',
-  },
-  {
-    id: 'tharavadu-suite',
-    title: 'The Tharavadu\nMaster Suite',
-    subtitle: 'Suite 06',
-    image: 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1200&q=80',
-    meta: ['EXPANSIVE LIVING', 'HERITAGE COMFORT', 'SUITE'],
-    accent: '#664132',
   },
 ];
 
@@ -94,7 +86,7 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
           <div className="lg:col-span-6 flex flex-col items-start text-left max-w-[600px]">
             {/* Eyebrow / Section Title */}
             <p className="m-0 mb-2.5 sm:mb-4 uppercase tracking-[0.22em] text-[10px] sm:text-[11.5px] font-semibold text-muted text-left">
-              STAY AT IDANAZHI
+              SINGLE PRIVATE COMPOUND · GURUVAYOOR
             </p>
 
             {/* Scroll Reveal Heading */}
