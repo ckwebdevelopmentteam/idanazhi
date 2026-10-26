@@ -144,9 +144,7 @@ export function Header() {
         <div className="w-full max-w-[1400px] mx-auto px-6 box-border flex flex-col max-[1080px]:max-w-[1160px] max-[1080px]:px-5 max-[960px]:max-w-full max-[960px]:px-4">
           {/* Desktop primary navigation (>= 961px) - Corner Full Logo, Main Tabs, Book Now */}
           <nav
-            className={`hidden min-[961px]:flex items-center justify-between gap-6 w-full box-border transition-all duration-300 ${
-              isLightHeader ? 'py-3 lg:py-3.5' : 'py-3.5 lg:py-4.5'
-            }`}
+            className="hidden min-[961px]:flex items-center justify-between gap-6 w-full box-border py-2.5 sm:py-3 transition-all duration-300"
             aria-label="Desktop primary navigation"
           >
             {/* Left Corner: Full Brand Logo */}
@@ -158,10 +156,8 @@ export function Header() {
               <img
                 src="/images/weddings/logo/idanazhi_farm_stay_logo.svg"
                 alt="IDANAZHI Farm Stay"
-                className={`w-auto object-contain transition-all duration-300 drop-shadow-sm ${
-                  isLightHeader
-                    ? 'h-12 md:h-[52px] lg:h-[56px] max-w-[220px] md:max-w-[240px] lg:max-w-[270px]'
-                    : 'h-[52px] md:h-[60px] lg:h-[66px] max-w-[240px] md:max-w-[280px] lg:max-w-[315px] brightness-0 invert drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]'
+                className={`h-11 md:h-12 lg:h-[50px] w-auto max-w-[200px] md:max-w-[225px] object-contain transition-all duration-300 ${
+                  isLightHeader ? '' : 'brightness-0 invert drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]'
                 }`}
               />
             </Link>
@@ -282,9 +278,7 @@ export function Header() {
 
           {/* Mobile & Tablet navigation (< 961px) - Corner Full Logo & Corner Actions */}
           <nav
-            className={`flex min-[961px]:hidden items-center justify-between w-full box-border transition-all duration-300 ${
-              isLightHeader ? 'py-2.5 sm:py-3' : 'py-3 sm:py-3.5'
-            }`}
+            className="flex min-[961px]:hidden items-center justify-between w-full box-border py-2.5 sm:py-3 transition-all duration-300"
             aria-label="Mobile primary navigation"
           >
             {/* Left Corner: Full Brand Logo */}
@@ -297,10 +291,8 @@ export function Header() {
               <img
                 src="/images/weddings/logo/idanazhi_farm_stay_logo.svg"
                 alt="IDANAZHI Farm Stay"
-                className={`w-auto object-contain transition-all duration-300 ${
-                  isLightHeader
-                    ? 'h-9 sm:h-10 max-w-[170px] sm:max-w-[190px]'
-                    : 'h-10 sm:h-11 max-w-[185px] sm:max-w-[210px] brightness-0 invert drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]'
+                className={`h-8 sm:h-9 w-auto max-w-[155px] sm:max-w-[175px] object-contain transition-all duration-300 ${
+                  isLightHeader ? '' : 'brightness-0 invert drop-shadow-[0_2px_6px_rgba(0,0,0,0.4)]'
                 }`}
               />
             </Link>
@@ -378,7 +370,7 @@ export function Header() {
           }`}
         >
           {/* Top Bar: Full Logo (Left) | Close X (Right) */}
-          <div className="h-[74px] sm:h-[82px] px-6 max-[480px]:px-5 flex items-center justify-between shrink-0 border-b border-line/20 bg-paper sticky top-0 z-20">
+          <div className="h-[68px] sm:h-[74px] px-6 max-[480px]:px-5 flex items-center justify-between shrink-0 border-b border-line/20 bg-paper sticky top-0 z-20">
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
@@ -388,7 +380,7 @@ export function Header() {
               <img
                 src="/images/weddings/logo/idanazhi_farm_stay_logo.svg"
                 alt="IDANAZHI Farm Stay"
-                className="h-10 sm:h-11 w-auto max-w-[190px] sm:max-w-[215px] object-contain"
+                className="h-8 sm:h-9 w-auto max-w-[165px] sm:max-w-[185px] object-contain"
               />
             </Link>
 
