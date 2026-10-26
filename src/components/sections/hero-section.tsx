@@ -135,33 +135,33 @@ export function HeroSection() {
           </h1>
 
           {/* Subtitle Paragraph - Centered */}
-          <p className="font-sans font-light text-[14.5px] sm:text-[16.5px] leading-[1.65] text-white/90 max-w-[540px] mx-auto m-0 mb-7 sm:mb-9 drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)] text-center">
-            A serene farm stay in Kerala for slow mornings, meaningful celebrations, and unforgettable days outdoors.
+          <p className="font-sans font-light text-[14.5px] sm:text-[16px] leading-[1.65] text-white/90 max-w-[620px] mx-auto m-0 mb-7 sm:mb-9 drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)] text-center">
+            Experience the traditions, landscapes, and everyday life of Kerala through fishing, farming, and local cultural journeys.
           </p>
 
-          {/* Dual Action CTA Buttons - Both sharing Book Your Stay pill design */}
+          {/* Dual Action CTA Buttons - Both sharing START PLANNING Stay pill design */}
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-            {/* Primary CTA: White Pill "BOOK YOUR STAY" */}
+            {/* Primary CTA: White Pill "START PLANNING STAY" */}
             <a
               href="#contact"
               onClick={handleBookClick}
               className="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 sm:py-3 rounded-full bg-white text-[#1a382e] font-sans text-[11px] font-semibold tracking-[0.16em] uppercase transition-all duration-300 hover:bg-[#FAF7F2] hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)] shadow-lg no-underline active:scale-95 cursor-pointer"
-              aria-label="Book Your Stay - Navigate to reservations"
+              aria-label="START PLANNING Stay - Navigate to reservations"
             >
-              <span>BOOK YOUR STAY</span>
+              <span>START PLANNING</span>
               <span className="w-7 h-7 rounded-full bg-[#1a382e] text-white flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:translate-x-1">
                 <ArrowRight size={13} strokeWidth={2.5} />
               </span>
             </a>
 
-            {/* Secondary CTA: White Pill "EXPLORE EXPERIENCES" matching Book Your Stay */}
+            {/* Secondary CTA: White Pill "EXPLORE EXPERIENCES" matching START PLANNING Stay */}
             <a
               href="#celebrations-and-experience"
               onClick={handleExperiencesClick}
               className="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 sm:py-3 rounded-full bg-white text-[#1a382e] font-sans text-[11px] font-semibold tracking-[0.16em] uppercase transition-all duration-300 hover:bg-[#FAF7F2] hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)] shadow-lg no-underline active:scale-95 cursor-pointer"
               aria-label="Explore Experiences"
             >
-              <span>EXPLORE EXPERIENCES</span>
+              <span>EXPLORE IDANAZHI</span>
               <span className="w-7 h-7 rounded-full bg-[#1a382e] text-white flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:translate-x-1">
                 <ArrowRight size={13} strokeWidth={2.5} />
               </span>
@@ -171,30 +171,29 @@ export function HeroSection() {
 
         {/* Bottom 3 Feature Badges - Center Aligned */}
         <div className="flex flex-wrap items-center justify-center gap-7 sm:gap-12 w-full pt-4">
-          {/* Badge 1: Lush Surroundings */}
-          <div className="flex items-center gap-2.5">
-            <LushSurroundingsIcon />
-            <div className="flex flex-col text-left text-[9px] sm:text-[10px] font-sans font-semibold tracking-[0.18em] uppercase leading-[1.25] text-white/95 drop-shadow-sm">
-              <span>LUSH</span>
-              <span>SURROUNDINGS</span>
-            </div>
-          </div>
-
-          {/* Badge 2: Comfortable Stays */}
-          <div className="flex items-center gap-2.5">
-            <ComfortableStaysIcon />
-            <div className="flex flex-col text-left text-[9px] sm:text-[10px] font-sans font-semibold tracking-[0.18em] uppercase leading-[1.25] text-white/95 drop-shadow-sm">
-              <span>COMFORTABLE</span>
-              <span>STAYS</span>
-            </div>
-          </div>
-
-          {/* Badge 3: Memorable Celebrations */}
+          {/* Badge 1: Weddings */}
           <div className="flex items-center gap-2.5">
             <MemorableCelebrationsIcon />
             <div className="flex flex-col text-left text-[9px] sm:text-[10px] font-sans font-semibold tracking-[0.18em] uppercase leading-[1.25] text-white/95 drop-shadow-sm">
-              <span>MEMORABLE</span>
-              <span>CELEBRATIONS</span>
+              <span>WEDDINGS</span>
+            </div>
+          </div>
+
+          {/* Badge 2: Farm Stay */}
+          <div className="flex items-center gap-2.5">
+            <ComfortableStaysIcon />
+            <div className="flex flex-col text-left text-[9px] sm:text-[10px] font-sans font-semibold tracking-[0.18em] uppercase leading-[1.25] text-white/95 drop-shadow-sm">
+              <span>FARM</span>
+              <span>STAY</span>
+            </div>
+          </div>
+
+          {/* Badge 3: Discover the Roots */}
+          <div className="flex items-center gap-2.5">
+            <LushSurroundingsIcon />
+            <div className="flex flex-col text-left text-[9px] sm:text-[10px] font-sans font-semibold tracking-[0.18em] uppercase leading-[1.25] text-white/95 drop-shadow-sm">
+              <span>DISCOVER</span>
+              <span>THE ROOTS</span>
             </div>
           </div>
         </div>

@@ -79,14 +79,14 @@ export function Header() {
     (pathname.startsWith('/stay')
       ? 'STAY'
       : pathname.startsWith('/celebrations')
-      ? 'EVENTS'
-      : pathname.startsWith('/story')
-      ? 'STORY'
-      : pathname.startsWith('/gallery')
-      ? 'GALLERY'
-      : pathname.startsWith('/blogs')
-      ? 'BLOGS'
-      : null);
+        ? 'EVENTS'
+        : pathname.startsWith('/story')
+          ? 'STORY'
+          : pathname.startsWith('/gallery')
+            ? 'GALLERY'
+            : pathname.startsWith('/blogs')
+              ? 'BLOGS'
+              : null);
   const currentIndicatorOption = hoveredOption ?? activeOption;
 
   useEffect(() => {
@@ -147,15 +147,13 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed z-40 top-0 left-0 w-full text-white bg-gradient-to-b from-black/35 via-black/10 to-transparent backdrop-blur-[1px] flex! flex-col! h-auto! p-0! border-b-0! transition-all duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)] will-change-transform ${
-          scrolled
+        className={`fixed z-40 top-0 left-0 w-full text-white bg-gradient-to-b from-black/35 via-black/10 to-transparent backdrop-blur-[1px] flex! flex-col! h-auto! p-0! border-b-0! transition-all duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)] will-change-transform ${scrolled
             ? '!text-ink !bg-paper/98 !backdrop-blur-[14px] !shadow-[0_4px_20px_rgba(45,25,18,0.06)] !border-transparent'
             : ''
-        } ${
-          isHeaderVisible
+          } ${isHeaderVisible
             ? 'translate-y-0 opacity-100'
             : '-translate-y-full opacity-0 pointer-events-none'
-        }`}
+          }`}
       >
         <div className="w-full max-w-[1400px] mx-auto px-5 sm:px-6 md:px-8 box-border flex flex-col">
           {/* Desktop primary navigation (>= 961px) - Corner Logo, Centered Tabs, Corner Book Now */}
@@ -172,9 +170,8 @@ export function Header() {
               <img
                 src="/images/weddings/logo/idanazhi_farm_stay_logo.svg"
                 alt="IDANAZHI Farm Stay"
-                className={`h-9 sm:h-11 w-auto object-contain transition-all duration-300 ${
-                  scrolled ? '' : 'brightness-0 invert drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)]'
-                }`}
+                className={`h-9 sm:h-11 w-auto object-contain transition-all duration-300 ${scrolled ? '' : 'brightness-0 invert drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)]'
+                  }`}
               />
             </Link>
 
@@ -192,28 +189,24 @@ export function Header() {
                       <button
                         type="button"
                         onClick={() => setExperienceDropdownOpen(!experienceDropdownOpen)}
-                        className={`font-sans text-[11px] font-normal tracking-[0.16em] uppercase text-inherit whitespace-nowrap py-1 transition-opacity duration-200 ease-in-out hover:opacity-[0.75] flex items-center gap-1 cursor-pointer bg-transparent border-0 ${
-                          scrolled ? 'hover:!opacity-100 hover:!text-ink' : ''
-                        } ${
-                          currentIndicatorOption === item.label ? 'font-semibold tracking-[0.18em]' : ''
-                        }`}
+                        className={`font-sans text-[11px] font-normal tracking-[0.16em] uppercase text-inherit whitespace-nowrap py-1 transition-opacity duration-200 ease-in-out hover:opacity-[0.75] flex items-center gap-1 cursor-pointer bg-transparent border-0 ${scrolled ? 'hover:!opacity-100 hover:!text-ink' : ''
+                          } ${currentIndicatorOption === item.label ? 'font-semibold tracking-[0.18em]' : ''
+                          }`}
                       >
                         <span>{item.label}</span>
                         <ChevronDown
                           size={13}
-                          className={`transition-transform duration-200 ${
-                            experienceDropdownOpen ? 'rotate-180' : ''
-                          }`}
+                          className={`transition-transform duration-200 ${experienceDropdownOpen ? 'rotate-180' : ''
+                            }`}
                         />
                       </button>
 
                       {/* Dropdown Menu for Experience Sub-categories */}
                       <div
-                        className={`absolute top-full left-1/2 -translate-x-1/2 pt-3 transition-all duration-300 z-50 ${
-                          experienceDropdownOpen
+                        className={`absolute top-full left-1/2 -translate-x-1/2 pt-3 transition-all duration-300 z-50 ${experienceDropdownOpen
                             ? 'opacity-100 translate-y-0 pointer-events-auto visible'
                             : 'opacity-0 -translate-y-2 pointer-events-none invisible'
-                        }`}
+                          }`}
                       >
                         <div className="w-[540px] bg-[#FAF7F2] text-[#1C1917] p-5 shadow-[0_20px_50px_rgba(45,25,18,0.22)] border border-[#7C402E]/20 backdrop-blur-xl">
                           <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-[#7C402E]/15">
@@ -263,9 +256,8 @@ export function Header() {
                   <Link
                     key={item.label}
                     href={item.href}
-                    className={`font-sans text-[11px] font-normal tracking-[0.16em] uppercase text-inherit no-underline whitespace-nowrap py-1 transition-opacity duration-200 ease-in-out hover:opacity-[0.75] ${
-                      scrolled ? 'hover:!opacity-100 hover:!text-ink' : ''
-                    } ${currentIndicatorOption === item.label ? 'font-semibold tracking-[0.18em]' : ''}`}
+                    className={`font-sans text-[11px] font-normal tracking-[0.16em] uppercase text-inherit no-underline whitespace-nowrap py-1 transition-opacity duration-200 ease-in-out hover:opacity-[0.75] ${scrolled ? 'hover:!opacity-100 hover:!text-ink' : ''
+                      } ${currentIndicatorOption === item.label ? 'font-semibold tracking-[0.18em]' : ''}`}
                   >
                     {item.label}
                   </Link>
@@ -273,14 +265,14 @@ export function Header() {
               })}
             </div>
 
-            {/* Right Corner: Dark Forest Green "BOOK YOUR STAY ->" Button + Circular Menu */}
+            {/* Right Corner: Dark Forest Green "START PLANNING STAY ->" Button + Circular Menu */}
             <div className="flex items-center gap-2.5 sm:gap-3">
               <button
                 type="button"
                 onClick={() => setBooking(true)}
                 className="group font-sans text-[10.5px] font-semibold tracking-[0.16em] uppercase px-5 py-2.5 rounded-full bg-[#1a382e] hover:bg-[#122820] text-white flex items-center gap-2 transition-all duration-200 cursor-pointer active:scale-95 shadow-md border border-white/10"
               >
-                <span>BOOK YOUR STAY</span>
+                <span>START PLANNING STAY</span>
                 <ArrowRight size={13} className="transition-transform duration-200 group-hover:translate-x-1" />
               </button>
 
@@ -288,11 +280,10 @@ export function Header() {
                 type="button"
                 aria-label="Open navigation menu drawer"
                 onClick={() => setMobileMenuOpen(true)}
-                className={`w-10 h-10 rounded-full border transition-all duration-200 cursor-pointer active:scale-95 flex items-center justify-center shrink-0 ${
-                  scrolled
+                className={`w-10 h-10 rounded-full border transition-all duration-200 cursor-pointer active:scale-95 flex items-center justify-center shrink-0 ${scrolled
                     ? 'border-line/40 bg-paper hover:bg-black/5 text-ink'
                     : 'border-white/25 bg-black/20 hover:bg-black/35 text-white backdrop-blur-sm'
-                }`}
+                  }`}
               >
                 <span className="flex flex-col justify-center items-center w-4 h-3.5 gap-[3.5px]" aria-hidden="true">
                   <span className={`block h-[1.5px] w-4 rounded-full ${scrolled ? 'bg-ink' : 'bg-white'}`} />
@@ -318,9 +309,8 @@ export function Header() {
               <img
                 src="/images/weddings/logo/idanazhi_farm_stay_logo.svg"
                 alt="IDANAZHI Farm Stay"
-                className={`h-7 sm:h-8 w-auto object-contain transition-all duration-300 ${
-                  scrolled ? '' : 'brightness-0 invert drop-shadow-sm'
-                }`}
+                className={`h-7 sm:h-8 w-auto object-contain transition-all duration-300 ${scrolled ? '' : 'brightness-0 invert drop-shadow-sm'
+                  }`}
               />
             </Link>
 
@@ -339,11 +329,10 @@ export function Header() {
                 type="button"
                 aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
                 onClick={() => setMobileMenuOpen(true)}
-                className={`w-9 h-9 rounded-full border transition-all duration-200 cursor-pointer active:scale-95 flex items-center justify-center shrink-0 ${
-                  scrolled
+                className={`w-9 h-9 rounded-full border transition-all duration-200 cursor-pointer active:scale-95 flex items-center justify-center shrink-0 ${scrolled
                     ? 'border-line/40 bg-paper text-ink'
                     : 'border-white/25 bg-black/25 text-white backdrop-blur-sm'
-                }`}
+                  }`}
               >
                 <span className="flex flex-col justify-center items-center w-3.5 h-3 gap-[3px]" aria-hidden="true">
                   <span className={`block h-[1.5px] w-3.5 rounded-full ${scrolled ? 'bg-ink' : 'bg-white'}`} />
@@ -358,16 +347,14 @@ export function Header() {
 
       {/* Mobile Luxury Full-Screen Menu with Smooth Slide Animation */}
       <div
-        className={`fixed inset-0 z-50 transition-all duration-400 ${
-          mobileMenuOpen ? 'pointer-events-auto visible' : 'pointer-events-none invisible'
-        }`}
+        className={`fixed inset-0 z-50 transition-all duration-400 ${mobileMenuOpen ? 'pointer-events-auto visible' : 'pointer-events-none invisible'
+          }`}
         aria-hidden={!mobileMenuOpen}
       >
         {/* Backdrop overlay */}
         <div
-          className={`fixed inset-0 bg-[rgba(30,16,12,0.45)] backdrop-blur-[4px] transition-opacity duration-400 ease-out ${
-            mobileMenuOpen ? 'opacity-100' : 'opacity-0'
-          }`}
+          className={`fixed inset-0 bg-[rgba(30,16,12,0.45)] backdrop-blur-[4px] transition-opacity duration-400 ease-out ${mobileMenuOpen ? 'opacity-100' : 'opacity-0'
+            }`}
           onClick={() => setMobileMenuOpen(false)}
         />
 
@@ -377,9 +364,8 @@ export function Header() {
           role="dialog"
           aria-modal="true"
           aria-label="Navigation Menu"
-          className={`fixed inset-0 w-full h-[100dvh] bg-paper text-ink flex flex-col justify-between overflow-y-auto overscroll-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform ${
-            mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-          }`}
+          className={`fixed inset-0 w-full h-[100dvh] bg-paper text-ink flex flex-col justify-between overflow-y-auto overscroll-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+            }`}
         >
           {/* Top Bar: Emblem (Left) | IDANAZHI (Center) | Close X (Right) */}
           <div className="h-[68px] sm:h-[76px] px-6 max-[480px]:px-5 grid grid-cols-[auto_1fr_auto] items-center shrink-0 border-b border-line/20 bg-paper sticky top-0 z-20">
@@ -427,11 +413,10 @@ export function Header() {
                         onClick={() => setMobileExperienceExpanded(!mobileExperienceExpanded)}
                       >
                         <span
-                          className={`font-urbanist text-[22px] sm:text-[24px] leading-[1.35] tracking-[0.035em] transition-all duration-300 ${
-                            isActive
+                          className={`font-urbanist text-[22px] sm:text-[24px] leading-[1.35] tracking-[0.035em] transition-all duration-300 ${isActive
                               ? 'text-[#3E1A10] font-normal translate-x-1'
                               : 'text-[#5C2E20]/80 font-light hover:text-[#3E1A10]'
-                          }`}
+                            }`}
                         >
                           {item.title}
                         </span>
@@ -441,9 +426,8 @@ export function Header() {
                           </span>
                           <ChevronDown
                             size={18}
-                            className={`transition-transform duration-300 ${
-                              mobileExperienceExpanded ? 'rotate-180 text-[#7C402E]' : 'text-[#4E2418]/60'
-                            }`}
+                            className={`transition-transform duration-300 ${mobileExperienceExpanded ? 'rotate-180 text-[#7C402E]' : 'text-[#4E2418]/60'
+                              }`}
                           />
                         </div>
                       </div>
@@ -492,11 +476,10 @@ export function Header() {
                       }}
                       onMouseEnter={() => setHoveredOption(item.label)}
                       onMouseLeave={() => setHoveredOption(null)}
-                      className={`font-urbanist text-[22px] sm:text-[24px] leading-[1.35] tracking-[0.035em] transition-all duration-300 ${
-                        isActive
+                      className={`font-urbanist text-[22px] sm:text-[24px] leading-[1.35] tracking-[0.035em] transition-all duration-300 ${isActive
                           ? 'text-[#3E1A10] font-normal translate-x-1'
                           : 'text-[#5C2E20]/80 font-light hover:text-[#3E1A10] hover:translate-x-0.5'
-                      }`}
+                        }`}
                     >
                       {item.title}
                     </Link>
@@ -509,11 +492,10 @@ export function Header() {
                       onMouseLeave={() => setHoveredOption(null)}
                     >
                       <div
-                        className={`transition-all duration-300 ease-out transform ${
-                          isActive
+                        className={`transition-all duration-300 ease-out transform ${isActive
                             ? 'opacity-100 translate-x-0'
                             : 'opacity-0 translate-x-3 pointer-events-none'
-                        }`}
+                          }`}
                       >
                         <OrnamentalArrow
                           className="w-[72px] sm:w-[80px] h-4 text-[#4E2418] shrink-0"
@@ -639,9 +621,8 @@ export function Header() {
                 <button
                   key={l.code}
                   type="button"
-                  className={`flex items-center justify-between px-4 py-3 bg-transparent border border-line text-ink text-[13.5px] cursor-pointer transition-all duration-200 ease-in-out hover:bg-ink/5 ${
-                    currentLang === l.code ? '!bg-ink !text-white !border-ink' : ''
-                  }`}
+                  className={`flex items-center justify-between px-4 py-3 bg-transparent border border-line text-ink text-[13.5px] cursor-pointer transition-all duration-200 ease-in-out hover:bg-ink/5 ${currentLang === l.code ? '!bg-ink !text-white !border-ink' : ''
+                    }`}
                   onClick={() => {
                     setCurrentLang(l.code);
                     setLangOpen(false);
