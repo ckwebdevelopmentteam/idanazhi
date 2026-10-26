@@ -114,9 +114,9 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/20 z-1" />
 
       {/* Hero Content Container - Center Aligned */}
-      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14 pb-8 sm:pb-12 pt-[110px] sm:pt-[130px] flex flex-col justify-between items-center h-full text-center">
+      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14 pb-14 sm:pb-18 lg:pb-22 pt-[90px] sm:pt-[110px] flex flex-col justify-between items-center h-full text-center">
         {/* Invisible spacer for vertical balance */}
-        <div className="hidden sm:block h-6" />
+        <div className="hidden sm:block h-4" />
 
         {/* Center Content Group */}
         <div className="max-w-[840px] w-full flex flex-col items-center text-center my-auto">
@@ -169,32 +169,30 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Bottom 3 Feature Badges - Center Aligned */}
-        <div className="flex flex-wrap items-center justify-center gap-7 sm:gap-12 w-full pt-4">
+        {/* Bottom 3 Feature Badges - Mathematically Symmetrical 3-Column Center Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 items-center justify-center max-w-[860px] w-full mx-auto gap-3.5 sm:gap-4 pt-4">
           {/* Badge 1: Weddings */}
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center justify-center gap-2.5 sm:gap-3">
             <MemorableCelebrationsIcon />
-            <div className="flex flex-col text-left text-[9px] sm:text-[10px] font-sans font-semibold tracking-[0.18em] uppercase leading-[1.25] text-white/95 drop-shadow-sm">
-              <span>WEDDINGS</span>
-            </div>
+            <span className="font-sans font-semibold text-[9.5px] sm:text-[10.5px] tracking-[0.18em] uppercase text-white/95 whitespace-nowrap drop-shadow-sm">
+              WEDDINGS
+            </span>
           </div>
 
-          {/* Badge 2: Farm Stay */}
-          <div className="flex items-center gap-2.5">
+          {/* Badge 2: Farm Stay - Exactly centered at 50% viewport width */}
+          <div className="flex items-center justify-center gap-2.5 sm:gap-3">
             <ComfortableStaysIcon />
-            <div className="flex flex-col text-left text-[9px] sm:text-[10px] font-sans font-semibold tracking-[0.18em] uppercase leading-[1.25] text-white/95 drop-shadow-sm">
-              <span>FARM</span>
-              <span>STAY</span>
-            </div>
+            <span className="font-sans font-semibold text-[9.5px] sm:text-[10.5px] tracking-[0.18em] uppercase text-white/95 whitespace-nowrap drop-shadow-sm">
+              FARM STAY
+            </span>
           </div>
 
           {/* Badge 3: Discover the Roots */}
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center justify-center gap-2.5 sm:gap-3">
             <LushSurroundingsIcon />
-            <div className="flex flex-col text-left text-[9px] sm:text-[10px] font-sans font-semibold tracking-[0.18em] uppercase leading-[1.25] text-white/95 drop-shadow-sm">
-              <span>DISCOVER</span>
-              <span>THE ROOTS</span>
-            </div>
+            <span className="font-sans font-semibold text-[9.5px] sm:text-[10.5px] tracking-[0.18em] uppercase text-white/95 whitespace-nowrap drop-shadow-sm">
+              DISCOVER THE ROOTS
+            </span>
           </div>
         </div>
       </div>
