@@ -139,18 +139,18 @@ export function HeroSection() {
             Experience the traditions, landscapes, and everyday life of Kerala through fishing, farming, and local cultural journeys.
           </p>
 
-          {/* Dual Action CTA Buttons - Horizontal side-by-side on all screens */}
-          <div className="flex flex-row items-center justify-center gap-2 sm:gap-4 w-full max-w-[390px] sm:max-w-none mx-auto">
+          {/* Dual Action CTA Buttons - Compact horizontal side-by-side on mobile, full size on desktop */}
+          <div className="flex flex-row items-center justify-center gap-1.5 sm:gap-4 w-full max-w-[320px] sm:max-w-none mx-auto">
             {/* Primary CTA: White Pill "START PLANNING" */}
             <a
               href="#contact"
               onClick={handleBookClick}
-              className="group flex-1 sm:flex-initial inline-flex items-center justify-between sm:justify-start gap-1.5 sm:gap-3 pl-3 sm:pl-6 pr-1.5 sm:pr-2.5 py-2 sm:py-3 rounded-full bg-white text-[#1a382e] font-sans text-[9px] sm:text-[11px] font-semibold tracking-[0.08em] sm:tracking-[0.16em] uppercase transition-all duration-300 hover:bg-[#FAF7F2] hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)] shadow-lg no-underline active:scale-95 cursor-pointer whitespace-nowrap"
+              className="group flex-1 sm:flex-initial inline-flex items-center justify-between sm:justify-start gap-1 sm:gap-3 pl-2.5 sm:pl-6 pr-1 sm:pr-2.5 py-1.5 sm:py-3 rounded-full bg-white text-[#1a382e] font-sans text-[8px] sm:text-[11px] font-semibold tracking-[0.06em] sm:tracking-[0.16em] uppercase transition-all duration-300 hover:bg-[#FAF7F2] hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)] shadow-md no-underline active:scale-95 cursor-pointer whitespace-nowrap"
               aria-label="START PLANNING Stay - Navigate to reservations"
             >
               <span>START PLANNING</span>
-              <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#1a382e] text-white flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:translate-x-1">
-                <ArrowRight size={11} strokeWidth={2.5} className="sm:hidden" />
+              <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-[#1a382e] text-white flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 sm:group-hover:translate-x-1">
+                <ArrowRight size={9} strokeWidth={2.5} className="sm:hidden" />
                 <ArrowRight size={13} strokeWidth={2.5} className="hidden sm:block" />
               </span>
             </a>
@@ -159,12 +159,12 @@ export function HeroSection() {
             <a
               href="#celebrations-and-experience"
               onClick={handleExperiencesClick}
-              className="group flex-1 sm:flex-initial inline-flex items-center justify-between sm:justify-start gap-1.5 sm:gap-3 pl-3 sm:pl-6 pr-1.5 sm:pr-2.5 py-2 sm:py-3 rounded-full bg-white text-[#1a382e] font-sans text-[9px] sm:text-[11px] font-semibold tracking-[0.08em] sm:tracking-[0.16em] uppercase transition-all duration-300 hover:bg-[#FAF7F2] hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)] shadow-lg no-underline active:scale-95 cursor-pointer whitespace-nowrap"
+              className="group flex-1 sm:flex-initial inline-flex items-center justify-between sm:justify-start gap-1 sm:gap-3 pl-2.5 sm:pl-6 pr-1 sm:pr-2.5 py-1.5 sm:py-3 rounded-full bg-white text-[#1a382e] font-sans text-[8px] sm:text-[11px] font-semibold tracking-[0.06em] sm:tracking-[0.16em] uppercase transition-all duration-300 hover:bg-[#FAF7F2] hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)] shadow-md no-underline active:scale-95 cursor-pointer whitespace-nowrap"
               aria-label="Explore Experiences"
             >
               <span>EXPLORE IDANAZHI</span>
-              <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#1a382e] text-white flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:translate-x-1">
-                <ArrowRight size={11} strokeWidth={2.5} className="sm:hidden" />
+              <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-[#1a382e] text-white flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 sm:group-hover:translate-x-1">
+                <ArrowRight size={9} strokeWidth={2.5} className="sm:hidden" />
                 <ArrowRight size={13} strokeWidth={2.5} className="hidden sm:block" />
               </span>
             </a>
