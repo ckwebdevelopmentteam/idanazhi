@@ -28,8 +28,6 @@ export default function Home() {
       <FAQSection />
 
       <ContactSection />
-
-
     </main>
   );
 }

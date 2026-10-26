@@ -372,13 +372,13 @@ export function WeddingIntro({
             <div className="w-full flex justify-center items-center text-center mt-3 sm:mt-5">
               <ScrollReveal
                 as="p"
-                baseOpacity={0.12}
+                baseOpacity={0.2}
                 enableBlur={true}
                 baseRotation={0}
-                blurStrength={5}
+                blurStrength={3}
                 containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
-                wordAnimationStart="top 53%"
-                wordAnimationEnd="bottom 28%"
+                wordAnimationStart="top 90%"
+                wordAnimationEnd="bottom 60%"
               >
                 <span className="block !font-sans !font-normal !text-[clamp(14.5px,1.05vw,17px)] !leading-[1.7] !text-muted text-center max-w-[840px] mx-auto">
                   {descLines.map((line, lineIdx) => {

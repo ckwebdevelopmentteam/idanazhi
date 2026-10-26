@@ -178,7 +178,7 @@ export function StoryOfIdanazhi({ className = '' }: StoryOfIdanazhiProps) {
               rotationEnd="bottom 65%"
               wordAnimationEnd="bottom 50%"
             >
-{`A HERITAGE THAT BRINGS US TOGETHER,
+              {`A HERITAGE THAT BRINGS US TOGETHER,
 SHAPED BY THE BEAUTY OF TRADITIONAL ARCHITECTURE,
 WHERE SACRED TRADITIONS MEET THE WARMTH OF SHARED MOMENTS,
 CRAFTED AS A DISTINCTIVE TIMELESS SETTING

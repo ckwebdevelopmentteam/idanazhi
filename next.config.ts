@@ -55,11 +55,6 @@ const nextConfig: NextConfig = {
         destination: '/celebrations',
         permanent: true,
       },
-      {
-        source: '/experiences',
-        destination: '/celebrations',
-        permanent: true,
-      },
     ];
   },
 };

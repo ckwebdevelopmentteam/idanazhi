@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, ArrowUpRight, Search, Clock, Calendar, Tag, X, Share2, BookOpen, Check } from 'lucide-react';
 
@@ -163,7 +163,7 @@ const blogPosts: BlogPost[] = [
         {
           heading: 'Awakening in the Brahma Muhurta',
           paragraphs: [
-            'Just before dawn, the farm stay awakens to the distant, melodic cadence of Guruvayoor temple bells. The morning air is crisp with dewdrops hanging from betel nut palms. Guests are offered warm warm infusions of vetiver (Ramacham) and dry ginger to cleanse and invigorate.',
+            'Just before dawn, the farm stay awakens to the distant, melodic cadence of Guruvayoor temple bells. The morning air is crisp with dewdrops hanging from betel nut palms. Guests are offered warm infusions of vetiver (Ramacham) and dry ginger to cleanse and invigorate.',
             'Gentle warm-oil abhyanga treatments follow in our open-air wooden wellness sanctuary, using authentic medicated oils prepared with herbs grown on our soil.',
           ],
           quote:
@@ -257,7 +257,78 @@ export default function BlogsPage() {
   const [activeArticle, setActiveArticle] = useState<BlogPost | null>(null);
   const [copied, setCopied] = useState(false);
 
-  // Filtered stories
+  // Sync with URL query parameter on mount and popstate
+  useEffect(() => {
+    const handleUrlChange = () => {
+      const params = new URLSearchParams(window.location.search);
+      const storyId = params.get('story');
+      if (storyId) {
+        const found = blogPosts.find((p) => p.id === storyId);
+        if (found) {
+          setActiveArticle(found);
+          return;
+        }
+      }
+      setActiveArticle(null);
+    };
+
+    handleUrlChange();
+    window.addEventListener('popstate', handleUrlChange);
+    return () => window.removeEventListener('popstate', handleUrlChange);
+  }, []);
+
+  // Lock body scroll when reader modal is active
+  useEffect(() => {
+    if (activeArticle) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [activeArticle]);
+
+  // Handle Escape key to close modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && activeArticle) {
+        closeArticle();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeArticle]);
+
+  const openArticle = (post: BlogPost) => {
+    setActiveArticle(post);
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      url.searchParams.set('story', post.id);
+      window.history.pushState({}, '', url.toString());
+    }
+  };
+
+  const closeArticle = () => {
+    setActiveArticle(null);
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('story');
+      window.history.pushState({}, '', url.toString());
+    }
+  };
+
+  const handleShare = (post?: BlogPost) => {
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      const origin = window.location.origin;
+      const shareUrl = post ? `${origin}/blogs?story=${post.id}` : window.location.href;
+      navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    }
+  };
+
+  // Filtered stories based on category & search
   const filteredPosts = useMemo(() => {
     return blogPosts.filter((post) => {
       const matchesCategory =
@@ -273,40 +344,34 @@ export default function BlogsPage() {
     });
   }, [selectedCategory, searchQuery]);
 
-  const featuredPost = blogPosts[0];
-
-  const handleShare = (post?: BlogPost) => {
-    if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      const shareUrl = post ? `${window.location.origin}/blogs#${post.id}` : window.location.href;
-      navigator.clipboard.writeText(shareUrl);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2500);
-    }
-  };
+  const isDefaultView = selectedCategory === 'All Stories' && !searchQuery;
+  const featuredPost = filteredPosts[0] || blogPosts[0];
+  // Avoid duplicate: when featuredPost is displayed at top, grid starts from index 1
+  const displayPosts = isDefaultView ? filteredPosts.slice(1) : filteredPosts;
 
   return (
-    <main className="min-h-screen bg-paper text-ink pt-[95px] pb-24 selection:bg-[#7C402E] selection:text-white">
+    <main className="min-h-screen bg-paper text-ink pt-[88px] sm:pt-[96px] pb-24 selection:bg-[#7C402E] selection:text-white">
       {/* Editorial Page Header */}
-      <section className="relative w-full border-b border-[#7C402E]/15 bg-gradient-to-b from-[#FAF4EC] to-paper py-14 sm:py-20 px-6 sm:px-12">
+      <section className="relative w-full border-b border-[#7C402E]/15 bg-gradient-to-b from-[#FAF4EC] to-paper py-12 sm:py-18 px-5 sm:px-12">
         <div className="max-w-[1280px] mx-auto flex flex-col items-center text-center">
           {/* Back to Home Link */}
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-[11px] font-sans font-medium uppercase tracking-[0.2em] text-[#7C402E] hover:text-[#52291D] transition-colors mb-6 group"
+            className="inline-flex items-center gap-2 text-[10.5px] sm:text-[11px] font-sans font-medium uppercase tracking-[0.2em] text-[#7C402E] hover:text-[#52291D] transition-colors mb-5 group"
           >
-            <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1" />
+            <ArrowLeft size={13} className="transition-transform group-hover:-translate-x-1" />
             Back to Idanazhi Home
           </Link>
 
-          <p className="m-0 mb-3 uppercase tracking-[0.26em] text-[10.5px] sm:text-[12px] font-semibold text-[#84382B]">
-            THE IDANAZHI JOURNAL &amp; STORIES
+          <p className="m-0 mb-2.5 uppercase tracking-[0.26em] text-[10.5px] sm:text-[11.5px] font-semibold text-[#84382B]">
+            THE IDANAZHI JOURNAL &amp; CHRONICLES
           </p>
 
-          <h1 className="font-serif text-[clamp(34px,4.5vw,62px)] font-normal leading-[1.12] tracking-[-0.03em] text-[#2D1912] m-0 mb-5 max-w-[840px]">
-            Chronicles of Heritage, Culture &amp; Unhurried Living
+          <h1 className="font-jakarta font-normal text-[clamp(20px,2.6vw,40px)] leading-[1.3] tracking-[-0.015em] uppercase text-[#2D1912] m-0 mb-4 max-w-[880px]">
+            Stories of Heritage, Sacred Rites &amp; Unhurried Living
           </h1>
 
-          <p className="font-sans text-[15px] sm:text-[17px] text-[#5A3828] max-w-[660px] leading-relaxed m-0 mb-8 font-light">
+          <p className="font-sans text-[14.5px] sm:text-[16px] text-[#5A3828] max-w-[640px] leading-relaxed m-0 mb-7 font-light">
             Reflections on traditional Kerala architecture, sacred temple wedding rituals,
             farm-to-table culinary notes, and Ayurvedic stillness from the heart of Guruvayoor.
           </p>
@@ -314,7 +379,7 @@ export default function BlogsPage() {
           {/* Interactive Search Bar */}
           <div className="w-full max-w-[460px] relative">
             <Search
-              size={17}
+              size={16}
               className="absolute left-4 top-1/2 -translate-y-1/2 text-[#7C402E]/60 pointer-events-none"
             />
             <input
@@ -323,7 +388,7 @@ export default function BlogsPage() {
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search stories, architecture, weddings, sadhya..."
               aria-label="Search stories"
-              className="w-full bg-white/80 backdrop-blur-sm border border-[#7C402E]/25 rounded-none pl-11 pr-10 py-3 text-[13.5px] font-sans text-ink placeholder:text-[#5A3828]/50 focus:outline-none focus:border-[#7C402E] focus:bg-white shadow-xs transition-all"
+              className="w-full bg-white/80 backdrop-blur-sm border border-[#7C402E]/25 rounded-none pl-11 pr-10 py-3 text-[13px] font-sans text-ink placeholder:text-[#5A3828]/50 focus:outline-none focus:border-[#7C402E] focus:bg-white shadow-xs transition-all"
             />
             {searchQuery && (
               <button
@@ -340,14 +405,14 @@ export default function BlogsPage() {
       </section>
 
       {/* Category Filter Navigation */}
-      <section className="sticky top-[64px] z-20 bg-paper/95 backdrop-blur-md border-b border-[#7C402E]/10 py-3 px-4 sm:px-8">
+      <section className="bg-paper/95 border-b border-[#7C402E]/10 py-3 px-4 sm:px-8">
         <div className="max-w-[1280px] mx-auto flex items-center justify-start sm:justify-center overflow-x-auto no-scrollbar gap-2 sm:gap-3 py-1">
           {categories.map((cat) => (
             <button
               key={cat}
               type="button"
               onClick={() => setSelectedCategory(cat)}
-              className={`whitespace-nowrap px-4 py-2 text-[10.5px] sm:text-[11.5px] font-sans tracking-[0.14em] uppercase transition-all duration-200 cursor-pointer ${
+              className={`whitespace-nowrap px-4 py-2 text-[10px] sm:text-[11px] font-sans tracking-[0.14em] uppercase transition-all duration-200 cursor-pointer ${
                 selectedCategory === cat
                   ? 'bg-[#7C402E] text-white font-medium shadow-xs'
                   : 'bg-transparent text-[#5A3828] hover:bg-[#7C402E]/10 hover:text-ink'
@@ -361,15 +426,15 @@ export default function BlogsPage() {
 
       {/* Main Content Area */}
       <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-12 pt-10 sm:pt-14">
-        {/* Featured Story Banner (Only shown when viewing all stories and no search active) */}
-        {selectedCategory === 'All Stories' && !searchQuery && (
+        {/* Featured Story Banner (Only shown when viewing all stories and no active search) */}
+        {isDefaultView && (
           <article
             className="group relative bg-[#FAF4EC] border border-[#7C402E]/20 mb-14 sm:mb-20 overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl hover:border-[#7C402E]/40"
-            onClick={() => setActiveArticle(featuredPost)}
+            onClick={() => openArticle(featuredPost)}
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
               {/* Featured Image */}
-              <div className="lg:col-span-7 relative min-h-[320px] sm:min-h-[420px] overflow-hidden">
+              <div className="lg:col-span-7 relative min-h-[300px] sm:min-h-[400px] overflow-hidden">
                 <img
                   src={featuredPost.image}
                   alt={featuredPost.title}
@@ -385,7 +450,7 @@ export default function BlogsPage() {
               {/* Featured Editorial Text */}
               <div className="lg:col-span-5 p-7 sm:p-10 lg:p-12 flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center gap-3 text-[11px] font-sans tracking-[0.14em] uppercase text-[#84382B] mb-3">
+                  <div className="flex items-center gap-3 text-[10.5px] font-sans tracking-[0.14em] uppercase text-[#84382B] mb-3">
                     <span>{featuredPost.category}</span>
                     <span>·</span>
                     <span className="flex items-center gap-1 text-muted">
@@ -393,11 +458,11 @@ export default function BlogsPage() {
                     </span>
                   </div>
 
-                  <h2 className="font-serif text-[clamp(24px,2.5vw,36px)] font-normal text-[#2D1912] leading-[1.2] tracking-[-0.02em] mb-4 group-hover:text-[#7C402E] transition-colors">
+                  <h2 className="font-serif text-[clamp(24px,2.4vw,34px)] font-normal text-[#2D1912] leading-[1.22] tracking-[-0.02em] mb-4 group-hover:text-[#7C402E] transition-colors">
                     {featuredPost.title}
                   </h2>
 
-                  <p className="font-sans text-[14px] sm:text-[15px] leading-relaxed text-[#5A3828] mb-6 font-light">
+                  <p className="font-sans text-[13.5px] sm:text-[14.5px] leading-relaxed text-[#5A3828] mb-6 font-light">
                     {featuredPost.excerpt}
                   </p>
                 </div>
@@ -407,13 +472,14 @@ export default function BlogsPage() {
                     <p className="text-[12px] font-serif font-semibold text-[#2D1912] m-0">
                       {featuredPost.author.name}
                     </p>
-                    <p className="text-[10.5px] font-sans text-muted tracking-wider uppercase m-0">
+                    <p className="text-[10px] font-sans text-muted tracking-wider uppercase m-0">
                       {featuredPost.author.role}
                     </p>
                   </div>
 
-                  <span className="inline-flex items-center gap-1.5 text-[11px] font-sans font-semibold tracking-[0.16em] uppercase text-[#7C402E] group-hover:translate-x-1 transition-transform">
-                    READ ARTICLE <ArrowUpRight size={14} />
+                  <span className="card-cta">
+                    <span className="cta-text">READ ARTICLE</span>
+                    <ArrowUpRight size={14} className="cta-arrow" />
                   </span>
                 </div>
               </div>
@@ -423,16 +489,16 @@ export default function BlogsPage() {
 
         {/* Section Heading */}
         <div className="flex items-baseline justify-between mb-8 pb-3 border-b border-[#7C402E]/15">
-          <h2 className="font-serif text-[26px] sm:text-[30px] font-normal text-[#2D1912] m-0">
-            {selectedCategory === 'All Stories' ? 'Latest Stories' : selectedCategory}
+          <h2 className="font-serif text-[24px] sm:text-[28px] font-normal text-[#2D1912] m-0">
+            {isDefaultView ? 'More Stories & Chronicles' : selectedCategory}
           </h2>
-          <span className="text-[11.5px] font-sans text-muted tracking-wider uppercase">
-            {filteredPosts.length} {filteredPosts.length === 1 ? 'Article' : 'Articles'}
+          <span className="text-[11px] font-sans text-muted tracking-wider uppercase">
+            {displayPosts.length} {displayPosts.length === 1 ? 'Article' : 'Articles'}
           </span>
         </div>
 
         {/* Stories Grid */}
-        {filteredPosts.length === 0 ? (
+        {displayPosts.length === 0 ? (
           <div className="py-20 text-center flex flex-col items-center">
             <BookOpen size={40} className="text-[#7C402E]/40 mb-4" />
             <p className="font-serif text-[22px] text-[#2D1912] mb-2">No stories found</p>
@@ -452,10 +518,10 @@ export default function BlogsPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
-            {filteredPosts.map((post) => (
+            {displayPosts.map((post) => (
               <article
                 key={post.id}
-                onClick={() => setActiveArticle(post)}
+                onClick={() => openArticle(post)}
                 className="group flex flex-col bg-white border border-[#7C402E]/15 hover:border-[#7C402E]/40 shadow-xs hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden"
               >
                 {/* Image */}
@@ -485,11 +551,11 @@ export default function BlogsPage() {
                       </span>
                     </div>
 
-                    <h3 className="font-serif text-[21px] sm:text-[23px] font-normal leading-[1.25] tracking-[-0.015em] text-[#2D1912] mb-3 group-hover:text-[#7C402E] transition-colors">
+                    <h3 className="font-serif text-[20px] sm:text-[22px] font-normal leading-[1.25] tracking-[-0.015em] text-[#2D1912] mb-3 group-hover:text-[#7C402E] transition-colors">
                       {post.title}
                     </h3>
 
-                    <p className="font-sans text-[13.5px] text-[#5A3828] leading-relaxed line-clamp-3 font-light mb-4">
+                    <p className="font-sans text-[13px] sm:text-[13.5px] text-[#5A3828] leading-relaxed line-clamp-3 font-light mb-4">
                       {post.excerpt}
                     </p>
                   </div>
@@ -498,8 +564,9 @@ export default function BlogsPage() {
                     <span className="text-[11.5px] font-serif font-medium text-[#2D1912]">
                       {post.author.name}
                     </span>
-                    <span className="inline-flex items-center gap-1 text-[10.5px] font-sans font-semibold tracking-[0.16em] uppercase text-[#7C402E] group-hover:translate-x-1 transition-transform">
-                      READ <ArrowUpRight size={13} />
+                    <span className="card-cta">
+                      <span className="cta-text">READ ARTICLE</span>
+                      <ArrowUpRight size={13} className="cta-arrow" />
                     </span>
                   </div>
                 </div>
@@ -509,48 +576,45 @@ export default function BlogsPage() {
         )}
       </div>
 
-      {/* Stay in Touch & Newsletter Pre-footer */}
+      {/* Experience Idanazhi Sanctuary Banner (Replaces redundant duplicate newsletter box) */}
       <section className="mt-20 max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-12">
         <div className="bg-[#FAF4EC] border border-[#7C402E]/20 p-8 sm:p-12 lg:p-16 text-center flex flex-col items-center">
           <p className="m-0 mb-3 uppercase tracking-[0.24em] text-[10.5px] font-semibold text-[#84382B]">
-            STORIES DIRECT TO YOUR INBOX
+            EXPERIENCE IDANAZHI
           </p>
-          <h2 className="font-serif text-[clamp(26px,3vw,40px)] font-normal text-[#2D1912] m-0 mb-4 max-w-[640px]">
-            Receive Idanazhi’s Curated Chronicles &amp; Invitations
+          <h2 className="font-serif text-[clamp(26px,3vw,38px)] font-normal text-[#2D1912] m-0 mb-4 max-w-[640px]">
+            Immerse Yourself in Living Kerala Heritage
           </h2>
-          <p className="font-sans text-[14px] sm:text-[15px] text-[#5A3828] max-w-[500px] leading-relaxed m-0 mb-7 font-light">
-            Stay immersed in Kerala heritage living, upcoming cultural feasts, and private seasonal retreats.
+          <p className="font-sans text-[14px] sm:text-[15px] text-[#5A3828] max-w-[540px] leading-relaxed m-0 mb-8 font-light">
+            From sacred courtyard weddings to unhurried farm stays among ancestral timber colonnades, allow our concierge to curate your journey.
           </p>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              alert('Thank you for subscribing to the Idanazhi Journal.');
-            }}
-            className="w-full max-w-[420px] flex flex-col sm:flex-row gap-2"
-          >
-            <input
-              type="email"
-              required
-              placeholder="Your email address"
-              className="flex-1 bg-white border border-[#7C402E]/30 px-4 py-3 text-[13px] font-sans text-ink placeholder:text-[#5A3828]/50 focus:outline-none focus:border-[#7C402E]"
-            />
-            <button
-              type="submit"
-              className="bg-[#7C402E] hover:bg-[#5E2B1D] text-white px-6 py-3 text-[10.5px] font-sans font-semibold tracking-[0.18em] uppercase transition-colors cursor-pointer"
+          <div className="flex flex-wrap items-center justify-center gap-3 w-full sm:w-auto">
+            <Link
+              href="/stay"
+              className="bg-[#7C402E] hover:bg-[#5E2B1D] text-white px-6 py-3.5 text-[10.5px] font-sans font-semibold tracking-[0.18em] uppercase transition-colors text-center w-full sm:w-auto"
             >
-              SUBSCRIBE
-            </button>
-          </form>
+              EXPLORE ACCOMMODATIONS
+            </Link>
+            <Link
+              href="/#contact"
+              className="border border-[#7C402E]/40 text-[#7C402E] hover:bg-[#7C402E]/10 px-6 py-3.5 text-[10.5px] font-sans font-semibold tracking-[0.18em] uppercase transition-colors text-center w-full sm:w-auto"
+            >
+              PLAN YOUR CELEBRATION
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* Full Article Reader Modal */}
+      {/* Full Article Reader Modal with Backdrop Click & ESC handling */}
       {activeArticle && (
         <div
-          className="fixed inset-0 z-[80] bg-[rgba(35,18,13,0.65)] backdrop-blur-[6px] flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fadeIn"
+          className="fixed inset-0 z-[80] bg-[rgba(35,18,13,0.7)] backdrop-blur-[6px] flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fadeIn"
           role="dialog"
           aria-modal="true"
           aria-labelledby="reader-article-title"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) closeArticle();
+          }}
         >
           <div className="bg-paper text-ink max-w-[840px] w-full my-auto max-h-[92vh] flex flex-col border border-[#7C402E]/30 shadow-2xl overflow-hidden relative">
             {/* Modal Header Bar */}
@@ -563,14 +627,14 @@ export default function BlogsPage() {
                   type="button"
                   onClick={() => handleShare(activeArticle)}
                   className="p-1.5 text-[#7C402E] hover:bg-[#7C402E]/10 rounded-full transition-colors cursor-pointer"
-                  title="Share Story"
-                  aria-label="Share Story"
+                  title="Share Story Link"
+                  aria-label="Share Story Link"
                 >
                   {copied ? <Check size={18} className="text-green-700" /> : <Share2 size={18} />}
                 </button>
                 <button
                   type="button"
-                  onClick={() => setActiveArticle(null)}
+                  onClick={closeArticle}
                   className="p-1.5 text-[#2D1912] hover:bg-black/5 rounded-full transition-colors cursor-pointer"
                   aria-label="Close article"
                 >
@@ -591,12 +655,12 @@ export default function BlogsPage() {
               {/* Title */}
               <h1
                 id="reader-article-title"
-                className="font-serif text-[clamp(28px,3.5vw,44px)] font-normal leading-[1.18] text-[#2D1912] m-0"
+                className="font-serif text-[clamp(26px,3.2vw,42px)] font-normal leading-[1.2] text-[#2D1912] m-0"
               >
                 {activeArticle.title}
               </h1>
 
-              <p className="font-serif text-[17px] sm:text-[19px] text-[#7C402E] italic leading-relaxed m-0 font-light">
+              <p className="font-serif text-[16px] sm:text-[18px] text-[#7C402E] italic leading-relaxed m-0 font-light">
                 {activeArticle.subtitle}
               </p>
 
@@ -609,7 +673,7 @@ export default function BlogsPage() {
                   <p className="text-[13px] font-serif font-semibold text-[#2D1912] m-0">
                     {activeArticle.author.name}
                   </p>
-                  <p className="text-[11px] font-sans text-muted tracking-wider uppercase m-0">
+                  <p className="text-[10.5px] font-sans text-muted tracking-wider uppercase m-0">
                     {activeArticle.author.role}
                   </p>
                 </div>
@@ -625,23 +689,23 @@ export default function BlogsPage() {
               </div>
 
               {/* Lead Paragraph */}
-              <p className="font-serif text-[17px] sm:text-[19px] leading-[1.7] text-[#2D1912] first-letter:float-left first-letter:text-[48px] first-letter:leading-none first-letter:pr-3 first-letter:font-serif first-letter:text-[#7C402E]">
+              <p className="font-serif text-[17px] sm:text-[18px] leading-[1.7] text-[#2D1912] first-letter:float-left first-letter:text-[46px] first-letter:leading-none first-letter:pr-3 first-letter:font-serif first-letter:text-[#7C402E]">
                 {activeArticle.content.lead}
               </p>
 
               {/* Body Sections */}
               {activeArticle.content.sections.map((sec, idx) => (
-                <div key={idx} className="space-y-4 pt-4">
-                  <h3 className="font-serif text-[22px] sm:text-[25px] font-normal text-[#2D1912]">
+                <div key={idx} className="space-y-4 pt-3">
+                  <h3 className="font-serif text-[21px] sm:text-[23px] font-normal text-[#2D1912]">
                     {sec.heading}
                   </h3>
                   {sec.paragraphs.map((p, pIdx) => (
-                    <p key={pIdx} className="font-sans text-[14.5px] sm:text-[15.5px] leading-[1.8] text-[#4A2D20] font-light">
+                    <p key={pIdx} className="font-sans text-[14px] sm:text-[15px] leading-[1.8] text-[#4A2D20] font-light">
                       {p}
                     </p>
                   ))}
                   {sec.quote && (
-                    <blockquote className="my-6 pl-5 border-l-2 border-[#7C402E] italic font-serif text-[18px] text-[#7C402E] bg-[#FAF4EC]/60 py-3 pr-4">
+                    <blockquote className="my-6 pl-5 border-l-2 border-[#7C402E] italic font-serif text-[17px] text-[#7C402E] bg-[#FAF4EC]/60 py-3 pr-4">
                       &ldquo;{sec.quote}&rdquo;
                     </blockquote>
                   )}
@@ -649,12 +713,12 @@ export default function BlogsPage() {
               ))}
 
               {/* Tags */}
-              <div className="pt-8 border-t border-[#7C402E]/15 flex flex-wrap items-center gap-2">
+              <div className="pt-7 border-t border-[#7C402E]/15 flex flex-wrap items-center gap-2">
                 <Tag size={14} className="text-[#7C402E]" />
                 {activeArticle.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-[11px] font-sans bg-[#FAF4EC] text-[#7C402E] border border-[#7C402E]/20 px-3 py-1"
+                    className="text-[10.5px] font-sans bg-[#FAF4EC] text-[#7C402E] border border-[#7C402E]/20 px-3 py-1"
                   >
                     #{tag}
                   </span>
@@ -664,16 +728,16 @@ export default function BlogsPage() {
               {/* Bottom CTA within reader */}
               <div className="bg-[#FAF4EC] border border-[#7C402E]/25 p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-4 mt-8">
                 <div>
-                  <h4 className="font-serif text-[20px] text-[#2D1912] m-0 mb-1">
+                  <h4 className="font-serif text-[19px] text-[#2D1912] m-0 mb-1">
                     Experience Idanazhi Firsthand
                   </h4>
-                  <p className="text-[13px] font-sans text-muted m-0">
+                  <p className="text-[12.5px] font-sans text-muted m-0">
                     Reserve your sanctuary or arrange a personal celebration consultation.
                   </p>
                 </div>
                 <Link
                   href="/stay"
-                  onClick={() => setActiveArticle(null)}
+                  onClick={closeArticle}
                   className="bg-[#7C402E] hover:bg-[#5E2B1D] text-white px-5 py-2.5 text-[10.5px] font-sans font-semibold tracking-[0.16em] uppercase whitespace-nowrap transition-colors"
                 >
                   RESERVE YOUR STAY

@@ -139,6 +139,24 @@ export default function GalleryPage() {
     return galleryData.filter((item) => item.category === activeCategory);
   }, [activeCategory]);
 
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedPhoto(null);
+      }
+    };
+    if (selectedPhoto) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedPhoto]);
+
   const currentIndex = selectedPhoto
     ? filteredItems.findIndex((item) => item.id === selectedPhoto.id)
     : -1;
@@ -164,8 +182,8 @@ export default function GalleryPage() {
   return (
     <main className="min-h-screen bg-paper pt-[100px] sm:pt-[120px] pb-24 text-ink">
       {/* Editorial Page Header */}
-      <section className="px-6 sm:px-10 lg:px-16 max-w-[1280px] mx-auto text-center pt-8 sm:pt-14 pb-12">
-        <h1 className="font-serif text-[clamp(34px,4.5vw,58px)] font-normal leading-[1.08] tracking-[-0.035em] text-[#2D1912] m-0 mb-5">
+      <section className="px-6 sm:px-10 lg:px-16 max-w-[1280px] mx-auto text-center pt-8 sm:pt-14 pb-8 sm:pb-12">
+        <h1 className="font-jakarta font-normal text-[clamp(22px,3.2vw,42px)] leading-[1.25] tracking-[-0.015em] uppercase text-[#2D1912] m-0 mb-5">
           Visual Stories &amp; Heritage Moments
         </h1>
 
@@ -173,9 +191,11 @@ export default function GalleryPage() {
           Immerse yourself in our visual tapestry — from sacred Vedic mandapams and starlit banquets
           to the tranquil timber courtyards of Guruvayoor.
         </p>
+      </section>
 
-        {/* Filter Navigation Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-10">
+      {/* Category Filter Navigation Bar */}
+      <section className="bg-paper/95 border-y border-[#7C402E]/10 py-3 px-4 sm:px-8 mb-10 sm:mb-12">
+        <div className="max-w-[1280px] mx-auto flex items-center justify-start sm:justify-center overflow-x-auto no-scrollbar gap-2 sm:gap-3 py-1">
           {categories.map((cat) => {
             const isActive = activeCategory === cat;
             return (
@@ -183,10 +203,10 @@ export default function GalleryPage() {
                 key={cat}
                 type="button"
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 sm:px-5 py-2 text-[11px] sm:text-[11.5px] font-sans tracking-[0.16em] uppercase rounded-full transition-all duration-200 cursor-pointer ${
+                className={`whitespace-nowrap px-4 py-2 text-[10px] sm:text-[11px] font-sans tracking-[0.14em] uppercase transition-all duration-200 cursor-pointer ${
                   isActive
-                    ? 'bg-[#4E2418] text-white shadow-md'
-                    : 'bg-white/80 border border-[#7C402E]/25 text-[#4E2418] hover:bg-white hover:border-[#4E2418]'
+                    ? 'bg-[#7C402E] text-white font-medium shadow-xs'
+                    : 'bg-transparent text-[#5A3828] hover:bg-[#7C402E]/10 hover:text-ink'
                 }`}
               >
                 {cat}
@@ -196,7 +216,7 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* Gallery Grid */}
+      {/* Gallery Grid - 3 cards in a row */}
       <section className="px-4 sm:px-8 lg:px-12 max-w-[1360px] mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {filteredItems.map((item, idx) => (
@@ -207,38 +227,36 @@ export default function GalleryPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, delay: idx * 0.04 }}
               onClick={() => setSelectedPhoto(item)}
-              className="group cursor-pointer flex flex-col bg-white border border-[#7C402E]/15 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300"
+              className="group cursor-pointer relative aspect-[4/3] w-full overflow-hidden bg-[#FAF4EC] border border-[#7C402E]/15 shadow-xs hover:shadow-2xl transition-all duration-300 rounded-none"
             >
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#FAF4EC]">
-                <img
-                  src={item.src}
-                  alt={item.alt}
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  loading="lazy"
-                />
-                <div className="absolute top-3 left-3 bg-[#2D1912]/80 backdrop-blur-xs text-white text-[9px] uppercase tracking-[0.18em] px-2.5 py-1 rounded-xs font-semibold">
-                  {item.categoryLabel}
-                </div>
-              </div>
+              <img
+                src={item.src}
+                alt={item.alt}
+                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                loading="lazy"
+              />
 
-              <div className="p-5 flex flex-col justify-between flex-1">
-                <div>
-                  <h3 className="font-serif text-[20px] text-[#2D1912] m-0 mb-2 leading-snug group-hover:text-[#84382B] transition-colors">
+              {/* Hover overlay revealing image content */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1A0C08]/95 via-[#1A0C08]/55 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-5 sm:p-6 text-white pointer-events-none">
+                <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 flex flex-col">
+                  <span className="self-start bg-black/40 backdrop-blur-xs text-[#F5E6D3] text-[9px] uppercase tracking-[0.18em] px-2.5 py-1 font-semibold mb-2 border border-white/20">
+                    {item.categoryLabel}
+                  </span>
+                  <h3 className="font-serif text-[18px] sm:text-[20px] text-white m-0 mb-1.5 leading-snug">
                     {item.title}
                   </h3>
-                  <p className="font-sans text-[13px] text-[#5A3828]/90 leading-relaxed font-light m-0 line-clamp-2">
+                  <p className="font-sans text-[12.5px] sm:text-[13px] text-white/85 leading-relaxed font-light m-0 line-clamp-2 mb-3">
                     {item.caption}
                   </p>
-                </div>
-
-                <div className="mt-4 pt-3 border-t border-[#7C402E]/15 flex items-center justify-between">
-                  <span className="text-[10.5px] uppercase font-sans font-semibold tracking-[0.18em] text-[#84382B]">
-                    View Detail
-                  </span>
-                  <ArrowUpRight
-                    size={15}
-                    className="text-[#84382B] transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
-                  />
+                  <div className="pt-2.5 border-t border-white/20 flex items-center justify-between">
+                    <span className="text-[10px] uppercase font-sans font-semibold tracking-[0.18em] text-[#E8C28A]">
+                      View Detail
+                    </span>
+                    <ArrowUpRight
+                      size={15}
+                      className="text-[#E8C28A] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                    />
+                  </div>
                 </div>
               </div>
             </motion.div>
