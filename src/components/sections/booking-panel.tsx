@@ -74,20 +74,20 @@ export function BookingPanel({ close, defaultOccasion = 'wedding' }: BookingPane
       aria-modal="true"
       aria-label="Enquiry & Reservations"
     >
-      {/* Dark Ambient Backdrop */}
+      {/* Ambient Dark Backdrop */}
       <div
-        className="fixed inset-0 bg-black/75 backdrop-blur-[6px] transition-opacity duration-300"
+        className="fixed inset-0 bg-black/60 backdrop-blur-[5px] transition-opacity duration-300"
         onClick={close}
         aria-hidden="true"
       />
 
-      {/* Modal Dialog Box matching user design */}
-      <div className="relative w-full max-w-[680px] bg-[#291611] border border-[#4A2A20] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.85)] p-6 sm:p-9 md:p-10 my-auto z-10 text-white animate-in fade-in zoom-in-95 duration-200">
+      {/* Modal Card - Pure White Background with Refined Brown Editorial Design */}
+      <div className="relative w-full max-w-[680px] bg-white border border-[#7C402E]/25 shadow-[0_25px_65px_-12px_rgba(45,25,18,0.28)] p-6 sm:p-9 md:p-10 my-auto z-10 text-[#2D1912] animate-in fade-in zoom-in-95 duration-200">
         {/* Close Button */}
         <button
           type="button"
           onClick={close}
-          className="absolute top-5 right-5 text-white/60 hover:text-white transition-colors p-1.5 cursor-pointer bg-transparent border-0"
+          className="absolute top-5 right-5 text-[#7C402E]/70 hover:text-[#4E2418] transition-colors p-1.5 cursor-pointer bg-transparent border-0"
           aria-label="Close enquiry modal"
         >
           <X size={20} strokeWidth={1.5} />
@@ -95,20 +95,20 @@ export function BookingPanel({ close, defaultOccasion = 'wedding' }: BookingPane
 
         {submitted ? (
           <div className="py-10 text-center flex flex-col items-center justify-center">
-            <div className="w-12 h-12 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37] flex items-center justify-center text-[#D4AF37] mb-4">
+            <div className="w-12 h-12 rounded-full bg-[#7C402E]/10 border border-[#7C402E]/40 flex items-center justify-center text-[#7C402E] mb-4">
               <CheckCircle2 size={24} />
             </div>
-            <h3 className="font-serif text-[24px] sm:text-[28px] text-white font-normal m-0 mb-2">
+            <h3 className="font-serif text-[24px] sm:text-[28px] text-[#2D1912] font-normal m-0 mb-2">
               Thank You, {formData.name || 'Valued Guest'}
             </h3>
-            <p className="font-sans text-[13.5px] text-[#D8C7B9] max-w-[420px] leading-relaxed m-0 mb-6 font-light">
+            <p className="font-sans text-[13.5px] text-[#5A3828] max-w-[420px] leading-relaxed m-0 mb-6 font-light">
               Your enquiry has been received. Our concierge team will reach out to you within 24 hours.
             </p>
             <div className="flex gap-3">
               <button
                 type="button"
                 onClick={close}
-                className="bg-white text-[#291611] font-sans text-[11px] font-semibold tracking-[0.16em] uppercase px-6 py-2.5 hover:bg-[#FAF4EC] transition-colors cursor-pointer border-0"
+                className="bg-[#4E2418] text-white font-sans text-[11px] font-semibold tracking-[0.16em] uppercase px-6 py-2.5 hover:bg-[#341810] transition-colors cursor-pointer border-0 shadow-sm"
               >
                 CLOSE
               </button>
@@ -118,7 +118,7 @@ export function BookingPanel({ close, defaultOccasion = 'wedding' }: BookingPane
                   setSubmitted(false);
                   setFormData({ name: '', email: '', phone: '', message: '' });
                 }}
-                className="bg-transparent border border-white/20 text-[#D8C7B9] hover:border-white/50 hover:text-white font-sans text-[11px] tracking-[0.16em] uppercase px-5 py-2.5 transition-colors cursor-pointer"
+                className="bg-transparent border border-[#7C402E]/35 text-[#4E2418] hover:border-[#4E2418] font-sans text-[11px] tracking-[0.16em] uppercase px-5 py-2.5 transition-colors cursor-pointer"
               >
                 NEW ENQUIRY
               </button>
@@ -128,7 +128,7 @@ export function BookingPanel({ close, defaultOccasion = 'wedding' }: BookingPane
           <form onSubmit={handleSubmit} className="flex flex-col gap-5 sm:gap-6" noValidate>
             {/* Occasion Options */}
             <div>
-              <label className="block text-[10.5px] uppercase tracking-[0.18em] text-[#D8C7B9]/80 font-medium mb-2.5">
+              <label className="block text-[10.5px] uppercase tracking-[0.18em] text-[#7C402E] font-semibold mb-2.5">
                 OCCASION
               </label>
               <div className="flex flex-wrap gap-2.5">
@@ -141,8 +141,8 @@ export function BookingPanel({ close, defaultOccasion = 'wedding' }: BookingPane
                       onClick={() => setSelectedOccasion(occ.id)}
                       className={`px-4 py-2 text-[11px] font-sans tracking-[0.06em] transition-all duration-200 cursor-pointer border ${
                         isSelected
-                          ? 'bg-white text-[#291611] font-semibold border-white shadow-sm'
-                          : 'bg-transparent text-[#E0D3C7]/90 border-[#4A2A20] hover:border-white/40'
+                          ? 'bg-[#4E2418] text-white font-semibold border-[#4E2418] shadow-xs'
+                          : 'bg-transparent text-[#5A3828] border-[#7C402E]/30 hover:border-[#4E2418] hover:text-[#2D1912]'
                       }`}
                     >
                       {occ.label}
@@ -157,9 +157,9 @@ export function BookingPanel({ close, defaultOccasion = 'wedding' }: BookingPane
               <div>
                 <label
                   htmlFor="modal-name"
-                  className="block text-[10.5px] uppercase tracking-[0.18em] text-[#D8C7B9]/80 font-medium mb-1.5"
+                  className="block text-[10.5px] uppercase tracking-[0.18em] text-[#5A3828] font-semibold mb-1.5"
                 >
-                  NAME <span className="text-[#D4AF37]">*</span>
+                  NAME <span className="text-[#84382B]">*</span>
                 </label>
                 <input
                   id="modal-name"
@@ -168,16 +168,16 @@ export function BookingPanel({ close, defaultOccasion = 'wedding' }: BookingPane
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="Your name"
-                  className="w-full bg-[#1F0F0A]/70 border border-[#4A2A20] focus:border-white/40 focus:bg-[#1F0F0A] text-white placeholder:text-white/35 text-[13.5px] px-3.5 py-3 outline-none transition-colors"
+                  className="w-full bg-[#FAF7F2] border border-[#7C402E]/25 focus:border-[#4E2418] focus:bg-white text-[#2D1912] placeholder:text-[#8C7A70] text-[13.5px] px-3.5 py-3 outline-none transition-colors"
                 />
               </div>
 
               <div>
                 <label
                   htmlFor="modal-email"
-                  className="block text-[10.5px] uppercase tracking-[0.18em] text-[#D8C7B9]/80 font-medium mb-1.5"
+                  className="block text-[10.5px] uppercase tracking-[0.18em] text-[#5A3828] font-semibold mb-1.5"
                 >
-                  EMAIL <span className="text-[#D4AF37]">*</span>
+                  EMAIL <span className="text-[#84382B]">*</span>
                 </label>
                 <input
                   id="modal-email"
@@ -186,7 +186,7 @@ export function BookingPanel({ close, defaultOccasion = 'wedding' }: BookingPane
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="Your email address"
-                  className="w-full bg-[#1F0F0A]/70 border border-[#4A2A20] focus:border-white/40 focus:bg-[#1F0F0A] text-white placeholder:text-white/35 text-[13.5px] px-3.5 py-3 outline-none transition-colors"
+                  className="w-full bg-[#FAF7F2] border border-[#7C402E]/25 focus:border-[#4E2418] focus:bg-white text-[#2D1912] placeholder:text-[#8C7A70] text-[13.5px] px-3.5 py-3 outline-none transition-colors"
                 />
               </div>
             </div>
@@ -195,7 +195,7 @@ export function BookingPanel({ close, defaultOccasion = 'wedding' }: BookingPane
             <div>
               <label
                 htmlFor="modal-phone"
-                className="block text-[10.5px] uppercase tracking-[0.18em] text-[#D8C7B9]/80 font-medium mb-1.5"
+                className="block text-[10.5px] uppercase tracking-[0.18em] text-[#5A3828] font-semibold mb-1.5"
               >
                 TELEPHONE / WHATSAPP
               </label>
@@ -205,7 +205,7 @@ export function BookingPanel({ close, defaultOccasion = 'wedding' }: BookingPane
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 placeholder="+91 or country code"
-                className="w-full bg-[#1F0F0A]/70 border border-[#4A2A20] focus:border-white/40 focus:bg-[#1F0F0A] text-white placeholder:text-white/35 text-[13.5px] px-3.5 py-3 outline-none transition-colors"
+                className="w-full bg-[#FAF7F2] border border-[#7C402E]/25 focus:border-[#4E2418] focus:bg-white text-[#2D1912] placeholder:text-[#8C7A70] text-[13.5px] px-3.5 py-3 outline-none transition-colors"
               />
             </div>
 
@@ -213,7 +213,7 @@ export function BookingPanel({ close, defaultOccasion = 'wedding' }: BookingPane
             <div>
               <label
                 htmlFor="modal-message"
-                className="block text-[10.5px] uppercase tracking-[0.18em] text-[#D8C7B9]/80 font-medium mb-1.5"
+                className="block text-[10.5px] uppercase tracking-[0.18em] text-[#5A3828] font-semibold mb-1.5"
               >
                 MESSAGE &amp; DATES
               </label>
@@ -223,12 +223,12 @@ export function BookingPanel({ close, defaultOccasion = 'wedding' }: BookingPane
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 placeholder="Tell us about your celebration, preferred dates, or requirements..."
-                className="w-full bg-[#1F0F0A]/70 border border-[#4A2A20] focus:border-white/40 focus:bg-[#1F0F0A] text-white placeholder:text-white/35 text-[13.5px] p-3.5 outline-none transition-colors resize-none"
+                className="w-full bg-[#FAF7F2] border border-[#7C402E]/25 focus:border-[#4E2418] focus:bg-white text-[#2D1912] placeholder:text-[#8C7A70] text-[13.5px] p-3.5 outline-none transition-colors resize-none"
               />
             </div>
 
             {errorMsg && (
-              <p className="text-[12px] text-[#FFA894] font-sans m-0">
+              <p className="text-[12px] text-[#A63A24] font-sans m-0">
                 {errorMsg}
               </p>
             )}
@@ -238,7 +238,7 @@ export function BookingPanel({ close, defaultOccasion = 'wedding' }: BookingPane
               <button
                 type="submit"
                 disabled={submitting}
-                className="group border border-white bg-white text-[#291611] hover:bg-[#FAF4EC] px-7 py-3.5 text-[11px] font-sans font-semibold tracking-[0.18em] uppercase transition-all duration-200 flex items-center justify-center gap-2.5 rounded-none cursor-pointer disabled:opacity-50"
+                className="group border border-[#4E2418] bg-[#4E2418] text-white hover:bg-[#341810] px-7 py-3.5 text-[11px] font-sans font-semibold tracking-[0.18em] uppercase transition-all duration-200 flex items-center justify-center gap-2.5 rounded-none cursor-pointer disabled:opacity-50 shadow-sm"
               >
                 <span>{submitting ? 'TRANSMITTING...' : 'SEND ENQUIRY'}</span>
                 <ArrowUpRight
