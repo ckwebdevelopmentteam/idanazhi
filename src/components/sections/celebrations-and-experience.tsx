@@ -47,12 +47,6 @@ const celebrationSlides: Slide[] = [
     alt: 'Traditional Kerala wooden corridor with carved pillars',
   },
   {
-    image: '/images/weddings/spaces/space-dinner-2.jpg',
-    title: 'Candlelit Dining',
-    caption: 'Intimate dining arrangements framed by soft candlelight and crystal glassware.',
-    alt: 'Candlelit dinner table arrangement with floral accents',
-  },
-  {
     image: '/images/weddings/stage-grand-reception.jpg',
     title: 'Grand Reception',
     caption: 'Luminous celebratory stage designed for memorable evening gatherings.',

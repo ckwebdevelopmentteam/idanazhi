@@ -23,46 +23,62 @@ const fadeUpVariants: Variants = {
   },
 };
 
-const stayRooms: HeroCarouselItem[] = [
+const stayActivities: HeroCarouselItem[] = [
   {
-    id: 'heritage-suite',
-    title: 'The Nalukettu\nMaster Suite',
-    subtitle: 'Chamber 01',
-    image: '/images/weddings/spaces/stay1.png',
-    meta: ['MAIN NALUKETTU', 'KING BED', 'HERITAGE TIMBER'],
+    id: 'cooking-classes',
+    title: 'Traditional Kerala\nCooking Classes',
+    subtitle: 'Activity 01 · Culinary Heritage',
+    image: '/images/experiences/kerala-sadhya-dining.jpg',
+    meta: ['HERITAGE RECIPES', 'CLAY POT COOKING', 'FARM-TO-TABLE'],
     accent: '#8c6754',
   },
+  // {
+  //   id: 'working-fields',
+  //   title: 'Farming &\nFieldwork Activities',
+  //   subtitle: 'Activity 02 · Hands-on Farming',
+  //   image: '/images/experiences/working-fields.jpg',
+  //   meta: ['WORKING IN FIELDS', 'ORGANIC CULTIVATION', 'SOIL IMMERSION'],
+  //   accent: '#4e5d42',
+  // },
+  // {
+  //   id: 'nearby-tours',
+  //   title: 'Curated Tours to\nNearby Places',
+  //   subtitle: 'Activity 03 · Guided Excursions',
+  //   image: '/images/weddings/architecture-corridor.jpg',
+  //   meta: ['SCENIC TRAILS', 'HERITAGE SITES', 'LOCAL EXPLORATION'],
+  //   accent: '#82533e',
+  // },
   {
-    id: 'nadumuttam-chamber',
-    title: 'The Nadumuttam\nChamber',
-    subtitle: 'Chamber 02',
-    image: '/images/weddings/spaces/stay3.png',
-    meta: ['COURTYARD VISTA', 'OPEN ATRIUM', 'EN-SUITE'],
+    id: 'paddy-farming',
+    title: 'Paddy Field & Rice\nFarming Experience',
+    subtitle: 'Activity 04 · Ancestral Soil',
+    image: '/images/experiences/working-fields.jpg',
+    meta: ['TRADITIONAL FARMING', 'EMERALD FIELDS', 'HARVEST RITUALS'],
+    accent: '#4e5d42',
+  },
+  {
+    id: 'kumbidi-village',
+    title: 'Kumbidi Village\nExperience',
+    subtitle: 'Activity 05 · Rural Immersion',
+    image: '/images/experiences/paddy-farming-experience.jpg',
+    meta: ['VILLAGE LIFE', 'POTTERY & WEAVING', 'WARM HOSPITALITY'],
     accent: '#7c402e',
   },
   {
-    id: 'garden-villa',
-    title: 'The Garden\nVilla',
-    subtitle: 'Chamber 03',
-    image: '/images/weddings/spaces/stay2.png',
-    meta: ['GARDEN GROUNDS', 'WOODEN PILLARS', 'LOUNGE'],
-    accent: '#6b4f3b',
-  },
-  {
-    id: 'estate-courtyard',
-    title: 'The Central\nNadumuttam',
-    subtitle: 'Estate Courtyard',
-    image: '/images/weddings/kerala-courtyard-planter.jpg',
-    meta: ['OPEN SKY ATRIUM', 'CLAY ROOF TILES', 'ESTATE HEART'],
+    id: 'temple-experience',
+    title: 'Sacred Temple\nExperience',
+    subtitle: 'Activity 06 · Spiritual Heritage',
+    image: '/images/experiences/temple-heritage-experience.jpg',
+    meta: ['ANCIENT ARCHITECTURE', 'RITUAL BLESSINGS', 'SOULFUL SERENITY'],
     accent: '#7a5a43',
   },
   {
-    id: 'estate-pool',
-    title: 'Private\nSwimming Pool',
-    subtitle: 'Compound Leisure',
-    image: '/images/stay/swimming-pool.jpg',
-    meta: ['GARDEN RETREAT', 'PRIVATE LEISURE', 'RELAXATION'],
-    accent: '#82533e',
+    id: 'fishing-experience',
+    title: 'Fishing Harbor &\nLive Fishing',
+    subtitle: 'Activity 07 · Waters & Catch',
+    image: '/images/experiences/fishing-harbor-experience.jpg',
+    meta: ['RIVERBANK CASTING', 'DAWN HARBOR', 'FRESHWATER NETS'],
+    accent: '#455a64',
   },
 ];
 
@@ -86,7 +102,7 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
           <div className="lg:col-span-6 flex flex-col items-start text-left max-w-[600px]">
             {/* Eyebrow / Section Title */}
             <p className="m-0 mb-2.5 sm:mb-4 uppercase tracking-[0.22em] text-[10px] sm:text-[11.5px] font-semibold text-muted text-left">
-              SINGLE PRIVATE COMPOUND · GURUVAYOOR
+              ACTIVITIES IN THE STAY · KUMBIDI, KERALA
             </p>
 
             {/* Scroll Reveal Heading */}
@@ -106,25 +122,27 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
                   className="block !font-jakarta !font-normal !text-[clamp(19px,2.1vw,35px)] !leading-[1.28] !tracking-[-0.02em] !uppercase !text-ink text-left"
                 >
                   <span className="block sm:whitespace-nowrap">
-                    <span className="word">A</span>{' '}
-                    <span className="word">SANCTUARY</span>
+                    <span className="word">ACTIVITIES</span>{' '}
+                    <span className="word">IN</span>{' '}
+                    <span className="word">THE</span>{' '}
+                    <span className="word">STAY</span>
                   </span>
                   <span className="block sm:whitespace-nowrap">
-                    <span className="word">OF</span>{' '}
-                    <span className="word">QUIET</span>{' '}
-                    <span className="word">CHARACTER</span>
+                    <span className="word">CONNECTED</span>{' '}
+                    <span className="word">TO</span>{' '}
+                    <span className="word">THE</span>{' '}
+                    <span className="word">SOIL</span>
                   </span>
                   <span className="block sm:whitespace-nowrap">
                     <span className="word">AND</span>{' '}
                     <span className="word">TIMELESS</span>{' '}
-                    <span className="word">UNHURRIED</span>{' '}
-                    <span className="word">LIVING</span>
+                    <span className="word">TRADITIONS</span>
                   </span>
                 </span>
               </ScrollReveal>
             </div>
 
-            {/* Supporting Paragraph */}
+            {/* Supporting Paragraph / Section Summary */}
             <div className="w-full text-left mt-3.5 sm:mt-5">
               <ScrollReveal
                 as="p"
@@ -138,36 +156,48 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
               >
                 <span className="block !font-sans !font-normal !text-[clamp(14.5px,1vw,16.5px)] !leading-[1.75] !text-muted text-left">
                   <span className="word">Discover</span>{' '}
-                  <span className="word">a</span>{' '}
-                  <span className="word">different</span>{' '}
-                  <span className="word">pace</span>{' '}
-                  <span className="word">of</span>{' '}
-                  <span className="word">living,</span>{' '}
-                  <span className="word">surrounded</span>{' '}
-                  <span className="word">by</span>{' '}
-                  <span className="word">the</span>{' '}
-                  <span className="word">character</span>{' '}
-                  <span className="word">of</span>{' '}
-                  <span className="word">a</span>{' '}
-                  <span className="word">heritage</span>{' '}
-                  <span className="word">home.</span>{' '}
+                  <span className="word">enriching</span>{' '}
+                  <span className="word">activities</span>{' '}
+                  <span className="word">woven</span>{' '}
+                  <span className="word">into</span>{' '}
+                  <span className="word">your</span>{' '}
+                  <span className="word">stay</span>{' '}
+                  <span className="word">at</span>{' '}
+                  <span className="word">Idanazhi.</span>{' '}
                   <span className="word">From</span>{' '}
-                  <span className="word">quiet</span>{' '}
-                  <span className="word">moments</span>{' '}
-                  <span className="word">to</span>{' '}
-                  <span className="word">time</span>{' '}
-                  <span className="word">shared</span>{' '}
-                  <span className="word">with</span>{' '}
-                  <span className="word">those</span>{' '}
-                  <span className="word">who</span>{' '}
-                  <span className="word">matter,</span>{' '}
-                  <span className="word">experience</span>{' '}
-                  <span className="word">the</span>{' '}
-                  <span className="word">warmth</span>{' '}
+                  <span className="word">traditional</span>{' '}
+                  <span className="word">cooking</span>{' '}
+                  <span className="word">classes</span>{' '}
                   <span className="word">and</span>{' '}
-                  <span className="word">individuality</span>{' '}
+                  <span className="word">hands-on</span>{' '}
+                  <span className="word">fieldwork</span>{' '}
+                  <span className="word">to</span>{' '}
+                  <span className="word">emerald</span>{' '}
+                  <span className="word">paddy</span>{' '}
+                  <span className="word">farming,</span>{' '}
+                  <span className="word">immersive</span>{' '}
+                  <span className="word">Kumbidi</span>{' '}
+                  <span className="word">village</span>{' '}
+                  <span className="word">walks,</span>{' '}
+                  <span className="word">sacred</span>{' '}
+                  <span className="word">temple</span>{' '}
+                  <span className="word">visits,</span>{' '}
+                  <span className="word">live</span>{' '}
+                  <span className="word">fishing</span>{' '}
+                  <span className="word">harbor</span>{' '}
+                  <span className="word">excursions,</span>{' '}
+                  <span className="word">and</span>{' '}
+                  <span className="word">curated</span>{' '}
+                  <span className="word">tours</span>{' '}
+                  <span className="word">to</span>{' '}
+                  <span className="word">nearby</span>{' '}
+                  <span className="word">cultural</span>{' '}
+                  <span className="word">places—experience</span>{' '}
+                  <span className="word">the</span>{' '}
+                  <span className="word">living</span>{' '}
+                  <span className="word">soul</span>{' '}
                   <span className="word">of</span>{' '}
-                  <span className="word">Idanazhi.</span>
+                  <span className="word">Kerala.</span>
                 </span>
               </ScrollReveal>
             </div>
@@ -181,12 +211,12 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
               className="mt-6 sm:mt-8"
             >
               <Link
-                href="/stay"
+                href="/experiences"
                 className="luxury-cta focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[4px]"
-                aria-label="Explore Your Stay - Discover traditional accommodation at Idanazhi"
+                aria-label="Explore Activities - Discover experiences and activities at Idanazhi"
               >
                 <span className="cta-text">
-                  Explore Your Stay
+                  Explore Activities
                 </span>
                 <ArrowUpRight
                   size={15}
@@ -200,12 +230,12 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
           {/* Right Column: Card component */}
           <div className="lg:col-span-6 w-full overflow-hidden">
             <HeroCarousel
-              items={stayRooms}
+              items={stayActivities}
               mode="cards-only"
               theme="dark"
-              defaultIndex={1}
+              defaultIndex={0}
               cardHeight={420}
-              actionLabel="BOOK NOW"
+              actionLabel="ENQUIRE NOW"
               onCardAction={() => setBookingOpen(true)}
             />
           </div>
