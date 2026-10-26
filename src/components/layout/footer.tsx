@@ -139,28 +139,28 @@ export function Footer() {
               </h3>
               <ul className="space-y-2 text-[13px] sm:text-[13.5px] font-serif text-[#4A2618]">
                 <li>
-                  <Link href="/story" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
-                    Story
-                  </Link>
-                </li>
-                <li>
                   <Link href="/stay" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
                     Stay
                   </Link>
                 </li>
                 <li>
-                  <Link href="/celebrations" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
-                    Celebrations
+                  <Link href="/experiences" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
+                    Experiences
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/events" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
+                    Events
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/business-model" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
+                    Business Model
                   </Link>
                 </li>
                 <li>
                   <Link href="/gallery" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
                     Gallery
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/blogs" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
-                    Blogs
                   </Link>
                 </li>
               </ul>

@@ -367,7 +367,7 @@ export default function BlogsPage() {
             THE IDANAZHI JOURNAL &amp; CHRONICLES
           </p>
 
-          <h1 className="font-serif text-[clamp(32px,4.2vw,58px)] font-normal leading-[1.14] tracking-[-0.03em] text-[#2D1912] m-0 mb-4 max-w-[840px]">
+          <h1 className="font-jakarta font-normal text-[clamp(20px,2.6vw,40px)] leading-[1.3] tracking-[-0.015em] uppercase text-[#2D1912] m-0 mb-4 max-w-[880px]">
             Stories of Heritage, Sacred Rites &amp; Unhurried Living
           </h1>
 

@@ -2,7 +2,11 @@
 
 import { ArrowDown } from 'lucide-react';
 
-export function HeroScrollButton() {
+interface HeroScrollButtonProps {
+  className?: string;
+}
+
+export function HeroScrollButton({ className = '' }: HeroScrollButtonProps) {
   const handleScroll = () => {
     const nextSection = document.querySelector('.home-hero + *');
     if (nextSection) {
@@ -16,10 +20,14 @@ export function HeroScrollButton() {
     <button
       type="button"
       onClick={handleScroll}
-      className="absolute z-1 left-[4vw] bottom-[42px] flex items-center gap-2 text-[10px] tracking-[0.16em] [writing-mode:vertical-rl] max-[720px]:left-[20px] max-[720px]:bottom-[24px] text-white bg-transparent border-none cursor-pointer transition-opacity duration-200 hover:opacity-75 focus-visible:outline-none"
+      className={`absolute z-1 left-1/2 -translate-x-1/2 bottom-8 hidden sm:flex flex-col items-center gap-1.5 text-[9.5px] uppercase tracking-[0.22em] text-white/80 hover:text-white bg-transparent border-none cursor-pointer transition-all duration-300 focus-visible:outline-none group ${className}`}
       aria-label="Scroll down to explore Idanazhi"
     >
-      SCROLL <ArrowDown size={15} />
+      <span className="font-sans font-medium">SCROLL</span>
+      <ArrowDown
+        size={14}
+        className="transition-transform duration-300 group-hover:translate-y-1 text-white"
+      />
     </button>
   );
 }

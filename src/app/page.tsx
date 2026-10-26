@@ -26,13 +26,14 @@ export default function Home() {
           <source src="/hero-video.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(45,25,18,0.52),rgba(45,25,18,0.04)_72%),linear-gradient(0deg,rgba(30,16,12,0.32),transparent_42%)]" />
-        <div className="absolute z-1 inset-[auto_24px_15vh] max-w-none m-0 text-center max-[640px]:bottom-[11vh] max-[480px]:bottom-[9vh]">
+        {/* Corner Hero Brand Lockup (Logo moved to corner with Book Now underneath it) */}
+        <div className="absolute z-1 left-[5vw] sm:left-[6vw] bottom-[9vh] sm:bottom-[10vh] max-w-[440px] text-left max-[640px]:left-5 max-[640px]:right-5 max-[640px]:bottom-[8vh] flex flex-col items-start">
           <img
             src="/images/weddings/logo/idanazhi_farm_stay_logo.svg"
             alt="IDANAZHI Farm Stay"
-            className="mx-auto h-auto w-[min(420px,84vw)] brightness-0 invert drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)]"
+            className="h-auto w-[min(380px,82vw)] brightness-0 invert drop-shadow-[0_4px_16px_rgba(0,0,0,0.45)] mb-4 sm:mb-5 block"
           />
-          <HeroBookingCta />
+          <HeroBookingCta className="mt-0" />
         </div>
         <HeroScrollButton />
       </section>
