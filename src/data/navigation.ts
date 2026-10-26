@@ -40,7 +40,7 @@ export const experienceSubCategories: ExperienceSubCategory[] = [
     longDescription:
       'Step barefoot into the fertile soil of Kerala’s ancestral paddy fields. Guided by local farming elders, participate in traditional seedling transplanting, water wheel irrigation, and organic grain harvesting, connecting deeply with the land that sustains us.',
     href: '/experiences#rice-farming',
-    image: '/images/weddings/spaces/space-outdoor-1.jpg',
+    image: '/images/experiences/paddy-farming-experience.jpg',
     highlights: [
       'Hands-on traditional seedling transplantation',
       'Guided walk through ancient water channels',
@@ -61,7 +61,7 @@ export const experienceSubCategories: ExperienceSubCategory[] = [
     longDescription:
       'Kumbidi is a living tapestry of rural Kerala culture nestled alongside the Bharathapuzha river basin. Discover clay pottery workshops, traditional handloom weaving, serene temple paths, and warm family homes where authentic chai and snacks are shared.',
     href: '/experiences#kumbidi-village',
-    image: '/images/weddings/architecture-corridor.jpg',
+    image: '/images/experiences/kumbidi-village-experience.jpg',
     highlights: [
       'Interactive clay pottery wheel demonstration',
       'Handloom weaving atelier visit',
@@ -82,7 +82,7 @@ export const experienceSubCategories: ExperienceSubCategory[] = [
     longDescription:
       'Kerala’s ancient temple architecture reflects cosmic geometry and deep silence. Accompany our resident cultural custodian to historical temple sanctums, observe the sacred lighting of a thousand brass oil lamps (Deeparadhana), and listen to resonant Sopana Sangeetham melodies.',
     href: '/experiences#temple-experience',
-    image: '/images/weddings/pair-pujan.jpg',
+    image: '/images/experiences/temple-heritage-experience.jpg',
     highlights: [
       'Architectural tour of ancient teak gopurams',
       'Vedic chanting & morning Deeparadhana blessings',
@@ -103,7 +103,7 @@ export const experienceSubCategories: ExperienceSubCategory[] = [
     longDescription:
       'Join artisanal fishermen at the break of dawn as the morning mist lifts over the water. Learn the delicate physics of casting a traditional circular net (Cheena Vala and Veechu Vala), watch wooden boatmen glide through calm backwaters, and inspect the fresh catch of river pearl spot (Karimeen).',
     href: '/experiences#fishing-harbor',
-    image: '/images/weddings/stage-coastal-mandapam.jpg',
+    image: '/images/experiences/fishing-harbor-experience.jpg',
     highlights: [
       'Live net-casting demonstration with master fishermen',
       'Wooden canoe excursion along calm river shores',
