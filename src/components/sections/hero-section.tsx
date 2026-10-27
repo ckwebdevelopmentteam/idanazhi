@@ -132,12 +132,12 @@ export function HeroSection() {
           </p>
 
           {/* Dual Action CTA Buttons - Compact horizontal side-by-side on mobile, full size on desktop */}
-          <div className="flex flex-row items-center justify-center gap-1.5 sm:gap-4 w-full max-w-[320px] sm:max-w-none mx-auto">
+          <div className="flex flex-row items-center justify-center gap-2 sm:gap-4 w-full max-w-[340px] sm:max-w-none mx-auto">
             {/* Primary CTA: White Pill "START PLANNING" */}
             <Link
               href="/contact"
               onClick={handleBookClick}
-              className="group flex-1 sm:flex-initial inline-flex items-center justify-between sm:justify-start gap-1 sm:gap-3 pl-2.5 sm:pl-6 pr-1 sm:pr-2.5 py-1.5 sm:py-3 rounded-full bg-white text-[#1a382e] font-sans text-[8px] sm:text-[11px] font-semibold tracking-[0.06em] sm:tracking-[0.16em] uppercase transition-all duration-300 hover:bg-[#FAF7F2] hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)] shadow-md no-underline active:scale-95 cursor-pointer whitespace-nowrap"
+              className="group inline-flex items-center justify-center gap-1.5 sm:gap-3 pl-3 sm:pl-6 pr-1.5 sm:pr-2.5 py-1.5 sm:py-3 rounded-full bg-white text-[#1a382e] font-sans text-[8.5px] sm:text-[11px] font-semibold tracking-[0.06em] sm:tracking-[0.16em] uppercase transition-all duration-300 hover:bg-[#FAF7F2] hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)] shadow-md no-underline active:scale-95 cursor-pointer whitespace-nowrap"
               aria-label="START PLANNING Stay - Navigate to reservations"
             >
               <span>START PLANNING</span>
@@ -151,7 +151,7 @@ export function HeroSection() {
             <Link
               href="/experiences"
               onClick={handleExperiencesClick}
-              className="group flex-1 sm:flex-initial inline-flex items-center justify-between sm:justify-start gap-1 sm:gap-3 pl-2.5 sm:pl-6 pr-1 sm:pr-2.5 py-1.5 sm:py-3 rounded-full bg-white text-[#1a382e] font-sans text-[8px] sm:text-[11px] font-semibold tracking-[0.06em] sm:tracking-[0.16em] uppercase transition-all duration-300 hover:bg-[#FAF7F2] hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)] shadow-md no-underline active:scale-95 cursor-pointer whitespace-nowrap"
+              className="group inline-flex items-center justify-center gap-1.5 sm:gap-3 pl-3 sm:pl-6 pr-1.5 sm:pr-2.5 py-1.5 sm:py-3 rounded-full bg-white text-[#1a382e] font-sans text-[8.5px] sm:text-[11px] font-semibold tracking-[0.06em] sm:tracking-[0.16em] uppercase transition-all duration-300 hover:bg-[#FAF7F2] hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)] shadow-md no-underline active:scale-95 cursor-pointer whitespace-nowrap"
               aria-label="Explore Experiences"
             >
               <span>EXPLORE IDANAZHI</span>
