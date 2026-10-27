@@ -142,16 +142,16 @@ export function StoryOfIdanazhi({ className = '' }: StoryOfIdanazhiProps) {
             {/* Eyebrow Label matching home page sections */}
             <motion.p
               variants={fadeUpVariants}
-              className="m-0 mb-3 sm:mb-5 font-sans text-[10px] sm:text-[11.5px] font-semibold uppercase tracking-[0.22em] text-[#6E3020]/80 lg:text-muted text-left"
+              className="m-0 mb-2.5 sm:mb-4 uppercase tracking-[0.22em] text-[10px] sm:text-[11.5px] font-semibold text-muted text-left"
             >
               THE STORY OF IDANAZHI
             </motion.p>
 
-            {/* Main Heading in warm serif style */}
+            {/* Main Heading matching Stay at Idanazhi style */}
             <motion.h2
               id="story-of-idanazhi-heading"
               variants={fadeUpVariants}
-              className="font-serif font-normal text-[clamp(24px,6.8vw,38px)] leading-[1.22] sm:leading-[1.3] tracking-[-0.015em] uppercase text-[#6E3020] lg:text-ink m-0 mb-4 sm:mb-6 text-left"
+              className="font-jakarta font-normal text-[clamp(19px,2.1vw,35px)] leading-[1.28] tracking-[-0.02em] uppercase text-ink text-left m-0 mb-3.5 sm:mb-5"
             >
               A place rooted in Kerala’s landscape, rural life, and living heritage.
             </motion.h2>
@@ -200,7 +200,7 @@ export function StoryOfIdanazhi({ className = '' }: StoryOfIdanazhiProps) {
             {/* Body Paragraph 1 */}
             <motion.p
               variants={fadeUpVariants}
-              className="m-0 mb-3.5 sm:mb-4 font-sans font-normal text-[14.5px] sm:text-[15.5px] leading-[1.7] text-[#5A453D] lg:text-muted text-left"
+              className="font-sans font-normal text-[clamp(14.5px,1vw,16.5px)] leading-[1.75] text-muted text-left m-0 mb-3.5 sm:mb-4 max-w-[560px]"
             >
               Idanazhi is a farm stay and heritage destination in Kerala, created to bring people closer to the region’s landscapes, rural life, and cultural traditions.
             </motion.p>
@@ -208,7 +208,7 @@ export function StoryOfIdanazhi({ className = '' }: StoryOfIdanazhiProps) {
             {/* Body Paragraph 2 */}
             <motion.p
               variants={fadeUpVariants}
-              className="m-0 mb-6 sm:mb-8 font-sans font-normal text-[14.5px] sm:text-[15.5px] leading-[1.7] text-[#5A453D] lg:text-muted text-left"
+              className="font-sans font-normal text-[clamp(14.5px,1vw,16.5px)] leading-[1.75] text-muted text-left m-0 mb-6 sm:mb-8 max-w-[560px]"
             >
               From experiencing time-honoured paddy farming and generational craft to discovering local village customs, sacred temple trails, and peaceful open-sky courtyards, Idanazhi offers an authentic, unhurried look at the everyday life and living heritage that make Kerala unique.
             </motion.p>

@@ -112,12 +112,12 @@ export function Footer() {
             {/* Column 1: Brand Logo */}
             <motion.div
               variants={columnVariants}
-              className="col-span-2 sm:col-span-12 lg:col-span-4 xl:col-span-4 flex flex-col items-start text-left pr-0 sm:pr-4 lg:pr-6"
+              className="col-span-2 sm:col-span-12 lg:col-span-4 xl:col-span-4 flex flex-col items-center sm:items-start text-center sm:text-left pr-0 sm:pr-4 lg:pr-6"
             >
               <Link
                 href="/"
                 aria-label="IDANAZHI Farm Stay"
-                className="inline-block transition-transform duration-300 hover:scale-[1.03] mx-0"
+                className="inline-block transition-transform duration-300 hover:scale-[1.03] mx-auto sm:mx-0"
               >
                 <BrandLogo className="h-16 sm:h-20 md:h-24 lg:h-26 xl:h-28 w-auto max-w-[220px] sm:max-w-[280px] md:max-w-[320px] lg:max-w-[340px]" />
               </Link>
@@ -126,7 +126,7 @@ export function Footer() {
             {/* Column 2: EXPLORE */}
             <motion.div
               variants={columnVariants}
-              className="relative col-span-1 sm:col-span-4 lg:col-span-2 xl:col-span-2 flex flex-col items-start text-left pr-2 sm:px-4 md:px-6 lg:px-6 xl:px-8"
+              className="relative col-span-1 sm:col-span-4 lg:col-span-2 xl:col-span-2 flex flex-col items-start text-left pl-4 sm:pl-4 sm:px-4 md:px-6 lg:px-6 xl:px-8"
             >
               <div
                 aria-hidden="true"
@@ -195,22 +195,22 @@ export function Footer() {
             {/* Column 4: STAY IN TOUCH */}
             <motion.div
               variants={columnVariants}
-              className="relative col-span-2 sm:col-span-4 lg:col-span-4 xl:col-span-4 flex flex-col items-start text-left pr-0 sm:px-4 md:px-6 lg:px-6 xl:px-8"
+              className="relative col-span-2 sm:col-span-4 lg:col-span-4 xl:col-span-4 flex flex-col items-center sm:items-start text-center sm:text-left px-2 sm:px-4 md:px-6 lg:px-6 xl:px-8"
             >
               <div
                 aria-hidden="true"
                 className="hidden lg:block absolute left-0 top-1.5 h-1/2 w-[1px] bg-[#7C402E]/20"
               />
-              <span className="h-[2px] w-6 bg-[#84382B] mb-2 rounded-full mx-0" />
-              <h3 className="text-[10.5px] font-semibold tracking-[0.2em] text-[#7C402E] uppercase mb-1.5 text-left">
+              <span className="h-[2px] w-6 bg-[#84382B] mb-2 rounded-full mx-auto sm:mx-0" />
+              <h3 className="text-[10.5px] font-semibold tracking-[0.2em] text-[#7C402E] uppercase mb-1.5 text-center sm:text-left">
                 STAY IN TOUCH
               </h3>
-              <p className="font-serif text-[11.5px] sm:text-[12px] leading-relaxed text-[#4A2618]/90 mb-2.5 max-w-[260px] text-left mx-0">
+              <p className="font-serif text-[11.5px] sm:text-[12px] leading-relaxed text-[#4A2618]/90 mb-2.5 max-w-[260px] mx-auto sm:mx-0 text-center sm:text-left">
                 Get inspiration, offers and stories from Idanazhi.
               </p>
 
               {/* Minimal Pill Form */}
-              <form onSubmit={handleSubmit} className="w-full max-w-[270px] sm:max-w-[250px] mx-0" noValidate>
+              <form onSubmit={handleSubmit} className="w-full max-w-[270px] sm:max-w-[250px] mx-auto sm:mx-0" noValidate>
                 <div className="relative flex items-center rounded-full bg-white/80 hover:bg-white focus-within:bg-white border border-[#7C402E]/25 focus-within:border-[#84382B] py-1 pl-3.5 pr-1 shadow-xs transition-all duration-200">
                   <input
                     type="email"
@@ -221,7 +221,7 @@ export function Footer() {
                     }}
                     placeholder="Your email address"
                     aria-label="Your email address"
-                    className="w-full bg-transparent text-[11.5px] sm:text-[12px] text-[#4A2618] placeholder:text-[#8C6D5F]/70 placeholder:font-serif outline-none pr-2 font-serif text-left"
+                    className="w-full bg-transparent text-[11.5px] sm:text-[12px] text-[#4A2618] placeholder:text-[#8C6D5F]/70 placeholder:font-serif outline-none pr-2 font-serif text-center sm:text-left"
                   />
                   <button
                     type="submit"
@@ -235,7 +235,7 @@ export function Footer() {
                   </button>
                 </div>
                 {sent && (
-                  <p className="text-[11px] text-[#7C402E] font-serif mt-1.5 text-left">
+                  <p className="text-[11px] text-[#7C402E] font-serif mt-1.5 text-center sm:text-left">
                     <span>✓</span> Subscribed. Thank you!
                   </p>
                 )}
