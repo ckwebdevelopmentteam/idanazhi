@@ -123,73 +123,77 @@ export function Footer() {
               </Link>
             </motion.div>
 
-            {/* Column 2: EXPLORE */}
+            {/* Middle Columns: EXPLORE & YOUR STAY (Centered 2-column group on mobile, responsive on tablet/desktop) */}
             <motion.div
               variants={columnVariants}
-              className="relative col-span-1 sm:col-span-4 lg:col-span-2 xl:col-span-2 flex flex-col items-start text-left pl-4 sm:pl-4 sm:px-4 md:px-6 lg:px-6 xl:px-8"
+              className="col-span-2 sm:col-span-8 lg:col-span-4 xl:col-span-4 grid grid-cols-2 gap-x-6 sm:gap-x-0 w-full max-w-[280px] xs:max-w-[300px] sm:max-w-none mx-auto sm:mx-0"
             >
+              {/* Column 2: EXPLORE */}
               <div
-                aria-hidden="true"
-                className="hidden lg:block absolute left-0 top-1.5 h-1/2 w-[1px] bg-[#7C402E]/20"
-              />
-              <span className="h-[2px] w-6 bg-[#84382B] mb-2 rounded-full mx-0" />
-              <h3 className="text-[11px] font-semibold tracking-[0.2em] text-[#7C402E] uppercase mb-3 text-left">
-                EXPLORE
-              </h3>
-              <ul className="space-y-2 text-[13px] sm:text-[13.5px] font-serif text-[#4A2618] text-left">
-                <li>
-                  <Link href="/stay" className="transition-colors hover:text-[#84382B] inline-block py-0.5 text-left">
-                    Stay
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/experiences" className="transition-colors hover:text-[#84382B] inline-block py-0.5 text-left">
-                    Experiences
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/events" className="transition-colors hover:text-[#84382B] inline-block py-0.5 text-left">
-                    Events
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/business-model" className="transition-colors hover:text-[#84382B] inline-block py-0.5 text-left">
-                    Business Model
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/gallery" className="transition-colors hover:text-[#84382B] inline-block py-0.5 text-left">
-                    Gallery
-                  </Link>
-                </li>
-              </ul>
-            </motion.div>
+                className="relative col-span-1 flex flex-col items-start text-left sm:px-4 md:px-6 lg:px-6 xl:px-8"
+              >
+                <div
+                  aria-hidden="true"
+                  className="hidden lg:block absolute left-0 top-1.5 h-1/2 w-[1px] bg-[#7C402E]/20"
+                />
+                <span className="h-[2px] w-6 bg-[#84382B] mb-2 rounded-full mx-0" />
+                <h3 className="text-[11px] font-semibold tracking-[0.2em] text-[#7C402E] uppercase mb-3 text-left">
+                  EXPLORE
+                </h3>
+                <ul className="space-y-2 text-[13px] sm:text-[13.5px] font-serif text-[#4A2618] text-left">
+                  <li>
+                    <Link href="/stay" className="transition-colors hover:text-[#84382B] inline-block py-0.5 text-left">
+                      Stay
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/experiences" className="transition-colors hover:text-[#84382B] inline-block py-0.5 text-left">
+                      Experiences
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/events" className="transition-colors hover:text-[#84382B] inline-block py-0.5 text-left">
+                      Events
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/business-model" className="transition-colors hover:text-[#84382B] inline-block py-0.5 text-left">
+                      Business Model
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/gallery" className="transition-colors hover:text-[#84382B] inline-block py-0.5 text-left">
+                      Gallery
+                    </Link>
+                  </li>
+                </ul>
+              </div>
 
-            {/* Column 3: YOUR STAY */}
-            <motion.div
-              variants={columnVariants}
-              className="relative col-span-1 sm:col-span-4 lg:col-span-2 xl:col-span-2 flex flex-col items-start text-left pl-2 sm:px-4 md:px-6 lg:px-6 xl:px-8"
-            >
+              {/* Column 3: YOUR STAY */}
               <div
-                aria-hidden="true"
-                className="hidden lg:block absolute left-0 top-1.5 h-1/2 w-[1px] bg-[#7C402E]/20"
-              />
-              <span className="h-[2px] w-6 bg-[#84382B] mb-2 rounded-full mx-0" />
-              <h3 className="text-[11px] font-semibold tracking-[0.2em] text-[#7C402E] uppercase mb-3 text-left">
-                YOUR STAY
-              </h3>
-              <ul className="space-y-2 text-[13px] sm:text-[13.5px] font-serif text-[#4A2618] text-left">
-                <li>
-                  <Link href="/contact" className="transition-colors hover:text-[#84382B] inline-block py-0.5 text-left">
-                    Contact Us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/stay" className="transition-colors hover:text-[#84382B] inline-block py-0.5 text-left">
-                    Accommodations
-                  </Link>
-                </li>
-              </ul>
+                className="relative col-span-1 flex flex-col items-start text-left pl-3 sm:pl-0 sm:px-4 md:px-6 lg:px-6 xl:px-8"
+              >
+                <div
+                  aria-hidden="true"
+                  className="hidden lg:block absolute left-0 top-1.5 h-1/2 w-[1px] bg-[#7C402E]/20"
+                />
+                <span className="h-[2px] w-6 bg-[#84382B] mb-2 rounded-full mx-0" />
+                <h3 className="text-[11px] font-semibold tracking-[0.2em] text-[#7C402E] uppercase mb-3 text-left">
+                  YOUR STAY
+                </h3>
+                <ul className="space-y-2 text-[13px] sm:text-[13.5px] font-serif text-[#4A2618] text-left">
+                  <li>
+                    <Link href="/contact" className="transition-colors hover:text-[#84382B] inline-block py-0.5 text-left">
+                      Contact Us
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/stay" className="transition-colors hover:text-[#84382B] inline-block py-0.5 text-left">
+                      Accommodations
+                    </Link>
+                  </li>
+                </ul>
+              </div>
             </motion.div>
 
             {/* Column 4: STAY IN TOUCH */}
