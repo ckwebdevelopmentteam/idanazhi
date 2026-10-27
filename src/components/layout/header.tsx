@@ -406,9 +406,9 @@ export function Header() {
                           type="button"
                           onClick={() => setMobileExpExpanded(!mobileExpExpanded)}
                           className="p-2 text-[#4E2418] bg-transparent border-0 cursor-pointer flex items-center gap-1 text-[11px] uppercase tracking-[0.14em]"
-                          aria-label={mobileExpExpanded ? 'Collapse sub-categories' : 'Expand sub-categories'}
+                          aria-label={mobileExpExpanded ? 'Collapse categories' : 'Expand categories'}
                         >
-                          <span className="text-[10px] text-muted">Sub-categories</span>
+                          <span className="text-[10px] text-muted">Categories</span>
                           <ChevronDown
                             size={16}
                             className={`transition-transform duration-300 ${mobileExpExpanded ? 'rotate-180 text-[#84382B]' : ''
