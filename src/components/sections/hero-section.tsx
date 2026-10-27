@@ -87,7 +87,7 @@ export function HeroSection() {
   };
 
   return (
-    <section className="home-hero h-screen min-h-[100svh] relative text-white flex items-end overflow-hidden">
+    <section className="home-hero h-screen min-h-[100svh] relative bg-[#1c120c] text-white flex items-end overflow-hidden">
       {/* Background Video */}
       <video
         className="absolute inset-0 w-full h-full object-cover block"
@@ -95,8 +95,7 @@ export function HeroSection() {
         muted
         loop
         playsInline
-        preload="metadata"
-        poster="/images/hero-poster.jpg"
+        preload="auto"
         aria-label="IDANAZHI Kerala Farm Stay & Event Space"
       >
         <source src="/hero-video.mp4" type="video/mp4" />

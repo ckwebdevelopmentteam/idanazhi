@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { ReactLenis, useLenis } from 'lenis/react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -15,6 +16,17 @@ if (typeof window !== 'undefined') {
 
 function LenisScrollTriggerBridge() {
   const lenis = useLenis();
+  const pathname = usePathname();
+
+  // Instant scroll-to-top on route change to prevent visual screen jumping/flashing
+  useEffect(() => {
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true });
+    } else if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+    }
+    ScrollTrigger.refresh();
+  }, [pathname, lenis]);
 
   useEffect(() => {
     if (!lenis) return;
