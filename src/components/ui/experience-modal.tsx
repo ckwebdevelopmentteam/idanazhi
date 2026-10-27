@@ -132,7 +132,7 @@ export function ExperienceModal({
                 Close
               </button>
               <a
-                href="#contact"
+                href="/contact"
                 onClick={() => {
                   onClose();
                   onBookNow?.(experience);

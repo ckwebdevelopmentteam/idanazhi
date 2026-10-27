@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { useLenis } from 'lenis/react';
 
@@ -78,12 +79,10 @@ export function HeroSection() {
     const target = document.getElementById('celebrations-and-experience') || document.getElementById('experiences');
     if (lenis && target) {
       lenis.scrollTo(target, { duration: 1.5, offset: -20 });
-      window.history.pushState(null, '', '#celebrations-and-experience');
     } else if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
-      window.history.pushState(null, '', '#celebrations-and-experience');
     } else {
-      window.location.href = '/#celebrations-and-experience';
+      window.location.href = '/experiences';
     }
   };
 
@@ -135,8 +134,8 @@ export function HeroSection() {
           {/* Dual Action CTA Buttons - Compact horizontal side-by-side on mobile, full size on desktop */}
           <div className="flex flex-row items-center justify-center gap-1.5 sm:gap-4 w-full max-w-[320px] sm:max-w-none mx-auto">
             {/* Primary CTA: White Pill "START PLANNING" */}
-            <a
-              href="#contact"
+            <Link
+              href="/contact"
               onClick={handleBookClick}
               className="group flex-1 sm:flex-initial inline-flex items-center justify-between sm:justify-start gap-1 sm:gap-3 pl-2.5 sm:pl-6 pr-1 sm:pr-2.5 py-1.5 sm:py-3 rounded-full bg-white text-[#1a382e] font-sans text-[8px] sm:text-[11px] font-semibold tracking-[0.06em] sm:tracking-[0.16em] uppercase transition-all duration-300 hover:bg-[#FAF7F2] hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)] shadow-md no-underline active:scale-95 cursor-pointer whitespace-nowrap"
               aria-label="START PLANNING Stay - Navigate to reservations"
@@ -146,11 +145,11 @@ export function HeroSection() {
                 <ArrowRight size={9} strokeWidth={2.5} className="sm:hidden" />
                 <ArrowRight size={13} strokeWidth={2.5} className="hidden sm:block" />
               </span>
-            </a>
+            </Link>
 
             {/* Secondary CTA: White Pill "EXPLORE IDANAZHI" matching START PLANNING */}
-            <a
-              href="#celebrations-and-experience"
+            <Link
+              href="/experiences"
               onClick={handleExperiencesClick}
               className="group flex-1 sm:flex-initial inline-flex items-center justify-between sm:justify-start gap-1 sm:gap-3 pl-2.5 sm:pl-6 pr-1 sm:pr-2.5 py-1.5 sm:py-3 rounded-full bg-white text-[#1a382e] font-sans text-[8px] sm:text-[11px] font-semibold tracking-[0.06em] sm:tracking-[0.16em] uppercase transition-all duration-300 hover:bg-[#FAF7F2] hover:shadow-[0_10px_30px_rgba(0,0,0,0.4)] shadow-md no-underline active:scale-95 cursor-pointer whitespace-nowrap"
               aria-label="Explore Experiences"
@@ -160,7 +159,7 @@ export function HeroSection() {
                 <ArrowRight size={9} strokeWidth={2.5} className="sm:hidden" />
                 <ArrowRight size={13} strokeWidth={2.5} className="hidden sm:block" />
               </span>
-            </a>
+            </Link>
           </div>
         </div>
 

@@ -180,7 +180,7 @@ export function Footer() {
               </h3>
               <ul className="space-y-2 text-[13px] sm:text-[13.5px] font-serif text-[#4A2618]">
                 <li>
-                  <Link href="/#contact" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
+                  <Link href="/contact" className="transition-colors hover:text-[#84382B] inline-block py-0.5">
                     Contact Us
                   </Link>
                 </li>

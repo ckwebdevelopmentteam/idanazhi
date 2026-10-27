@@ -596,7 +596,7 @@ export default function BlogsPage() {
               EXPLORE ACCOMMODATIONS
             </Link>
             <Link
-              href="/#contact"
+              href="/contact"
               className="border border-[#7C402E]/40 text-[#7C402E] hover:bg-[#7C402E]/10 px-6 py-3.5 text-[10.5px] font-sans font-semibold tracking-[0.18em] uppercase transition-colors text-center w-full sm:w-auto"
             >
               PLAN YOUR CELEBRATION

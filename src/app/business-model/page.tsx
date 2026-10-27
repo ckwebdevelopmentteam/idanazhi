@@ -62,7 +62,7 @@ export default function BusinessModelPage() {
           A symbiotic model marrying authentic Kerala farm life, ancestral architectural preservation, and high-touch celebration hospitality.
         </p>
         <Link
-          href="/#contact"
+          href="/contact"
           className="inline-flex items-center justify-center px-7 py-3.5 bg-[#4E2418] text-white font-sans text-[11px] font-medium tracking-[0.2em] uppercase transition-all duration-200 hover:bg-[#84382B] active:scale-95 cursor-pointer shadow-md no-underline"
         >
           PARTNERSHIP INQUIRIES

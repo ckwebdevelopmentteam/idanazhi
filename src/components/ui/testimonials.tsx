@@ -138,7 +138,7 @@ function Testimonials({
   eyebrow = "GUEST STORIES & REFLECTIONS",
   subtitle = "Memories and reflections from couples, families, and travelers who have experienced the warmth, heritage, and quiet luxury of Idanazhi.",
   ctaText = "EXPLORE GUEST EXPERIENCES",
-  ctaHref = "#testimonials",
+  ctaHref = "/story",
   items = defaultTestimonials,
   className = "",
 }: TestimonialsProps) {

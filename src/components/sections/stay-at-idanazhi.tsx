@@ -58,7 +58,7 @@ const stayActivities: HeroCarouselItem[] = [
   },
   {
     id: 'kumbidi-village',
-    title: 'Kumbidi Village\nExperience',
+    title: 'Kumbidi Village\nLife',
     subtitle: 'Activity 05 · Rural Immersion',
     image: '/images/experiences/paddy-farming-experience.jpg',
     meta: ['VILLAGE LIFE', 'POTTERY & WEAVING', 'WARM HOSPITALITY'],
@@ -66,7 +66,7 @@ const stayActivities: HeroCarouselItem[] = [
   },
   {
     id: 'temple-experience',
-    title: 'Sacred Temple\nExperience',
+    title: 'Temple\nTrails',
     subtitle: 'Activity 06 · Spiritual Heritage',
     image: '/images/experiences/temple-heritage-experience.jpg',
     meta: ['ANCIENT ARCHITECTURE', 'RITUAL BLESSINGS', 'SOULFUL SERENITY'],
@@ -74,7 +74,7 @@ const stayActivities: HeroCarouselItem[] = [
   },
   {
     id: 'fishing-experience',
-    title: 'Fishing Harbor &\nLive Fishing',
+    title: 'Fishing life\nin harbour',
     subtitle: 'Activity 07 · Waters & Catch',
     image: '/images/experiences/fishing-harbor-experience.jpg',
     meta: ['RIVERBANK CASTING', 'DAWN HARBOR', 'FRESHWATER NETS'],
@@ -102,7 +102,7 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
           <div className="lg:col-span-6 flex flex-col items-start text-left max-w-[600px]">
             {/* Eyebrow / Section Title */}
             <p className="m-0 mb-2.5 sm:mb-4 uppercase tracking-[0.22em] text-[10px] sm:text-[11.5px] font-semibold text-muted text-left">
-              ACTIVITIES IN THE STAY · KUMBIDI, KERALA
+              ACTIVITIES IN THE STAY · KERALA
             </p>
 
             {/* Scroll Reveal Heading */}

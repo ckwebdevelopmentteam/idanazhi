@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowUpRight, ArrowRight } from 'lucide-react';
 
 interface ExperienceItem {
   id: string;
@@ -47,7 +48,7 @@ const experiences: ExperienceItem[] = [
     id: 'kumbidi-village',
     number: '02',
     category: 'Village & Craft',
-    title: 'Kumbidi Village Experience',
+    title: 'Kumbidi Village Life',
     subtitle: 'A stroll through quiet artisan hamlets and red-earth lanes',
     description:
       'Kumbidi is a living rural hamlet where craft and community remain gentle and unchanged. Wander along shaded village pathways flanked by betel nut palms, sit beside master potters shaping terracotta vessels on hand-turned wheels, observe local weavers at their wooden looms, and pause at a traditional village chayakada for steaming cardamom tea and quiet conversation.',
@@ -68,7 +69,7 @@ const experiences: ExperienceItem[] = [
     id: 'temple-experience',
     number: '03',
     category: 'Sacred Heritage',
-    title: 'Temple Experience',
+    title: 'Temple Trails',
     subtitle: 'Timeless wooden architecture and the silence of evening oil lamps',
     description:
       'Centuries-old Kerala temples are sanctums of profound stillness, built with teak joinery, laterite stone, and cosmic geometric alignment. Accompanied by our resident cultural custodian, discover the sacred architecture of the region, listen to the resonant notes of Sopana Sangeetham, and witness the Deeparadhana as hundreds of brass oil lamps flicker to life against ancient stone.',
@@ -89,7 +90,7 @@ const experiences: ExperienceItem[] = [
     id: 'fishing-harbor',
     number: '04',
     category: 'River & Waters',
-    title: 'Live Fishing Experience',
+    title: 'Fishing life in harbour',
     subtitle: 'Dawn canoe excursions and traditional throw-net craft',
     description:
       'As first light breaks through the river mist, board a traditional wooden country craft with local fishermen. Watch the graceful, practiced unfurling of the Veechu Vala (circular cast net), observe the morning sorting of fresh river pearl spot (Karimeen), and return to Idanazhi where our culinary team prepares the morning catch with freshly pressed coconut milk.',
@@ -117,7 +118,18 @@ export default function ExperiencesPage() {
     }
   };
 
-  // Scroll spy to highlight current section in anchor bar
+  // Redirect any legacy hash-based URLs (e.g. /experiences#kumbidi-village) to proper addressed clean URLs
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.hash) {
+      const hash = window.location.hash.replace('#', '');
+      const validSlugs = ['rice-farming', 'kumbidi-village', 'temple-experience', 'fishing-harbor'];
+      if (validSlugs.includes(hash)) {
+        window.location.replace(`/experiences/${hash}`);
+      }
+    }
+  }, []);
+
+  // Scroll spy to highlight current section in navigation bar
   useEffect(() => {
     const handleScroll = () => {
       const scrollPos = window.scrollY + 200;
@@ -156,24 +168,23 @@ export default function ExperiencesPage() {
           </p>
         </div>
 
-        {/* Quiet Anchor Navigation matching the Navbar Subcategories */}
+        {/* Dedicated Experience Navigation without Hash Tags */}
         <div className="mt-12 md:mt-16 pt-6 border-t border-[#E8E1D9] flex flex-wrap items-center gap-x-8 gap-y-3">
           <span className="text-[11px] uppercase tracking-[0.2em] text-[#8C7A70] font-sans">
             Jump to:
           </span>
           {experiences.map((exp) => (
-            <a
+            <Link
               key={exp.id}
-              href={`#${exp.id}`}
-              className={`text-[13px] font-sans transition-colors duration-200 ${
-                activeSection === exp.id
-                  ? 'text-[#84382B] font-semibold border-b border-[#84382B] pb-0.5'
-                  : 'text-[#5A4238] hover:text-[#2D1912]'
-              }`}
+              href={`/experiences/${exp.id}`}
+              className={`text-[13px] font-sans transition-colors duration-200 no-underline ${activeSection === exp.id
+                ? 'text-[#84382B] font-semibold border-b border-[#84382B] pb-0.5'
+                : 'text-[#5A4238] hover:text-[#84382B]'
+                }`}
             >
               <span className="text-[#8C7A70] mr-1.5 font-normal">{exp.number}</span>
               {exp.title}
-            </a>
+            </Link>
           ))}
         </div>
       </section>
@@ -192,15 +203,13 @@ export default function ExperiencesPage() {
               className="scroll-mt-28 md:scroll-mt-36 px-6 sm:px-10 lg:px-16 max-w-[1360px] mx-auto"
             >
               <div
-                className={`grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center ${
-                  isEven ? 'lg:flex-row-reverse' : ''
-                }`}
+                className={`grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center ${isEven ? 'lg:flex-row-reverse' : ''
+                  }`}
               >
                 {/* Visual Frame */}
                 <div
-                  className={`lg:col-span-7 ${
-                    isEven ? 'lg:order-2' : 'lg:order-1'
-                  }`}
+                  className={`lg:col-span-7 ${isEven ? 'lg:order-2' : 'lg:order-1'
+                    }`}
                 >
                   <div className="relative group overflow-hidden bg-[#ECE6DF]">
                     <img
@@ -227,9 +236,8 @@ export default function ExperiencesPage() {
 
                 {/* Narrative & Details */}
                 <div
-                  className={`lg:col-span-5 flex flex-col justify-center ${
-                    isEven ? 'lg:order-1' : 'lg:order-2'
-                  }`}
+                  className={`lg:col-span-5 flex flex-col justify-center ${isEven ? 'lg:order-1' : 'lg:order-2'
+                    }`}
                 >
                   {/* Category & Number */}
                   <div className="flex items-center gap-3 mb-4 text-[#84382B] text-[11px] uppercase tracking-[0.22em] font-sans font-medium">
@@ -284,15 +292,22 @@ export default function ExperiencesPage() {
                     </div>
                   </div>
 
-                  {/* Clean Action Button */}
-                  <div>
+                  {/* Clean Action Buttons */}
+                  <div className="flex flex-wrap items-center gap-3">
+                    <Link
+                      href={`/experiences/${exp.id}`}
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#4E2418] hover:bg-[#84382B] text-white text-[11px] font-sans uppercase tracking-[0.18em] font-medium transition-colors duration-200 cursor-pointer no-underline shadow-sm"
+                    >
+                      <span>Explore Full Experience</span>
+                      <ArrowRight size={13} />
+                    </Link>
                     <button
                       type="button"
                       onClick={handleOpenBooking}
-                      className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-[#4E2418] hover:bg-[#683020] text-white text-[11px] font-sans uppercase tracking-[0.18em] font-medium transition-colors duration-200 cursor-pointer"
+                      className="inline-flex items-center justify-center gap-2 px-5 py-3.5 border border-[#7C402E]/30 text-[#4E2418] hover:bg-[#7C402E]/5 text-[11px] font-sans uppercase tracking-[0.18em] font-medium transition-colors duration-200 cursor-pointer"
                     >
-                      <span>Enquire About This Experience</span>
-                      <ArrowUpRight size={14} />
+                      <span>Enquire Now</span>
+                      <ArrowUpRight size={13} />
                     </button>
                   </div>
                 </div>

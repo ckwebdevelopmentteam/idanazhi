@@ -14,27 +14,27 @@ if (typeof window !== 'undefined') {
 const experiences = [
   {
     index: '01',
-    title: 'The Heritage',
+    title: 'Kumbidi Village Life',
     description:
-      'A closer look at the property’s Thachu Shastra architecture, hand-carved timber joinery, and distinctive ancestral character.',
-    href: '/gallery',
-    linkText: 'Explore Visual Gallery',
+      'Wander through the tranquil lanes of Kumbidi village, meeting local weavers, pottery masters, and experiencing genuine rural Kerala warmth.',
+    href: '/experiences/kumbidi-village',
+    linkText: 'Explore Village Life',
   },
   {
     index: '02',
-    title: 'The Stay',
+    title: 'Temple Trails',
     description:
-      'Discover quiet chambers, central open-air courtyards, and the unhurried rhythm of authentic Kerala living.',
-    href: '/stay',
-    linkText: 'Explore Your Stay',
+      'Witness sacred temple architecture, the resonance of morning oil lamps, ceremonial pujan, and timeless spiritual peace.',
+    href: '/experiences/temple-experience',
+    linkText: 'Discover Temple Trails',
   },
   {
     index: '03',
-    title: 'The Celebrations',
+    title: 'Fishing life in harbour',
     description:
-      'Explore possibilities for intimate sacred weddings, family rituals, and meaningful milestones framed by timeless grace.',
-    href: '/celebrations',
-    linkText: 'Discover Celebrations',
+      'Experience live riverbank fishing, traditional casting net craft, and the brisk dawn arrival of traditional wooden watercraft.',
+    href: '/experiences/fishing-harbor',
+    linkText: 'Explore Fishing Life',
   },
 ];
 
@@ -258,7 +258,7 @@ export default function StoryPage() {
               className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
-            
+
             {/* Architectural Detail Badge */}
             <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-8 text-white max-w-[560px]">
               <span className="text-[9.5px] sm:text-[10.5px] uppercase tracking-[0.24em] font-medium text-white/80 block mb-1">

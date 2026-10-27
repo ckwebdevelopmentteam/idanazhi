@@ -45,10 +45,10 @@ export function Header() {
     (pathname.startsWith('/stay')
       ? 'STAY'
       : pathname.startsWith('/experiences')
-      ? 'EXPERIENCE'
-      : pathname.startsWith('/events') || pathname.startsWith('/celebrations')
-      ? 'EVENTS'
-      : null);
+        ? 'EXPERIENCE'
+        : pathname.startsWith('/events') || pathname.startsWith('/celebrations')
+          ? 'EVENTS'
+          : null);
   const currentIndicatorOption = hoveredOption ?? activeOption;
 
   useEffect(() => {
@@ -131,15 +131,13 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed z-40 top-0 left-0 w-full text-white bg-[rgba(45,25,18,0.36)] backdrop-blur-[12px] flex! flex-col! h-auto! p-0! border-b-0! transition-all duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)] will-change-transform ${
-          isLightHeader
+        className={`fixed z-40 top-0 left-0 w-full text-white bg-[rgba(45,25,18,0.36)] backdrop-blur-[12px] flex! flex-col! h-auto! p-0! border-b-0! transition-all duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)] will-change-transform ${isLightHeader
             ? '!text-ink !bg-paper/98 !backdrop-blur-[14px] !shadow-[0_4px_20px_rgba(45,25,18,0.06)] !border-transparent'
             : ''
-        } ${
-          isHeaderVisible
+          } ${isHeaderVisible
             ? 'translate-y-0 opacity-100'
             : '-translate-y-full opacity-0 pointer-events-none'
-        }`}
+          }`}
       >
         <div className="w-full max-w-[1400px] mx-auto px-6 box-border flex flex-col max-[1080px]:max-w-[1160px] max-[1080px]:px-5 max-[960px]:max-w-full max-[960px]:px-4">
           {/* Desktop primary navigation (>= 961px) - Corner Full Logo, Main Tabs, Book Now */}
@@ -156,9 +154,8 @@ export function Header() {
               <img
                 src="/images/weddings/logo/idanazhi_farm_stay_logo.svg"
                 alt="IDANAZHI Farm Stay"
-                className={`h-11 md:h-12 lg:h-[50px] w-auto max-w-[200px] md:max-w-[225px] object-contain transition-all duration-300 ${
-                  isLightHeader ? '' : 'brightness-0 invert drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]'
-                }`}
+                className={`h-11 md:h-12 lg:h-[50px] w-auto max-w-[200px] md:max-w-[225px] object-contain transition-all duration-300 ${isLightHeader ? '' : 'brightness-0 invert drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]'
+                  }`}
               />
             </Link>
 
@@ -178,32 +175,29 @@ export function Header() {
                     >
                       <Link
                         href={item.href}
-                        className={`inline-flex items-center gap-1.5 font-sans text-[11px] uppercase tracking-[0.16em] no-underline whitespace-nowrap py-1.5 px-1 transition-all duration-200 max-[1080px]:text-[10.5px] max-[1080px]:tracking-[0.12em] ${
-                          isActive || experienceDropdownOpen
+                        className={`inline-flex items-center gap-1.5 font-sans text-[11px] uppercase tracking-[0.16em] no-underline whitespace-nowrap py-1.5 px-1 transition-all duration-200 max-[1080px]:text-[10.5px] max-[1080px]:tracking-[0.12em] ${isActive || experienceDropdownOpen
                             ? isLightHeader
                               ? 'text-[#84382B] font-bold'
                               : 'text-white font-bold'
                             : isLightHeader
-                            ? 'text-[#4E2418]/70 hover:text-[#4E2418] font-normal'
-                            : 'text-white/75 hover:text-white font-normal'
-                        }`}
+                              ? 'text-[#4E2418]/70 hover:text-[#4E2418] font-normal'
+                              : 'text-white/75 hover:text-white font-normal'
+                          }`}
                       >
                         <span>{item.label}</span>
                         <ChevronDown
                           size={13}
-                          className={`transition-transform duration-200 group-hover:rotate-180 ${
-                            experienceDropdownOpen ? 'rotate-180' : ''
-                          }`}
+                          className={`transition-transform duration-200 group-hover:rotate-180 ${experienceDropdownOpen ? 'rotate-180' : ''
+                            }`}
                         />
                       </Link>
 
                       {/* Dropdown Menu for Experience Sub-Categories (Pure White Background, Brown Text, No Descriptions) */}
                       <div
-                        className={`absolute top-full left-1/2 -translate-x-1/2 pt-2.5 w-[275px] transition-all duration-200 ease-out z-50 group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto group-hover:visible ${
-                          experienceDropdownOpen
+                        className={`absolute top-full left-1/2 -translate-x-1/2 pt-2.5 w-[275px] transition-all duration-200 ease-out z-50 group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto group-hover:visible ${experienceDropdownOpen
                             ? 'opacity-100 translate-y-0 pointer-events-auto visible'
                             : 'opacity-0 -translate-y-1 pointer-events-none invisible'
-                        }`}
+                          }`}
                       >
                         <div className="py-2 px-1.5 bg-white border border-[#7C402E]/25 shadow-[0_16px_36px_rgba(45,25,18,0.16)]">
                           <div className="flex flex-col">
@@ -244,15 +238,14 @@ export function Header() {
                   <Link
                     key={item.label}
                     href={item.href}
-                    className={`font-sans text-[11px] uppercase tracking-[0.16em] no-underline whitespace-nowrap py-1.5 px-1 transition-all duration-200 max-[1080px]:text-[10.5px] max-[1080px]:tracking-[0.12em] ${
-                      isActive
+                    className={`font-sans text-[11px] uppercase tracking-[0.16em] no-underline whitespace-nowrap py-1.5 px-1 transition-all duration-200 max-[1080px]:text-[10.5px] max-[1080px]:tracking-[0.12em] ${isActive
                         ? isLightHeader
                           ? 'text-[#84382B] font-bold'
                           : 'text-white font-bold'
                         : isLightHeader
-                        ? 'text-[#4E2418]/70 hover:text-[#4E2418] font-normal'
-                        : 'text-white/75 hover:text-white font-normal'
-                    }`}
+                          ? 'text-[#4E2418]/70 hover:text-[#4E2418] font-normal'
+                          : 'text-white/75 hover:text-white font-normal'
+                      }`}
                   >
                     {item.label}
                   </Link>
@@ -265,11 +258,10 @@ export function Header() {
               <button
                 type="button"
                 onClick={() => setBooking(true)}
-                className={`font-sans text-[10.5px] tracking-[0.18em] uppercase font-semibold px-4 py-2 border transition-all duration-200 cursor-pointer active:scale-95 ${
-                  isLightHeader
+                className={`font-sans text-[10.5px] tracking-[0.18em] uppercase font-semibold px-4 py-2 border transition-all duration-200 cursor-pointer active:scale-95 ${isLightHeader
                     ? 'border-[#7C402E] text-[#7C402E] hover:bg-[#7C402E] hover:text-white'
                     : 'border-white/90 text-white hover:bg-white hover:text-ink'
-                }`}
+                  }`}
               >
                 BOOK NOW
               </button>
@@ -291,9 +283,8 @@ export function Header() {
               <img
                 src="/images/weddings/logo/idanazhi_farm_stay_logo.svg"
                 alt="IDANAZHI Farm Stay"
-                className={`h-8 sm:h-9 w-auto max-w-[155px] sm:max-w-[175px] object-contain transition-all duration-300 ${
-                  isLightHeader ? '' : 'brightness-0 invert drop-shadow-[0_2px_6px_rgba(0,0,0,0.4)]'
-                }`}
+                className={`h-8 sm:h-9 w-auto max-w-[155px] sm:max-w-[175px] object-contain transition-all duration-300 ${isLightHeader ? '' : 'brightness-0 invert drop-shadow-[0_2px_6px_rgba(0,0,0,0.4)]'
+                  }`}
               />
             </Link>
 
@@ -302,11 +293,10 @@ export function Header() {
               <button
                 type="button"
                 onClick={() => setBooking(true)}
-                className={`font-sans text-[9px] sm:text-[10px] tracking-[0.16em] uppercase font-semibold px-2.5 py-1.5 border transition-all duration-200 cursor-pointer active:scale-95 ${
-                  isLightHeader
+                className={`font-sans text-[9px] sm:text-[10px] tracking-[0.16em] uppercase font-semibold px-2.5 py-1.5 border transition-all duration-200 cursor-pointer active:scale-95 ${isLightHeader
                     ? 'border-[#7C402E] text-[#7C402E] hover:bg-[#7C402E] hover:text-white'
                     : 'border-white/80 text-white hover:bg-white hover:text-ink'
-                }`}
+                  }`}
               >
                 BOOK NOW
               </button>
@@ -316,25 +306,21 @@ export function Header() {
                 aria-expanded={mobileMenuOpen}
                 aria-controls="mobile-nav-drawer"
                 onClick={() => setMobileMenuOpen(true)}
-                className={`group inline-flex items-center p-1.5 -mr-1.5 bg-transparent border-0 cursor-pointer transition-all duration-200 active:scale-95 ${
-                  isLightHeader ? 'text-ink' : 'text-white'
-                }`}
+                className={`group inline-flex items-center p-1.5 -mr-1.5 bg-transparent border-0 cursor-pointer transition-all duration-200 active:scale-95 ${isLightHeader ? 'text-ink' : 'text-white'
+                  }`}
               >
                 <span className="flex flex-col justify-center items-start w-5 h-4 gap-[4.5px]" aria-hidden="true">
                   <span
-                    className={`block h-[1.75px] w-5 rounded-full transition-all duration-300 ease-out ${
-                      isLightHeader ? 'bg-[#7C402E]' : 'bg-white'
-                    }`}
+                    className={`block h-[1.75px] w-5 rounded-full transition-all duration-300 ease-out ${isLightHeader ? 'bg-[#7C402E]' : 'bg-white'
+                      }`}
                   />
                   <span
-                    className={`block h-[1.75px] w-3.5 rounded-full transition-all duration-300 ease-out group-hover:w-5 ${
-                      isLightHeader ? 'bg-[#7C402E]' : 'bg-white'
-                    }`}
+                    className={`block h-[1.75px] w-3.5 rounded-full transition-all duration-300 ease-out group-hover:w-5 ${isLightHeader ? 'bg-[#7C402E]' : 'bg-white'
+                      }`}
                   />
                   <span
-                    className={`block h-[1.75px] w-4.5 rounded-full transition-all duration-300 ease-out group-hover:w-5 ${
-                      isLightHeader ? 'bg-[#7C402E]' : 'bg-white'
-                    }`}
+                    className={`block h-[1.75px] w-4.5 rounded-full transition-all duration-300 ease-out group-hover:w-5 ${isLightHeader ? 'bg-[#7C402E]' : 'bg-white'
+                      }`}
                   />
                 </span>
                 <span className="sr-only">Menu</span>
@@ -346,16 +332,14 @@ export function Header() {
 
       {/* Mobile Luxury Full-Screen Menu with Smooth Slide Animation */}
       <div
-        className={`fixed inset-0 z-50 transition-all duration-400 ${
-          mobileMenuOpen ? 'pointer-events-auto visible' : 'pointer-events-none invisible'
-        }`}
+        className={`fixed inset-0 z-50 transition-all duration-400 ${mobileMenuOpen ? 'pointer-events-auto visible' : 'pointer-events-none invisible'
+          }`}
         aria-hidden={!mobileMenuOpen}
       >
         {/* Backdrop overlay */}
         <div
-          className={`fixed inset-0 bg-[rgba(30,16,12,0.45)] backdrop-blur-[4px] transition-opacity duration-400 ease-out ${
-            mobileMenuOpen ? 'opacity-100' : 'opacity-0'
-          }`}
+          className={`fixed inset-0 bg-[rgba(30,16,12,0.45)] backdrop-blur-[4px] transition-opacity duration-400 ease-out ${mobileMenuOpen ? 'opacity-100' : 'opacity-0'
+            }`}
           onClick={() => setMobileMenuOpen(false)}
         />
 
@@ -365,9 +349,8 @@ export function Header() {
           role="dialog"
           aria-modal="true"
           aria-label="Navigation Menu"
-          className={`fixed inset-0 w-full h-[100dvh] bg-paper text-ink flex flex-col justify-between overflow-y-auto overscroll-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform ${
-            mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-          }`}
+          className={`fixed inset-0 w-full h-[100dvh] bg-paper text-ink flex flex-col justify-between overflow-y-auto overscroll-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+            }`}
         >
           {/* Top Bar: Full Logo (Left) | Close X (Right) */}
           <div className="h-[68px] sm:h-[74px] px-6 max-[480px]:px-5 flex items-center justify-between shrink-0 border-b border-line/20 bg-paper sticky top-0 z-20">
@@ -412,11 +395,10 @@ export function Header() {
                             setSelectedOption(item.label);
                             setMobileMenuOpen(false);
                           }}
-                          className={`font-urbanist text-[22px] sm:text-[24px] leading-[1.35] tracking-[0.035em] transition-all duration-300 no-underline ${
-                            isActive
+                          className={`font-urbanist text-[22px] sm:text-[24px] leading-[1.35] tracking-[0.035em] transition-all duration-300 no-underline ${isActive
                               ? 'text-[#84382B] font-medium'
                               : 'text-[#5C2E20]/80 font-light hover:text-[#3E1A10]'
-                          }`}
+                            }`}
                         >
                           {item.title}
                         </Link>
@@ -429,18 +411,16 @@ export function Header() {
                           <span className="text-[10px] text-muted">Sub-categories</span>
                           <ChevronDown
                             size={16}
-                            className={`transition-transform duration-300 ${
-                              mobileExpExpanded ? 'rotate-180 text-[#84382B]' : ''
-                            }`}
+                            className={`transition-transform duration-300 ${mobileExpExpanded ? 'rotate-180 text-[#84382B]' : ''
+                              }`}
                           />
                         </button>
                       </div>
 
                       {/* Expandable Sub-Categories */}
                       <div
-                        className={`flex flex-col gap-2 pl-3 pt-1 border-l-2 border-[#84382B]/30 transition-all duration-300 ${
-                          mobileExpExpanded ? 'block' : 'hidden'
-                        }`}
+                        className={`flex flex-col gap-2 pl-3 pt-1 border-l-2 border-[#84382B]/30 transition-all duration-300 ${mobileExpExpanded ? 'block' : 'hidden'
+                          }`}
                       >
                         {experienceSubCategories.map((sub) => (
                           <Link
@@ -485,11 +465,10 @@ export function Header() {
                       }}
                       onMouseEnter={() => setHoveredOption(item.label)}
                       onMouseLeave={() => setHoveredOption(null)}
-                      className={`font-urbanist text-[22px] sm:text-[24px] leading-[1.35] tracking-[0.035em] transition-all duration-300 no-underline ${
-                        isActive
+                      className={`font-urbanist text-[22px] sm:text-[24px] leading-[1.35] tracking-[0.035em] transition-all duration-300 no-underline ${isActive
                           ? 'text-[#84382B] font-medium translate-x-1'
                           : 'text-[#5C2E20]/80 font-light hover:text-[#3E1A10] hover:translate-x-0.5'
-                      }`}
+                        }`}
                     >
                       {item.title}
                     </Link>
@@ -502,11 +481,10 @@ export function Header() {
                       onMouseLeave={() => setHoveredOption(null)}
                     >
                       <div
-                        className={`transition-all duration-300 ease-out transform ${
-                          isActive
+                        className={`transition-all duration-300 ease-out transform ${isActive
                             ? 'opacity-100 translate-x-0'
                             : 'opacity-0 translate-x-3 pointer-events-none'
-                        }`}
+                          }`}
                       >
                         <OrnamentalArrow
                           className="w-[72px] sm:w-[80px] h-4 text-[#4E2418] shrink-0"

@@ -54,8 +54,8 @@ export const experiencesData: ExperienceItem[] = [
   {
     id: 'temple-heritage',
     slug: 'temple-heritage',
-    title: 'Sacred Temple Architecture & Heritage Experience',
-    shortTitle: 'Temple Experience',
+    title: 'Temple Trails',
+    shortTitle: 'Temple Trails',
     category: 'Spiritual & Heritage',
     tagline: 'Discover timeless Thachu Shastra architecture, glowing oil lamps, and sacred Vedic traditions.',
     description:
@@ -73,8 +73,8 @@ export const experiencesData: ExperienceItem[] = [
   {
     id: 'fishing-harbor',
     slug: 'fishing-harbor',
-    title: 'Fishing Harbor & Live Fishing Experience',
-    shortTitle: 'Fishing Harbor & Live Fishing',
+    title: 'Fishing life in harbour',
+    shortTitle: 'Fishing life in harbour',
     category: 'Coastal & River',
     tagline: 'Sail in wooden country canoes at dawn, cast traditional throw-nets, and experience the vibrant coastal harbor.',
     description:

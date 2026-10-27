@@ -39,7 +39,7 @@ export const experienceSubCategories: ExperienceSubCategory[] = [
       'Immerse in time-honoured Kerala agricultural heritage, walking through emerald paddy fields, mud-ploughing traditions, and seasonal harvest rituals.',
     longDescription:
       'Step barefoot into the fertile soil of Kerala’s ancestral paddy fields. Guided by local farming elders, participate in traditional seedling transplanting, water wheel irrigation, and organic grain harvesting, connecting deeply with the land that sustains us.',
-    href: '/experiences#rice-farming',
+    href: '/experiences/rice-farming',
     image: '/images/experiences/paddy-farming-experience.jpg',
     highlights: [
       'Hands-on traditional seedling transplantation',
@@ -53,14 +53,14 @@ export const experienceSubCategories: ExperienceSubCategory[] = [
   {
     id: 'kumbidi-village',
     slug: 'kumbidi-village',
-    title: 'Kumbidi Village Experience',
-    shortTitle: 'Kumbidi Village Experience',
+    title: 'Kumbidi Village Life',
+    shortTitle: 'Kumbidi Village Life',
     subtitle: 'Authentic Rural Living & Craftsmanship',
     description:
       'Wander through the tranquil lanes of Kumbidi village, meeting local weavers, pottery masters, and experiencing genuine rural Kerala warmth.',
     longDescription:
       'Kumbidi is a living tapestry of rural Kerala culture nestled alongside the Bharathapuzha river basin. Discover clay pottery workshops, traditional handloom weaving, serene temple paths, and warm family homes where authentic chai and snacks are shared.',
-    href: '/experiences#kumbidi-village',
+    href: '/experiences/kumbidi-village',
     image: '/images/experiences/kumbidi-village-experience.jpg',
     highlights: [
       'Interactive clay pottery wheel demonstration',
@@ -74,14 +74,14 @@ export const experienceSubCategories: ExperienceSubCategory[] = [
   {
     id: 'temple-experience',
     slug: 'temple-experience',
-    title: 'Sacred Temple Experience',
-    shortTitle: 'Temple Experience',
+    title: 'Temple Trails',
+    shortTitle: 'Temple Trails',
     subtitle: 'Vedic Sanctums, Rituals & Architecture',
     description:
       'Witness sacred temple architecture, the resonance of morning oil lamps, ceremonial pujan, and timeless spiritual peace.',
     longDescription:
       'Kerala’s ancient temple architecture reflects cosmic geometry and deep silence. Accompany our resident cultural custodian to historical temple sanctums, observe the sacred lighting of a thousand brass oil lamps (Deeparadhana), and listen to resonant Sopana Sangeetham melodies.',
-    href: '/experiences#temple-experience',
+    href: '/experiences/temple-experience',
     image: '/images/experiences/temple-heritage-experience.jpg',
     highlights: [
       'Architectural tour of ancient teak gopurams',
@@ -95,14 +95,14 @@ export const experienceSubCategories: ExperienceSubCategory[] = [
   {
     id: 'fishing-harbor',
     slug: 'fishing-harbor',
-    title: 'Fishing Harbor & Live Fishing Experience',
-    shortTitle: 'Live Fishing Experience',
+    title: 'Fishing life in harbour',
+    shortTitle: 'Fishing life in harbour',
     subtitle: 'Riverbank Casting & Dawn Watercraft',
     description:
       'Experience live riverbank fishing, traditional casting net craft, and the brisk dawn arrival of traditional wooden watercraft.',
     longDescription:
       'Join artisanal fishermen at the break of dawn as the morning mist lifts over the water. Learn the delicate physics of casting a traditional circular net (Cheena Vala and Veechu Vala), watch wooden boatmen glide through calm backwaters, and inspect the fresh catch of river pearl spot (Karimeen).',
-    href: '/experiences#fishing-harbor',
+    href: '/experiences/fishing-harbor',
     image: '/images/experiences/fishing-harbor-experience.jpg',
     highlights: [
       'Live net-casting demonstration with master fishermen',
