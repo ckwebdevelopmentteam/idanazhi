@@ -1,23 +1,46 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { motion, type Variants } from 'framer-motion';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import ScrollReveal from '@/components/ui/ScrollReveal';
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
+const ACTIVITY_IMAGES_PRIMARY = [
+  {
+    src: '/images/experiences/activity-rice-farming-8k.jpg',
+    alt: 'Traditional barefoot heirloom paddy field seedling planting in Kerala',
+  },
+  {
+    src: '/images/experiences/activity-live-fishing-8k.jpg',
+    alt: 'Traditional live riverbank casting net fishing from wooden canoe at sunrise',
+  },
+  {
+    src: '/images/experiences/fishing-harbor-experience.jpg',
+    alt: 'Live riverbank casting net and early morning canoe expedition',
+  },
+];
+
+const ACTIVITY_IMAGES_SECONDARY = [
+  {
+    src: '/images/experiences/kumbidi-village-experience.jpg',
+    alt: 'Authentic Kumbidi village path and cultural immersion',
+  },
+  {
+    src: '/images/experiences/activity-temple-ritual-8k.jpg',
+    alt: 'Sacred evening Nilavilakku brass oil lamp lighting ritual with floral offerings',
+  },
+  {
+    src: '/images/experiences/working-fields.jpg',
+    alt: 'Traditional Kerala agricultural fieldwork with working oxen in emerald soil',
+  },
+];
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.12,
+      staggerChildren: 0.15,
       delayChildren: 0.1,
     },
   },
@@ -26,243 +49,285 @@ const containerVariants: Variants = {
 const fadeUpVariants: Variants = {
   hidden: {
     opacity: 0,
-    y: 16,
+    y: 20,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.75,
+      duration: 0.8,
       ease: [0.22, 1, 0.36, 1],
     },
   },
 };
 
-const storyCards = [
-  {
-    image: '/images/weddings/architecture-corridor.jpg',
-    alt: 'Traditional Kerala Idanazhi wooden corridor with carved pillars',
-    eyebrow: 'TRADITIONAL CORRIDORS',
-    title: 'The Soul of Idanazhi',
-    description:
-      'Inspired by authentic Kerala architectural passageways, connecting quiet family chambers with open colonnades and sacred breezes.',
-    linkText: 'EXPLORE ARCHITECTURE',
-    linkHref: '/story',
+const imageVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.96,
+    y: 24,
   },
-  {
-    image: '/images/weddings/kerala-courtyard-planter.jpg',
-    alt: 'Heritage Kerala courtyard with stone tulasi planter',
-    eyebrow: 'SACRED COURTYARDS',
-    title: 'Open Sky Sanctuary',
-    description:
-      'Centered around the timeless Nadumuttam courtyard, where sunlight and tropical rain bring nature directly into living celebrations.',
-    linkText: 'DISCOVER COURTYARDS',
-    linkHref: '/story',
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      duration: 0.9,
+      ease: [0.22, 1, 0.36, 1],
+    },
   },
-  {
-    image: '/images/weddings/stage-heritage-mandapam.jpg',
-    alt: 'Traditional Kerala heritage wedding mandapam with floral decor and brass lamps',
-    eyebrow: 'SACRED CELEBRATIONS',
-    title: 'Cherished Beginnings',
-    description:
-      'A luminous setting for destination weddings and family rituals, celebrating sacred beginnings with unmatched grace and hospitality.',
-    linkText: 'VIEW CELEBRATIONS',
-    linkHref: '/celebrations',
-  },
-];
+};
 
 export interface StoryOfIdanazhiProps {
   className?: string;
 }
 
 export function StoryOfIdanazhi({ className = '' }: StoryOfIdanazhiProps) {
-  const cardsContainerRef = useRef<HTMLDivElement>(null);
+  const [topIndex, setTopIndex] = useState(0);
+  const [bottomIndex, setBottomIndex] = useState(0);
 
+  // Auto transition images in continuous loop
   useEffect(() => {
-    const container = cardsContainerRef.current;
-    if (!container) return;
+    const topTimer = setInterval(() => {
+      setTopIndex((prev) => (prev + 1) % ACTIVITY_IMAGES_PRIMARY.length);
+    }, 4000);
 
-    const cards = container.querySelectorAll<HTMLElement>('.story-card');
-    if (!cards.length) return;
+    const bottomTimer = setInterval(() => {
+      setBottomIndex((prev) => (prev + 1) % ACTIVITY_IMAGES_SECONDARY.length);
+    }, 4500);
 
-    const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
-
-      // Desktop & Tablet: 1st card comes down to up, then 2nd, then 3rd
-      mm.add('(min-width: 768px)', () => {
-        gsap.fromTo(
-          cards,
-          {
-            y: 110,
-            opacity: 0,
-            filter: 'blur(8px)',
-          },
-          {
-            y: 0,
-            opacity: 1,
-            filter: 'blur(0px)',
-            ease: 'power2.out',
-            stagger: 0.35,
-            scrollTrigger: {
-              trigger: container,
-              start: 'top bottom-=10%',
-              end: 'bottom 75%',
-              scrub: 1.2,
-            },
-          }
-        );
-      });
-
-      // Mobile: each card rises from down to up as you scroll to it
-      mm.add('(max-width: 767px)', () => {
-        cards.forEach((card) => {
-          gsap.fromTo(
-            card,
-            {
-              y: 70,
-              opacity: 0,
-              filter: 'blur(6px)',
-            },
-            {
-              y: 0,
-              opacity: 1,
-              filter: 'blur(0px)',
-              ease: 'power2.out',
-              scrollTrigger: {
-                trigger: card,
-                start: 'top bottom-=5%',
-                end: 'top 55%',
-                scrub: 1,
-              },
-            }
-          );
-        });
-      });
-    }, container);
-
-    return () => ctx.revert();
+    return () => {
+      clearInterval(topTimer);
+      clearInterval(bottomTimer);
+    };
   }, []);
 
   return (
     <section
       id="story"
-      className={`relative bg-paper pt-0 pb-[clamp(60px,8vh,135px)] px-4 sm:px-[5.4vw] max-[720px]:pt-0 max-[720px]:pb-[48px] overflow-hidden ${className}`}
+      className={`relative bg-paper py-14 pb-20 sm:py-20 lg:py-32 px-5 sm:px-10 lg:px-16 overflow-hidden ${className}`}
       aria-labelledby="story-of-idanazhi-heading"
     >
-      <div className="w-full max-w-[1480px] mx-auto text-center flex flex-col items-center justify-center">
+      {/* Minimal Monochrome Caricature Lotus Accent - Behind content in Left Bottom Corner */}
+      <div
+        className="absolute bottom-0 left-0 pointer-events-none z-0 w-[65px] sm:w-[90px] md:w-[120px] lg:w-[150px] xl:w-[170px] select-none"
+        aria-hidden="true"
+      >
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-60px' }}
-          variants={containerVariants}
-          className="flex flex-col items-center justify-center text-center w-full"
+          initial={{ opacity: 0, scale: 0.94 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          className="w-full h-auto origin-bottom-left"
         >
-          {/* Eyebrow Label */}
-          <motion.p
-            variants={fadeUpVariants}
-            className="m-0 mb-3 sm:mb-5 uppercase tracking-[0.22em] text-[10px] sm:text-[11.5px] font-semibold text-muted text-center"
-          >
-            THE STORY OF IDANAZHI
-          </motion.p>
+          <img
+            src="/images/corner-lotus.png"
+            alt=""
+            className="w-full h-auto object-contain block opacity-80"
+            loading="lazy"
+          />
+        </motion.div>
+      </div>
 
-          {/* Symmetrical Hexagon Structured Statement */}
-          <div className="w-full flex justify-center items-center text-center">
-            <ScrollReveal
-              as="h2"
-              baseOpacity={0.08}
-              enableBlur={true}
-              baseRotation={0}
-              blurStrength={8}
-              containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
-              textClassName="!font-jakarta !font-normal !text-[clamp(16px,2.4vw,38px)] max-[480px]:!text-[15px] !leading-[1.38] !tracking-[-0.015em] !uppercase !text-ink text-center w-full mx-auto"
-              rotationEnd="bottom 65%"
-              wordAnimationEnd="bottom 50%"
-            >
-              {`IDANAZHI IS A FARM STAY AND HERITAGE DESTINATION IN KERALA,
-CREATED TO BRING PEOPLE CLOSER TO THE REGION'S LANDSCAPES,
-RURAL LIFE, AND CULTURAL TRADITIONS.
-FROM EXPERIENCING FARMING TO DISCOVERING LOCAL CUSTOMS,
-IDANAZHI OFFERS A CLOSER LOOK AT THE EVERYDAY LIFE.`}
-            </ScrollReveal>
-          </div>
-
-          {/* Minimal Text CTA directly below */}
+      <div className="w-full max-w-[1360px] mx-auto relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+          {/* Left Column: Text, Mobile Overlapping Images, & Editorial CTAs */}
           <motion.div
-            variants={fadeUpVariants}
-            className="flex justify-center mt-6 sm:mt-10"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-60px' }}
+            variants={containerVariants}
+            className="lg:col-span-5 flex flex-col justify-center text-left"
           >
-            <Link
-              href="/story"
-              className="luxury-cta focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[4px]"
-              aria-label="Discover Our Story - Read more about Idanazhi heritage"
+            {/* Eyebrow Label matching home page sections */}
+            <motion.p
+              variants={fadeUpVariants}
+              className="m-0 mb-3 sm:mb-5 font-sans text-[10px] sm:text-[11.5px] font-semibold uppercase tracking-[0.22em] text-[#6E3020]/80 lg:text-muted text-left"
             >
-              <span className="cta-text">
-                Discover Our Full Story
-              </span>
-              <ArrowUpRight
-                size={15}
-                className="cta-arrow"
-                aria-hidden="true"
-              />
-            </Link>
+              THE STORY OF IDANAZHI
+            </motion.p>
+
+            {/* Main Heading in warm serif style */}
+            <motion.h2
+              id="story-of-idanazhi-heading"
+              variants={fadeUpVariants}
+              className="font-serif font-normal text-[clamp(24px,6.8vw,38px)] leading-[1.22] sm:leading-[1.3] tracking-[-0.015em] uppercase text-[#6E3020] lg:text-ink m-0 mb-4 sm:mb-6 text-left"
+            >
+              A place rooted in Kerala’s landscape, rural life, and living heritage.
+            </motion.h2>
+
+            {/* Mobile Dual Overlapping Images - Compact, elegant composition (< lg) */}
+            <motion.div
+              variants={imageVariants}
+              className="block lg:hidden relative w-full aspect-[4/3.1] max-w-[280px] sm:max-w-[320px] mx-auto my-4 sm:my-6"
+              aria-label="Idanazhi living heritage and paddy farming scenes"
+            >
+              {/* Activity Image (Top Right - Paddy Farming in Loop) */}
+              <div className="absolute top-0 right-0 w-[58%] aspect-[3/3.7] overflow-hidden shadow-md bg-[#ECE6DF]">
+                {ACTIVITY_IMAGES_PRIMARY.map((img, idx) => (
+                  <img
+                    key={`mob-top-${img.src}`}
+                    src={img.src}
+                    alt={img.alt}
+                    className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out ${
+                      idx === topIndex
+                        ? 'opacity-100 scale-100'
+                        : 'opacity-0 scale-105 pointer-events-none'
+                    }`}
+                    loading={idx === 0 ? 'eager' : 'lazy'}
+                  />
+                ))}
+              </div>
+
+              {/* Activity Image (Bottom Left - Traditional Village Life in Loop) */}
+              <div className="absolute bottom-0 left-0 w-[56%] aspect-[4/3.1] overflow-hidden shadow-[0_10px_25px_rgba(45,25,18,0.22)] z-10 bg-[#ECE6DF]">
+                {ACTIVITY_IMAGES_SECONDARY.map((img, idx) => (
+                  <img
+                    key={`mob-bot-${img.src}`}
+                    src={img.src}
+                    alt={img.alt}
+                    className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out ${
+                      idx === bottomIndex
+                        ? 'opacity-100 scale-100'
+                        : 'opacity-0 scale-105 pointer-events-none'
+                    }`}
+                    loading={idx === 0 ? 'eager' : 'lazy'}
+                  />
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Body Paragraph 1 */}
+            <motion.p
+              variants={fadeUpVariants}
+              className="m-0 mb-3.5 sm:mb-4 font-sans font-normal text-[14.5px] sm:text-[15.5px] leading-[1.7] text-[#5A453D] lg:text-muted text-left"
+            >
+              Idanazhi is a farm stay and heritage destination in Kerala, created to bring people closer to the region’s landscapes, rural life, and cultural traditions.
+            </motion.p>
+
+            {/* Body Paragraph 2 */}
+            <motion.p
+              variants={fadeUpVariants}
+              className="m-0 mb-6 sm:mb-8 font-sans font-normal text-[14.5px] sm:text-[15.5px] leading-[1.7] text-[#5A453D] lg:text-muted text-left"
+            >
+              From experiencing time-honoured paddy farming and generational craft to discovering local village customs, sacred temple trails, and peaceful open-sky courtyards, Idanazhi offers an authentic, unhurried look at the everyday life and living heritage that make Kerala unique.
+            </motion.p>
+
+            {/* Brand Action Buttons: Heritage Story & Curated Experiences (Positioned above background lotus with z-20) */}
+            <motion.div
+              variants={fadeUpVariants}
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3.5 w-full sm:w-auto pt-1 relative z-20"
+            >
+              <Link
+                href="/story"
+                className="w-full sm:w-auto group inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 bg-[#6E3020] hover:bg-[#582417] text-white text-[10px] sm:text-[10.5px] font-sans font-semibold uppercase tracking-[0.16em] transition-all duration-300 shadow-xs hover:shadow-sm cursor-pointer no-underline active:scale-[0.98] relative z-20"
+              >
+                <span>DISCOVER OUR STORY</span>
+                <ArrowRight
+                  size={12}
+                  className="transition-transform duration-300 group-hover:translate-x-1"
+                />
+              </Link>
+              <Link
+                href="/experiences"
+                className="w-full sm:w-auto group inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 bg-paper border border-[#6E3020]/80 text-[#6E3020] hover:bg-[#6E3020] hover:text-white text-[10px] sm:text-[10.5px] font-sans font-semibold uppercase tracking-[0.16em] transition-all duration-300 cursor-pointer no-underline active:scale-[0.98] relative z-20 shadow-xs"
+              >
+                <span>EXPLORE EXPERIENCES</span>
+                <ArrowUpRight
+                  size={12}
+                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </Link>
+            </motion.div>
           </motion.div>
 
-          {/* Three Story Cards with Sequential Down-to-Up Scroll Reveal */}
-          <div
-            ref={cardsContainerRef}
-            className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 lg:gap-8 w-full max-w-[1280px] mx-auto mt-10 sm:mt-16 md:mt-20 text-left"
+          {/* Right Column: Dual Overlapping Framed Photographs for Desktop (hidden on mobile, visible on lg) */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-60px' }}
+            variants={containerVariants}
+            className="hidden lg:flex lg:col-span-7 justify-center lg:justify-end"
           >
-            {storyCards.map((card, idx) => (
-              <article
-                key={`story-card-${idx}`}
-                className="story-card group flex flex-col bg-linen/50 border border-ink/15 overflow-hidden transition-[border-color,box-shadow] duration-500 ease-out hover:border-ink/35 hover:shadow-xl will-change-transform"
+            <div className="relative w-full max-w-[580px] sm:max-w-[650px] lg:max-w-[700px] aspect-[4/4.5] sm:aspect-[4/4.2]">
+              {/* Activity Image (Top Right - Paddy Farming in Loop) */}
+              <motion.div
+                variants={imageVariants}
+                className="absolute -top-7 sm:-top-10 lg:-top-12 right-0 w-[72%] sm:w-[70%] aspect-[3/4.2] overflow-hidden shadow-[0_24px_55px_rgba(45,25,18,0.16)]"
               >
-                {/* Image */}
-                <div className="relative aspect-[16/11] overflow-hidden bg-linen">
-                  <img
-                    src={card.image}
-                    alt={card.alt}
-                    className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
-                </div>
+                <div className="relative w-full h-full overflow-hidden bg-[#ECE6DF]">
+                  {ACTIVITY_IMAGES_PRIMARY.map((img, idx) => (
+                    <img
+                      key={img.src}
+                      src={img.src}
+                      alt={img.alt}
+                      className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out ${
+                        idx === topIndex
+                          ? 'opacity-100 scale-100'
+                          : 'opacity-0 scale-105 pointer-events-none'
+                      }`}
+                      loading={idx === 0 ? 'eager' : 'lazy'}
+                    />
+                  ))}
 
-                {/* Content */}
-                <div className="p-5 sm:p-7 flex flex-col flex-1 justify-between bg-paper/60 backdrop-blur-[2px]">
-                  <div>
-                    <p className="m-0 mb-2 text-[10px] sm:text-[10.5px] uppercase tracking-[0.2em] font-semibold text-muted">
-                      {card.eyebrow}
-                    </p>
-                    <h3 className="font-serif text-[20px] sm:text-[24px] font-normal leading-[1.2] tracking-[-0.02em] text-ink m-0 mb-2.5 group-hover:text-forest transition-colors duration-300">
-                      {card.title}
-                    </h3>
-                    <p className="m-0 text-[13px] sm:text-[13.5px] leading-[1.65] text-muted font-sans font-light">
-                      {card.description}
-                    </p>
-                  </div>
-
-                  <div className="mt-5 pt-3.5 sm:mt-6 sm:pt-4 border-t border-ink/12">
-                    <Link
-                      href={card.linkHref}
-                      className="card-cta focus-visible:outline-2 focus-visible:outline-forest focus-visible:outline-offset-[3px]"
-                      aria-label={`${card.linkText} - ${card.title}`}
-                    >
-                      <span className="cta-text">
-                        {card.linkText}
-                      </span>
-                      <ArrowUpRight
-                        size={14}
-                        className="cta-arrow"
-                        aria-hidden="true"
+                  {/* Subtle loop indicators */}
+                  <div className="absolute bottom-2.5 right-2.5 flex items-center gap-1.5 z-20 bg-black/35 backdrop-blur-[4px] px-2 py-1 rounded-full">
+                    {ACTIVITY_IMAGES_PRIMARY.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setTopIndex(idx)}
+                        className={`h-1.5 rounded-full transition-all duration-300 ${
+                          idx === topIndex
+                            ? 'w-4 bg-white'
+                            : 'w-1.5 bg-white/40 hover:bg-white/70'
+                        }`}
+                        aria-label={`View activity image ${idx + 1}`}
                       />
-                    </Link>
+                    ))}
                   </div>
                 </div>
-              </article>
-            ))}
-          </div>
-        </motion.div>
+              </motion.div>
+
+              {/* Activity Image (Bottom Left - Village Life in Loop) */}
+              <motion.div
+                variants={imageVariants}
+                className="absolute bottom-0 left-0 w-[68%] sm:w-[66%] aspect-[1/1] sm:aspect-[4/4.2] overflow-hidden shadow-[0_28px_65px_rgba(45,25,18,0.22)] z-10"
+              >
+                <div className="relative w-full h-full overflow-hidden bg-[#ECE6DF]">
+                  {ACTIVITY_IMAGES_SECONDARY.map((img, idx) => (
+                    <img
+                      key={img.src}
+                      src={img.src}
+                      alt={img.alt}
+                      className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out ${
+                        idx === bottomIndex
+                          ? 'opacity-100 scale-100'
+                          : 'opacity-0 scale-105 pointer-events-none'
+                      }`}
+                      loading={idx === 0 ? 'eager' : 'lazy'}
+                    />
+                  ))}
+
+                  {/* Subtle loop indicators */}
+                  <div className="absolute bottom-2.5 right-2.5 flex items-center gap-1.5 z-20 bg-black/35 backdrop-blur-[4px] px-2 py-1 rounded-full">
+                    {ACTIVITY_IMAGES_SECONDARY.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setBottomIndex(idx)}
+                        className={`h-1.5 rounded-full transition-all duration-300 ${
+                          idx === bottomIndex
+                            ? 'w-4 bg-white'
+                            : 'w-1.5 bg-white/40 hover:bg-white/70'
+                        }`}
+                        aria-label={`View activity image ${idx + 1}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

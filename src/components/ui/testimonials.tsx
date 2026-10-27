@@ -208,47 +208,30 @@ function Testimonials({
             </motion.p>
           )}
 
-          {/* Symmetrical Scroll Reveal Heading matching Wedding Intro */}
+          {/* Symmetrical Heading */}
           <div className="w-full flex justify-center items-center text-center">
-            <ScrollReveal
-              as="h2"
-              baseOpacity={0.08}
-              enableBlur={true}
-              baseRotation={0}
-              blurStrength={8}
-              containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
-              textClassName="!font-jakarta !font-normal !text-[clamp(18px,2.5vw,38px)] !leading-[1.32] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
-              wordAnimationStart="top 85%"
-              wordAnimationEnd="bottom 55%"
+            <motion.h2
+              id="testimonials-heading"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-40px' }}
+              variants={fadeUpVariants}
+              className="font-jakarta font-normal text-[clamp(18px,2.5vw,38px)] leading-[1.28] tracking-[-0.015em] uppercase text-ink text-center max-w-[940px] mx-auto m-0"
             >
-              <span
-                id="testimonials-heading"
-                className="block !font-jakarta !font-normal !text-[clamp(18px,2.5vw,38px)] !leading-[1.28] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[940px] mx-auto"
-              >
-                <span className="block sm:whitespace-nowrap">
-                  <span className="word">CHERISHED</span>{' '}
-                  <span className="word">MEMORIES</span>
-                </span>
-                <span className="block sm:whitespace-nowrap">
-                  <span className="word">OF</span>{' '}
-                  <span className="word">TIMELESS</span>{' '}
-                  <span className="word">CELEBRATIONS</span>
-                </span>
-              </span>
-            </ScrollReveal>
+              <span className="block sm:whitespace-nowrap">CHERISHED MEMORIES</span>
+              <span className="block sm:whitespace-nowrap">OF TIMELESS CELEBRATIONS</span>
+            </motion.h2>
           </div>
 
           {subtitle && (
             <div className="w-full flex justify-center items-center text-center mt-3 sm:mt-5">
               <ScrollReveal
                 as="p"
-                baseOpacity={0.12}
+                baseOpacity={0.15}
                 enableBlur={true}
-                baseRotation={0}
-                blurStrength={5}
+                blurStrength={4}
+                stagger={0.022}
                 containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
-                wordAnimationStart="top 85%"
-                wordAnimationEnd="bottom 55%"
               >
                 <span className="block !font-sans !font-normal !text-[clamp(14.5px,1.05vw,17px)] !leading-[1.7] !text-muted text-center max-w-[840px] mx-auto">
                   {descLines.map((line, lineIdx) => {

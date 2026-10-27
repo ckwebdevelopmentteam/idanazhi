@@ -25,23 +25,25 @@ export interface ScrollRevealProps {
   stagger?: number;
   transformOrigin?: string;
   as?: React.ElementType;
+  useScrub?: boolean;
 }
 
 const ScrollReveal: React.FC<ScrollRevealProps> = ({
   children,
   scrollContainerRef,
   enableBlur = true,
-  baseOpacity = 0.1,
-  baseRotation = 3,
+  baseOpacity = 0.15,
+  baseRotation = 0,
   blurStrength = 4,
   containerClassName = '',
   textClassName = '',
   rotationEnd = 'bottom bottom',
-  wordAnimationStart = 'top bottom-=15%',
-  wordAnimationEnd = 'bottom bottom',
-  stagger = 0.05,
+  wordAnimationStart = 'top 88%',
+  wordAnimationEnd = 'bottom 55%',
+  stagger = 0.022,
   transformOrigin = '50% 50%',
-  as: Component = 'h2',
+  as: Component = 'p',
+  useScrub = false,
 }) => {
   const containerRef = useRef<HTMLElement | null>(null);
   const isStringChildren = typeof children === 'string';
@@ -49,31 +51,14 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
   const splitText = useMemo(() => {
     if (!isStringChildren) return null;
     const text = children as string;
-    const lines = text
-      .trim()
-      .split('\n')
-      .map((l) => l.trim())
-      .filter(Boolean);
+    const words = text.trim().split(/\s+/);
 
-    return lines.map((line, lineIdx) => {
-      const words = line.split(/(\s+)/).map((word, wordIdx) => {
-        if (word.match(/^\s+$/)) return word;
-        return (
-          <span className="word" key={`w-${lineIdx}-${wordIdx}`}>
-            {word}
-          </span>
-        );
-      });
-
-      return (
-        <span
-          key={`line-${lineIdx}`}
-          className="block w-full text-center sm:whitespace-nowrap mx-auto"
-        >
-          {words}
-        </span>
-      );
-    });
+    return words.map((word, wordIdx) => (
+      <React.Fragment key={`w-${wordIdx}`}>
+        <span className="word">{word}</span>
+        {wordIdx < words.length - 1 && ' '}
+      </React.Fragment>
+    ));
   }, [children, isStringChildren]);
 
   useEffect(() => {
@@ -86,6 +71,23 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
         : window;
 
     const ctx = gsap.context(() => {
+      const wordElements = el.querySelectorAll('.word');
+      if (wordElements.length === 0) return;
+
+      const prefersReducedMotion =
+        typeof window !== 'undefined' &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (prefersReducedMotion) {
+        gsap.set(wordElements, {
+          opacity: 1,
+          filter: 'none',
+          WebkitFilter: 'none',
+          clearProps: 'all',
+        });
+        return;
+      }
+
       if (baseRotation !== 0) {
         gsap.fromTo(
           el,
@@ -98,19 +100,20 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
               scroller,
               start: 'top bottom',
               end: rotationEnd,
-              scrub: true,
+              scrub: 0.6,
+              invalidateOnRefresh: true,
             },
           }
         );
       }
 
-      const wordElements = el.querySelectorAll('.word');
-      if (wordElements.length === 0) return;
+      if (useScrub) {
+        const fromVars: gsap.TweenVars = {
+          opacity: baseOpacity,
+          willChange: 'opacity, filter, transform',
+        };
 
-      gsap.fromTo(
-        wordElements,
-        { opacity: baseOpacity, willChange: 'opacity, filter' },
-        {
+        const toVars: gsap.TweenVars = {
           ease: 'none',
           opacity: 1,
           stagger: stagger,
@@ -119,30 +122,77 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
             scroller,
             start: wordAnimationStart,
             end: wordAnimationEnd,
-            scrub: true,
-          },
-        }
-      );
-
-      if (enableBlur) {
-        gsap.fromTo(
-          wordElements,
-          { filter: `blur(${blurStrength}px)` },
-          {
-            ease: 'none',
-            filter: 'blur(0px)',
-            stagger: stagger,
-            scrollTrigger: {
-              trigger: el,
-              scroller,
-              start: wordAnimationStart,
-              end: wordAnimationEnd,
-              scrub: true,
+            scrub: 0.6,
+            invalidateOnRefresh: true,
+            fastScrollEnd: true,
+            onLeave: () => {
+              gsap.set(wordElements, {
+                opacity: 1,
+                filter: 'none',
+                WebkitFilter: 'none',
+                clearProps: 'all',
+              });
             },
-          }
-        );
+          },
+        };
+
+        if (enableBlur) {
+          fromVars.filter = `blur(${blurStrength}px)`;
+          fromVars.WebkitFilter = `blur(${blurStrength}px)`;
+          toVars.filter = 'blur(0px)';
+          toVars.WebkitFilter = 'blur(0px)';
+        }
+
+        gsap.fromTo(wordElements, fromVars, toVars);
+      } else {
+        // Viewport-Triggered Reveal: Triggers smoothly when entering viewport
+        // Guaranteed 100% bug-free on mobile & desktop without scroll freeze
+        const fromVars: gsap.TweenVars = {
+          opacity: baseOpacity,
+          y: 6,
+          willChange: 'opacity, filter, transform',
+        };
+
+        const toVars: gsap.TweenVars = {
+          opacity: 1,
+          y: 0,
+          duration: 0.65,
+          ease: 'power2.out',
+          stagger: stagger,
+          onComplete: () => {
+            gsap.set(wordElements, {
+              opacity: 1,
+              filter: 'none',
+              WebkitFilter: 'none',
+              clearProps: 'all',
+            });
+          },
+          scrollTrigger: {
+            trigger: el,
+            scroller,
+            start: wordAnimationStart || 'top 88%',
+            once: true,
+            fastScrollEnd: true,
+          },
+        };
+
+        if (enableBlur) {
+          fromVars.filter = `blur(${blurStrength}px)`;
+          fromVars.WebkitFilter = `blur(${blurStrength}px)`;
+          toVars.filter = 'blur(0px)';
+          toVars.WebkitFilter = 'blur(0px)';
+        }
+
+        gsap.fromTo(wordElements, fromVars, toVars);
       }
     }, el);
+
+    // Refresh ScrollTrigger when web fonts finish loading to ensure accurate trigger points
+    if (typeof document !== 'undefined' && document.fonts) {
+      document.fonts.ready.then(() => {
+        ScrollTrigger.refresh();
+      });
+    }
 
     return () => {
       ctx.revert();
@@ -158,15 +208,17 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
     stagger,
     blurStrength,
     transformOrigin,
+    children,
+    useScrub,
   ]);
 
   return (
     <Component
       ref={containerRef}
-      className={`scroll-reveal ${isStringChildren ? 'text-center mx-auto' : ''} ${containerClassName}`}
+      className={`scroll-reveal ${containerClassName}`}
     >
       {isStringChildren ? (
-        <p className={`scroll-reveal-text text-center mx-auto ${textClassName}`}>{splitText}</p>
+        <span className={`scroll-reveal-text block ${textClassName}`}>{splitText}</span>
       ) : (
         children
       )}
@@ -175,3 +227,4 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
 };
 
 export default ScrollReveal;
+

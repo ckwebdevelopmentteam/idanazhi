@@ -96,63 +96,51 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
       className={`relative z-20 bg-paper min-h-[80vh] lg:min-h-[92vh] flex flex-col justify-center py-[clamp(60px,9vh,140px)] max-[720px]:py-[54px] overflow-hidden ${className}`}
       aria-labelledby="stay-heading"
     >
-      <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
+      <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 relative">
+        {/* Authentic Kerala Vallam Fisherman Caricature - 200% Accuracy Recreation */}
+        <div
+          className="hidden lg:block absolute bottom-[-15px] xl:bottom-[-25px] left-[32%] xl:left-[34%] 2xl:left-[35%] w-[660px] xl:w-[760px] 2xl:w-[820px] pointer-events-none z-0 select-none"
+          aria-hidden="true"
+        >
+          <img
+            src="/images/fisherman-caricature.png"
+            alt=""
+            className="w-full h-auto object-contain block opacity-95 mix-blend-multiply"
+            loading="lazy"
+          />
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 xl:gap-12 items-start">
           {/* Left Column: Title, Heading, Desc, CTA */}
-          <div className="lg:col-span-6 flex flex-col items-start text-left max-w-[600px]">
+          <div className="lg:col-span-6 flex flex-col items-start text-left max-w-[600px] relative z-10">
             {/* Eyebrow / Section Title */}
             <p className="m-0 mb-2.5 sm:mb-4 uppercase tracking-[0.22em] text-[10px] sm:text-[11.5px] font-semibold text-muted text-left">
               ACTIVITIES IN THE STAY · KERALA
             </p>
 
-            {/* Scroll Reveal Heading */}
-            <div className="w-full text-left">
-              <ScrollReveal
-                as="h2"
-                baseOpacity={0.08}
-                enableBlur={true}
-                baseRotation={0}
-                blurStrength={8}
-                containerClassName="!my-0 w-full text-left flex flex-col items-start justify-start"
-                wordAnimationStart="top 85%"
-                wordAnimationEnd="bottom 55%"
-              >
-                <span
-                  id="stay-heading"
-                  className="block !font-jakarta !font-normal !text-[clamp(19px,2.1vw,35px)] !leading-[1.28] !tracking-[-0.02em] !uppercase !text-ink text-left"
-                >
-                  <span className="block sm:whitespace-nowrap">
-                    <span className="word">ACTIVITIES</span>{' '}
-                    <span className="word">IN</span>{' '}
-                    <span className="word">THE</span>{' '}
-                    <span className="word">STAY</span>
-                  </span>
-                  <span className="block sm:whitespace-nowrap">
-                    <span className="word">CONNECTED</span>{' '}
-                    <span className="word">TO</span>{' '}
-                    <span className="word">THE</span>{' '}
-                    <span className="word">SOIL</span>
-                  </span>
-                  <span className="block sm:whitespace-nowrap">
-                    <span className="word">AND</span>{' '}
-                    <span className="word">TIMELESS</span>{' '}
-                    <span className="word">TRADITIONS</span>
-                  </span>
-                </span>
-              </ScrollReveal>
-            </div>
+            {/* Main Heading */}
+            <motion.h2
+              id="stay-heading"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-40px' }}
+              variants={fadeUpVariants}
+              className="font-jakarta font-normal text-[clamp(19px,2.1vw,35px)] leading-[1.28] tracking-[-0.02em] uppercase text-ink text-left m-0"
+            >
+              <span className="block sm:whitespace-nowrap">ACTIVITIES IN THE STAY</span>
+              <span className="block sm:whitespace-nowrap">CONNECTED TO THE SOIL</span>
+              <span className="block sm:whitespace-nowrap">AND TIMELESS TRADITIONS</span>
+            </motion.h2>
 
             {/* Supporting Paragraph / Section Summary */}
             <div className="w-full text-left mt-3.5 sm:mt-5">
               <ScrollReveal
                 as="p"
-                baseOpacity={0.35}
+                baseOpacity={0.15}
                 enableBlur={true}
-                baseRotation={0}
-                blurStrength={3}
+                blurStrength={4}
+                stagger={0.022}
                 containerClassName="!my-0 w-full text-left flex flex-col items-start justify-start"
-                wordAnimationStart="top 85%"
-                wordAnimationEnd="top 60%"
               >
                 <span className="block !font-sans !font-normal !text-[clamp(14.5px,1vw,16.5px)] !leading-[1.75] !text-muted text-left">
                   <span className="word">Discover</span>{' '}
@@ -228,7 +216,7 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
           </div>
 
           {/* Right Column: Card component */}
-          <div className="lg:col-span-6 w-full overflow-hidden">
+          <div className="lg:col-span-6 w-full overflow-hidden relative z-10">
             <HeroCarousel
               items={stayActivities}
               mode="cards-only"

@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { Plus } from 'lucide-react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
-import ScrollReveal from '@/components/ui/ScrollReveal';
 
 const fadeUpVariants: Variants = {
   hidden: {
@@ -117,19 +116,12 @@ export function FAQSection({
           )}
 
           <div className="w-full flex justify-center items-center text-center">
-            <ScrollReveal
-              as="h2"
-              baseOpacity={0.08}
-              enableBlur={true}
-              baseRotation={0}
-              blurStrength={8}
-              containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
-              textClassName="!font-jakarta !font-normal !text-[clamp(19px,2.5vw,36px)] !leading-[1.32] !tracking-[-0.015em] !uppercase !text-ink text-center max-w-[800px] mx-auto"
-              wordAnimationStart="top 85%"
-              wordAnimationEnd="bottom 55%"
+            <motion.h2
+              variants={fadeUpVariants}
+              className="font-jakarta font-normal text-[clamp(19px,2.5vw,36px)] leading-[1.32] tracking-[-0.015em] uppercase text-ink text-center max-w-[800px] mx-auto m-0"
             >
               {heading}
-            </ScrollReveal>
+            </motion.h2>
           </div>
         </motion.div>
 

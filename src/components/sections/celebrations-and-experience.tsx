@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { motion, type Variants } from 'framer-motion';
-import ScrollReveal from '@/components/ui/ScrollReveal';
 import PolaroidLineCarousel, { type Slide } from '@/components/ui/polaroid-line-carousel';
 
 
@@ -115,39 +114,35 @@ export function CelebrationsAndExperience({ className = '' }: CelebrationsAndExp
       </div>
 
       <div className="relative z-10 w-full flex flex-col">
-        {/* Row: CELEBRATIONS (Left) | AND (Center) | EXPERIENCES (Right) with Scroll Reveal Effect */}
-        <ScrollReveal
-          as="div"
-          baseOpacity={0.08}
-          enableBlur={true}
-          baseRotation={0}
-          blurStrength={8}
-          stagger={0.09}
-          wordAnimationStart="top bottom-=5%"
-          wordAnimationEnd="bottom 55%"
-          containerClassName="!m-0 w-full px-3 sm:px-[5.4vw] grid grid-cols-3 items-center gap-1 sm:gap-6 pb-4 sm:pb-8 md:pb-10 shrink-0"
+        {/* Row: CELEBRATIONS (Left) | AND (Center) | EXPERIENCES (Right) */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-40px' }}
+          variants={fadeUpVariants}
+          className="!m-0 w-full px-3 sm:px-[5.4vw] grid grid-cols-3 items-center gap-1 sm:gap-6 pb-4 sm:pb-8 md:pb-10 shrink-0"
         >
           {/* Left: CELEBRATIONS */}
           <div className="flex items-center justify-start">
-            <span className="word font-jakarta font-normal text-[clamp(12.5px,3.7vw,38px)] sm:text-[clamp(20px,2.5vw,38px)] leading-[1.36] tracking-[-0.015em] uppercase text-white whitespace-nowrap">
+            <span className="font-jakarta font-normal text-[clamp(12.5px,3.7vw,38px)] sm:text-[clamp(20px,2.5vw,38px)] leading-[1.36] tracking-[-0.015em] uppercase text-white whitespace-nowrap">
               Celebrations
             </span>
           </div>
 
           {/* Center: AND */}
           <div className="flex items-center justify-center text-center">
-            <span className="word font-jakarta font-normal text-[clamp(12.5px,3.7vw,38px)] sm:text-[clamp(20px,2.5vw,38px)] leading-[1.36] tracking-[-0.015em] uppercase text-white whitespace-nowrap">
+            <span className="font-jakarta font-normal text-[clamp(12.5px,3.7vw,38px)] sm:text-[clamp(20px,2.5vw,38px)] leading-[1.36] tracking-[-0.015em] uppercase text-white whitespace-nowrap">
               And
             </span>
           </div>
 
           {/* Right: EXPERIENCES */}
           <div className="flex items-center justify-end">
-            <span className="word font-jakarta font-normal text-[clamp(12.5px,3.7vw,38px)] sm:text-[clamp(20px,2.5vw,38px)] leading-[1.36] tracking-[-0.015em] uppercase text-white whitespace-nowrap">
+            <span className="font-jakarta font-normal text-[clamp(12.5px,3.7vw,38px)] sm:text-[clamp(20px,2.5vw,38px)] leading-[1.36] tracking-[-0.015em] uppercase text-white whitespace-nowrap">
               Experiences
             </span>
           </div>
-        </ScrollReveal>
+        </motion.div>
 
         {/* Polaroid Line Carousel with balanced height and spacing */}
         <motion.div

@@ -99,40 +99,58 @@ export function ContactSection({ className = '' }: ContactSectionProps) {
               GET IN TOUCH
             </p>
 
-            {/* Left-Aligned Scroll Reveal Heading */}
-            <div className="w-full text-left">
+            {/* Left-Aligned Heading */}
+            <motion.h2
+              id="contact-heading"
+              variants={fadeUpVariants}
+              className="font-jakarta font-normal text-[clamp(20px,2.4vw,38px)] leading-[1.28] tracking-[-0.015em] uppercase text-white text-left m-0"
+            >
+              <span className="block sm:whitespace-nowrap">A SACRED SANCTUARY</span>
+              <span className="block sm:whitespace-nowrap">AWAITS YOUR CELEBRATION</span>
+            </motion.h2>
+
+            {/* Description matching Homepage Typography with Viewport ScrollReveal */}
+            <div className="w-full text-left mt-4 sm:mt-5">
               <ScrollReveal
-                as="h2"
-                baseOpacity={0.12}
+                as="p"
+                baseOpacity={0.15}
                 enableBlur={true}
-                baseRotation={0}
-                blurStrength={8}
-                containerClassName="!my-0 w-full !text-left !items-start !justify-start flex flex-col"
-                wordAnimationStart="top 85%"
-                wordAnimationEnd="bottom 55%"
+                blurStrength={4}
+                stagger={0.022}
+                containerClassName="!my-0 w-full text-left flex flex-col items-start justify-start"
               >
-                <span
-                  id="contact-heading"
-                  className="block !font-jakarta !font-normal !text-[clamp(20px,2.4vw,38px)] !leading-[1.28] !tracking-[-0.015em] !uppercase !text-white !text-left"
-                >
-                  <span className="block !text-left sm:whitespace-nowrap">
-                    <span className="word">A</span>{' '}
-                    <span className="word">SACRED</span>{' '}
-                    <span className="word">SANCTUARY</span>
-                  </span>
-                  <span className="block !text-left sm:whitespace-nowrap">
-                    <span className="word">AWAITS</span>{' '}
-                    <span className="word">YOUR</span>{' '}
-                    <span className="word">CELEBRATION</span>
-                  </span>
+                <span className="block font-sans font-light text-[clamp(14px,1.05vw,16px)] leading-[1.75] text-[#E5D7CB]/80 max-w-[480px] text-left">
+                  <span className="word">Whether</span>{' '}
+                  <span className="word">planning</span>{' '}
+                  <span className="word">a</span>{' '}
+                  <span className="word">sacred</span>{' '}
+                  <span className="word">destination</span>{' '}
+                  <span className="word">wedding,</span>{' '}
+                  <span className="word">an</span>{' '}
+                  <span className="word">intimate</span>{' '}
+                  <span className="word">family</span>{' '}
+                  <span className="word">gathering,</span>{' '}
+                  <span className="word">or</span>{' '}
+                  <span className="word">an</span>{' '}
+                  <span className="word">unhurried</span>{' '}
+                  <span className="word">heritage</span>{' '}
+                  <span className="word">stay,</span>{' '}
+                  <span className="word">our</span>{' '}
+                  <span className="word">concierge</span>{' '}
+                  <span className="word">is</span>{' '}
+                  <span className="word">dedicated</span>{' '}
+                  <span className="word">to</span>{' '}
+                  <span className="word">perfecting</span>{' '}
+                  <span className="word">every</span>{' '}
+                  <span className="word">detail</span>{' '}
+                  <span className="word">of</span>{' '}
+                  <span className="word">your</span>{' '}
+                  <span className="word">time</span>{' '}
+                  <span className="word">at</span>{' '}
+                  <span className="word">Idanazhi.</span>
                 </span>
               </ScrollReveal>
             </div>
-
-            {/* Description matching Homepage Typography */}
-            <p className="font-sans font-light text-[clamp(14px,1.05vw,16px)] leading-[1.75] text-[#E5D7CB]/80 max-w-[480px] m-0 mt-4 sm:mt-5 text-left">
-              Whether planning a sacred destination wedding, an intimate family gathering, or an unhurried heritage stay, our concierge is dedicated to perfecting every detail of your time at Idanazhi.
-            </p>
 
             {/* Action Buttons in Left Column */}
             <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 w-full mt-7 sm:mt-8">
