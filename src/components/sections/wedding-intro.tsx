@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { gsap } from 'gsap';
-import ScrollReveal from '@/components/ui/ScrollReveal';
 import { cn } from '@/lib/utils';
 import {
   weddingIntroData,
@@ -54,24 +53,6 @@ export function WeddingIntro({
   data = weddingIntroData,
   className = '',
 }: WeddingIntroProps) {
-  const descLines = React.useMemo(() => {
-    if (!data.description) return [];
-    if (data.description.includes('\n')) return data.description.split('\n');
-    const parts = data.description.match(
-      /^(.*?character,)\s*(.*?together)\s*(and.*)$/i
-    );
-    if (parts) {
-      return [parts[1], parts[2], parts[3]];
-    }
-    const words = data.description.split(' ');
-    const third = Math.ceil(words.length / 3);
-    return [
-      words.slice(0, third).join(' '),
-      words.slice(third, third * 2).join(' '),
-      words.slice(third * 2).join(' '),
-    ];
-  }, [data.description]);
-
   const cardsCount = data.cards.length;
   // 3 sets of cards for seamless infinite looping: [cloneBefore, original, cloneAfter]
   const extendedCards = [...data.cards, ...data.cards, ...data.cards];
@@ -153,16 +134,10 @@ export function WeddingIntro({
     [cardsCount, measureStep]
   );
 
-  // Schedule next auto scroll advance using GSAP delayedCall
+  // Auto scroll disabled so cards remain stable and fixed without unwanted auto-sliding
   const scheduleNext = useCallback(() => {
     if (timerRef.current) timerRef.current.kill();
-    if (isPausedRef.current || isDraggingRef.current) return;
-
-    timerRef.current = gsap.delayedCall(2.0, () => {
-      if (isPausedRef.current || isDraggingRef.current) return;
-      slideTo(currentIndexRef.current + 1, 1.15, 'power2.inOut');
-    });
-  }, [slideTo]);
+  }, []);
 
   // Jump to specific card index
   const jumpToCard = useCallback(
@@ -202,8 +177,10 @@ export function WeddingIntro({
     if (el && ro) ro.observe(el);
 
     return () => {
-      if (timerRef.current) timerRef.current.kill();
-      if (tweenRef.current) tweenRef.current.kill();
+      const timer = timerRef.current;
+      const tween = tweenRef.current;
+      if (timer) timer.kill();
+      if (tween) tween.kill();
       window.removeEventListener('resize', handleResize);
       if (ro) ro.disconnect();
     };
@@ -337,35 +314,15 @@ export function WeddingIntro({
           </div>
 
           {data.description && (
-            <div className="w-full flex justify-center items-center text-center mt-3 sm:mt-5">
-              <ScrollReveal
-                as="p"
-                baseOpacity={0.15}
-                enableBlur={true}
-                blurStrength={4}
-                stagger={0.022}
-                containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
-              >
-                <span className="block !font-sans !font-normal !text-[clamp(14.5px,1.05vw,17px)] !leading-[1.7] !text-muted text-center max-w-[840px] mx-auto">
-                  {descLines.map((line, lineIdx) => {
-                    const words = line.trim().split(/\s+/);
-                    return (
-                      <React.Fragment key={lineIdx}>
-                        <span className="sm:block sm:whitespace-nowrap">
-                          {words.map((word, wordIdx) => (
-                            <React.Fragment key={wordIdx}>
-                              <span className="word">{word}</span>
-                              {wordIdx < words.length - 1 && ' '}
-                            </React.Fragment>
-                          ))}
-                        </span>
-                        {lineIdx < descLines.length - 1 && ' '}
-                      </React.Fragment>
-                    );
-                  })}
-                </span>
-              </ScrollReveal>
-            </div>
+            <motion.p
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-40px' }}
+              variants={fadeUpVariants}
+              className="font-sans font-normal text-[clamp(14.5px,1.05vw,17px)] leading-[1.7] text-muted text-center max-w-[840px] mx-auto m-0 mt-3 sm:mt-5"
+            >
+              {data.description}
+            </motion.p>
           )}
 
           {data.ctaText && (

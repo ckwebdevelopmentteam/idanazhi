@@ -11,7 +11,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Quote, Star, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
-import ScrollReveal from "@/components/ui/ScrollReveal";
 import { cn } from "@/lib/utils";
 
 const fadeUpVariants: Variants = {
@@ -148,11 +147,6 @@ function Testimonials({
   const [hoverRatio, setHoverRatio] = useState<number>(0);
   const [showNumberPicker, setShowNumberPicker] = useState<boolean>(false);
 
-  const descLines = [
-    "Memories and reflections from couples, families, and travelers who have experienced",
-    "the warmth, heritage, and quiet luxury of Idanazhi.",
-  ];
-
   useEffect(() => {
     if (!api) return;
 
@@ -224,35 +218,15 @@ function Testimonials({
           </div>
 
           {subtitle && (
-            <div className="w-full flex justify-center items-center text-center mt-3 sm:mt-5">
-              <ScrollReveal
-                as="p"
-                baseOpacity={0.15}
-                enableBlur={true}
-                blurStrength={4}
-                stagger={0.022}
-                containerClassName="!my-0 w-full text-center flex flex-col items-center justify-center mx-auto"
-              >
-                <span className="block !font-sans !font-normal !text-[clamp(14.5px,1.05vw,17px)] !leading-[1.7] !text-muted text-center max-w-[840px] mx-auto">
-                  {descLines.map((line, lineIdx) => {
-                    const words = line.trim().split(/\s+/);
-                    return (
-                      <React.Fragment key={lineIdx}>
-                        <span className="sm:block sm:whitespace-nowrap">
-                          {words.map((word, wordIdx) => (
-                            <React.Fragment key={wordIdx}>
-                              <span className="word">{word}</span>
-                              {wordIdx < words.length - 1 && ' '}
-                            </React.Fragment>
-                          ))}
-                        </span>
-                        {lineIdx < descLines.length - 1 && ' '}
-                      </React.Fragment>
-                    );
-                  })}
-                </span>
-              </ScrollReveal>
-            </div>
+            <motion.p
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-40px' }}
+              variants={fadeUpVariants}
+              className="font-sans font-normal text-[clamp(14.5px,1.05vw,17px)] leading-[1.7] text-muted text-center max-w-[840px] mx-auto m-0 mt-3 sm:mt-5"
+            >
+              {subtitle}
+            </motion.p>
           )}
 
           {ctaText && (

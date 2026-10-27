@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { ArrowUpRight, CheckCircle2 } from 'lucide-react';
 import { motion, type Variants } from 'framer-motion';
-import ScrollReveal from '@/components/ui/ScrollReveal';
 
 const fadeUpVariants: Variants = {
   hidden: {
@@ -109,48 +108,13 @@ export function ContactSection({ className = '' }: ContactSectionProps) {
               <span className="block sm:whitespace-nowrap">AWAITS YOUR CELEBRATION</span>
             </motion.h2>
 
-            {/* Description matching Homepage Typography with Viewport ScrollReveal */}
-            <div className="w-full text-left mt-4 sm:mt-5">
-              <ScrollReveal
-                as="p"
-                baseOpacity={0.15}
-                enableBlur={true}
-                blurStrength={4}
-                stagger={0.022}
-                containerClassName="!my-0 w-full text-left flex flex-col items-start justify-start"
-              >
-                <span className="block font-sans font-light text-[clamp(14px,1.05vw,16px)] leading-[1.75] text-[#E5D7CB]/80 max-w-[480px] text-left">
-                  <span className="word">Whether</span>{' '}
-                  <span className="word">planning</span>{' '}
-                  <span className="word">a</span>{' '}
-                  <span className="word">sacred</span>{' '}
-                  <span className="word">destination</span>{' '}
-                  <span className="word">wedding,</span>{' '}
-                  <span className="word">an</span>{' '}
-                  <span className="word">intimate</span>{' '}
-                  <span className="word">family</span>{' '}
-                  <span className="word">gathering,</span>{' '}
-                  <span className="word">or</span>{' '}
-                  <span className="word">an</span>{' '}
-                  <span className="word">unhurried</span>{' '}
-                  <span className="word">heritage</span>{' '}
-                  <span className="word">stay,</span>{' '}
-                  <span className="word">our</span>{' '}
-                  <span className="word">concierge</span>{' '}
-                  <span className="word">is</span>{' '}
-                  <span className="word">dedicated</span>{' '}
-                  <span className="word">to</span>{' '}
-                  <span className="word">perfecting</span>{' '}
-                  <span className="word">every</span>{' '}
-                  <span className="word">detail</span>{' '}
-                  <span className="word">of</span>{' '}
-                  <span className="word">your</span>{' '}
-                  <span className="word">time</span>{' '}
-                  <span className="word">at</span>{' '}
-                  <span className="word">Idanazhi.</span>
-                </span>
-              </ScrollReveal>
-            </div>
+            {/* Description matching Homepage Typography */}
+            <motion.p
+              variants={fadeUpVariants}
+              className="font-sans font-light text-[clamp(14px,1.05vw,16px)] leading-[1.75] text-[#E5D7CB]/80 max-w-[480px] m-0 mt-4 sm:mt-5 text-left"
+            >
+              Whether planning a sacred destination wedding, an intimate family gathering, or an unhurried heritage stay, our concierge is dedicated to perfecting every detail of your time at Idanazhi.
+            </motion.p>
 
             {/* Action Buttons in Left Column */}
             <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 w-full mt-7 sm:mt-8">

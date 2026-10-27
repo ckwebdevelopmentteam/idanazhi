@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { motion, type Variants } from 'framer-motion';
-import ScrollReveal from '@/components/ui/ScrollReveal';
 import { HeroCarousel, type HeroCarouselItem } from '@/components/ui/hero-carousel';
 import { BookingPanel } from '@/components/sections/booking-panel';
 
@@ -133,62 +132,15 @@ export function StayAtIdanazhi({ className = '' }: StayAtIdanazhiProps) {
             </motion.h2>
 
             {/* Supporting Paragraph / Section Summary */}
-            <div className="w-full text-left mt-3.5 sm:mt-5">
-              <ScrollReveal
-                as="p"
-                baseOpacity={0.15}
-                enableBlur={true}
-                blurStrength={4}
-                stagger={0.022}
-                containerClassName="!my-0 w-full text-left flex flex-col items-start justify-start"
-              >
-                <span className="block !font-sans !font-normal !text-[clamp(14.5px,1vw,16.5px)] !leading-[1.75] !text-muted text-left">
-                  <span className="word">Discover</span>{' '}
-                  <span className="word">enriching</span>{' '}
-                  <span className="word">activities</span>{' '}
-                  <span className="word">woven</span>{' '}
-                  <span className="word">into</span>{' '}
-                  <span className="word">your</span>{' '}
-                  <span className="word">stay</span>{' '}
-                  <span className="word">at</span>{' '}
-                  <span className="word">Idanazhi.</span>{' '}
-                  <span className="word">From</span>{' '}
-                  <span className="word">traditional</span>{' '}
-                  <span className="word">cooking</span>{' '}
-                  <span className="word">classes</span>{' '}
-                  <span className="word">and</span>{' '}
-                  <span className="word">hands-on</span>{' '}
-                  <span className="word">fieldwork</span>{' '}
-                  <span className="word">to</span>{' '}
-                  <span className="word">emerald</span>{' '}
-                  <span className="word">paddy</span>{' '}
-                  <span className="word">farming,</span>{' '}
-                  <span className="word">immersive</span>{' '}
-                  <span className="word">Kumbidi</span>{' '}
-                  <span className="word">village</span>{' '}
-                  <span className="word">walks,</span>{' '}
-                  <span className="word">sacred</span>{' '}
-                  <span className="word">temple</span>{' '}
-                  <span className="word">visits,</span>{' '}
-                  <span className="word">live</span>{' '}
-                  <span className="word">fishing</span>{' '}
-                  <span className="word">harbor</span>{' '}
-                  <span className="word">excursions,</span>{' '}
-                  <span className="word">and</span>{' '}
-                  <span className="word">curated</span>{' '}
-                  <span className="word">tours</span>{' '}
-                  <span className="word">to</span>{' '}
-                  <span className="word">nearby</span>{' '}
-                  <span className="word">cultural</span>{' '}
-                  <span className="word">places—experience</span>{' '}
-                  <span className="word">the</span>{' '}
-                  <span className="word">living</span>{' '}
-                  <span className="word">soul</span>{' '}
-                  <span className="word">of</span>{' '}
-                  <span className="word">Kerala.</span>
-                </span>
-              </ScrollReveal>
-            </div>
+            <motion.p
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-40px' }}
+              variants={fadeUpVariants}
+              className="font-sans font-normal text-[clamp(14.5px,1vw,16.5px)] leading-[1.75] text-muted text-left mt-3.5 sm:mt-5 max-w-[560px] m-0"
+            >
+              Discover enriching activities woven into your stay at Idanazhi. From traditional cooking classes and hands-on fieldwork to emerald paddy farming, immersive Kumbidi village walks, sacred temple visits, live fishing harbor excursions, and curated tours to nearby cultural places—experience the living soul of Kerala.
+            </motion.p>
 
             {/* CTA Link */}
             <motion.div
