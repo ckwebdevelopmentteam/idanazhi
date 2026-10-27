@@ -19,7 +19,6 @@ interface ExperienceItem {
   highlights: string[];
   image: string;
   secondaryImage?: string;
-  gallery?: string[];
 }
 
 const experiences: ExperienceItem[] = [
@@ -44,11 +43,6 @@ const experiences: ExperienceItem[] = [
     ],
     image: '/images/experiences/paddy-farming-experience.jpg',
     secondaryImage: '/images/experiences/working-fields.jpg',
-    gallery: [
-      '/images/experiences/paddy-farming-experience.jpg',
-      '/images/experiences/working-fields.jpg',
-      '/images/experiences/reset-wellness.jpg',
-    ],
   },
   {
     id: 'kumbidi-village',
@@ -70,11 +64,6 @@ const experiences: ExperienceItem[] = [
       'Unhurried conversations with village elders and artisans',
     ],
     image: '/images/experiences/kumbidi-village-experience.jpg',
-    gallery: [
-      '/images/experiences/kumbidi-village-experience.jpg',
-      '/images/experiences/kerala-sadhya-dining.jpg',
-      '/images/weddings/architecture-corridor.jpg',
-    ],
   },
   {
     id: 'temple-experience',
@@ -96,11 +85,6 @@ const experiences: ExperienceItem[] = [
       'Insights into sacred Thachu Shastra design principles',
     ],
     image: '/images/experiences/temple-heritage-experience.jpg',
-    gallery: [
-      '/images/experiences/temple-heritage-experience.jpg',
-      '/images/weddings/kerala-courtyard-planter.jpg',
-      '/images/weddings/spaces/stage-2.jpg',
-    ],
   },
   {
     id: 'fishing-harbor',
@@ -122,65 +106,8 @@ const experiences: ExperienceItem[] = [
       'Fresh catch preparation demonstration by Idanazhi chefs',
     ],
     image: '/images/experiences/fishing-harbor-experience.jpg',
-    gallery: [
-      '/images/experiences/fishing-harbor-experience.jpg',
-      '/images/experiences/savour-dining.jpg',
-      '/images/weddings/spaces/space-outdoor-1.jpg',
-    ],
   },
 ];
-
-function ExperienceImageLoop({
-  images,
-  title,
-}: {
-  images: string[];
-  title: string;
-}) {
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    if (images.length <= 1) return;
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % images.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, [images.length]);
-
-  return (
-    <div className="relative group overflow-hidden bg-[#ECE6DF] w-full h-[450px] sm:h-[560px] lg:h-[650px] xl:h-[700px]">
-      {images.map((src, i) => (
-        <img
-          key={src}
-          src={src}
-          alt={`${title} - image ${i + 1}`}
-          className={`absolute inset-0 w-full h-full object-cover object-center transition-all duration-1000 ease-in-out ${
-            i === index
-              ? 'opacity-100 scale-100'
-              : 'opacity-0 scale-105 pointer-events-none'
-          }`}
-          loading={i === 0 ? 'eager' : 'lazy'}
-        />
-      ))}
-
-      {images.length > 1 && (
-        <div className="absolute bottom-4 right-4 flex items-center gap-1.5 z-20 bg-black/35 backdrop-blur-[4px] px-2.5 py-1.5 rounded-full">
-          {images.map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => setIndex(i)}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                i === index ? 'w-5 bg-white' : 'w-1.5 bg-white/40 hover:bg-white/70'
-              }`}
-              aria-label={`Go to slide ${i + 1}`}
-            />
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
 
 export default function ExperiencesPage() {
   const [activeSection, setActiveSection] = useState<string>('rice-farming');
@@ -284,13 +211,17 @@ export default function ExperiencesPage() {
                   className={`lg:col-span-7 ${isEven ? 'lg:order-2' : 'lg:order-1'
                     }`}
                 >
-                  <ExperienceImageLoop
-                    images={exp.gallery || [exp.image]}
-                    title={exp.title}
-                  />
+                  <div className="relative group overflow-hidden bg-[#ECE6DF] w-full h-[320px] sm:h-[450px] lg:h-[540px] xl:h-[580px] border border-[#7C402E]/10 shadow-sm">
+                    <img
+                      src={exp.image}
+                      alt={exp.title}
+                      className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                      loading={index === 0 ? 'eager' : 'lazy'}
+                    />
+                  </div>
                   {exp.secondaryImage && (
-                    <div className="hidden sm:flex items-center gap-4 mt-4 text-[#7A6B63] text-[12px] font-sans">
-                      <div className="w-16 h-12 overflow-hidden bg-[#ECE6DF] flex-shrink-0">
+                    <div className="flex items-center gap-4 mt-4 text-[#7A6B63] text-[12px] font-sans">
+                      <div className="w-16 h-12 overflow-hidden bg-[#ECE6DF] flex-shrink-0 border border-[#7C402E]/10">
                         <img
                           src={exp.secondaryImage}
                           alt="Detail"

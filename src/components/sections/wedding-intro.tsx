@@ -176,9 +176,10 @@ export function WeddingIntro({
     const ro = el ? new ResizeObserver(handleResize) : null;
     if (el && ro) ro.observe(el);
 
+    const timer = timerRef.current;
+    const tween = tweenRef.current;
+
     return () => {
-      const timer = timerRef.current;
-      const tween = tweenRef.current;
       if (timer) timer.kill();
       if (tween) tween.kill();
       window.removeEventListener('resize', handleResize);
